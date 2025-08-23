@@ -12,13 +12,13 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user] = useState(true);
+  const [user] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState(false);
 
   return (
     <div className="flex flex-row justify-between px-6 bg-black md:justify-around md:px-0 items-center shadow-lg fixed w-full z-50">
       {/* Logo */}
-      <div className="flex items-center gap-2 py-4">
+      <div className=" flex items-center gap-2 py-4">
         <FaCut className="text-yellow-600 text-3xl animate-spin-slow" />
         <div className="flex flex-col">
           <span className="text-3xl font-bold text-white tracking-wide">Me & Guys</span>
@@ -95,9 +95,18 @@ const Navbar = () => {
         </button>
       </div>
 
+
+
+      
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 w-3/4 h-full bg-black bg-opacity-50 text-white z-50 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex flex-row justify-between items-center px-4 py-4 border-b border-yellow-600">
+      <div
+        className={`fixed top-0 left-0 w-3/4 h-full z-50 transition-transform duration-300
+        bg-black/85 backdrop-blur-xl text-white
+        
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ maxWidth: '400px' }} // Optional: limit max width for large screens
+      >
+        <div className="mt-1 flex flex-row justify-between items-center px-4 py-4 border-b border-yellow-600">
           <div className="flex flex-col items-start">
             <span className="text-2xl font-bold text-yellow-600">Me & Guys</span>
             <span className="text-xs tracking-widest font-normal text-yellow-600">UNISEX SALOON</span>
@@ -117,13 +126,14 @@ const Navbar = () => {
             </p>
           ))}
           <div
-            className="w-full text-center text-yellow-600 border border-yellow-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-600 hover:text-black transition mt-4 shadow"
+            className="w-full text-center text-yellow-600 border border-2 border-yellow-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-600 hover:text-black transition mt-4 shadow"
             onClick={() => setIsOpen(false)}
           >
             Book Appointment
           </div>
         </div>
       </div>
+
 
 
 
