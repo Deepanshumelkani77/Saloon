@@ -28,23 +28,50 @@ const Navbar = () => {
 </div>
 
 
-{/* login/signup */}
-<div className="hidden md:block">
-  {
-    user?<div className="text-white">profile icon</div>:<div><div className='hidden md:flex text-white cursor-pointer'>Signup/login</div>
-</div>
-  }
+{/* login/signup for laptop*/}
+<div className="hidden md:block relative">
+  {user ? (
+    <div className="relative group">
+      <div className="text-white cursor-pointer">profile icon</div>
+      
+      {/* dropdown menu */}
+      <div className="absolute top-full left-0 mt-2 w-40 bg-black text-white text-base font-medium rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+        <ul className="flex flex-col gap-2 p-3">
+          <li className="hover:text-white cursor-pointer">My Profile</li>
+          <li className="hover:text-white cursor-pointer">My Appointment</li>
+          <li className="hover:text-white cursor-pointer">Logout</li>
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <div className="hidden md:flex text-white cursor-pointer">Signup/Login</div>
+  )}
 </div>
 
+
+{/* mobile menu */}
 <div className="md:hidden flex flex-row gap-5">
-  {user?<div className="text-white">profile icon</div>:<></>}
+  {user?(
+    <div className="relative group">
+      <div className="text-white cursor-pointer">profile icon</div>
+      
+      {/* dropdown menu */}
+      <div className="absolute top-full right-0 mt-2 w-40 bg-black text-white text-base font-medium rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+        <ul className="flex flex-col gap-2 p-3">
+          <li className="hover:text-white cursor-pointer">My Profile</li>
+          <li className="hover:text-white cursor-pointer">Settings</li>
+          <li className="hover:text-white cursor-pointer">Logout</li>
+        </ul>
+      </div>
+    </div>
+  ) :<></>}
 <button onClick={() => setIsOpen(true)} className=" text-white cursor-pointer md:hidden ">menubar</button>
 </div>
 
 
 
 {/*  sidebar  */}
-<div className={`p-1 fixed top-0 left-0 w-3/4 h-full bg-black text-white z-50 ${isOpen ? 'block' : 'hidden'}`}>
+<div className={`p-1 fixed top-0 left-0 w-3/4 h-full bg-black text-white z-50 transition-all duration-300 ${isOpen ? 'block' : 'hidden'}`}>
 
 <div className="flex flex-row justify-around">
   <div className=" mt-5 text-white flex flex-col gap-2 items-center"><span className="text-3xl font-bold ">Me & Guys</span><span className="text-xs tracking-widest font-normal">UNISEX SALOON</span></div>
@@ -66,6 +93,7 @@ const Navbar = () => {
 <div className="flex justify-center"><button className="mt-5  texxt-white">signup/Login</button></div>
 
 </div>
+
 
 
 
