@@ -1,6 +1,10 @@
 import React from 'react'
+import {useState} from 'react'
 
 const Navbar = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex flex-row justify-between px-8 bg-black   md:justify-around md:px-0 items-center">
 
@@ -26,16 +30,16 @@ const Navbar = () => {
 {/* login/signup */}
 <div>
 <div className='hidden md:flex text-white cursor-pointer'>Signup/login</div>
-<button className=" text-white cursor-pointer md:hidden ">menubar</button>
+<button onClick={() => setIsOpen(true)} className=" text-white cursor-pointer md:hidden ">menubar</button>
 </div>
 
 
 {/*  sidebar  */}
-<div className="fixed top-0 left-0 w-3/4 h-full bg-black text-white z-50">
+<div className={`p-1 fixed top-0 left-0 w-3/4 h-full bg-black text-white z-50 ${isOpen ? 'block' : 'hidden'}`}>
 
-<div>
+<div className="flex flex-row justify-around">
   <div className=" mt-5 text-white flex flex-col gap-2 items-center"><span className="text-3xl font-bold ">Me & Guys</span><span className="text-xs tracking-widest font-normal">UNISEX SALOON</span></div>
-<button>X</button>
+<button onClick={()=>setIsOpen(false)}>X</button>
 </div>
 
 
