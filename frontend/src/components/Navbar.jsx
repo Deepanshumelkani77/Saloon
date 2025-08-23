@@ -4,6 +4,7 @@ import {useState} from 'react'
 const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [user,setUser]=useState(true);
 
   return (
     <div className="flex flex-row justify-between px-8 bg-black   md:justify-around md:px-0 items-center">
@@ -28,10 +29,18 @@ const Navbar = () => {
 
 
 {/* login/signup */}
-<div>
-<div className='hidden md:flex text-white cursor-pointer'>Signup/login</div>
+<div className="hidden md:block">
+  {
+    user?<div className="text-white">profile icon</div>:<div><div className='hidden md:flex text-white cursor-pointer'>Signup/login</div>
+</div>
+  }
+</div>
+
+<div className="md:hidden flex flex-row gap-5">
+  {user?<div className="text-white">profile icon</div>:<></>}
 <button onClick={() => setIsOpen(true)} className=" text-white cursor-pointer md:hidden ">menubar</button>
 </div>
+
 
 
 {/*  sidebar  */}
