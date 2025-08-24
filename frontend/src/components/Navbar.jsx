@@ -18,7 +18,7 @@ const Navbar = () => {
   const [mobileDropdown, setMobileDropdown] = useState(false);
 
   return (
-    <div className="flex flex-row justify-between px-6 bg-black md:justify-around md:px-0 items-center shadow-lg fixed w-full z-50">
+    <div className=" flex flex-row justify-between px-6 bg-black md:justify-around md:px-0 items-center shadow-lg fixed w-full z-50">
       {/* Logo */}
       <div className=" flex items-center gap-2 py-4">
         <FaCut className="text-3xl animate-spin-slow" style={{ color: gold }} />

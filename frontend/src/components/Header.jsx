@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-lg">
+    <div className="  relative w-full  mx-auto overflow-hidden  shadow-lg">
       {/* Images */}
       <div
         className="flex transition-transform duration-700 ease-in-out"
