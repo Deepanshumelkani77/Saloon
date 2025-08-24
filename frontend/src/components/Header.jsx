@@ -1,13 +1,15 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import {assets} from '../assets/assets.js';
+
 
 const images = [
-  "https://picsum.photos/id/1018/1000/600/",
-  "https://picsum.photos/id/1015/1000/600/",
-  "https://picsum.photos/id/1019/1000/600/",
-  "https://picsum.photos/id/1021/1000/600/",
-  "https://picsum.photos/id/1024/1000/600/"
+  assets.img1,
+  assets.img2,
+  assets.img4,
+  assets.img3,
+  assets.img5
 ];
 
 
