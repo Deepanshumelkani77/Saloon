@@ -1,31 +1,26 @@
-import React from 'react'
-import {useState,useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import {assets} from '../assets/assets.js';
-
+import { assets } from "../assets/assets.js";
 
 const images = [
   assets.img1,
   assets.img2,
   assets.img4,
   assets.img3,
-  assets.img5
+  assets.img5,
 ];
 
-
 const Header = () => {
-
-      const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0);
   const length = images.length;
 
-    // Auto slide every 3 seconds
+  // Auto slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
     }, 3000);
     return () => clearInterval(timer);
   }, [length]);
-
 
   // Next and Prev functions
   const nextSlide = () => {
@@ -36,17 +31,20 @@ const Header = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-
   return (
-   
- <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-lg">
       {/* Images */}
       <div
-        className="flex transition-transform duration-700"
+        className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, index) => (
-          <img key={index} src={img} alt="slide" className="w-full flex-shrink-0" />
+          <img
+            key={index}
+            src={img}
+            alt="slide"
+            className="w-full flex-shrink-0"
+          />
         ))}
       </div>
 
@@ -66,7 +64,7 @@ const Header = () => {
         <FaArrowRight />
       </button>
 
-      {/* Dots (optional) */}
+      {/* Dots */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
         {images.map((_, index) => (
           <div
@@ -79,8 +77,7 @@ const Header = () => {
         ))}
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default Header
+export default Header;
