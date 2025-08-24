@@ -3,10 +3,10 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
 const images = [
-  assets.img1,
-  assets.img2,
-  assets.img4,
-  assets.img3,
+  assets.img6,
+  assets.img7,
+  assets.img8,
+  assets.img9,
   assets.img5,
 ];
 
@@ -34,15 +34,15 @@ const Header = () => {
   return (
     <section
       className="
-        relative w-full mx-auto overflow-hidden shadow-lg
+        relative w-full mx-auto overflow-hidden shadow-lg bg-pink-200
         flex items-center
-        h-[60vh] sm:h-[70vh] md:h-[calc(100vh-80px)]"
+        h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)]"
       // 80px = navbar height (mt-20)
-      style={{ minHeight: "320px" }}
+      style={{ minHeight: "250px" }}
     >
       {/* Images */}
       <div
-        className="flex transition-transform duration-700 ease-in-out w-full h-full"
+        className="flex transition-transform duration-700 ease-in-out w-full  h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] "
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, index) => (
@@ -50,7 +50,7 @@ const Header = () => {
             key={index}
             src={img}
             alt="slide"
-            className="w-full h-full object-cover flex-shrink-0 transition-all duration-700"
+            className="w-full h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] object-cover flex-shrink-0 transition-all duration-700"
             draggable={false}
           />
         ))}
