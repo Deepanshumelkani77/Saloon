@@ -8,6 +8,10 @@ import img7 from './img7.png';
 import img8 from './img8.png';
 import img9 from './img9.png';
 
+import imga from './a.png';
+import imgb from './b.png';
+import imgc from './c.png';
+import imgd from './d.png';
 
 export const assets={
     img1,
@@ -18,5 +22,9 @@ export const assets={
     img6,
     img7,
     img8,
-    img9
+    img9,
+    imga,
+    imgb,
+    imgc,
+    imgd
 }

@@ -3,11 +3,12 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
 const images = [
-  assets.img1,
-  assets.img2,
-  assets.img3,
-  assets.img4,
+  assets.imgd,
+  assets.imga,
+  assets.imgc,
+  assets.imgb,
   assets.img5,
+  
 ];
 
 const Header = () => {
@@ -34,7 +35,7 @@ const Header = () => {
   return (
     <section
       className="
-        relative w-full mx-auto overflow-hidden shadow-lg bg-pink-200
+        relative w-full mx-auto overflow-hidden shadow-lg bg-black
         flex items-center
         h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)]"
       // 80px = navbar height (mt-20)
