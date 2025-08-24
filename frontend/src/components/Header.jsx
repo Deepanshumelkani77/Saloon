@@ -3,10 +3,10 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
 const images = [
-  assets.img6,
-  assets.img7,
-  assets.img8,
-  assets.img9,
+  assets.img1,
+  assets.img2,
+  assets.img3,
+  assets.img4,
   assets.img5,
 ];
 
@@ -50,7 +50,7 @@ const Header = () => {
             key={index}
             src={img}
             alt="slide"
-            className="w-full h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] object-cover flex-shrink-0 transition-all duration-700"
+            className="w-full h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] object-cover object-center flex-shrink-0 transition-all duration-700"
             draggable={false}
           />
         ))}
