@@ -32,10 +32,17 @@ const Header = () => {
   };
 
   return (
-    <div className="  relative w-full  mx-auto overflow-hidden  shadow-lg">
+    <section
+      className="
+        relative w-full mx-auto overflow-hidden shadow-lg
+        flex items-center
+        h-[60vh] sm:h-[70vh] md:h-[calc(100vh-80px)]"
+      // 80px = navbar height (mt-20)
+      style={{ minHeight: "320px" }}
+    >
       {/* Images */}
       <div
-        className="flex transition-transform duration-700 ease-in-out"
+        className="flex transition-transform duration-700 ease-in-out w-full h-full"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, index) => (
@@ -43,15 +50,20 @@ const Header = () => {
             key={index}
             src={img}
             alt="slide"
-            className="w-full flex-shrink-0"
+            className="w-full h-full object-cover flex-shrink-0 transition-all duration-700"
+            draggable={false}
           />
         ))}
       </div>
 
+      {/* Overlay gradient for better text/visuals */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+
       {/* Prev Button */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-5 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/60"
+        className="absolute top-1/2 left-5 transform -translate-y-1/2 bg-[#D9C27B] text-black p-3 rounded-full shadow-lg opacity-80 hover:scale-110 hover:bg-[#bfa14a] transition-all duration-200"
+        aria-label="Previous Slide"
       >
         <FaArrowLeft />
       </button>
@@ -59,24 +71,28 @@ const Header = () => {
       {/* Next Button */}
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-5 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/60"
+        className="absolute top-1/2 right-5 transform -translate-y-1/2 bg-[#D9C27B] text-black p-3 rounded-full shadow-lg opacity-80 hover:scale-110 hover:bg-[#bfa14a] transition-all duration-200"
+        aria-label="Next Slide"
       >
         <FaArrowRight />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
         {images.map((_, index) => (
-          <div
+          <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full cursor-pointer ${
-              index === current ? "bg-white" : "bg-gray-400"
+            className={`w-4 h-4 rounded-full border-2 border-[#D9C27B] transition-all duration-200 ${
+              index === current
+                ? "bg-[#D9C27B] scale-125 shadow-lg"
+                : "bg-white/70 hover:bg-[#D9C27B]/80"
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
