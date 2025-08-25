@@ -23,6 +23,11 @@ const Header = () => {
   const sliderRef = useRef(null);
   const [transition, setTransition] = useState(true);
 
+  // Always reset to first real image on mount (fixes black page issue)
+  useEffect(() => {
+    setCurrent(1);
+  }, []);
+
   // Auto slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
