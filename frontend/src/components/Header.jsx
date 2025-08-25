@@ -28,6 +28,13 @@ const Header = () => {
     setCurrent(1);
   }, []);
 
+  // Ensure current is always valid (fixes black slider issue on return)
+  useEffect(() => {
+    if (current < 1 || current > length) {
+      setCurrent(1);
+    }
+  }, [current, length]);
+
   // Auto slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
@@ -142,4 +149,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header

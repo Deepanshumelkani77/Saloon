@@ -4,9 +4,10 @@ import { assets } from "../assets/assets.js";
 const videos = [
   assets.vid1,
   assets.vid4,
-  assets.vid3,
+ assets.vid3,
   assets.vid2,
   assets.vid5,
+   
 ];
 
 const SLIDES_TO_SHOW = 3; // Number of videos visible at once
