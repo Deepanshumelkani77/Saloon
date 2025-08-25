@@ -3,9 +3,9 @@ import { assets } from "../assets/assets.js";
 
 const videos = [
   assets.vid1,
-  assets.vid2,
-  assets.vid3,
   assets.vid4,
+  assets.vid3,
+  assets.vid2,
   assets.vid5,
 ];
 
