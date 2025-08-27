@@ -45,7 +45,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               {[
                 { icon: FaFacebookF, href: '#' },
-                { icon: FaInstagram, href: '#' },
+                { icon: FaInstagram, href: 'https://www.instagram.com/me_and_guys_unisex_salon/?hl=en' },
                 { icon: FaTwitter, href: '#' },
                 { icon: FaYoutube, href: '#' }
               ].map((social, idx) => (
@@ -99,8 +99,8 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="text-[#D9C27B] mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">123 Beauty Street</p>
-                  <p className="text-gray-300">Downtown, City 12345</p>
+                  <p className="text-gray-300">Kaladhungi Road, Kusumkhera</p>
+                  <p className="text-gray-300">Haldwani-(263139)</p>
                 </div>
               </div>
               
@@ -164,9 +164,9 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2 text-sm text-gray-400">
-              <span>Made with</span>
+              <span>Made by</span>
               <span className="text-[#D9C27B] animate-pulse">♥</span>
-              <span>for beautiful you</span>
+              <span>Dev Melkani</span>
             </div>
           </div>
         </div>
