@@ -25,6 +25,8 @@ import logo9 from './logo9.jpeg';
 
 import logo11 from './logo11.jpeg'
 
+import ladies from './ladies.png';
+
 
 export const assets={
 
@@ -50,5 +52,6 @@ export const assets={
     logo8,
     logo9,
    
-    logo11
+    logo11,
+    ladies
 }
