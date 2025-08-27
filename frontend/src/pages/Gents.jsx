@@ -12,42 +12,32 @@ const Gents = () => {
 <div className="w-full flex flex-col md:flex-row justify-around  gap-10 ">
 
 <div className="flex flex-col ">
-    <p>Hair Styling</p>
+    <p>Hair Cut & Finish</p>
    
-        <li>Hair Cut</li>
-        <li>Ironing</li>
-        <li>Global Colouring</li>
-        <li>Blow Dry</li>
-        <li>Root Touch Up</li>
+        <li>Cut and Hair Care</li>
         <li>Shampoo & Conditioning</li>
         <li>Head Massage</li>
-        <li>Roller Setting</li>
-        <li>Oiling</li>
-  
+        <li>Beard Styling</li>
+        <li>Hair/Beard Colouring</li>
+       
+
 </div>
 <div className="flex flex-col ">
-    <p>Make Up</p>
-    <li>Party Make Up</li>
-    <li>Engagement Make Up</li>
-    <li>Bridal & Reception Make Up</li>
-    <li>Base Make Up</li>
-    <li>Eye Make Up</li>
-</div>
-<div className="flex flex-col ">
-    <p>Hair Treatments</p>
-    <li>Volumizing</li>
-    <li>Spa Treatments</li>
-    <li>Advanced Hair Moisturising</li>
-    <li>Scalp Treatments</li>
+    <p>Hair Colour</p>
+    <li>Hair Colour
+(Ammonia & Ammonia Free)</li>
+    <li>Hi - Lites</li>
+    <li>Beard Colour</li>
+    
 </div>
 <div className="flex flex-col ">
     <p>Hair Texture</p>
+    <li>Straightening</li>
+    <li>Smoothening</li>
     <li>Rebonding</li>
     <li>Perming</li>
-    <li>Keratin</li>
-    <li>Colour Protection</li>
-    <li>Smoothening</li>
 </div>
+
 
 </div>
 
@@ -56,26 +46,28 @@ const Gents = () => {
 <div className="w-full flex flex-col md:flex-row justify-around  gap-10 ">
 
 <div  className="flex flex-col ">
-    <p>Facials & Rituals</p>
-    <li>Bleach</li>
-    <li>Luxury Facials/Rituals</li>
+    <p>Hair Treatments</p>
+    <li>Hair Spa</li>
+    <li>Advanced Moisturising</li>
+    <li>Scalp Treatments</li>
+    <li>Colour Protection</li>
+   
+</div>
+<div  className="flex flex-col ">
+    <p>Skin Care</p>
     <li>Clean Ups</li>
-    <li>Body Polishing/Rejuvenation</li>
-    <li>Threading</li>
-</div>
-<div  className="flex flex-col ">
-    <p>Hand & Feet</p>
+    <li>Facials</li>
+    <li>Organic Treatments</li>
     <li>Manicure</li>
-    <li>Spa Pedicure</li>
     <li>Pedicure</li>
-    <li>Waxing</li>
-    <li>Spa Manicure</li>
 </div>
 <div  className="flex flex-col ">
-    <p>Nail Care</p>
-    <li>Nail Paint</li>
-    <li>Nail Art</li>
-    <li>Nail Filling</li>
+    <p>Beard Grooming</p>
+    <li>Beard Trim</li>
+    <li>Beard Colour</li>
+    <li>Beard Styling</li>
+    <li>Shave</li>
+    <li>Luxury Shave & Beard Spa</li>
 </div>
 
 </div>
