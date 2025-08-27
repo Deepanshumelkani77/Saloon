@@ -76,7 +76,7 @@ const Navbar = () => {
                     <div className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 overflow-hidden">
                       <div className="py-3">
                         <NavLink
-                          to="/services/ladies"
+                          to="/ladies"
                           className="block px-6 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200 border-b border-[#D9C27B]/20"
                           onClick={() => setServicesDropdown(false)}
                         >
@@ -87,7 +87,7 @@ const Navbar = () => {
                           <p className="text-xs text-gray-400 mt-1 ml-6">Hair, Beauty & Spa</p>
                         </NavLink>
                         <NavLink
-                          to="/services/gents"
+                          to="/gents"
                           className="block px-6 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200"
                           onClick={() => setServicesDropdown(false)}
                         >
@@ -221,7 +221,7 @@ const Navbar = () => {
                 {servicesDropdown && (
                   <div className="mt-3 ml-4 space-y-2">
                     <NavLink
-                      to="/services/ladies"
+                      to="/ladies"
                       className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
                       onClick={() => {
                         setIsOpen(false);
@@ -234,7 +234,7 @@ const Navbar = () => {
                       </div>
                     </NavLink>
                     <NavLink
-                      to="/services/gents"
+                      to="/gents"
                       className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
                       onClick={() => {
                         setIsOpen(false);

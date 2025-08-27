@@ -2,7 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
-
+import Ladies from './pages/Ladies.jsx';
+import Gents from './pages/Gents.jsx';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <main className="flex-1 w-full  mx-auto  mt-20">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<s />} />
+          <Route path="/ladies" element={<Ladies />} />
+          <Route path="/gents" element={<Gents />} />
         </Routes>
       </main>
       <Footer/>
