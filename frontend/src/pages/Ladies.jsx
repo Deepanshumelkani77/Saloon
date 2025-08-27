@@ -52,14 +52,40 @@ const Ladies = () => {
 
 <div><img src="" alt="" /></div>
 
-<div>
+<div className="w-full flex flex-col md:flex-row justify-around  gap-10 ">
 
-<div></div>
-<div></div>
-<div></div>
+<div  className="flex flex-col ">
+    <p>Facials & Rituals</p>
+    <li>Bleach</li>
+    <li>Luxury Facials/Rituals</li>
+    <li>Clean Ups</li>
+    <li>Body Polishing/Rejuvenation</li>
+    <li>Threading</li>
+</div>
+<div  className="flex flex-col ">
+    <p>Hand & Feet</p>
+    <li>Manicure</li>
+    <li>Spa Pedicure</li>
+    <li>Pedicure</li>
+    <li>Waxing</li>
+    <li>Spa Manicure</li>
+</div>
+<div  className="flex flex-col ">
+    <p>Nail Care</p>
+    <li>Nail Paint</li>
+    <li>Nail Art</li>
+    <li>Nail Filling</li>
+</div>
 
 </div>
       
+
+<div className="flex flex-col justify-center items-center gap-5">
+    <h1>Let's not wait for the "Perfect Look"</h1>
+    <h1>Book An Appointment Now!</h1>
+    <button>Book Appointment</button>
+</div>
+
     </div>
   )
 }
