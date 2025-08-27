@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const navLinks = [
   { name: 'HOME', path: '/' },
-  { name: 'SERVICES', path: '/services' },
+  { name: 'SERVICES' },
   { name: 'E-SHOP', path: '/shop' },
   { name: 'OFFER', path: '/offers' },
   { name: 'ABOUT', path: '/about' },
@@ -17,6 +17,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState(false);
+  const [servicesDropdown, setServicesDropdown] = useState(false);
 
   return (
     <div className=" flex flex-row justify-between px-6 bg-black md:justify-around md:px-0 items-center shadow-lg fixed w-full z-50">
@@ -51,18 +52,71 @@ const Navbar = () => {
               key={link.name}
               className="transition duration-200 relative group"
             >
-              <NavLink 
-                to={link.path}
-                className={({ isActive }) => 
-                  `hover:text-[#D9C27B] transition-colors duration-200 ${isActive ? 'text-[#D9C27B]' : 'text-white'}`
-                }
-              >
-                {link.name}
-              </NavLink>
-              <span
-                className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
-                style={{ backgroundColor: gold }}
-              />
+              {link.name === 'SERVICES' ? (
+                <div 
+                  className="relative"
+                  onMouseEnter={() => setServicesDropdown(true)}
+                  onMouseLeave={() => setServicesDropdown(false)}
+                >
+                  <NavLink 
+                    to={link.path}
+                    className={({ isActive }) => 
+                      `hover:text-[#D9C27B] transition-colors duration-200 ${isActive ? 'text-[#D9C27B]' : 'text-white'}`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                  <span
+                    className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                    style={{ backgroundColor: gold }}
+                  />
+                  
+                  {/* Services Dropdown */}
+                  {servicesDropdown && (
+                    <div className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 overflow-hidden">
+                      <div className="py-3">
+                        <NavLink
+                          to="/services/ladies"
+                          className="block px-6 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200 border-b border-[#D9C27B]/20"
+                          onClick={() => setServicesDropdown(false)}
+                        >
+                          <div className="flex items-center space-x-3">
+                            <span className="text-[#D9C27B]">👩</span>
+                            <span className="font-medium">Ladies Services</span>
+                          </div>
+                          <p className="text-xs text-gray-400 mt-1 ml-6">Hair, Beauty & Spa</p>
+                        </NavLink>
+                        <NavLink
+                          to="/services/gents"
+                          className="block px-6 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200"
+                          onClick={() => setServicesDropdown(false)}
+                        >
+                          <div className="flex items-center space-x-3">
+                            <span className="text-[#D9C27B]">👨</span>
+                            <span className="font-medium">Gents Services</span>
+                          </div>
+                          <p className="text-xs text-gray-400 mt-1 ml-6">Haircut, Beard & Grooming</p>
+                        </NavLink>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <NavLink 
+                    to={link.path}
+                    className={({ isActive }) => 
+                      `hover:text-[#D9C27B] transition-colors duration-200 ${isActive ? 'text-[#D9C27B]' : 'text-white'}`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                  <span
+                    className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                    style={{ backgroundColor: gold }}
+                  />
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -151,18 +205,64 @@ const Navbar = () => {
         </div>
         <div className="mt-6 flex flex-col gap-4 items-start px-6">
           {navLinks.map((link) => (
-            <NavLink
-              key={link.name}
-              to={link.path}
-              className={({ isActive }) => 
-                `text-lg font-medium transition-colors duration-200 ${
-                  isActive ? 'text-[#D9C27B]' : 'text-white hover:text-[#D9C27B]'
-                }`
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </NavLink>
+            link.name === 'SERVICES' ? (
+              <div key={link.name} className="w-full">
+                <div 
+                  className="text-lg font-medium text-white hover:text-[#D9C27B] transition-colors duration-200 cursor-pointer flex items-center justify-between"
+                  onClick={() => setServicesDropdown(!servicesDropdown)}
+                >
+                  <span>{link.name}</span>
+                  <span className={`transform transition-transform duration-200 ${servicesDropdown ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </div>
+                
+                {/* Mobile Services Dropdown */}
+                {servicesDropdown && (
+                  <div className="mt-3 ml-4 space-y-2">
+                    <NavLink
+                      to="/services/ladies"
+                      className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
+                      onClick={() => {
+                        setIsOpen(false);
+                        setServicesDropdown(false);
+                      }}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[#D9C27B]">👩</span>
+                        <span>Ladies Services</span>
+                      </div>
+                    </NavLink>
+                    <NavLink
+                      to="/services/gents"
+                      className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
+                      onClick={() => {
+                        setIsOpen(false);
+                        setServicesDropdown(false);
+                      }}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[#D9C27B]">👨</span>
+                        <span>Gents Services</span>
+                      </div>
+                    </NavLink>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink
+                key={link.name}
+                to={link.path}
+                className={({ isActive }) => 
+                  `text-lg font-medium transition-colors duration-200 ${
+                    isActive ? 'text-[#D9C27B]' : 'text-white hover:text-[#D9C27B]'
+                  }`
+                }
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </NavLink>
+            )
           ))}
           <div
             className="w-full text-center border border-2 px-4 py-2 rounded-full font-semibold transition mt-4 shadow"
