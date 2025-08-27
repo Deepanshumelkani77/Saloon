@@ -134,6 +134,40 @@ const Ladies = () => {
         </div>
       </section>
 
+      {/* Signature Services Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#D9C27B]/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#D9C27B] tracking-wide mb-4">
+              SIGNATURE SERVICES
+            </h2>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              Our most sought-after treatments for the elegant woman
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+              <div className="text-5xl mb-4">💄</div>
+              <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Bridal Makeup</h3>
+              <p className="text-gray-300">Complete bridal transformation for your special day</p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+              <div className="text-5xl mb-4">💇‍♀️</div>
+              <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Hair Styling</h3>
+              <p className="text-gray-300">Professional cuts and styling for every occasion</p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+              <div className="text-5xl mb-4">✨</div>
+              <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Luxury Spa</h3>
+              <p className="text-gray-300">Rejuvenating treatments for ultimate relaxation</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#D9C27B]/20">
         <div className="max-w-4xl mx-auto text-center">
