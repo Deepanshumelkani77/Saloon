@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle, FaCut } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom'; 
 
 const navLinks = [
-  'HOME',
-  'SERVICES',
-  'E-SHOP',
-  'OFFER',
-  'ABOUT',
-  'CONTACT',
+  { name: 'HOME', path: '/' },
+  { name: 'SERVICES', path: '/services' },
+  { name: 'E-SHOP', path: '/shop' },
+  { name: 'OFFER', path: '/offers' },
+  { name: 'ABOUT', path: '/about' },
+  { name: 'CONTACT', path: '/contact' },
 ];
 
 const gold = '#D9C27B';
@@ -46,16 +47,23 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-6 text-white cursor-pointer">
           {navLinks.map((link) => (
-            <p
-              key={link}
+            <div
+              key={link.name}
               className="transition duration-200 relative group"
             >
-              <span className="hover" style={{ transition: 'color 0.2s' }}>{link}</span>
+              <NavLink 
+                to={link.path}
+                className={({ isActive }) => 
+                  `hover:text-[#D9C27B] transition-colors duration-200 ${isActive ? 'text-[#D9C27B]' : 'text-white'}`
+                }
+              >
+                {link.name}
+              </NavLink>
               <span
                 className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
                 style={{ backgroundColor: gold }}
               />
-            </p>
+            </div>
           ))}
         </div>
       </div>
@@ -143,16 +151,18 @@ const Navbar = () => {
         </div>
         <div className="mt-6 flex flex-col gap-4 items-start px-6">
           {navLinks.map((link) => (
-            <p
-              key={link}
-              className="text-lg font-medium transition"
-              style={{ color: '#fff' }}
-              onMouseOver={e => { e.currentTarget.style.color = gold; }}
-              onMouseOut={e => { e.currentTarget.style.color = '#fff'; }}
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) => 
+                `text-lg font-medium transition-colors duration-200 ${
+                  isActive ? 'text-[#D9C27B]' : 'text-white hover:text-[#D9C27B]'
+                }`
+              }
               onClick={() => setIsOpen(false)}
             >
-              {link}
-            </p>
+              {link.name}
+            </NavLink>
           ))}
           <div
             className="w-full text-center border border-2 px-4 py-2 rounded-full font-semibold transition mt-4 shadow"
