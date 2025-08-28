@@ -33,7 +33,10 @@ const Navbar = () => {
       {/* Desktop Nav */}
       <div className="hidden md:flex flex-col gap-2">
         <div className="flex justify-end">
-          <button 
+         
+
+<a href="/appointment">
+ <button 
             className="px-4 py-1 border border-2 rounded-full cursor-pointer font-semibold hover:text-black transition shadow-md"
             style={{
               color: gold,
@@ -45,6 +48,8 @@ const Navbar = () => {
           >
             Book Appointment
           </button>
+</a>
+
         </div>
         <div className="flex flex-row gap-6 text-white cursor-pointer">
           {navLinks.map((link) => (
