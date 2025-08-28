@@ -27,9 +27,9 @@ const Service = () => {
           <p className="text-gray-200 text-center mb-4">
             Modern cuts, beard styling, grooming, and more for the contemporary man.
           </p>
-          <button className="bg-[#D9C27B] text-black font-semibold px-6 py-2 rounded-full shadow hover:bg-[#bfa14a] transition">
+          <a href="/gents"><button className="bg-[#D9C27B] text-black font-semibold px-6 py-2 rounded-full shadow hover:bg-[#bfa14a] transition">
             Explore
-          </button>
+          </button></a>
         </div>
 
         {/* Women Service */}
@@ -45,9 +45,9 @@ const Service = () => {
           <p className="text-gray-200 text-center mb-4">
             Hair styling, spa, beauty treatments, and pampering for every woman.
           </p>
-          <button className="bg-[#D9C27B] text-black font-semibold px-6 py-2 rounded-full shadow hover:bg-[#bfa14a] transition">
+          <a href="ladies"><button className="bg-[#D9C27B] text-black font-semibold px-6 py-2 rounded-full shadow hover:bg-[#bfa14a] transition">
             Explore
-          </button>
+          </button></a>
         </div>
       </div>
     </section>
