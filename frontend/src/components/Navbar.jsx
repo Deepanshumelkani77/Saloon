@@ -154,12 +154,12 @@ const Navbar = () => {
           </div>
         ) : (
           <div
-            className="text-white cursor-pointer transition px-4 py-1 border rounded-full font-semibold shadow-md"
+            className="text-white cursor-pointer transition px-4 py-1   rounded-full font-semibold shadow-md"
             style={{
               color: gold,
               borderColor: gold,
               backgroundColor: 'transparent',
-              borderWidth: '1.5px',
+              borderWidth: '2px',
               borderStyle: 'solid',
             }}
             onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
