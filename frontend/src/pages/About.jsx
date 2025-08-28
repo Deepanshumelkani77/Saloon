@@ -59,7 +59,7 @@ const About = () => {
       <section className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={assets.imgd} 
+            src={assets.about} 
             alt="About Me & Guys Salon" 
             className="w-full h-full object-cover object-center"
           />

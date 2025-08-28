@@ -27,6 +27,7 @@ import logo11 from './logo11.jpeg'
 
 import ladies from './ladies.png';
 import gents from './gents.png';
+import about from './about.png';
 
 
 export const assets={
@@ -55,5 +56,6 @@ export const assets={
    
     logo11,
     ladies,
-    gents
+    gents,
+    about
 }
