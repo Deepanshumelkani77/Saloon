@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx';
 import Ladies from './pages/Ladies.jsx';
 import Gents from './pages/Gents.jsx';
 import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/ladies" element={<Ladies />} />
           <Route path="/gents" element={<Gents />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer/>

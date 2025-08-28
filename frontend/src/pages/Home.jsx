@@ -4,6 +4,7 @@ import Service from '../components/Service.jsx';
 import VideoSlider from '../components/VideoSlider.jsx';
 import Partner from '../components/partner.jsx';
 
+
 const Home = () => {
   return (
     <div className=" w-full">
