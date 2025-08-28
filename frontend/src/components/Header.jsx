@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
@@ -10,37 +10,61 @@ const images = [
   assets.img5,
 ];
 
-const Header = () => {
-  const [current, setCurrent] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+// Create extended array with cloned first and last images for seamless infinite loop
+const extendedImages = [images[images.length - 1], ...images, images[0]];
 
-  // Auto slide every 4 seconds
+const Header = () => {
+  const [current, setCurrent] = useState(1); // Start at first real image
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const sliderRef = useRef(null);
+
+  // Auto slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 4000);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
+  // Handle seamless infinite loop
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      if (current === 0) {
+        // At cloned last image, jump to real last image
+        setIsTransitioning(false);
+        setCurrent(images.length);
+      } else if (current === images.length + 1) {
+        // At cloned first image, jump to real first image
+        setIsTransitioning(false);
+        setCurrent(1);
+      }
+    };
+
+    const slider = sliderRef.current;
+    if (slider) {
+      slider.addEventListener('transitionend', handleTransitionEnd);
+      return () => slider.removeEventListener('transitionend', handleTransitionEnd);
+    }
+  }, [current]);
+
+  // Re-enable transition after jumping
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = setTimeout(() => setIsTransitioning(true), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning]);
+
   const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrent((prev) => (prev + 1) % images.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setCurrent(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setCurrent(prev => prev - 1);
   };
 
   const goToSlide = (index) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrent(index);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setCurrent(index + 1); // +1 because of cloned first image
   };
 
   return (
@@ -52,15 +76,20 @@ const Header = () => {
       style={{ minHeight: "250px" }}
     >
       {/* Images */}
-      <div className="relative w-full h-full">
-        {images.map((img, index) => (
+      <div
+        ref={sliderRef}
+        className="flex w-full h-full transition-transform duration-700 ease-in-out"
+        style={{
+          transform: `translateX(-${current * 100}%)`,
+          transitionProperty: isTransitioning ? 'transform' : 'none',
+        }}
+      >
+        {extendedImages.map((img, index) => (
           <img
             key={index}
             src={img}
             alt={`Slide ${index + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out ${
-              index === current ? 'opacity-100' : 'opacity-0'
-            }`}
+            className="w-full h-full object-cover object-center flex-shrink-0"
             draggable={false}
           />
         ))}
@@ -94,7 +123,7 @@ const Header = () => {
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-4 h-4 rounded-full border-2 border-[#D9C27B] transition-all duration-200 ${
-              current === index
+              current === index + 1
                 ? "bg-[#D9C27B] scale-125 shadow-lg"
                 : "bg-white/70 hover:bg-[#D9C27B]/80"
             }`}
