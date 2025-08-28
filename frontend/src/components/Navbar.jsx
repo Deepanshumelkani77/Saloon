@@ -26,7 +26,7 @@ const Navbar = () => {
         <FaCut className="text-3xl animate-spin-slow" style={{ color: gold }} />
         <div className="flex flex-col">
           <span className="text-3xl font-bold text-white tracking-wide">Me & Guys</span>
-          <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>U N I S E X  S A L O O N</span>
+          <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>U N I S E X  S A L  O N</span>
         </div>
       </div>
 
@@ -197,7 +197,7 @@ const Navbar = () => {
         <div className="mt-1 flex flex-row justify-between items-center px-4 py-4 border-b" style={{ borderColor: gold }}>
           <div className="flex flex-col items-start">
             <span className="text-2xl font-bold" style={{ color: gold }}>Me & Guys</span>
-            <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>UNISEX SALOON</span>
+            <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>UNISEX SALON</span>
           </div>
           <button onClick={() => setIsOpen(false)} className="text-2xl" style={{ color: gold }}>
             <FaTimes />
