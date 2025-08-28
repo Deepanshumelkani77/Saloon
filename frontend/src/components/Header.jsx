@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
@@ -10,75 +10,37 @@ const images = [
   assets.img5,
 ];
 
-// Clone first and last images for seamless infinite loop
-const extendedImages = [
-  images[images.length - 1],
-  ...images,
-  images[0],
-];
-
 const Header = () => {
-  const [current, setCurrent] = useState(1); // Start at first real image
-  const length = images.length;
-  const sliderRef = useRef(null);
-  const [transition, setTransition] = useState(true);
+  const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Always reset to first real image on mount (fixes black page issue)
-  useEffect(() => {
-    setCurrent(1);
-  }, []);
-
-  // Ensure current is always valid (fixes black slider issue on return)
-  useEffect(() => {
-    if (current < 1 || current > length) {
-      setCurrent(1);
-    }
-  }, [current, length]);
-
-  // Auto slide every 3 seconds
+  // Auto slide every 4 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 3000);
+    }, 4000);
     return () => clearInterval(timer);
-    // eslint-disable-next-line
-  }, [current]);
-
-  // Handle transition end for seamless looping
-  useEffect(() => {
-    const handleTransitionEnd = () => {
-      if (current === 0) {
-        setTransition(false);
-        setCurrent(length);
-      } else if (current === length + 1) {
-        setTransition(false);
-        setCurrent(1);
-      }
-    };
-    const slider = sliderRef.current;
-    slider.addEventListener("transitionend", handleTransitionEnd);
-    return () => slider.removeEventListener("transitionend", handleTransitionEnd);
-    // eslint-disable-next-line
-  }, [current, length]);
-
-  useEffect(() => {
-    if (!transition) {
-      // Remove transition, jump to real slide, then restore transition
-      setTimeout(() => setTransition(true), 20);
-    }
-  }, [transition]);
+  }, []);
 
   const nextSlide = () => {
-    setCurrent((prev) => prev + 1);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent((prev) => (prev + 1) % images.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const prevSlide = () => {
-    setCurrent((prev) => prev - 1);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
-  // For dots navigation
-  const goToSlide = (idx) => {
-    setCurrent(idx + 1);
+  const goToSlide = (index) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent(index);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   return (
@@ -90,20 +52,15 @@ const Header = () => {
       style={{ minHeight: "250px" }}
     >
       {/* Images */}
-      <div
-        ref={sliderRef}
-        className={`flex w-full h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] transition-transform duration-700 ease-in-out`}
-        style={{
-          transform: `translateX(-${current * 100}%)`,
-          transitionProperty: transition ? "transform" : "none",
-        }}
-      >
-        {extendedImages.map((img, index) => (
+      <div className="relative w-full h-full">
+        {images.map((img, index) => (
           <img
             key={index}
             src={img}
-            alt="slide"
-            className="w-full h-[35vh] sm:h-[70vh] md:h-[calc(100vh-80px)] object-cover object-center flex-shrink-0 transition-all duration-700"
+            alt={`Slide ${index + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out ${
+              index === current ? 'opacity-100' : 'opacity-0'
+            }`}
             draggable={false}
           />
         ))}
@@ -137,7 +94,7 @@ const Header = () => {
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-4 h-4 rounded-full border-2 border-[#D9C27B] transition-all duration-200 ${
-              current === index + 1
+              current === index
                 ? "bg-[#D9C27B] scale-125 shadow-lg"
                 : "bg-white/70 hover:bg-[#D9C27B]/80"
             }`}

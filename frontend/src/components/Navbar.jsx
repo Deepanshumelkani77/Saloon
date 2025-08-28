@@ -15,7 +15,7 @@ const gold = '#D9C27B';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user] = useState(true);
+  const [user] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
