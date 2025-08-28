@@ -15,7 +15,7 @@ const gold = '#D9C27B';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user] = useState(false);
+  const [user] = useState(true);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
@@ -68,14 +68,9 @@ const Navbar = () => {
                   onMouseEnter={() => setServicesDropdown(true)}
                   onMouseLeave={() => setServicesDropdown(false)}
                 >
-                  <NavLink 
-                    to={link.path}
-                    className={({ isActive }) => 
-                      `hover:text-[#D9C27B] transition-colors duration-200 ${isActive ? 'text-[#D9C27B]' : 'text-white'}`
-                    }
-                  >
+                  <span className="hover:text-[#D9C27B] transition-colors duration-200 text-white cursor-pointer">
                     {link.name}
-                  </NavLink>
+                  </span>
                   <span
                     className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
                     style={{ backgroundColor: gold }}
@@ -83,7 +78,7 @@ const Navbar = () => {
                   
                   {/* Services Dropdown */}
                   {servicesDropdown && (
-                    <div className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 overflow-hidden">
+                    <div className="absolute top-full left-0  w-48 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 overflow-hidden">
                       <div className="py-3">
                         <NavLink
                           to="/ladies"
@@ -274,19 +269,52 @@ const Navbar = () => {
               </NavLink>
             )
           ))}
-          <div
-            className="w-full text-center border border-2 px-4 py-2 rounded-full font-semibold transition mt-4 shadow"
-            style={{
-              color: gold,
-              borderColor: gold,
-              backgroundColor: 'transparent',
-            }}
-            onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
-            onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
-            onClick={() => setIsOpen(false)}
-          >
-            Book Appointment
-          </div>
+          <a href="/appointment" className="w-full">
+            <div
+              className="w-full text-center border border-2 px-4 py-2 rounded-full font-semibold transition mt-4 shadow"
+              style={{
+                color: gold,
+                borderColor: gold,
+                backgroundColor: 'transparent',
+              }}
+              onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
+              onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
+              onClick={() => setIsOpen(false)}
+            >
+              Book Appointment
+            </div>
+          </a>
+          
+          {/* Signup/Login Buttons for Mobile */}
+          {!user && (
+            <div className="w-full space-y-3 mt-6 pt-6 border-t" style={{ borderColor: gold + '40' }}>
+              <button
+                className="w-full text-center border border-2 px-4 py-2 rounded-full font-semibold transition shadow"
+                style={{
+                  color: gold,
+                  borderColor: gold,
+                  backgroundColor: 'transparent',
+                }}
+                onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
+                onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
+                onClick={() => setIsOpen(false)}
+              >
+                Login
+              </button>
+              <button
+                className="w-full text-center px-4 py-2 rounded-full font-semibold transition shadow"
+                style={{
+                  color: '#000',
+                  backgroundColor: gold,
+                }}
+                onMouseOver={e => { e.currentTarget.style.backgroundColor = '#F4E4A6'; }}
+                onMouseOut={e => { e.currentTarget.style.backgroundColor = gold; }}
+                onClick={() => setIsOpen(false)}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
