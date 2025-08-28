@@ -22,13 +22,18 @@ const Navbar = () => {
   return (
     <div className=" flex flex-row justify-between px-6 bg-black md:justify-around md:px-0 items-center shadow-lg fixed w-full z-50">
       {/* Logo */}
-      <div className=" flex items-center gap-2 py-4">
+      <a href="/">
+      
+       <div className=" flex items-center gap-2 py-4 cursor-pointer">
         <FaCut className="text-3xl animate-spin-slow" style={{ color: gold }} />
         <div className="flex flex-col">
           <span className="text-3xl font-bold text-white tracking-wide">Me & Guys</span>
           <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>U N I S E X  S A L  O N</span>
         </div>
       </div>
+      
+      </a>
+     
 
       {/* Desktop Nav */}
       <div className="hidden md:flex flex-col gap-2">
