@@ -148,7 +148,9 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div
+         <a href="/login">
+
+           <div
             className="text-white cursor-pointer transition px-4 py-1   rounded-full font-semibold shadow-md"
             style={{
               color: gold,
@@ -162,6 +164,7 @@ const Navbar = () => {
           >
             Signup/Login
           </div>
+         </a>
         )}
       </div>
 

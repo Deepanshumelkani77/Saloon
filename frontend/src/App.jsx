@@ -7,6 +7,7 @@ import Gents from './pages/Gents.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Appointment from './pages/Appointment.jsx';
+import Login from './pages/Login.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/appointment" element={<Appointment />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
       <Footer/>
