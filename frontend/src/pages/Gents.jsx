@@ -167,10 +167,12 @@ const Gents = () => {
               Don't wait for the perfect moment - create it! Book your appointment today and experience the finest in men's grooming.
             </p>
             
-            <button className="group relative bg-[#D9C27B] text-black font-bold text-lg px-8 py-4 rounded-full shadow-2xl hover:bg-[#bfa14a] transition-all duration-300 hover:scale-105 hover:shadow-[#D9C27B]/50 overflow-hidden">
+           
+           <a href=""> <button className="group relative bg-[#D9C27B] text-black font-bold text-lg px-8 py-4 rounded-full shadow-2xl hover:bg-[#bfa14a] transition-all duration-300 hover:scale-105 hover:shadow-[#D9C27B]/50 overflow-hidden">
               <span className="relative z-10">Book Appointment Now</span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#bfa14a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
+            </a>
             
             {/* Decorative elements */}
             <div className="flex items-center justify-center space-x-3 mt-8">
