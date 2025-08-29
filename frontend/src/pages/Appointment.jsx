@@ -225,7 +225,7 @@ const Appointment = () => {
       </section>
 
       {/* Appointment Form */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <form onSubmit={handleSubmit}>
             {/* Step 1: Service Selection */}
