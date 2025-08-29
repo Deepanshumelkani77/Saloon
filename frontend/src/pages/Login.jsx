@@ -10,7 +10,6 @@ const Login = ({ onClose }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
     fullName: '',
     phone: ''
   });
@@ -36,14 +35,13 @@ const Login = ({ onClose }) => {
     setFormData({
       email: '',
       password: '',
-      confirmPassword: '',
       fullName: '',
       phone: ''
     });
   };
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="text-center py-8 px-6 border-b border-[#D9C27B]/20 relative">
@@ -139,27 +137,6 @@ const Login = ({ onClose }) => {
               </button>
             </div>
 
-            {isSignup && (
-              <div className="relative">
-                <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#D9C27B]" />
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className="w-full pl-10 pr-12 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
-                  required={isSignup}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#D9C27B] transition-colors"
-                >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </div>
-            )}
 
             {!isSignup && (
               <div className="flex justify-end">
