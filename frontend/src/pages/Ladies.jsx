@@ -103,7 +103,7 @@ const Ladies = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-gradient-to-br from-black/90 via-[#1a1a1a] to-black/80 rounded-3xl p-6 shadow-2xl hover:shadow-[#D9C27B]/20 transition-all duration-500 border border-[#D9C27B]/20 hover:border-[#D9C27B]/60 backdrop-blur-sm hover:scale-105 hover:-translate-y-2"
+                className="group bg-black rounded-3xl p-6 shadow-2xl hover:shadow-[#D9C27B]/20 transition-all duration-500 border border-[#D9C27B]/20 hover:border-[#D9C27B]/60 backdrop-blur-sm hover:scale-105 hover:-translate-y-2"
               >
                 {/* Service Header */}
                 <div className="flex items-center space-x-3 mb-6">
@@ -147,19 +147,19 @@ const Ladies = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+            <div className="bg-black rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
               <div className="text-5xl mb-4">💄</div>
               <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Bridal Makeup</h3>
               <p className="text-gray-300">Complete bridal transformation for your special day</p>
             </div>
             
-            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+            <div className="bg-black rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
               <div className="text-5xl mb-4">💇‍♀️</div>
               <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Hair Styling</h3>
               <p className="text-gray-300">Professional cuts and styling for every occasion</p>
             </div>
             
-            <div className="bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
+            <div className="bg-black rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center">
               <div className="text-5xl mb-4">✨</div>
               <h3 className="text-2xl font-bold text-[#D9C27B] mb-4">Luxury Spa</h3>
               <p className="text-gray-300">Rejuvenating treatments for ultimate relaxation</p>
