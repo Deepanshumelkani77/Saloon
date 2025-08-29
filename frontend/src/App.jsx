@@ -16,8 +16,8 @@ const [login,setLogin] = useState(false);
 
   return (
     <div className="min-h-screen  flex flex-col">
-      <Navbar />
-       {login?<Login/>:<></>}
+      <Navbar setLogin={setLogin} />
+       {login && <Login onClose={() => setLogin(false)} />}
       <main className="flex-1 w-full  mx-auto  mt-20">
         <Routes>
           <Route path="/" element={<Home />} />

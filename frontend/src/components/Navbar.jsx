@@ -13,7 +13,7 @@ const navLinks = [
 
 const gold = '#D9C27B';
 
-const Navbar = () => {
+const Navbar = ({ setLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [user] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState(false);
@@ -148,9 +148,8 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-         <a href="/login">
-
-           <div
+          <div
+            onClick={() => setLogin(true)}
             className="text-white cursor-pointer transition px-4 py-1   rounded-full font-semibold shadow-md"
             style={{
               color: gold,
@@ -164,7 +163,6 @@ const Navbar = () => {
           >
             Signup/Login
           </div>
-         </a>
         )}
       </div>
 
@@ -300,7 +298,10 @@ const Navbar = () => {
                 }}
                 onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setLogin(true);
+                }}
               >
                 Login
               </button>
@@ -312,7 +313,10 @@ const Navbar = () => {
                 }}
                 onMouseOver={e => { e.currentTarget.style.backgroundColor = '#F4E4A6'; }}
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = gold; }}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setLogin(true);
+                }}
               >
                 Sign Up
               </button>
