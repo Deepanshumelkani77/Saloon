@@ -133,7 +133,7 @@ const Contact = () => {
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 rounded-2xl border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-300 hover:transform hover:scale-105 text-center"
+                className="bg-black p-8 rounded-2xl border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-300 hover:transform hover:scale-105 text-center"
               >
                 <div className="text-4xl mb-4">{info.icon}</div>
                 <h3 className="text-xl font-bold text-[#D9C27B] mb-2">{info.title}</h3>
@@ -157,7 +157,7 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
+          <div className="bg-black p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
             <form onSubmit={handleReviewSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
@@ -251,17 +251,17 @@ const Contact = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
+            <div className="bg-black p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">🚗</div>
               <h3 className="text-xl font-bold text-[#D9C27B] mb-2">Easy Parking</h3>
               <p className="text-gray-300">Convenient parking available right outside our salon</p>
             </div>
-            <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
+            <div className="bg-black p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">⭐</div>
               <h3 className="text-xl font-bold text-[#D9C27B] mb-2">Expert Team</h3>
               <p className="text-gray-300">Professional stylists with years of experience</p>
             </div>
-            <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
+            <div className="bg-black p-8 rounded-2xl border border-[#D9C27B]/20 text-center hover:transform hover:scale-105 transition-all duration-300">
               <div className="text-4xl mb-4">💎</div>
               <h3 className="text-xl font-bold text-[#D9C27B] mb-2">Premium Quality</h3>
               <p className="text-gray-300">High-quality products and luxurious treatments</p>
@@ -273,7 +273,7 @@ const Contact = () => {
       {/* Call to Action */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-12 rounded-3xl border border-[#D9C27B]/20">
+          <div className="bg-black p-12 rounded-3xl border border-[#D9C27B]/20">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">
               Ready to Transform Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Look?</span>
             </h2>
