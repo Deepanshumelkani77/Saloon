@@ -14,6 +14,7 @@ const Appointment = () => {
   });
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const handleInputChange = (e) => {
     setFormData({
@@ -48,16 +49,78 @@ const Appointment = () => {
   };
 
   const services = [
-    { id: 'haircut-men', name: 'Men\'s Haircut', price: '₹300', duration: '45 min' },
-    { id: 'haircut-women', name: 'Women\'s Haircut', price: '₹500', duration: '60 min' },
-    { id: 'hair-color', name: 'Hair Coloring', price: '₹1500', duration: '120 min' },
-    { id: 'beard-trim', name: 'Beard Trim & Styling', price: '₹200', duration: '30 min' },
-    { id: 'facial-men', name: 'Men\'s Facial', price: '₹800', duration: '60 min' },
-    { id: 'facial-women', name: 'Women\'s Facial', price: '₹1200', duration: '75 min' },
-    { id: 'hair-wash', name: 'Hair Wash & Blow Dry', price: '₹400', duration: '45 min' },
-    { id: 'manicure', name: 'Manicure', price: '₹600', duration: '45 min' },
-    { id: 'pedicure', name: 'Pedicure', price: '₹800', duration: '60 min' },
-    { id: 'hair-treatment', name: 'Hair Treatment', price: '₹1000', duration: '90 min' }
+    // Men's Hair Services
+    { id: 'mens-haircut', name: 'Men\'s Haircut & Styling', price: '₹100', duration: '30 min', category: 'Men\'s Hair' },
+    { id: 'mens-shampoo', name: 'Men\'s Shampoo & Conditioning', price: '₹80', duration: '20 min', category: 'Men\'s Hair' },
+    { id: 'mens-head-massage', name: 'Men\'s Head Massage', price: '₹150', duration: '30 min', category: 'Men\'s Hair' },
+    { id: 'mens-hair-color', name: 'Men\'s Hair Color', price: '₹800', duration: '90 min', category: 'Men\'s Hair' },
+    { id: 'mens-highlights', name: 'Men\'s Hi-Lites', price: '₹1200', duration: '120 min', category: 'Men\'s Hair' },
+    
+    // Men's Beard Services
+    { id: 'beard-trim', name: 'Beard Trim & Styling', price: '₹50', duration: '15 min', category: 'Men\'s Grooming' },
+    { id: 'beard-color', name: 'Beard Color', price: '₹300', duration: '45 min', category: 'Men\'s Grooming' },
+    { id: 'shave', name: 'Traditional Shave', price: '₹80', duration: '30 min', category: 'Men\'s Grooming' },
+    { id: 'luxury-shave', name: 'Luxury Shave & Beard Spa', price: '₹500', duration: '60 min', category: 'Men\'s Grooming' },
+    
+    // Men's Hair Treatments
+    { id: 'mens-hair-spa', name: 'Men\'s Hair Spa', price: '₹800', duration: '90 min', category: 'Men\'s Treatments' },
+    { id: 'mens-straightening', name: 'Men\'s Hair Straightening', price: '₹1500', duration: '180 min', category: 'Men\'s Treatments' },
+    { id: 'mens-smoothening', name: 'Men\'s Hair Smoothening', price: '₹1200', duration: '150 min', category: 'Men\'s Treatments' },
+    { id: 'mens-scalp-treatment', name: 'Men\'s Scalp Treatment', price: '₹600', duration: '60 min', category: 'Men\'s Treatments' },
+    
+    // Men's Skin Care
+    { id: 'mens-cleanup', name: 'Men\'s Clean Up', price: '₹400', duration: '45 min', category: 'Men\'s Skincare' },
+    { id: 'mens-facial', name: 'Men\'s Facial', price: '₹800', duration: '60 min', category: 'Men\'s Skincare' },
+    { id: 'mens-manicure', name: 'Men\'s Manicure', price: '₹300', duration: '45 min', category: 'Men\'s Skincare' },
+    { id: 'mens-pedicure', name: 'Men\'s Pedicure', price: '₹400', duration: '60 min', category: 'Men\'s Skincare' },
+    
+    // Women's Hair Services
+    { id: 'womens-haircut', name: 'Women\'s Haircut', price: '₹500', duration: '60 min', category: 'Women\'s Hair' },
+    { id: 'womens-ironing', name: 'Hair Ironing', price: '₹300', duration: '45 min', category: 'Women\'s Hair' },
+    { id: 'womens-blow-dry', name: 'Blow Dry', price: '₹400', duration: '45 min', category: 'Women\'s Hair' },
+    { id: 'womens-shampoo', name: 'Women\'s Shampoo & Conditioning', price: '₹200', duration: '30 min', category: 'Women\'s Hair' },
+    { id: 'womens-head-massage', name: 'Women\'s Head Massage', price: '₹250', duration: '30 min', category: 'Women\'s Hair' },
+    { id: 'roller-setting', name: 'Roller Setting', price: '₹350', duration: '60 min', category: 'Women\'s Hair' },
+    { id: 'hair-oiling', name: 'Hair Oiling', price: '₹150', duration: '20 min', category: 'Women\'s Hair' },
+    
+    // Women's Hair Color
+    { id: 'global-coloring', name: 'Global Hair Coloring', price: '₹1500', duration: '120 min', category: 'Women\'s Color' },
+    { id: 'root-touch-up', name: 'Root Touch Up', price: '₹800', duration: '90 min', category: 'Women\'s Color' },
+    
+    // Women's Hair Treatments
+    { id: 'womens-rebonding', name: 'Hair Rebonding', price: '₹3000', duration: '240 min', category: 'Women\'s Treatments' },
+    { id: 'womens-perming', name: 'Hair Perming', price: '₹2000', duration: '180 min', category: 'Women\'s Treatments' },
+    { id: 'keratin-treatment', name: 'Keratin Treatment', price: '₹2500', duration: '200 min', category: 'Women\'s Treatments' },
+    { id: 'womens-smoothening', name: 'Hair Smoothening', price: '₹1800', duration: '180 min', category: 'Women\'s Treatments' },
+    { id: 'womens-spa-treatment', name: 'Hair Spa Treatment', price: '₹1000', duration: '90 min', category: 'Women\'s Treatments' },
+    { id: 'volumizing', name: 'Hair Volumizing', price: '₹1200', duration: '120 min', category: 'Women\'s Treatments' },
+    { id: 'color-protection', name: 'Color Protection Treatment', price: '₹800', duration: '60 min', category: 'Women\'s Treatments' },
+    
+    // Women's Makeup
+    { id: 'party-makeup', name: 'Party Make Up', price: '₹1500', duration: '90 min', category: 'Women\'s Makeup' },
+    { id: 'engagement-makeup', name: 'Engagement Make Up', price: '₹2500', duration: '120 min', category: 'Women\'s Makeup' },
+    { id: 'bridal-makeup', name: 'Bridal & Reception Make Up', price: '₹5000', duration: '180 min', category: 'Women\'s Makeup' },
+    { id: 'base-makeup', name: 'Base Make Up', price: '₹800', duration: '60 min', category: 'Women\'s Makeup' },
+    { id: 'eye-makeup', name: 'Eye Make Up', price: '₹600', duration: '45 min', category: 'Women\'s Makeup' },
+    
+    // Women's Facials & Skin Care
+    { id: 'womens-bleach', name: 'Bleach', price: '₹300', duration: '30 min', category: 'Women\'s Skincare' },
+    { id: 'luxury-facials', name: 'Luxury Facials/Rituals', price: '₹1200', duration: '75 min', category: 'Women\'s Skincare' },
+    { id: 'womens-cleanup', name: 'Women\'s Clean Up', price: '₹500', duration: '45 min', category: 'Women\'s Skincare' },
+    { id: 'body-polishing', name: 'Body Polishing/Rejuvenation', price: '₹1500', duration: '120 min', category: 'Women\'s Skincare' },
+    { id: 'threading', name: 'Threading', price: '₹100', duration: '15 min', category: 'Women\'s Skincare' },
+    
+    // Women's Hand & Feet Care
+    { id: 'womens-manicure', name: 'Women\'s Manicure', price: '₹600', duration: '45 min', category: 'Women\'s Nails' },
+    { id: 'spa-manicure', name: 'Spa Manicure', price: '₹800', duration: '60 min', category: 'Women\'s Nails' },
+    { id: 'womens-pedicure', name: 'Women\'s Pedicure', price: '₹800', duration: '60 min', category: 'Women\'s Nails' },
+    { id: 'spa-pedicure', name: 'Spa Pedicure', price: '₹1000', duration: '75 min', category: 'Women\'s Nails' },
+    { id: 'waxing', name: 'Waxing', price: '₹400', duration: '45 min', category: 'Women\'s Skincare' },
+    
+    // Women's Nail Care
+    { id: 'nail-paint', name: 'Nail Paint', price: '₹200', duration: '30 min', category: 'Women\'s Nails' },
+    { id: 'nail-art', name: 'Nail Art', price: '₹500', duration: '60 min', category: 'Women\'s Nails' },
+    { id: 'nail-filling', name: 'Nail Filing', price: '₹150', duration: '20 min', category: 'Women\'s Nails' }
   ];
 
   const stylists = [
@@ -177,22 +240,52 @@ const Appointment = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {services.map((service) => (
-                    <div
-                      key={service.id}
-                      onClick={() => setFormData({ ...formData, service: service.id })}
-                      className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
-                        formData.service === service.id
-                          ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
-                          : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
-                      }`}
-                    >
-                      <h3 className="text-lg font-bold text-white mb-2">{service.name}</h3>
-                      <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
-                      <p className="text-gray-400 text-sm">{service.duration}</p>
-                    </div>
-                  ))}
+                {/* Service Categories */}
+                <div className="mb-8">
+                  {/* Category Tabs */}
+                  <div className="flex flex-wrap justify-center gap-2 mb-8">
+                    {['All', ...new Set(services.map(s => s.category))].map((category) => (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => setSelectedCategory(category)}
+                        className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                          selectedCategory === category
+                            ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
+                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Services Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {(selectedCategory === 'All' 
+                      ? services 
+                      : services.filter(s => s.category === selectedCategory)
+                    ).map((service) => (
+                      <div
+                        key={service.id}
+                        onClick={() => setFormData({ ...formData, service: service.id })}
+                        className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
+                          formData.service === service.id
+                            ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
+                            : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-lg font-bold text-white flex-1">{service.name}</h3>
+                          <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full ml-2">
+                            {service.category.split("'s ")[1] || service.category}
+                          </span>
+                        </div>
+                        <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
+                        <p className="text-gray-400 text-sm">{service.duration}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="text-center">
