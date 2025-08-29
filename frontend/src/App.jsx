@@ -8,11 +8,16 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Appointment from './pages/Appointment.jsx';
 import Login from './pages/Login.jsx';
+import {useState} from 'react';
 
 function App() {
+
+const [login,setLogin] = useState(false);
+
   return (
     <div className="min-h-screen  flex flex-col">
       <Navbar />
+       {login?<Login/>:<></>}
       <main className="flex-1 w-full  mx-auto  mt-20">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,7 +26,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/appointment" element={<Appointment />} />
-          <Route path="/login" element={<Login />} />
+         
         </Routes>
       </main>
       <Footer/>
