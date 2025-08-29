@@ -14,12 +14,12 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    'Home',
-    'Services',
-    'About Us',
-    'Gallery',
-    'Contact',
-    'Book Appointment'
+    {links:"Home",path:"/"},
+    {links:"Services",path:"/ladies"},
+    {links:"About Us",path:"/about"},
+    {links:"Gallery",path:"/gallery"},
+    {links:"Contact",path:"/contact"},
+    {links:"Book Appointment",path:"/book"}
   ];
 
   return (
@@ -67,7 +67,7 @@ const Footer = () => {
               {services.map((service, idx) => (
                 <a
                   key={idx}
-                  href="#"
+                  href=""
                   className="block text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 hover:translate-x-1 transform"
                 >
                   {service}
@@ -83,10 +83,10 @@ const Footer = () => {
               {quickLinks.map((link, idx) => (
                 <a
                   key={idx}
-                  href="#"
+                  href={link.path}
                   className="block text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 hover:translate-x-1 transform"
                 >
-                  {link}
+                  {link.links}
                 </a>
               ))}
             </div>
