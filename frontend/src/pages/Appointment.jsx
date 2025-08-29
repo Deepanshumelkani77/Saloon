@@ -103,23 +103,55 @@ const Appointment = () => {
       {/* Progress Indicator */}
       <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center items-center space-x-8">
+          {/* Mobile Progress Indicator */}
+          <div className="flex md:hidden justify-center items-center">
+            <div className="flex items-center space-x-2">
+              {[1, 2, 3].map((step) => (
+                <div key={step} className="flex items-center">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                    currentStep >= step 
+                      ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black' 
+                      : 'bg-gray-600 text-gray-300'
+                  }`}>
+                    {step}
+                  </div>
+                  {step < 3 && (
+                    <div className={`w-8 h-1 mx-1 ${
+                      currentStep > step ? 'bg-[#D9C27B]' : 'bg-gray-600'
+                    }`}></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile Step Labels */}
+          <div className="flex md:hidden justify-center mt-3">
+            <span className={`text-sm font-semibold ${
+              currentStep >= 1 ? 'text-[#D9C27B]' : 'text-gray-400'
+            }`}>
+              {currentStep === 1 ? 'Choose Service' : currentStep === 2 ? 'Set Details' : 'Confirm Booking'}
+            </span>
+          </div>
+
+          {/* Desktop Progress Indicator */}
+          <div className="hidden md:flex justify-center items-center space-x-6 lg:space-x-8">
             {[1, 2, 3].map((step) => (
               <div key={step} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
+                <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
                   currentStep >= step 
                     ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black' 
                     : 'bg-gray-600 text-gray-300'
                 }`}>
                   {step}
                 </div>
-                <span className={`ml-2 font-semibold ${
+                <span className={`ml-2 lg:ml-3 font-semibold text-sm lg:text-base ${
                   currentStep >= step ? 'text-[#D9C27B]' : 'text-gray-400'
                 }`}>
                   {step === 1 ? 'Service' : step === 2 ? 'Details' : 'Confirm'}
                 </span>
                 {step < 3 && (
-                  <div className={`w-16 h-1 ml-4 ${
+                  <div className={`w-12 lg:w-16 h-1 ml-3 lg:ml-4 ${
                     currentStep > step ? 'bg-[#D9C27B]' : 'bg-gray-600'
                   }`}></div>
                 )}
