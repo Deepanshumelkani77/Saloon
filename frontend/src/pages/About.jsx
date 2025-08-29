@@ -133,7 +133,7 @@ const About = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-black/90 via-[#1a1a1a] to-black/80 rounded-3xl p-6 sm:p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300"
+                className="bg-black rounded-3xl p-6 sm:p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300"
               >
                 <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#D9C27B] mb-2">
                   {stat.number}
@@ -163,7 +163,7 @@ const About = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group bg-gradient-to-br from-black/90 via-[#1a1a1a] to-black/80 rounded-3xl p-6 shadow-2xl border border-[#D9C27B]/20 hover:border-[#D9C27B]/60 backdrop-blur-sm hover:scale-105 hover:-translate-y-2 transition-all duration-500 text-center"
+                className="group bg-black rounded-3xl p-6 shadow-2xl border border-[#D9C27B]/20 hover:border-[#D9C27B]/60 backdrop-blur-sm hover:scale-105 hover:-translate-y-2 transition-all duration-500 text-center"
               >
                 <div className="text-4xl mb-4">{value.icon}</div>
                 <h3 className="text-xl font-bold text-[#D9C27B] mb-4 tracking-wide">
@@ -194,7 +194,7 @@ const About = () => {
             {team.map((member, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-black/90 via-[#1a1a1a] to-black/80 rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300"
+                className="bg-black rounded-3xl p-8 shadow-2xl border border-[#D9C27B]/30 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300"
               >
                 <div className="w-24 h-24 bg-[#D9C27B]/20 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
                   👤
