@@ -167,7 +167,7 @@ const Appointment = () => {
           <form onSubmit={handleSubmit}>
             {/* Step 1: Service Selection */}
             {currentStep === 1 && (
-              <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
+              <div className="bg-black p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                     Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Service</span>
@@ -214,7 +214,7 @@ const Appointment = () => {
 
             {/* Step 2: Appointment Details */}
             {currentStep === 2 && (
-              <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
+              <div className="bg-black p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                     Appointment <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Details</span>
@@ -314,7 +314,7 @@ const Appointment = () => {
 
             {/* Step 3: Contact Information & Confirmation */}
             {currentStep === 3 && (
-              <div className="bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
+              <div className="bg-black p-8 sm:p-12 rounded-3xl border border-[#D9C27B]/20">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                     Confirm Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Booking</span>
@@ -457,17 +457,17 @@ const Appointment = () => {
             Need Help? <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Contact Us</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D9C27B]/20">
+            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
               <div className="text-4xl mb-4">📞</div>
               <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Call Us</h3>
               <p className="text-white">+91 7997135893</p>
             </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D9C27B]/20">
+            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
               <div className="text-4xl mb-4">📍</div>
               <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Visit Us</h3>
               <p className="text-white">Kaladhungi Road, Kusumkhera<br />Haldwani (263139)</p>
             </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D9C27B]/20">
+            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
               <div className="text-4xl mb-4">🕒</div>
               <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Hours</h3>
               <p className="text-white">Mon - Sun<br />9:00 AM - 9:00 PM</p>
