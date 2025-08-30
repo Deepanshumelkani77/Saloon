@@ -73,7 +73,7 @@ const Login = ({ onClose }) => {
           <p className="text-gray-400 text-sm">
             {isSignup 
               ? 'Join us for premium salon services' 
-              : 'Sign in to book your appointment'
+              : 'Login to book your appointment'
             }
           </p>
         </div>
@@ -166,7 +166,7 @@ const Login = ({ onClose }) => {
               onMouseOver={e => { e.currentTarget.style.backgroundColor = '#F4E4A6'; }}
               onMouseOut={e => { e.currentTarget.style.backgroundColor = gold; }}
             >
-              {isSignup ? 'Create Account' : 'Sign In'}
+              {isSignup ? 'Create Account' : 'Login'}
             </button>
           </form>
 
@@ -178,7 +178,7 @@ const Login = ({ onClose }) => {
                 onClick={toggleForm}
                 className="ml-2 text-[#D9C27B] hover:text-[#F4E4A6] font-semibold transition-colors"
               >
-                {isSignup ? 'Sign In' : 'Sign Up'}
+                {isSignup ? 'Login' : 'Signup'}
               </button>
             </p>
           </div>
