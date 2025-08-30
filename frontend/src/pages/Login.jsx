@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaCut, FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
+import React, { useContext } from 'react'
+import { AppContext } from '../context/AppContext'
+
 
 const gold = '#D9C27B';
 
 const Login = ({ onClose }) => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     fullName: '',
     phone: ''
   });
+
+  //import from AppContext
+
+  const { signup } = useContext(AppContext);
+   const { login } = useContext(AppContext);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -24,9 +31,9 @@ const Login = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignup) {
-      console.log('Signup data:', formData);
+     signup(formData.fullName, formData.email, formData.password,formData.phone);
     } else {
-      console.log('Login data:', { email: formData.email, password: formData.password });
+      login(formData.email, formData.password);
     }
   };
 
