@@ -8,11 +8,37 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Appointment from './pages/Appointment.jsx';
 import Login from './pages/Login.jsx';
-import {useState} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import { AppContext } from './context/AppContext.jsx';
+import Cookies from 'js-cookie';
 
 function App() {
 
 const [login,setLogin] = useState(false);
+const { setUser } = useContext(AppContext);
+
+// Handle Google OAuth callback
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  const userParam = urlParams.get('user');
+  
+  if (token && userParam) {
+    try {
+      const userData = JSON.parse(decodeURIComponent(userParam));
+      
+      // Store token and user data
+      Cookies.set("token", token, { expires: 1 });
+      Cookies.set("user", JSON.stringify(userData), { expires: 1 });
+      setUser(userData);
+      
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } catch (error) {
+      console.error("Error parsing Google OAuth response:", error);
+    }
+  }
+}, [setUser]);
 
   return (
     <div className="min-h-screen  flex flex-col">

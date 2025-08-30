@@ -1,10 +1,25 @@
 const express=require("express")
 const cors=require("cors")  //it is use for fetch data from database in frontend
-require("./auth/google"); // import google strategy 
+require("./auth/google"); // import google strategy
+const passport = require("passport");
+const session = require("express-session");
+const jwt = require("jsonwebtoken");
 
 //app config
 const app=express();
 const port=1000;
+
+// Session middleware for passport
+app.use(session({
+  secret: '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',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.listen(port,()=>{
     console.log("server is running",port);
 })
@@ -53,9 +68,24 @@ app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "em
 // Google callback
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: "http://localhost:3000/" }),
   (req, res) => {
-    // Redirect with token (JWT or session)
-    res.redirect("http://localhost:3000/dashboard"); 
+    // Generate JWT token
+    const token = jwt.sign(
+      { 
+        id: req.user._id, 
+        email: req.user.email,
+        name: req.user.name || req.user.username
+      },
+      'your-jwt-secret',
+      { expiresIn: '24h' }
+    );
+    
+    // Redirect to frontend with token
+    res.redirect(`http://localhost:3000/?token=${token}&user=${encodeURIComponent(JSON.stringify({
+      id: req.user._id,
+      email: req.user.email,
+      name: req.user.name || req.user.username
+    }))}`);
   }
 );
