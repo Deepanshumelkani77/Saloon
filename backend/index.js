@@ -1,5 +1,6 @@
 const express=require("express")
-const cors=require("cors")  //it is use for fetch data from database in frontend 
+const cors=require("cors")  //it is use for fetch data from database in frontend
+require("./auth/google"); // import google strategy 
 
 //app config
 const app=express();
@@ -41,3 +42,20 @@ app.use("/user",user);
 
 //425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com =id
 //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=secreat
+
+
+
+
+
+// Start Google login
+app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+// Google callback
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    // Redirect with token (JWT or session)
+    res.redirect("http://localhost:3000/dashboard"); 
+  }
+);
