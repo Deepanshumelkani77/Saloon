@@ -19,7 +19,7 @@ const Footer = () => {
     {links:"About Us",path:"/about"},
     {links:"Gallery",path:"/gallery"},
     {links:"Contact",path:"/contact"},
-    {links:"Book Appointment",path:"/book"}
+    {links:"Book Appointment",path:"/appointment"}
   ];
 
   return (
