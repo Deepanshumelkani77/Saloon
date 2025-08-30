@@ -18,9 +18,9 @@ const Login = ({ onClose }) => {
   });
 
   //import from AppContext
-
+  const navigate = useNavigate();
   const { signup } = useContext(AppContext);
-   const { login } = useContext(AppContext);
+  const { login } = useContext(AppContext);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -29,14 +29,20 @@ const Login = ({ onClose }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSignup) {
-     signup(formData.fullName, formData.email, formData.password,formData.phone);
-     navigate("/")
-    } else {
-      login(formData.email, formData.password);
-      navigate("/")
+    try {
+      if (isSignup) {
+        await signup(formData.fullName, formData.email, formData.password, formData.phone);
+        onClose(); // Close the modal
+        navigate("/");
+      } else {
+        await login(formData.email, formData.password);
+        onClose(); // Close the modal
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
     }
   };
 
