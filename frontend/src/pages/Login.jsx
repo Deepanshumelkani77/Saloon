@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaCut, FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 
 
