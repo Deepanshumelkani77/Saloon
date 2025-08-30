@@ -26,5 +26,8 @@ const mongoose = require("mongoose");
 //db connectin model
 connectDB();
 
-//deepumelkani123_db_user
-//bhumi77
+
+//middleware
+app.use(express.json()); //we send request frontend to backend
+app.use(cors());  //using this we access the backend from any frontend
+const { ObjectId } = require('mongodb');
