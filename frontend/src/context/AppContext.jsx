@@ -1,6 +1,7 @@
 import { createContext, useState } from "react"
 import axios from "axios";
 import Cookies from "js-cookie";
+import {useNavigate} from 'react-router-dom'
 
 export const AppContext = createContext();
 
@@ -43,12 +44,12 @@ const [user, setUser] = useState(initialUser);
       }
     }
   
-
+const navigate=useNavigate();
     const logout = () => {
       Cookies.remove("token");
       Cookies.remove("user");
       setUser(null);
-      window.location.href = '/';
+      navigate('/');
     };
   
 
