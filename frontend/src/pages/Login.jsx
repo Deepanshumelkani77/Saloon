@@ -56,6 +56,12 @@ const Login = ({ onClose }) => {
     });
   };
 
+//google login
+const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:1000/auth/google";
+  };
+
+
   return (
     <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden" onClick={(e) => e.stopPropagation()}>
@@ -204,7 +210,7 @@ const Login = ({ onClose }) => {
             </div>
             
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <button
+              <button onClick={handleGoogleLogin}
                 type="button"
                 className="flex items-center justify-center px-4 py-2 border border-gray-700 rounded-lg bg-gray-900/50 text-white hover:bg-gray-800/50 transition-all"
               >
