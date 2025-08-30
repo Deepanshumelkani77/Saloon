@@ -21,9 +21,9 @@ const [user, setUser] = useState(initialUser);
 
 
 //signup
- const signup = async (username, email, password,phone) => {
+ const signup = async (fullName, email, password, phone) => {
       try {
-        await axios.post("http://localhost:5000/user/signup", { username, email, password,phone });
+        await axios.post("http://localhost:1000/user/signup", { fullName, email, password,phone });
         alert("Signup successful! Please login.");
       } catch (error) {
         alert(error.response?.data?.message || "Signup failed");
