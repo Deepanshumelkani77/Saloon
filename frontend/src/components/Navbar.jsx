@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle, FaCut } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom'; 
+import { AppContext } from '../context/AppContext'
 
 const navLinks = [
   { name: 'HOME', path: '/' },
@@ -15,7 +16,7 @@ const gold = '#D9C27B';
 
 const Navbar = ({ setLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user] = useState(false);
+  const { user } = useContext(AppContext);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
