@@ -31,3 +31,9 @@ connectDB();
 app.use(express.json()); //we send request frontend to backend
 app.use(cors());  //using this we access the backend from any frontend
 const { ObjectId } = require('mongodb');
+
+
+
+//router
+const user=require("./routes/User.js");
+app.use("/user",user);
