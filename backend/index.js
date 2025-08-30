@@ -8,14 +8,12 @@ const jwt = require("jsonwebtoken");
 //app config
 const app=express();
 const port=1000;
-
 // Session middleware for passport
 app.use(session({
   secret: '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',
   resave: false,
   saveUninitialized: false
 }));
-
 // Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,10 +53,6 @@ const user=require("./routes/User.js");
 app.use("/user",user);
 
 
-//425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com =id
-//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=secreat
-
-
 
 
 
@@ -68,7 +62,7 @@ app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "em
 // Google callback
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:3000/" }),
+  passport.authenticate("google", { failureRedirect: "http://localhost:3000/dashboard" }),
   (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
