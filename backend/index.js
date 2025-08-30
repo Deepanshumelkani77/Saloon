@@ -37,3 +37,7 @@ const { ObjectId } = require('mongodb');
 //router
 const user=require("./routes/User.js");
 app.use("/user",user);
+
+
+//425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com =id
+//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=secreat
