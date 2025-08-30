@@ -17,7 +17,7 @@ const gold = '#D9C27B';
 
 const Navbar = ({ setLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useContext(AppContext);
+  const { user,logout } = useContext(AppContext);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
@@ -145,7 +145,7 @@ const Navbar = ({ setLogin }) => {
               <ul className="flex flex-col gap-2 p-3">
                 <li className="cursor-pointer" style={{ color: gold }}>My Profile</li>
                 <li className="cursor-pointer" style={{ color: gold }}>My Appointment</li>
-                <li className="cursor-pointer" style={{ color: gold }}>Logout</li>
+                <li onClick={logout} className="cursor-pointer" style={{ color: gold }}>Logout</li>
               </ul>
             </div>
           </div>
