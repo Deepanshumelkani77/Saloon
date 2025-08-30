@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle, FaCut } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom'; 
 import { AppContext } from '../context/AppContext'
+import {useContext} from 'react'
 
 const navLinks = [
   { name: 'HOME', path: '/' },
