@@ -14,7 +14,7 @@ const salonLocation = {
   lng: 77.2090
 };
 
-const SalonMap = () => {
+const Map = () => {
   return (
     <LoadScript googleMapsApiKey="AIzaSyA-FsvFe-EjYVmGNABxdYF4mTOxuv2DFgs">
       <GoogleMap
@@ -29,4 +29,4 @@ const SalonMap = () => {
   );
 };
 
-export default SalonMap;
+export default Map;
