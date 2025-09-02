@@ -50,7 +50,7 @@ const VideoSlider = () => {
   const allVideos = [...videos, ...videos, ...videos]; // Triple for smoother loop
 
   return (
-    <div className="w-full overflow-hidden bg-gradient-to-br from-black via-[#23211b] to-[#181818] py-8 flex flex-col items-center justify-center ">
+    <div className="w-full overflow-hidden py-8 flex flex-col items-center justify-center ">
       {/* Heading */}
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#D9C27B] tracking-widest text-center mb-8 drop-shadow-lg">
         OUR WORKS

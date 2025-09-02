@@ -3,7 +3,7 @@ import { assets } from '../assets/assets.js';
 
 const Service = () => {
   return (
-    <section className="w-full min-h-[80vh] bg-gradient-to-br from-black via-[#23211b] to-[#181818] py-10 px-2 sm:px-6 flex flex-col items-center">
+    <section className="w-full min-h-[80vh] py-10 px-2 sm:px-6 flex flex-col items-center">
       {/* Title */}
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#D9C27B] tracking-widest text-center drop-shadow-lg">

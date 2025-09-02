@@ -14,7 +14,7 @@ const logos = [
 
 const Partner = () => {
   return (
-    <section className="w-full min-h-[80vh] bg-gradient-to-br from-black via-[#23211b] to-[#181818] py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+    <section className="w-full min-h-[80vh] py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       {/* Heading Section */}
       <div className="mb-20 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#D9C27B] tracking-widest mb-6 drop-shadow-lg">
