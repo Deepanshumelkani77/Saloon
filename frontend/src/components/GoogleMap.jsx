@@ -19,7 +19,7 @@ const GoogleMap = () => {
       
       {/* Interactive Map Section */}
       <div className="bg-black p-8 rounded-3xl border border-[#D9C27B]/20">
-        <div className="h-80 bg-[#1a1a1a] rounded-2xl border border-[#D9C27B]/10 relative overflow-hidden">
+        <div className="h-100 bg-[#1a1a1a] rounded-2xl border border-[#D9C27B]/10 relative overflow-hidden">
           {/* Google Maps Embed */}
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3515.123456789!2d79.50632!3d29.22235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDEzJzIwLjUiTiA3OcKwMzAnMjIuOCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
