@@ -57,29 +57,24 @@ app.use("/user",user);
 
 
 // Start Google login
-app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
 // Google callback
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:3000/dashboard" }),
+  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
-    // Generate JWT token
     const token = jwt.sign(
-      { 
-        id: req.user._id, 
-        email: req.user.email,
-        name: req.user.name || req.user.username
-      },
-      'your-jwt-secret',
-      { expiresIn: '24h' }
+      { id: req.user._id, email: req.user.email, name: req.user.name },
+      "your-jwt-secret",
+      { expiresIn: "24h" }
     );
-    
+
     // Redirect to frontend with token
-    res.redirect(`http://localhost:3000/?token=${token}&user=${encodeURIComponent(JSON.stringify({
-      id: req.user._id,
-      email: req.user.email,
-      name: req.user.name || req.user.username
-    }))}`);
+    res.redirect(
+      `http://localhost:5173/dashboard?token=${token}`
+    );
   }
 );
