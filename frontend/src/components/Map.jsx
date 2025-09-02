@@ -20,7 +20,7 @@ const mapStyles = [
   {
     "featureType": "all",
     "elementType": "geometry",
-    "stylers": [{"color": "#1a1a1a"}]
+    "stylers": [{"color": "#2d2d2d"}]
   },
   {
     "featureType": "all",
@@ -35,7 +35,7 @@ const mapStyles = [
   {
     "featureType": "administrative",
     "elementType": "geometry.fill",
-    "stylers": [{"color": "#1a1a1a"}]
+    "stylers": [{"color": "#2d2d2d"}]
   },
   {
     "featureType": "administrative",
@@ -45,17 +45,17 @@ const mapStyles = [
   {
     "featureType": "landscape",
     "elementType": "all",
-    "stylers": [{"color": "#2a2a2a"}]
+    "stylers": [{"color": "#404040"}]
   },
   {
     "featureType": "poi",
     "elementType": "geometry",
-    "stylers": [{"color": "#1a1a1a"}, {"lightness": 5}]
+    "stylers": [{"color": "#2d2d2d"}, {"lightness": 5}]
   },
   {
     "featureType": "road.highway",
     "elementType": "geometry.fill",
-    "stylers": [{"color": "#D9C27B"}, {"lightness": -10}]
+    "stylers": [{"color": "#D9C27B"}, {"lightness": -5}]
   },
   {
     "featureType": "road.highway",
@@ -65,22 +65,22 @@ const mapStyles = [
   {
     "featureType": "road.arterial",
     "elementType": "geometry",
-    "stylers": [{"color": "#3a3a3a"}, {"lightness": 8}]
+    "stylers": [{"color": "#555555"}, {"lightness": 8}]
   },
   {
     "featureType": "road.local",
     "elementType": "geometry",
-    "stylers": [{"color": "#2a2a2a"}, {"lightness": 16}]
+    "stylers": [{"color": "#404040"}, {"lightness": 16}]
   },
   {
     "featureType": "transit",
     "elementType": "geometry",
-    "stylers": [{"color": "#1a1a1a"}, {"lightness": 9}]
+    "stylers": [{"color": "#2d2d2d"}, {"lightness": 9}]
   },
   {
     "featureType": "water",
     "elementType": "geometry",
-    "stylers": [{"color": "#0a0a0a"}, {"lightness": 17}]
+    "stylers": [{"color": "#1a1a1a"}, {"lightness": 17}]
   }
 ];
 
@@ -133,7 +133,9 @@ const Map = () => {
               scaleControl: true,
               streetViewControl: true,
               rotateControl: false,
-              fullscreenControl: true
+              fullscreenControl: true,
+              gestureHandling: 'cooperative',
+              backgroundColor: '#2d2d2d'
             }}
           >
             <Marker 
@@ -147,7 +149,7 @@ const Map = () => {
                 position={salonLocation}
                 onCloseClick={() => setShowInfoWindow(false)}
               >
-                <div className="bg-black text-white p-4 rounded-lg border border-[#D9C27B]/30 min-w-[250px]">
+                <div className="bg-black/95 backdrop-blur-sm text-white p-4 rounded-lg border border-[#D9C27B]/30 min-w-[250px] shadow-xl">
                   <h3 className="text-xl font-bold text-[#D9C27B] mb-3 flex items-center gap-2">
                     ✂️ Me & Guys Unisex Salon
                   </h3>

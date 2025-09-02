@@ -3,7 +3,7 @@ import Header from '../components/Header.jsx';
 import Service from '../components/Service.jsx';
 import VideoSlider from '../components/VideoSlider.jsx';
 import Partner from '../components/partner.jsx';
-import Map from '../components/Map.jsx';
+import GoogleMap from '../components/GoogleMap.jsx';
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
       <Service/>
       <VideoSlider/>
       <Partner/>
-       <Map/>
+      <GoogleMap/>
     </div>
   )
 }
