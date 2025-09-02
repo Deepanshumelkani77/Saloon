@@ -7,8 +7,8 @@ import {useNavigate} from 'react-router-dom'
 
 const gold = '#D9C27B';
 
-const Login = ({ onClose }) => {
-  const [isSignup, setIsSignup] = useState(false);
+const Login = ({ onClose, initialMode = 'login' }) => {
+  const [isSignup, setIsSignup] = useState(initialMode === 'signup');
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',

@@ -15,7 +15,7 @@ const navLinks = [
 
 const gold = '#D9C27B';
 
-const Navbar = ({ setLogin }) => {
+const Navbar = ({ setLogin, setLoginMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user,logout } = useContext(AppContext);
   const [mobileDropdown, setMobileDropdown] = useState(false);
@@ -151,7 +151,10 @@ const Navbar = ({ setLogin }) => {
           </div>
         ) : (
           <div
-            onClick={() => setLogin(true)}
+            onClick={() => {
+              setLoginMode('login');
+              setLogin(true);
+            }}
             className="text-white cursor-pointer transition px-4 py-2 rounded-full font-semibold shadow-md flex items-center justify-center h-10 w-full"
             style={{
               color: gold,
@@ -163,7 +166,7 @@ const Navbar = ({ setLogin }) => {
             onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
             onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
           >
-            Login
+           Signup/Login
           </div>
         )}
       </div>
@@ -302,6 +305,7 @@ const Navbar = ({ setLogin }) => {
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
                 onClick={() => {
                   setIsOpen(false);
+                  setLoginMode('login');
                   setLogin(true);
                 }}
               >
@@ -317,6 +321,7 @@ const Navbar = ({ setLogin }) => {
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = gold; }}
                 onClick={() => {
                   setIsOpen(false);
+                  setLoginMode('signup');
                   setLogin(true);
                 }}
               >

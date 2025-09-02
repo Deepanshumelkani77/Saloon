@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 function App() {
 
 const [login,setLogin] = useState(false);
+const [loginMode, setLoginMode] = useState('login');
 const { setUser } = useContext(AppContext);
 
 // Handle Google OAuth callback
@@ -42,8 +43,8 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen  flex flex-col">
-      <Navbar setLogin={setLogin} />
-       {login && <Login onClose={() => setLogin(false)} />}
+      <Navbar setLogin={setLogin} setLoginMode={setLoginMode} />
+       {login && <Login onClose={() => setLogin(false)} initialMode={loginMode} />}
       <main className="flex-1 w-full  mx-auto  mt-20">
         <Routes>
           <Route path="/" element={<Home />} />
