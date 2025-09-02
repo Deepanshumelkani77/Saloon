@@ -74,7 +74,7 @@ app.get(
 
     // Redirect to frontend with token
     res.redirect(
-      `http://localhost:5173/dashboard?token=${token}`
+      `http://localhost:5173/?token=${token}`
     );
   }
 );
