@@ -130,10 +130,10 @@ const Navbar = ({ setLogin }) => {
       </div>
 
       {/* Profile Dropdown Desktop */}
-      <div className="hidden md:block relative">
+      <div className="hidden md:block relative w-32">
         {user ? (
           <div className="relative group">
-            <div className="text-white cursor-pointer flex items-center gap-1 transition"
+            <div className="text-white cursor-pointer flex items-center gap-1 transition justify-center h-10"
               onMouseOver={e => { e.currentTarget.style.color = gold; }}
               onMouseOut={e => { e.currentTarget.style.color = '#fff'; }}
             >
@@ -152,7 +152,7 @@ const Navbar = ({ setLogin }) => {
         ) : (
           <div
             onClick={() => setLogin(true)}
-            className="text-white cursor-pointer transition px-4 py-1   rounded-full font-semibold shadow-md"
+            className="text-white cursor-pointer transition px-4 py-2 rounded-full font-semibold shadow-md flex items-center justify-center h-10 w-full"
             style={{
               color: gold,
               borderColor: gold,
@@ -163,7 +163,7 @@ const Navbar = ({ setLogin }) => {
             onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
             onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
           >
-            Signup/Login
+            Login
           </div>
         )}
       </div>

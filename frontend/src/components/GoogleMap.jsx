@@ -2,7 +2,7 @@ import React from 'react';
 
 const GoogleMap = () => {
   return (
-    <div className="pb-20 md:pb-40">
+    <div className="pb-20 md:pb-30">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
