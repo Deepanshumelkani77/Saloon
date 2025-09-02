@@ -103,7 +103,7 @@ const Map = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-black via-[#23211b] to-[#181818] p-6 rounded-3xl border border-[#D9C27B]/20">
+    <div className="bg-gradient-to-br from-black via-[#23211b] to-[#181818] p-6 pb-20 border border-[#D9C27B]/20">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
