@@ -13,6 +13,7 @@ const Home = () => {
       <VideoSlider/>
       <Partner/>
       <GoogleMap/>
+      
     </div>
   )
 }
