@@ -11,9 +11,8 @@ const Home = () => {
       <Header/>
       <Service/>
       <VideoSlider/>
-      <Map/>
       <Partner/>
-      
+       <Map/>
     </div>
   )
 }

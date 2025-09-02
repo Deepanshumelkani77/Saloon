@@ -10,8 +10,8 @@ const containerStyle = {
 
 // Replace with your salon's latitude & longitude
 const salonLocation = {
-  lat: 28.6139,  // Example: Delhi
-  lng: 77.2090
+  lat: 29.22235,  // Example: Delhi
+  lng: 79.50632
 };
 
 const Map = () => {
