@@ -32,7 +32,7 @@ const Partner = () => {
           {logos.map((logo, idx) => (
             <div
               key={idx}
-              className="group relative bg-gradient-to-br from-black/95 via-[#1a1a1a] to-black/90 rounded-3xl flex items-center justify-center shadow-2xl hover:shadow-[#D9C27B]/30 transition-all duration-500 border border-[#D9C27B]/20 hover:border-[#D9C27B]/70 backdrop-blur-sm overflow-hidden w-full aspect-[4/3] max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[280px] xl:max-w-[300px] hover:scale-105 hover:-translate-y-3 cursor-pointer"
+              className="group relative bg-black rounded-3xl flex items-center justify-center shadow-2xl hover:shadow-[#D9C27B]/30 transition-all duration-500 border border-[#D9C27B]/20 hover:border-[#D9C27B]/70 backdrop-blur-sm overflow-hidden w-full aspect-[4/3] max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[280px] xl:max-w-[300px] hover:scale-105 hover:-translate-y-3 cursor-pointer"
             >
               {/* Animated background glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#D9C27B]/10 via-transparent to-[#D9C27B]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
