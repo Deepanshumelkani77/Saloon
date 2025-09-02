@@ -72,9 +72,9 @@ app.get(
       { expiresIn: "24h" }
     );
 
-    // Redirect to frontend with token
+    // Redirect to frontend with token and user info
     res.redirect(
-      `http://localhost:5173/?token=${token}`
+      `http://localhost:5173/?token=${token}&id=${req.user._id}&name=${req.user.name}&email=${req.user.email}`
     );
   }
 );
