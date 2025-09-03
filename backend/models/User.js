@@ -11,7 +11,7 @@ gender:{type:String},
 dob:{type:Date},
 //for goofle login
 googleId:{type:String}, 
-name:{type:String} 
+
 
 })
 
