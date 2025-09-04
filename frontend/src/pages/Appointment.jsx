@@ -573,3 +573,8 @@ const Appointment = () => {
 };
 
 export default Appointment;
+
+
+
+
+//i want to make logic for appointment .in my website i want user come to website choose service and than choose specialist ,date and slot. if this time specialist not free(he has already another srvice ) tahn the slot already booken user can choose another time or another specialist .if user choose 11am and service take 1 hour so specialist not free from 11 am to 12 pm than he will free.make this logic handle appointment frontend and backend both.
