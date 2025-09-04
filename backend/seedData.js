@@ -99,18 +99,35 @@ const stylists = [
 
 const seedData = async () => {
   try {
+    console.log("Starting data seeding...");
+    
     // Clear existing data
+    console.log("Clearing existing data...");
     await Service.deleteMany({});
     await Stylist.deleteMany({});
+    console.log("Existing data cleared");
     
     // Insert services
-    await Service.insertMany(services);
-    console.log("Services seeded successfully");
+    console.log("Inserting services...");
+    const insertedServices = await Service.insertMany(services);
+    console.log(`${insertedServices.length} services seeded successfully`);
     
-    // Insert stylists
-    await Stylist.insertMany(stylists);
-    console.log("Stylists seeded successfully");
+    // Insert stylists one by one to catch any errors
+    console.log("Inserting stylists...");
+    for (const stylist of stylists) {
+      try {
+        const insertedStylist = await Stylist.create(stylist);
+        console.log(`Stylist inserted: ${insertedStylist.name}`);
+      } catch (stylistError) {
+        console.error(`Error inserting stylist ${stylist.name}:`, stylistError.message);
+      }
+    }
     
+    // Verify final count
+    const serviceCount = await Service.countDocuments();
+    const stylistCount = await Stylist.countDocuments();
+    
+    console.log(`Final count - Services: ${serviceCount}, Stylists: ${stylistCount}`);
     console.log("Data seeding completed!");
     process.exit(0);
   } catch (error) {
