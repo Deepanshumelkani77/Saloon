@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Service = require("./models/Service");
-const Stylist = require("./models/Stylist");
+const Service = require("./models/Service.js");
+const Stylist = require("./models/Stylist.js");
 
 // Connect to database
 const connectDB = async () => {
