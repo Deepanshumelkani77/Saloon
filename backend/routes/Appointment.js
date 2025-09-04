@@ -74,7 +74,7 @@ router.post("/check-availability", async (req, res) => {
     const { stylistId, date, serviceId } = req.body;
     
     // Get service duration
-    const service = await Service.findOne({ serviceId });
+    const service = await Service.findById(serviceId);
     if (!service) {
       return res.status(404).json({ message: "Service not found" });
     }
@@ -171,8 +171,8 @@ router.post("/book", async (req, res) => {
     } = req.body;
     
     // Get service and stylist details
-    const service = await Service.findOne({ serviceId });
-    const stylist = await Stylist.findOne({ stylistId });
+    const service = await Service.findById(serviceId);
+    const stylist = await Stylist.findById(stylistId);
     
     if (!service || !stylist) {
       return res.status(404).json({ message: "Service or stylist not found" });

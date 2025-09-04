@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const stylistSchema = new mongoose.Schema({
-  stylistId: {
-    type: String,
-    required: true,
-    unique: true
-  },
   name: {
     type: String,
     required: true

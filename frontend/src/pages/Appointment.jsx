@@ -271,20 +271,20 @@ const Appointment = () => {
                       ? services 
                       : services.filter(s => s.category === selectedCategory)
                     ).map((service) => (
-                        <div
-                          key={service.serviceId}
-                          onClick={() => setFormData({ ...formData, service: service.serviceId })}
-                          className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
-                            formData.service === service.serviceId
-                              ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
-                              : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
-                          }`}
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-lg font-bold text-white flex-1">{service.name}</h3>
-                            <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full ml-2">
-                              {service.category.split("'s ")[1] || service.category}
-                            </span>
+                      <div
+                        key={service._id}
+                        onClick={() => setFormData({ ...formData, service: service._id })}
+                        className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
+                          formData.service === service._id
+                            ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
+                            : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-lg font-bold text-white flex-1">{service.name}</h3>
+                          <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full ml-2">
+                            {service.category.split("'s ")[1] || service.category}
+                          </span>
                           </div>
                           <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
                           <p className="text-gray-400 text-sm">{service.duration} min</p>
@@ -331,10 +331,10 @@ const Appointment = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {stylists.map((stylist) => (
                         <div
-                          key={stylist.stylistId}
-                          onClick={() => setFormData({ ...formData, stylist: stylist.stylistId })}
+                          key={stylist._id}
+                          onClick={() => setFormData({ ...formData, stylist: stylist._id })}
                           className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                            formData.stylist === stylist.stylistId
+                            formData.stylist === stylist._id
                               ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
                               : 'border-gray-600 bg-[#1a1a1a] hover:border-[#D9C27B]/50'
                           }`}

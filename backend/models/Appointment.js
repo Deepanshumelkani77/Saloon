@@ -19,7 +19,8 @@ const appointmentSchema = new mongoose.Schema({
     required: true
   },
   serviceId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Service',
     required: true
   },
   serviceName: {
@@ -35,7 +36,8 @@ const appointmentSchema = new mongoose.Schema({
     required: true
   },
   stylistId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Stylist',
     required: true
   },
   stylistName: {
