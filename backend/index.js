@@ -50,7 +50,9 @@ const { ObjectId } = require('mongodb');
 
 //router
 const user=require("./routes/User.js");
+const appointment=require("./routes/Appointment.js");
 app.use("/user",user);
+app.use("/appointment",appointment);
 
 
 

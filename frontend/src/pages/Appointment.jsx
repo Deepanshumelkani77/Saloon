@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { assets } from '../assets/assets';
+import axios from 'axios';
+import { AppContext } from '../context/AppContext';
 
 const Appointment = () => {
+  const { user } = useContext(AppContext);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,6 +18,12 @@ const Appointment = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [services, setServices] = useState([]);
+  const [stylists, setStylists] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [bookedSlots, setBookedSlots] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -23,21 +32,105 @@ const Appointment = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // Fetch services and stylists on component mount
+  useEffect(() => {
+    fetchServices();
+    fetchStylists();
+  }, []);
+
+  // Check availability when stylist, date, or service changes
+  useEffect(() => {
+    if (formData.stylist && formData.date && formData.service) {
+      checkAvailability();
+    }
+  }, [formData.stylist, formData.date, formData.service]);
+
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get('http://localhost:1000/appointment/services');
+      setServices(response.data);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
+  };
+
+  const fetchStylists = async () => {
+    try {
+      const response = await axios.get('http://localhost:1000/appointment/stylists');
+      setStylists(response.data);
+    } catch (error) {
+      console.error('Error fetching stylists:', error);
+    }
+  };
+
+  const checkAvailability = async () => {
+    setCheckingAvailability(true);
+    try {
+      const response = await axios.post('http://localhost:1000/appointment/check-availability', {
+        stylistId: formData.stylist,
+        date: formData.date,
+        serviceId: formData.service
+      });
+      setAvailableSlots(response.data.availableSlots);
+      setBookedSlots(response.data.bookedSlots);
+    } catch (error) {
+      console.error('Error checking availability:', error);
+      setAvailableSlots([]);
+      setBookedSlots([]);
+    }
+    setCheckingAvailability(false);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Appointment Data:', formData);
-    alert('Your appointment has been booked successfully! We will contact you soon to confirm.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      stylist: '',
-      date: '',
-      time: '',
-      notes: ''
-    });
-    setCurrentStep(1);
+    
+    if (!user) {
+      alert('Please login to book an appointment');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const appointmentData = {
+        userId: user._id,
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        serviceId: formData.service,
+        stylistId: formData.stylist,
+        appointmentDate: formData.date,
+        startTime: formData.time,
+        notes: formData.notes
+      };
+
+      await axios.post('http://localhost:1000/appointment/book', appointmentData);
+      
+      alert('Your appointment has been booked successfully! We will contact you soon to confirm.');
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        stylist: '',
+        date: '',
+        time: '',
+        notes: ''
+      });
+      setCurrentStep(1);
+      setAvailableSlots([]);
+      setBookedSlots([]);
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+      if (error.response?.status === 409) {
+        alert('This time slot is no longer available. Please choose another time.');
+        checkAvailability(); // Refresh availability
+      } else {
+        alert('Error booking appointment. Please try again.');
+      }
+    }
+    setLoading(false);
   };
 
   const nextStep = () => {
@@ -48,94 +141,6 @@ const Appointment = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const services = [
-    // Men's Hair Services
-    { id: 'mens-haircut', name: 'Men\'s Haircut & Styling', price: '₹100', duration: '30 min', category: 'Men\'s Hair' },
-    { id: 'mens-shampoo', name: 'Men\'s Shampoo & Conditioning', price: '₹80', duration: '20 min', category: 'Men\'s Hair' },
-    { id: 'mens-head-massage', name: 'Men\'s Head Massage', price: '₹150', duration: '30 min', category: 'Men\'s Hair' },
-    { id: 'mens-hair-color', name: 'Men\'s Hair Color', price: '₹800', duration: '90 min', category: 'Men\'s Hair' },
-    { id: 'mens-highlights', name: 'Men\'s Hi-Lites', price: '₹1200', duration: '120 min', category: 'Men\'s Hair' },
-    
-    // Men's Beard Services
-    { id: 'beard-trim', name: 'Beard Trim & Styling', price: '₹50', duration: '15 min', category: 'Men\'s Grooming' },
-    { id: 'beard-color', name: 'Beard Color', price: '₹300', duration: '45 min', category: 'Men\'s Grooming' },
-    { id: 'shave', name: 'Traditional Shave', price: '₹80', duration: '30 min', category: 'Men\'s Grooming' },
-    { id: 'luxury-shave', name: 'Luxury Shave & Beard Spa', price: '₹500', duration: '60 min', category: 'Men\'s Grooming' },
-    
-    // Men's Hair Treatments
-    { id: 'mens-hair-spa', name: 'Men\'s Hair Spa', price: '₹800', duration: '90 min', category: 'Men\'s Treatments' },
-    { id: 'mens-straightening', name: 'Men\'s Hair Straightening', price: '₹1500', duration: '180 min', category: 'Men\'s Treatments' },
-    { id: 'mens-smoothening', name: 'Men\'s Hair Smoothening', price: '₹1200', duration: '150 min', category: 'Men\'s Treatments' },
-    { id: 'mens-scalp-treatment', name: 'Men\'s Scalp Treatment', price: '₹600', duration: '60 min', category: 'Men\'s Treatments' },
-    
-    // Men's Skin Care
-    { id: 'mens-cleanup', name: 'Men\'s Clean Up', price: '₹400', duration: '45 min', category: 'Men\'s Skincare' },
-    { id: 'mens-facial', name: 'Men\'s Facial', price: '₹800', duration: '60 min', category: 'Men\'s Skincare' },
-    { id: 'mens-manicure', name: 'Men\'s Manicure', price: '₹300', duration: '45 min', category: 'Men\'s Skincare' },
-    { id: 'mens-pedicure', name: 'Men\'s Pedicure', price: '₹400', duration: '60 min', category: 'Men\'s Skincare' },
-    
-    // Women's Hair Services
-    { id: 'womens-haircut', name: 'Women\'s Haircut', price: '₹500', duration: '60 min', category: 'Women\'s Hair' },
-    { id: 'womens-ironing', name: 'Hair Ironing', price: '₹300', duration: '45 min', category: 'Women\'s Hair' },
-    { id: 'womens-blow-dry', name: 'Blow Dry', price: '₹400', duration: '45 min', category: 'Women\'s Hair' },
-    { id: 'womens-shampoo', name: 'Women\'s Shampoo & Conditioning', price: '₹200', duration: '30 min', category: 'Women\'s Hair' },
-    { id: 'womens-head-massage', name: 'Women\'s Head Massage', price: '₹250', duration: '30 min', category: 'Women\'s Hair' },
-    { id: 'roller-setting', name: 'Roller Setting', price: '₹350', duration: '60 min', category: 'Women\'s Hair' },
-    { id: 'hair-oiling', name: 'Hair Oiling', price: '₹150', duration: '20 min', category: 'Women\'s Hair' },
-    
-    // Women's Hair Color
-    { id: 'global-coloring', name: 'Global Hair Coloring', price: '₹1500', duration: '120 min', category: 'Women\'s Color' },
-    { id: 'root-touch-up', name: 'Root Touch Up', price: '₹800', duration: '90 min', category: 'Women\'s Color' },
-    
-    // Women's Hair Treatments
-    { id: 'womens-rebonding', name: 'Hair Rebonding', price: '₹3000', duration: '240 min', category: 'Women\'s Treatments' },
-    { id: 'womens-perming', name: 'Hair Perming', price: '₹2000', duration: '180 min', category: 'Women\'s Treatments' },
-    { id: 'keratin-treatment', name: 'Keratin Treatment', price: '₹2500', duration: '200 min', category: 'Women\'s Treatments' },
-    { id: 'womens-smoothening', name: 'Hair Smoothening', price: '₹1800', duration: '180 min', category: 'Women\'s Treatments' },
-    { id: 'womens-spa-treatment', name: 'Hair Spa Treatment', price: '₹1000', duration: '90 min', category: 'Women\'s Treatments' },
-    { id: 'volumizing', name: 'Hair Volumizing', price: '₹1200', duration: '120 min', category: 'Women\'s Treatments' },
-    { id: 'color-protection', name: 'Color Protection Treatment', price: '₹800', duration: '60 min', category: 'Women\'s Treatments' },
-    
-    // Women's Makeup
-    { id: 'party-makeup', name: 'Party Make Up', price: '₹1500', duration: '90 min', category: 'Women\'s Makeup' },
-    { id: 'engagement-makeup', name: 'Engagement Make Up', price: '₹2500', duration: '120 min', category: 'Women\'s Makeup' },
-    { id: 'bridal-makeup', name: 'Bridal & Reception Make Up', price: '₹5000', duration: '180 min', category: 'Women\'s Makeup' },
-    { id: 'base-makeup', name: 'Base Make Up', price: '₹800', duration: '60 min', category: 'Women\'s Makeup' },
-    { id: 'eye-makeup', name: 'Eye Make Up', price: '₹600', duration: '45 min', category: 'Women\'s Makeup' },
-    
-    // Women's Facials & Skin Care
-    { id: 'womens-bleach', name: 'Bleach', price: '₹300', duration: '30 min', category: 'Women\'s Skincare' },
-    { id: 'luxury-facials', name: 'Luxury Facials/Rituals', price: '₹1200', duration: '75 min', category: 'Women\'s Skincare' },
-    { id: 'womens-cleanup', name: 'Women\'s Clean Up', price: '₹500', duration: '45 min', category: 'Women\'s Skincare' },
-    { id: 'body-polishing', name: 'Body Polishing/Rejuvenation', price: '₹1500', duration: '120 min', category: 'Women\'s Skincare' },
-    { id: 'threading', name: 'Threading', price: '₹100', duration: '15 min', category: 'Women\'s Skincare' },
-    
-    // Women's Hand & Feet Care
-    { id: 'womens-manicure', name: 'Women\'s Manicure', price: '₹600', duration: '45 min', category: 'Women\'s Nails' },
-    { id: 'spa-manicure', name: 'Spa Manicure', price: '₹800', duration: '60 min', category: 'Women\'s Nails' },
-    { id: 'womens-pedicure', name: 'Women\'s Pedicure', price: '₹800', duration: '60 min', category: 'Women\'s Nails' },
-    { id: 'spa-pedicure', name: 'Spa Pedicure', price: '₹1000', duration: '75 min', category: 'Women\'s Nails' },
-    { id: 'waxing', name: 'Waxing', price: '₹400', duration: '45 min', category: 'Women\'s Skincare' },
-    
-    // Women's Nail Care
-    { id: 'nail-paint', name: 'Nail Paint', price: '₹200', duration: '30 min', category: 'Women\'s Nails' },
-    { id: 'nail-art', name: 'Nail Art', price: '₹500', duration: '60 min', category: 'Women\'s Nails' },
-    { id: 'nail-filling', name: 'Nail Filing', price: '₹150', duration: '20 min', category: 'Women\'s Nails' }
-  ];
-
-  const stylists = [
-    { id: 'ansar', name: 'Ansar Salmani', specialty: 'Owner & Master Stylist', experience: '10+ years' },
-    { id: 'rahul', name: 'Rahul Kumar', specialty: 'Hair Specialist', experience: '7 years' },
-    { id: 'priya', name: 'Priya Sharma', specialty: 'Ladies Specialist', experience: '5 years' },
-    { id: 'amit', name: 'Amit Singh', specialty: 'Beard & Grooming Expert', experience: '6 years' }
-  ];
-
-  const timeSlots = [
-    '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
-    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
-    '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM',
-    '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM'
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818] text-white">
@@ -266,24 +271,24 @@ const Appointment = () => {
                       ? services 
                       : services.filter(s => s.category === selectedCategory)
                     ).map((service) => (
-                      <div
-                        key={service.id}
-                        onClick={() => setFormData({ ...formData, service: service.id })}
-                        className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
-                          formData.service === service.id
-                            ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
-                            : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
-                        }`}
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-lg font-bold text-white flex-1">{service.name}</h3>
-                          <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full ml-2">
-                            {service.category.split("'s ")[1] || service.category}
-                          </span>
+                        <div
+                          key={service.serviceId}
+                          onClick={() => setFormData({ ...formData, service: service.serviceId })}
+                          className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
+                            formData.service === service.serviceId
+                              ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
+                              : 'border-gray-600 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#D9C27B]/50'
+                          }`}
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="text-lg font-bold text-white flex-1">{service.name}</h3>
+                            <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full ml-2">
+                              {service.category.split("'s ")[1] || service.category}
+                            </span>
+                          </div>
+                          <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
+                          <p className="text-gray-400 text-sm">{service.duration} min</p>
                         </div>
-                        <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
-                        <p className="text-gray-400 text-sm">{service.duration}</p>
-                      </div>
                     ))}
                   </div>
                 </div>
@@ -326,10 +331,10 @@ const Appointment = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {stylists.map((stylist) => (
                         <div
-                          key={stylist.id}
-                          onClick={() => setFormData({ ...formData, stylist: stylist.id })}
+                          key={stylist.stylistId}
+                          onClick={() => setFormData({ ...formData, stylist: stylist.stylistId })}
                           className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                            formData.stylist === stylist.id
+                            formData.stylist === stylist.stylistId
                               ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
                               : 'border-gray-600 bg-[#1a1a1a] hover:border-[#D9C27B]/50'
                           }`}
@@ -361,23 +366,48 @@ const Appointment = () => {
                   <div>
                     <label className="block text-lg font-semibold text-[#D9C27B] mb-4">
                       Select Time
+                      {checkingAvailability && (
+                        <span className="ml-2 text-sm text-gray-400">Checking availability...</span>
+                      )}
                     </label>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-                      {timeSlots.map((time) => (
-                        <button
-                          key={time}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, time })}
-                          className={`py-2 px-3 rounded-lg font-semibold transition-all duration-300 ${
-                            formData.time === time
-                              ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
-                              : 'bg-[#1a1a1a] border border-gray-600 text-white hover:border-[#D9C27B]/50'
-                          }`}
-                        >
-                          {time}
-                        </button>
-                      ))}
-                    </div>
+                    
+                    {formData.stylist && formData.date && formData.service ? (
+                      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+                        {/* Available Slots */}
+                        {availableSlots.map((slot) => (
+                          <button
+                            key={slot.time}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, time: slot.time })}
+                            className={`py-2 px-3 rounded-lg font-semibold transition-all duration-300 ${
+                              formData.time === slot.time
+                                ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
+                                : 'bg-green-600 border border-green-500 text-white hover:bg-green-500'
+                            }`}
+                            title={`Available until ${slot.endTime}`}
+                          >
+                            {slot.time}
+                          </button>
+                        ))}
+                        
+                        {/* Booked Slots */}
+                        {bookedSlots.map((slot) => (
+                          <button
+                            key={slot.time}
+                            type="button"
+                            disabled
+                            className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-red-200 cursor-not-allowed opacity-50"
+                            title={slot.reason}
+                          >
+                            {slot.time}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8 text-gray-400">
+                        <p>Please select a service, stylist, and date to view available time slots</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
