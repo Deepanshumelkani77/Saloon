@@ -27,26 +27,25 @@ const MyProfile = () => {
   const uploadPreset = "salon";
 
   useEffect(() => {
-  axios.get(`http://localhost:5000/user/info/${user.id}`)
-      .then((res) => {
-        const data = res.data;
-        setUserInfo(data);
-      setProfileData({
-        name: data.name || 'Your Name',
-        email: data.email || 'your.email@example.com',
-        phone: data.phone || '+91 XXXXX XXXXX',
-        address: data.address || 'Your Address, City, State',
-        dateOfBirth: data.dateOfBirth || '',
-        bio: data.bio || 'Tell us about yourself...'
-      });
-       setImage(data.image);
-
-    })
-      .catch((err) => {
-        console.error('Error fetching user info:', err);
-      });
-
-    
+    if (user && user.id) {
+      axios.get(`http://localhost:5000/user/info/${user.id}`)
+        .then((res) => {
+          const data = res.data;
+          setUserInfo(data);
+          setProfileData({
+            name: data.username || data.name || 'Your Name',
+            email: data.email || 'your.email@example.com',
+            phone: data.phone || '+91 XXXXX XXXXX',
+            address: data.address || 'Your Address, City, State',
+            dateOfBirth: data.dateOfBirth || '',
+            bio: data.bio || 'Tell us about yourself...'
+          });
+          setImage(data.image || '');
+        })
+        .catch((err) => {
+          console.error('Error fetching user info:', err);
+        });
+    }
   }, [user]);
 
 
@@ -65,9 +64,10 @@ const MyProfile = () => {
   };
 
   const handleSave = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
+    setLoading(true);
 
-    let imageUrl = image ;
+    let imageUrl = image;
 
     if (file) {
       const formData = new FormData();
@@ -80,43 +80,53 @@ const MyProfile = () => {
       } catch (err) {
         console.error("Image upload failed:", err);
         alert("Image upload failed");
+        setLoading(false);
         return;
       }
     }
 
-    const updatedData = { ...profileData, image: imageUrl };
+    const updatedData = {
+      username: profileData.name,
+      email: profileData.email,
+      phone: profileData.phone,
+      address: profileData.address,
+      dateOfBirth: profileData.dateOfBirth,
+      bio: profileData.bio,
+      image: imageUrl
+    };
 
     try {
-      const res = await fetch(`http://localhost:5000/user/profile/${user.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
-      });
-
-      if (res.ok) {
+      const res = await axios.put(`http://localhost:5000/user/profile/${user.id}`, updatedData);
+      
+      if (res.status === 200) {
         alert("Profile updated successfully!");
-        setUserInfo(updatedData);
+        setUserInfo({ ...userInfo, ...updatedData });
         setImage(imageUrl);
-        setIsEdit(false);
-      } else {
-        console.error("Failed to update user");
+        setFile(null);
+        setIsEditing(false);
       }
     } catch (err) {
       console.error("Update error:", err);
+      alert("Failed to update profile. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCancel = () => {
     // Reset to original user data
-    setProfileData({
-      name: user.name || 'Your Name',
-      email: user.email || 'your.email@example.com',
-      phone: user.phone || '+91 XXXXX XXXXX',
-      address: user.address || 'Your Address, City, State',
-      dateOfBirth: user.dateOfBirth || '',
-      profileImage: user.profileImage || '',
-      bio: user.bio || 'Tell us about yourself...'
-    });
+    if (userInfo) {
+      setProfileData({
+        name: userInfo.username || userInfo.name || 'Your Name',
+        email: userInfo.email || 'your.email@example.com',
+        phone: userInfo.phone || '+91 XXXXX XXXXX',
+        address: userInfo.address || 'Your Address, City, State',
+        dateOfBirth: userInfo.dateOfBirth || '',
+        bio: userInfo.bio || 'Tell us about yourself...'
+      });
+      setImage(userInfo.image || '');
+    }
+    setFile(null);
     setIsEditing(false);
   };
 
@@ -148,7 +158,7 @@ const MyProfile = () => {
               {/* Profile Image */}
               <div className="relative">
                 <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10">
-                  {profileData.profileImage ? (
+                  {image ? (
                     <img 
                       src={image} 
                       alt="Profile" 

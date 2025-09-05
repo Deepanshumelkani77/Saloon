@@ -67,7 +67,6 @@ router.put("/profile/:userId", async (req, res) => {
         phone,
         address,
         dateOfBirth,
-        profileImage,
         bio
       },
       { new: true, runValidators: true }
@@ -95,7 +94,7 @@ const { userId } = req.params;
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json({ user });
+    res.json( user );
   } catch (error) {
     res.status(500).json({ message: "Error fetching user info", error: error.message });
   }
