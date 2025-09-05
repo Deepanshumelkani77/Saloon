@@ -118,18 +118,7 @@ const Appointment = () => {
         notes: formData.notes
       };
 
-      console.log('User object:', user);
-      console.log('Form data:', formData);
-      console.log('Booking appointment with data:', appointmentData);
-      console.log('Individual field check:');
-      console.log('- userId:', appointmentData.userId);
-      console.log('- customerName:', appointmentData.customerName);
-      console.log('- customerEmail:', appointmentData.customerEmail);
-      console.log('- customerPhone:', appointmentData.customerPhone);
-      console.log('- serviceId:', appointmentData.serviceId);
-      console.log('- stylistId:', appointmentData.stylistId);
-      console.log('- appointmentDate:', appointmentData.appointmentDate);
-      console.log('- startTime:', appointmentData.startTime);
+      
       
       const response = await axios.post('http://localhost:1000/appointment/book', appointmentData);
       console.log('Booking response:', response.data);

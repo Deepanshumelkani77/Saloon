@@ -72,7 +72,7 @@ router.get("/stylists", async (req, res) => {
 router.post("/check-availability", async (req, res) => {
   try {
     const { stylistId, date, serviceId } = req.body;
-    console.log(req.body);
+   
     
     // Get service duration
     const service = await Service.findById(serviceId);
@@ -171,7 +171,7 @@ router.post("/book", async (req, res) => {
       notes
     } = req.body;
 
-    console.log('Received booking request:', req.body);
+    
     
     // Validate required fields
     if (!userId || !customerName || !customerEmail || !customerPhone || !serviceId || !stylistId || !appointmentDate || !startTime) {
