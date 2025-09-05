@@ -103,29 +103,7 @@ const MyProfile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818] text-white">
-      {/* Hero Section */}
-      <section className="relative w-full h-[40vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src={assets.about} 
-            alt="My Profile" 
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
-        </div>
-        
-        <div className="relative z-10 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              My <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Profile</span>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] mx-auto mb-6"></div>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-              Manage your personal information and preferences
-            </p>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Profile Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
