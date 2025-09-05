@@ -12,6 +12,7 @@ import {useState, useEffect, useContext} from 'react';
 import { AppContext } from './context/AppContext.jsx';
 import Cookies from 'js-cookie';
 import MyAppointment from './pages/MyAppointment.jsx';
+import MyProfile from './pages/MyProfile.jsx';
 
 function App() {
 
@@ -55,6 +56,7 @@ useEffect(() => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/my-appointments" element={<MyAppointment />} />
+          <Route path="/my-profile" element={<MyProfile />} />
          
         </Routes>
       </main>
