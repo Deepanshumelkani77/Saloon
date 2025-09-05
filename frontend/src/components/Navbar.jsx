@@ -144,7 +144,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
             <div className="absolute top-full right-0 mt-2 w-44 bg-black bg-opacity-95 text-white text-base font-medium rounded-md shadow-lg transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
               <ul className="flex flex-col gap-1 p-2">
                 <li className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>My Profile</li>
-                <li className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>My Appointment</li>
+                <NavLink to="/my-appointments" className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>My Appointments</NavLink>
                 <li onClick={logout} className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>Logout</li>
               </ul>
             </div>
@@ -186,7 +186,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
               <div className="absolute right-0 mt-2 w-44 bg-black bg-opacity-95 text-white text-base font-medium rounded-md shadow-lg z-50 animate-fade-in">
                 <ul className="flex flex-col gap-1 p-2">
                   <li className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>My Profile</li>
-                  <li className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>My Appointment</li>
+                  <NavLink to="/my-appointments" className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }} onClick={() => setMobileDropdown(false)}>My Appointments</NavLink>
                   <li onClick={logout} className="cursor-pointer px-3 py-2 rounded-md transition-all duration-200 hover:bg-[#D9C27B]/20 hover:text-[#F4E4A6]" style={{ color: gold }}>Logout</li>
                 </ul>
               </div>
