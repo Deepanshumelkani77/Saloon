@@ -64,25 +64,45 @@ const MyProfile = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleSave = async () => {
-    setLoading(true);
+  const handleSave = async (e) => {
+     e.preventDefault();
+
+    let imageUrl = image ;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+
+      try {
+        const res = await axios.post(cloudinaryUrl, formData);
+        imageUrl = res.data.secure_url;
+      } catch (err) {
+        console.error("Image upload failed:", err);
+        alert("Image upload failed");
+        return;
+      }
+    }
+
+    const updatedData = { ...profileData, image: imageUrl };
+
     try {
-      const response = await axios.put(`http://localhost:1000/user/profile/${user.id || user._id}`, profileData);
-      
-      // Update user context with new data
-      const updatedUser = { ...user, ...profileData };
-      setUser(updatedUser);
-      
-      // Update cookies
-      document.cookie = `user=${JSON.stringify(updatedUser)}; path=/; max-age=86400`;
-      
-      setIsEditing(false);
-      alert('Profile updated successfully!');
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      alert('Failed to update profile. Please try again.');
-    } finally {
-      setLoading(false);
+      const res = await fetch(`http://localhost:5000/user/profile/${user.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (res.ok) {
+        alert("Profile updated successfully!");
+        setUserInfo(updatedData);
+        setImage(imageUrl);
+        setIsEdit(false);
+      } else {
+        console.error("Failed to update user");
+      }
+    } catch (err) {
+      console.error("Update error:", err);
     }
   };
 
@@ -100,19 +120,7 @@ const MyProfile = () => {
     setIsEditing(false);
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileData({
-          ...profileData,
-          profileImage: reader.result
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+
 
   if (!user) {
     return (
@@ -136,12 +144,13 @@ const MyProfile = () => {
             
             {/* Profile Header */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-12">
+
               {/* Profile Image */}
               <div className="relative">
                 <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10">
                   {profileData.profileImage ? (
                     <img 
-                      src={profileData.profileImage} 
+                      src={image} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -158,7 +167,7 @@ const MyProfile = () => {
                     <input 
                       type="file" 
                       accept="image/*" 
-                      onChange={handleImageUpload}
+                      onChange={handleFileChange}
                       className="hidden"
                     />
                   </label>
