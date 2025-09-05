@@ -97,7 +97,7 @@ const MyProfile = () => {
     };
 
     try {
-      const res = await axios.put(`http://localhost:5000/user/profile/${user.id}`, updatedData);
+      const res = await axios.put(`http://localhost:1000/user/profile/${user.id}`, updatedData);
       
       if (res.status === 200) {
         alert("Profile updated successfully!");
