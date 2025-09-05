@@ -51,8 +51,10 @@ const { ObjectId } = require('mongodb');
 //router
 const user=require("./routes/User.js");
 const appointment=require("./routes/Appointment.js");
+const paymentRouter = require("./routes/Payment.js");
 app.use("/user",user);
 app.use("/appointment",appointment);
+app.use("/payment", paymentRouter);
 
 
 
