@@ -275,31 +275,7 @@ const MyAppointment = () => {
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#2a2a2a] to-[#1a1a1a]">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-8">
-            Need Help? <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Contact Us</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
-              <div className="text-4xl mb-4">📞</div>
-              <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Call Us</h3>
-              <p className="text-white">+91 7997135893</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
-              <div className="text-4xl mb-4">📍</div>
-              <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Visit Us</h3>
-              <p className="text-white">Kaladhungi Road, Kusumkhera<br />Haldwani (263139)</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-black border border-[#D9C27B]/20">
-              <div className="text-4xl mb-4">🕒</div>
-              <h3 className="text-lg font-bold text-[#D9C27B] mb-2">Hours</h3>
-              <p className="text-white">Mon - Sun<br />9:00 AM - 9:00 PM</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 };
