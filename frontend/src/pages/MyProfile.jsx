@@ -48,9 +48,9 @@ const MyProfile = () => {
           const formattedData = {
             name: data.username || data.name || '',
             email: data.email || '',
-            phone: data.phone || '',
+            phone: data.phone_no || '',
             address: data.address || '',
-            dateOfBirth: data.dateOfBirth || '',
+            dateOfBirth: data.dob || '',
             bio: data.bio || ''
           };
           
@@ -136,13 +136,13 @@ const MyProfile = () => {
       changedData.email = profileData.email;
     }
     if (profileData.phone !== originalData.phone && profileData.phone.trim()) {
-      changedData.phone = profileData.phone;
+      changedData.phone_no = profileData.phone;
     }
     if (profileData.address !== originalData.address && profileData.address.trim()) {
       changedData.address = profileData.address;
     }
     if (profileData.dateOfBirth !== originalData.dateOfBirth && profileData.dateOfBirth.trim()) {
-      changedData.dateOfBirth = profileData.dateOfBirth;
+      changedData.dob = profileData.dateOfBirth;
     }
     if (profileData.bio !== originalData.bio && profileData.bio.trim()) {
       changedData.bio = profileData.bio;
@@ -177,9 +177,9 @@ const MyProfile = () => {
         const updatedProfileData = {
           name: changedData.username || profileData.name,
           email: changedData.email || profileData.email,
-          phone: changedData.phone || profileData.phone,
+          phone: changedData.phone_no || profileData.phone,
           address: changedData.address || profileData.address,
-          dateOfBirth: changedData.dateOfBirth || profileData.dateOfBirth,
+          dateOfBirth: changedData.dob || profileData.dateOfBirth,
           bio: changedData.bio || profileData.bio
         };
         
@@ -320,7 +320,7 @@ const MyProfile = () => {
                         placeholder="+91 XXXXX XXXXX"
                       />
                     ) : (
-                      <span>{getDefaultValue('phone', userInfo?.phone)}</span>
+                      <span>{getDefaultValue('phone', userInfo?.phone_no)}</span>
                     )}
                   </div>
                 </div>
@@ -406,7 +406,7 @@ const MyProfile = () => {
                     />
                   ) : (
                     <div className="px-4 py-3 bg-[#2a2a2a] border border-[#D9C27B]/30 rounded-lg text-white">
-                      {userInfo?.dateOfBirth ? new Date(userInfo.dateOfBirth).toLocaleDateString('en-US', {
+                      {userInfo?.dob ? new Date(userInfo.dob).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
