@@ -86,6 +86,55 @@ const MyAppointment = () => {
     });
   };
 
+
+
+//payments
+  const handlePayment = async (amount, appointmentId) => {
+    try {
+      const res = await axios.post("http://localhost:1000/payment/create-order", { amount });
+
+      const options = {
+        key: "rzp_test_PuXf2SZhGaKEGd",
+        amount: res.data.amount,
+        currency: "INR",
+        name: "DocApp",
+        description: "Appointment Payment",
+        order_id: res.data.id,
+        handler: async function (response) {
+          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+          setPaid({ paid: true });
+
+          try {
+            await axios.post(`http://localhost:1000/appointment/update-payment/${appointmentId}`, {
+              paid: true,
+              payment_id: response.razorpay_payment_id,
+            });
+            alert("Appointment marked as paid!");
+          } catch (error) {
+            console.error("Error updating payment status:", error);
+            alert("Payment succeeded, but failed to update appointment.");
+          }
+        },
+        prefill: {
+          name: user?.name,
+          email: user?.email,
+        },
+        theme: {
+          color: "#5f6FFF",
+        },
+      };
+
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      console.error("Error creating payment order:", error);
+      alert("Failed to initiate payment.");
+    }
+  };
+
+
+
+
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818] text-white flex items-center justify-center">

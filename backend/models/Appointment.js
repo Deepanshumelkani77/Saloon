@@ -68,6 +68,10 @@ const appointmentSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  paid: {
+    type: Boolean,
+    default: false
   }
 });
 
