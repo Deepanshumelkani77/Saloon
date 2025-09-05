@@ -158,7 +158,7 @@ const MyAppointment = () => {
                   {appointments.map((appointment) => (
                     <div 
                       key={appointment._id}
-                      className="bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] rounded-2xl border border-[#D9C27B]/20 p-6 hover:border-[#D9C27B]/40 transition-all duration-300 hover:shadow-lg hover:shadow-[#D9C27B]/10"
+                      className="bg-black rounded-2xl border border-[#D9C27B]/20 p-6 hover:border-[#D9C27B]/40 transition-all duration-300 hover:shadow-lg hover:shadow-[#D9C27B]/10"
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                         {/* Appointment Info */}
