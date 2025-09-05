@@ -93,8 +93,15 @@ const MyAppointment = () => {
   const handlePayment = async (amount, appointmentId) => {
     
     try {
-      const res = await axios.post("http://localhost:1000/payment/create-order", { amount });
+       const cleanAmount = Number(amount.toString().replace(/[^0-9]/g, "")); // keep only digits
+    console.log("💰 Sending amount:", cleanAmount);
 
+    if (!cleanAmount || cleanAmount <= 0) {
+      alert("Invalid service price");
+      return;
+    }
+
+    const res = await axios.post("http://localhost:1000/payment/create-order", { amount: cleanAmount });
       const options = {
         key: "rzp_test_PuXf2SZhGaKEGd",
         amount: res.data.amount,
