@@ -91,6 +91,7 @@ const MyAppointment = () => {
 
 //payments
   const handlePayment = async (amount, appointmentId) => {
+    
     try {
       const res = await axios.post("http://localhost:1000/payment/create-order", { amount });
 
