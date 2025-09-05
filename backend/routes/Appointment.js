@@ -72,6 +72,7 @@ router.get("/stylists", async (req, res) => {
 router.post("/check-availability", async (req, res) => {
   try {
     const { stylistId, date, serviceId } = req.body;
+    console.log(req.body);
     
     // Get service duration
     const service = await Service.findById(serviceId);
@@ -169,6 +170,8 @@ router.post("/book", async (req, res) => {
       startTime,
       notes
     } = req.body;
+
+    console.log(req.body);
     
     // Get service and stylist details
     const service = await Service.findById(serviceId);
