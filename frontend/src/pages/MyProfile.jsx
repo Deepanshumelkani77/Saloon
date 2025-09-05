@@ -24,7 +24,7 @@ const MyProfile = () => {
   const [file, setFile] = useState(null);
   
   const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
-  const uploadPreset = "salon";
+  const uploadPreset = "Saloon";
 
   useEffect(() => {
     if (user && user.id) {
@@ -74,15 +74,16 @@ const MyProfile = () => {
       formData.append("file", file);
       formData.append("upload_preset", uploadPreset);
 
-      try {
-        const res = await axios.post(cloudinaryUrl, formData);
-        imageUrl = res.data.secure_url;
-      } catch (err) {
-        console.error("Image upload failed:", err);
-        alert("Image upload failed");
-        setLoading(false);
-        return;
-      }
+     try {
+  const res = await axios.post(cloudinaryUrl, formData);
+  console.log("Cloudinary response:", res.data);
+  imageUrl = res.data.secure_url;
+} catch (err) {
+  console.error("Image upload failed:", err.response ? err.response.data : err.message);
+  alert("Image upload failed");
+  setLoading(false);
+  return;
+}
     }
 
     const updatedData = {
@@ -160,7 +161,7 @@ const MyProfile = () => {
                 <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10">
                   {image ? (
                     <img 
-                      src={image} 
+                      src={userInfo.image} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -197,7 +198,7 @@ const MyProfile = () => {
                       placeholder="Your Name"
                     />
                   ) : (
-                    <h2 className="text-3xl font-bold text-white mb-2">{profileData.name}</h2>
+                    <h2 className="text-3xl font-bold text-white mb-2">{ }</h2>
                   )}
                 </div>
                 
@@ -214,7 +215,7 @@ const MyProfile = () => {
                         placeholder="your.email@example.com"
                       />
                     ) : (
-                      <span>{profileData.email}</span>
+                      <span>{}</span>
                     )}
                   </div>
                   
@@ -230,7 +231,7 @@ const MyProfile = () => {
                         placeholder="+91 XXXXX XXXXX"
                       />
                     ) : (
-                      <span>{profileData.phone}</span>
+                      <span>{}</span>
                     )}
                   </div>
                 </div>
