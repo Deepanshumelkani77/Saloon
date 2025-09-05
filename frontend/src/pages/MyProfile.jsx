@@ -14,7 +14,6 @@ const MyProfile = () => {
     phone: '',
     address: '',
     dateOfBirth: '',
-    profileImage: '',
     bio: ''
   });
 

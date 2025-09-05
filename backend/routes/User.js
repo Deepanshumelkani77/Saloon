@@ -56,6 +56,7 @@ router.put("/profile/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { name, phone, address, dateOfBirth, profileImage, bio } = req.body;
+    console.log(req.body);
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
