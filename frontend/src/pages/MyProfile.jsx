@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
-import { FaUser, FaEdit, FaSave, FaTimes, FaCamera, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaUserCircle } from 'react-icons/fa';
+import { FaUser, FaEdit, FaSave, FaTimes, FaCamera, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaUserCircle, FaTrash } from 'react-icons/fa';
 import { assets } from '../assets/assets';
 
 const MyProfile = () => {
@@ -22,6 +22,7 @@ const MyProfile = () => {
   const [originalData, setOriginalData] = useState({});
   const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
 
   // Default values for new users
   const getDefaultValue = (field, value) => {
@@ -74,8 +75,31 @@ const MyProfile = () => {
     });
   };
 
-   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      
+      // Create preview URL for immediate display
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  const handleDeleteImage = () => {
+    // Clear all image states to hide image immediately
+    setPreviewImage('');
+    setImage('');
+    setFile(null);
+    
+    // Reset file input
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = '';
+    }
   };
 
   const handleSave = async (e) => {
@@ -126,6 +150,11 @@ const MyProfile = () => {
     if (imageUrl !== image) {
       changedData.image = imageUrl;
     }
+    
+    // Handle image deletion
+    if (!previewImage && !image && userInfo?.image) {
+      changedData.image = '';
+    }
 
     // If no changes, just close edit mode
     if (Object.keys(changedData).length === 0 && !file) {
@@ -157,6 +186,7 @@ const MyProfile = () => {
         setOriginalData(updatedProfileData);
         setImage(imageUrl);
         setFile(null);
+        setPreviewImage('');
         setIsEditing(false);
       }
     } catch (err) {
@@ -172,6 +202,7 @@ const MyProfile = () => {
     setProfileData({ ...originalData });
     setImage(userInfo?.image || '');
     setFile(null);
+    setPreviewImage('');
     setIsEditing(false);
   };
 
@@ -203,9 +234,9 @@ const MyProfile = () => {
               {/* Profile Image */}
               <div className="relative">
                 <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10">
-                  {image ? (
+                  {(previewImage || image) ? (
                     <img 
-                      src={userInfo?.image || image} 
+                      src={previewImage || image} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -217,15 +248,27 @@ const MyProfile = () => {
                 </div>
                 
                 {isEditing && (
-                  <label className="absolute bottom-0 right-0 bg-[#D9C27B] hover:bg-[#F4E4A6] text-black p-2 rounded-full cursor-pointer transition-all duration-300 transform hover:scale-110">
-                    <FaCamera />
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      onChange={handleFileChange}
-                      className="hidden"
-                    />
-                  </label>
+                  <div className="absolute bottom-0 right-0 flex gap-2">
+                    <label className="bg-[#D9C27B] hover:bg-[#F4E4A6] text-black p-2 rounded-full cursor-pointer transition-all duration-300 transform hover:scale-110">
+                      <FaCamera />
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                    </label>
+                    
+                    {(previewImage || image || userInfo?.image) && (
+                      <button
+                        onClick={handleDeleteImage}
+                        className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-all duration-300 transform hover:scale-110"
+                        title="Delete Profile Picture"
+                      >
+                        <FaTrash />
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
 
