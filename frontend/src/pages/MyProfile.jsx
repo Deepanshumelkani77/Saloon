@@ -19,27 +19,42 @@ const MyProfile = () => {
     bio: ''
   });
 
-
-   const [image, setImage] = useState("");
+  const [originalData, setOriginalData] = useState({});
+  const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
+
+  // Default values for new users
+  const getDefaultValue = (field, value) => {
+    const defaults = {
+      name: 'Your Full Name',
+      phone: '+91 XXXXX XXXXX',
+      address: 'Your Address, City, State, PIN Code',
+      bio: 'Tell us about yourself, your hair preferences, or any special requirements...'
+    };
+    return value || defaults[field] || '';
+  };
   
   const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
   const uploadPreset = "Saloon";
 
   useEffect(() => {
     if (user && user.id) {
-      axios.get(`http://localhost:5000/user/info/${user.id}`)
+      axios.get(`http://localhost:1000/user/info/${user.id}`)
         .then((res) => {
           const data = res.data;
           setUserInfo(data);
-          setProfileData({
-            name: data.username || data.name || 'Your Name',
-            email: data.email || 'your.email@example.com',
-            phone: data.phone || '+91 XXXXX XXXXX',
-            address: data.address || 'Your Address, City, State',
+          
+          const formattedData = {
+            name: data.username || data.name || '',
+            email: data.email || '',
+            phone: data.phone || '',
+            address: data.address || '',
             dateOfBirth: data.dateOfBirth || '',
-            bio: data.bio || 'Tell us about yourself...'
-          });
+            bio: data.bio || ''
+          };
+          
+          setProfileData(formattedData);
+          setOriginalData(formattedData);
           setImage(data.image || '');
         })
         .catch((err) => {
@@ -69,39 +84,77 @@ const MyProfile = () => {
 
     let imageUrl = image;
 
+    // Upload image if file is selected
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", uploadPreset);
 
-     try {
-  const res = await axios.post(cloudinaryUrl, formData);
-  console.log("Cloudinary response:", res.data);
-  imageUrl = res.data.secure_url;
-} catch (err) {
-  console.error("Image upload failed:", err.response ? err.response.data : err.message);
-  alert("Image upload failed");
-  setLoading(false);
-  return;
-}
+      try {
+        const res = await axios.post(cloudinaryUrl, formData);
+        console.log("Cloudinary response:", res.data);
+        imageUrl = res.data.secure_url;
+      } catch (err) {
+        console.error("Image upload failed:", err.response ? err.response.data : err.message);
+        alert("Image upload failed");
+        setLoading(false);
+        return;
+      }
     }
 
-    const updatedData = {
-      username: profileData.name,
-      email: profileData.email,
-      phone: profileData.phone,
-      address: profileData.address,
-      dateOfBirth: profileData.dateOfBirth,
-      bio: profileData.bio,
-      image: imageUrl
-    };
+    // Only send changed fields
+    const changedData = {};
+    
+    if (profileData.name !== originalData.name && profileData.name.trim()) {
+      changedData.username = profileData.name;
+    }
+    if (profileData.email !== originalData.email && profileData.email.trim()) {
+      changedData.email = profileData.email;
+    }
+    if (profileData.phone !== originalData.phone && profileData.phone.trim()) {
+      changedData.phone = profileData.phone;
+    }
+    if (profileData.address !== originalData.address && profileData.address.trim()) {
+      changedData.address = profileData.address;
+    }
+    if (profileData.dateOfBirth !== originalData.dateOfBirth && profileData.dateOfBirth.trim()) {
+      changedData.dateOfBirth = profileData.dateOfBirth;
+    }
+    if (profileData.bio !== originalData.bio && profileData.bio.trim()) {
+      changedData.bio = profileData.bio;
+    }
+    if (imageUrl !== image) {
+      changedData.image = imageUrl;
+    }
+
+    // If no changes, just close edit mode
+    if (Object.keys(changedData).length === 0 && !file) {
+      setIsEditing(false);
+      setLoading(false);
+      return;
+    }
 
     try {
-      const res = await axios.put(`http://localhost:1000/user/profile/${user.id}`, updatedData);
+      const res = await axios.put(`http://localhost:1000/user/profile/${user.id}`, changedData);
       
       if (res.status === 200) {
         alert("Profile updated successfully!");
-        setUserInfo({ ...userInfo, ...updatedData });
+        
+        // Update local state with new data
+        const updatedUserInfo = { ...userInfo, ...changedData };
+        setUserInfo(updatedUserInfo);
+        
+        // Update original data to reflect changes
+        const updatedProfileData = {
+          name: changedData.username || profileData.name,
+          email: changedData.email || profileData.email,
+          phone: changedData.phone || profileData.phone,
+          address: changedData.address || profileData.address,
+          dateOfBirth: changedData.dateOfBirth || profileData.dateOfBirth,
+          bio: changedData.bio || profileData.bio
+        };
+        
+        setOriginalData(updatedProfileData);
         setImage(imageUrl);
         setFile(null);
         setIsEditing(false);
@@ -115,18 +168,9 @@ const MyProfile = () => {
   };
 
   const handleCancel = () => {
-    // Reset to original user data
-    if (userInfo) {
-      setProfileData({
-        name: userInfo.username || userInfo.name || 'Your Name',
-        email: userInfo.email || 'your.email@example.com',
-        phone: userInfo.phone || '+91 XXXXX XXXXX',
-        address: userInfo.address || 'Your Address, City, State',
-        dateOfBirth: userInfo.dateOfBirth || '',
-        bio: userInfo.bio || 'Tell us about yourself...'
-      });
-      setImage(userInfo.image || '');
-    }
+    // Reset to original data
+    setProfileData({ ...originalData });
+    setImage(userInfo?.image || '');
     setFile(null);
     setIsEditing(false);
   };
@@ -161,7 +205,7 @@ const MyProfile = () => {
                 <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10">
                   {image ? (
                     <img 
-                      src={userInfo.image} 
+                      src={userInfo?.image || image} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -198,7 +242,9 @@ const MyProfile = () => {
                       placeholder="Your Name"
                     />
                   ) : (
-                    <h2 className="text-3xl font-bold text-white mb-2">{ }</h2>
+                    <h2 className="text-3xl font-bold text-white mb-2">
+                      {getDefaultValue('name', userInfo?.username || userInfo?.name)}
+                    </h2>
                   )}
                 </div>
                 
@@ -215,7 +261,7 @@ const MyProfile = () => {
                         placeholder="your.email@example.com"
                       />
                     ) : (
-                      <span>{}</span>
+                      <span>{userInfo?.email || 'your.email@example.com'}</span>
                     )}
                   </div>
                   
@@ -231,7 +277,7 @@ const MyProfile = () => {
                         placeholder="+91 XXXXX XXXXX"
                       />
                     ) : (
-                      <span>{}</span>
+                      <span>{getDefaultValue('phone', userInfo?.phone)}</span>
                     )}
                   </div>
                 </div>
@@ -296,7 +342,7 @@ const MyProfile = () => {
                     />
                   ) : (
                     <div className="px-4 py-3 bg-[#2a2a2a] border border-[#D9C27B]/30 rounded-lg text-white min-h-[80px] flex items-center">
-                      {profileData.address}
+                      {getDefaultValue('address', userInfo?.address)}
                     </div>
                   )}
                 </div>
@@ -317,7 +363,7 @@ const MyProfile = () => {
                     />
                   ) : (
                     <div className="px-4 py-3 bg-[#2a2a2a] border border-[#D9C27B]/30 rounded-lg text-white">
-                      {profileData.dateOfBirth ? new Date(profileData.dateOfBirth).toLocaleDateString('en-US', {
+                      {userInfo?.dateOfBirth ? new Date(userInfo.dateOfBirth).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
@@ -347,7 +393,7 @@ const MyProfile = () => {
                     />
                   ) : (
                     <div className="px-4 py-3 bg-[#2a2a2a] border border-[#D9C27B]/30 rounded-lg text-white min-h-[140px] flex items-start">
-                      <p className="leading-relaxed">{profileData.bio}</p>
+                      <p className="leading-relaxed">{getDefaultValue('bio', userInfo?.bio)}</p>
                     </div>
                   )}
                 </div>
