@@ -14,6 +14,7 @@ const MyProfile = () => {
     phone: '',
     address: '',
     dateOfBirth: '',
+    profileImage: '',
     bio: ''
   });
 
@@ -31,6 +32,11 @@ const MyProfile = () => {
       });
     }
   }, [user]);
+
+
+  
+  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
+  const uploadPreset = "salon";
 
   const handleInputChange = (e) => {
     setProfileData({
