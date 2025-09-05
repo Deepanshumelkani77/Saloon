@@ -9,6 +9,7 @@ const MyAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cancellingId, setCancellingId] = useState(null);
+   const [paid, setPaid] = useState({});
 
   useEffect(() => {
     if (user) {
@@ -97,7 +98,7 @@ const MyAppointment = () => {
         key: "rzp_test_PuXf2SZhGaKEGd",
         amount: res.data.amount,
         currency: "INR",
-        name: "DocApp",
+        name: "Me & Guys Salon",
         description: "Appointment Payment",
         order_id: res.data.id,
         handler: async function (response) {
@@ -267,6 +268,7 @@ const MyAppointment = () => {
                             <button
                               className="flex items-center justify-center space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
                               title="Make Payment"
+                              onClick={() => handlePayment(appointment.servicePrice, appointment._id)}
                             >
                               <FaMoneyBillWave />
                               <span className="hidden sm:inline">Pay</span>
