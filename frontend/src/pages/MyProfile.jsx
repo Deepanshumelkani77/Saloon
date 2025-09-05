@@ -226,7 +226,7 @@ const MyProfile = () => {
       {/* Profile Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] rounded-3xl border border-[#D9C27B]/20 p-8 sm:p-12">
+          <div className="bg-black rounded-3xl border border-[#D9C27B]/20 p-8 sm:p-12">
             
             {/* Profile Header */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-12">
