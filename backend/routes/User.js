@@ -84,4 +84,19 @@ router.put("/profile/:userId", async (req, res) => {
   }
 });
 
+
+router.get("/info/:userId", async (req, res) => {
+
+const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user info", error: error.message });
+  }
+});
+
 module.exports = router;

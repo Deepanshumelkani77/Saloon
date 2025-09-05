@@ -8,41 +8,60 @@ const MyProfile = () => {
   const { user, setUser } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+ const [userInfo, setUserInfo] = useState(null);
+
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
     phone: '',
     address: '',
     dateOfBirth: '',
-    profileImage: '',
     bio: ''
   });
 
+
+   const [image, setImage] = useState("");
+  const [file, setFile] = useState(null);
+  
+  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
+  const uploadPreset = "salon";
+
   useEffect(() => {
-    if (user) {
-      // Set profile data with user info and defaults
+  axios.get(`http://localhost:5000/user/info/${user.id}`)
+      .then((res) => {
+        const data = res.data;
+        setUserInfo(data);
       setProfileData({
-        name: user.name || 'Your Name',
-        email: user.email || 'your.email@example.com',
-        phone: user.phone || '+91 XXXXX XXXXX',
-        address: user.address || 'Your Address, City, State',
-        dateOfBirth: user.dateOfBirth || '',
-        profileImage: user.profileImage || '',
-        bio: user.bio || 'Tell us about yourself...'
+        name: data.name || 'Your Name',
+        email: data.email || 'your.email@example.com',
+        phone: data.phone || '+91 XXXXX XXXXX',
+        address: data.address || 'Your Address, City, State',
+        dateOfBirth: data.dateOfBirth || '',
+        bio: data.bio || 'Tell us about yourself...'
       });
-    }
+       setImage(data.image);
+
+    })
+      .catch((err) => {
+        console.error('Error fetching user info:', err);
+      });
+
+    
   }, [user]);
 
 
   
-  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
-  const uploadPreset = "salon";
+
 
   const handleInputChange = (e) => {
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value
     });
+  };
+
+   const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleSave = async () => {
