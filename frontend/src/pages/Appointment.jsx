@@ -514,25 +514,25 @@ const Appointment = () => {
                       <div className="flex justify-between">
                         <span className="text-gray-300">Service:</span>
                         <span className="text-white font-semibold">
-                          {services.find(s => s.id === formData.service)?.name}
+                          {services.find(s => s._id === formData.service)?.name}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-300">Price:</span>
                         <span className="text-[#D9C27B] font-bold">
-                          {services.find(s => s.id === formData.service)?.price}
+                          {services.find(s => s._id === formData.service)?.price}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-300">Duration:</span>
                         <span className="text-white">
-                          {services.find(s => s.id === formData.service)?.duration}
+                          {services.find(s => s._id === formData.service)?.duration} min
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-300">Stylist:</span>
                         <span className="text-white">
-                          {stylists.find(s => s.id === formData.stylist)?.name}
+                          {stylists.find(s => s._id === formData.stylist)?.name}
                         </span>
                       </div>
                       <div className="flex justify-between">
