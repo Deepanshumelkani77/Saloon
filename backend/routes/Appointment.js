@@ -171,14 +171,32 @@ router.post("/book", async (req, res) => {
       notes
     } = req.body;
 
-    console.log(req.body);
+    console.log('Received booking request:', req.body);
+    
+    // Validate required fields
+    if (!userId || !customerName || !customerEmail || !customerPhone || !serviceId || !stylistId || !appointmentDate || !startTime) {
+      console.log('Missing required fields');
+      return res.status(400).json({ message: "Missing required fields" });
+    }
     
     // Get service and stylist details
+    console.log('Looking for service with ID:', serviceId);
+    console.log('Looking for stylist with ID:', stylistId);
+    
     const service = await Service.findById(serviceId);
     const stylist = await Stylist.findById(stylistId);
     
-    if (!service || !stylist) {
-      return res.status(404).json({ message: "Service or stylist not found" });
+    console.log('Found service:', service);
+    console.log('Found stylist:', stylist);
+    
+    if (!service) {
+      console.log('Service not found');
+      return res.status(404).json({ message: "Service not found" });
+    }
+    
+    if (!stylist) {
+      console.log('Stylist not found');
+      return res.status(404).json({ message: "Stylist not found" });
     }
     
     // Calculate end time

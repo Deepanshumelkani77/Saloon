@@ -89,10 +89,25 @@ const Appointment = () => {
       return;
     }
 
+    // Validate all required fields before submission
+    if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.stylist || !formData.date || !formData.time) {
+      alert('Please fill in all required fields');
+      console.log('Missing form fields:', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        stylist: formData.stylist,
+        date: formData.date,
+        time: formData.time
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const appointmentData = {
-        userId: user._id,
+        userId: user.id || user._id,
         customerName: formData.name,
         customerEmail: formData.email,
         customerPhone: formData.phone,
@@ -103,7 +118,21 @@ const Appointment = () => {
         notes: formData.notes
       };
 
-      await axios.post('http://localhost:1000/appointment/book', appointmentData);
+      console.log('User object:', user);
+      console.log('Form data:', formData);
+      console.log('Booking appointment with data:', appointmentData);
+      console.log('Individual field check:');
+      console.log('- userId:', appointmentData.userId);
+      console.log('- customerName:', appointmentData.customerName);
+      console.log('- customerEmail:', appointmentData.customerEmail);
+      console.log('- customerPhone:', appointmentData.customerPhone);
+      console.log('- serviceId:', appointmentData.serviceId);
+      console.log('- stylistId:', appointmentData.stylistId);
+      console.log('- appointmentDate:', appointmentData.appointmentDate);
+      console.log('- startTime:', appointmentData.startTime);
+      
+      const response = await axios.post('http://localhost:1000/appointment/book', appointmentData);
+      console.log('Booking response:', response.data);
       
       alert('Your appointment has been booked successfully! We will contact you soon to confirm.');
       
@@ -122,10 +151,15 @@ const Appointment = () => {
       setAvailableSlots([]);
       setBookedSlots([]);
     } catch (error) {
-      console.error('Error booking appointment:', error);
+      console.error('Full error object:', error);
+      console.error('Error response:', error.response);
+      console.error('Error message:', error.message);
+      
       if (error.response?.status === 409) {
         alert('This time slot is no longer available. Please choose another time.');
         checkAvailability(); // Refresh availability
+      } else if (error.response?.data?.message) {
+        alert(`Error: ${error.response.data.message}`);
       } else {
         alert('Error booking appointment. Please try again.');
       }
