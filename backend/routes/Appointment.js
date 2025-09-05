@@ -96,12 +96,12 @@ router.post("/check-availability", async (req, res) => {
       status: { $in: ['pending', 'confirmed'] }
     });
     
-    // Generate all possible time slots (9 AM to 8 PM, 30-minute intervals)
+    // Generate all possible time slots (9 AM to 8:30 PM, 30-minute intervals)
     const timeSlots = [
       '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
       '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
       '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM',
-      '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM'
+      '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM'
     ];
     
     const availableSlots = [];
@@ -111,8 +111,29 @@ router.post("/check-availability", async (req, res) => {
       const proposedEndTime = calculateEndTime(slot, service.duration);
       const proposedEndMinutes = timeToMinutes(proposedEndTime);
       
-      // Check if proposed slot would end after 8:30 PM (salon closing)
-      if (proposedEndMinutes > timeToMinutes('8:30 PM')) {
+      // Check if the slot is in the past (for today's date only)
+      const selectedDate = new Date(date);
+      const today = new Date();
+      const isToday = selectedDate.toDateString() === today.toDateString();
+      
+      if (isToday) {
+        const currentTime = new Date();
+        const currentHours = currentTime.getHours();
+        const currentMinutes = currentTime.getMinutes();
+        const currentTotalMinutes = currentHours * 60 + currentMinutes;
+        const slotMinutes = timeToMinutes(slot);
+        
+        if (slotMinutes <= currentTotalMinutes) {
+          bookedSlots.push({
+            time: slot,
+            reason: 'Time slot has already passed'
+          });
+          return;
+        }
+      }
+      
+      // Check if proposed slot would end after 9:00 PM (salon closing)
+      if (proposedEndMinutes > timeToMinutes('9:00 PM')) {
         bookedSlots.push({
           time: slot,
           reason: 'Service would extend beyond salon hours'
