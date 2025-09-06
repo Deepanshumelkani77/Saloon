@@ -48,7 +48,7 @@ const Navbar = ({ toggleSidebar, sidebarOpen }) => {
           <div className="flex items-center space-x-4">
 
             {/* Profile Menu */}
-            <div className="relative" ref={profileMenuRef}>
+            <div className="relative">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 className="flex items-center space-x-3 p-2 text-[#D9C27B] hover:text-[#F4E4A6] hover:bg-[#D9C27B]/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D9C27B]"
@@ -64,30 +64,21 @@ const Navbar = ({ toggleSidebar, sidebarOpen }) => {
 
               {/* Profile Dropdown */}
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-black/95 backdrop-blur-xl rounded-lg shadow-lg border border-[#D9C27B]/30 py-2 z-[60]">
+                <div className="absolute right-0 mt-2 w-48 bg-black/95 backdrop-blur-xl rounded-lg shadow-lg border border-[#D9C27B]/30 py-2 z-50">
                   <div className="px-4 py-2 border-b border-[#D9C27B]/30">
                     <p className="text-sm font-medium text-white">Admin User</p>
                     <p className="text-xs text-[#D9C27B]/70">admin@salon.com</p>
                   </div>
-                  <button 
-                    className="w-full text-left px-4 py-2 text-sm text-[#D9C27B] hover:bg-[#D9C27B]/10 hover:text-[#F4E4A6] flex items-center space-x-2"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
+                  <button className="w-full text-left px-4 py-2 text-sm text-[#D9C27B] hover:bg-[#D9C27B]/10 hover:text-[#F4E4A6] flex items-center space-x-2">
                     <User size={16} />
                     <span>Profile Settings</span>
                   </button>
-                  <button 
-                    className="w-full text-left px-4 py-2 text-sm text-[#D9C27B] hover:bg-[#D9C27B]/10 hover:text-[#F4E4A6] flex items-center space-x-2"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
+                  <button className="w-full text-left px-4 py-2 text-sm text-[#D9C27B] hover:bg-[#D9C27B]/10 hover:text-[#F4E4A6] flex items-center space-x-2">
                     <Settings size={16} />
                     <span>Account Settings</span>
                   </button>
                   <hr className="my-2 border-[#D9C27B]/30" />
-                  <button 
-                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 flex items-center space-x-2"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
+                  <button className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 flex items-center space-x-2">
                     <LogOut size={16} />
                     <span>Sign Out</span>
                   </button>
