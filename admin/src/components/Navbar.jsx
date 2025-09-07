@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { FaCut, FaUserCircle, FaBell, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa'
+import { FaCut, FaUserCircle, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa'
 
 const Navbar = () => {
-  const [user, setUser] = useState(true) // Set to true for demo, replace with actual auth state
+  const [user, setUser] = useState(false) // Set to false by default, replace with actual auth state
   const [profileDropdown, setProfileDropdown] = useState(false)
-  const [notificationDropdown, setNotificationDropdown] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const gold = '#D9C27B'
@@ -16,16 +15,22 @@ const Navbar = () => {
     avatar: null
   }
 
-  const notifications = [
-    { id: 1, message: 'New appointment booked', time: '5 min ago', unread: true },
-    { id: 2, message: 'Payment received', time: '1 hour ago', unread: true },
-    { id: 3, message: 'Staff member checked in', time: '2 hours ago', unread: false },
-  ]
-
   const handleLogout = () => {
-    // Add logout logic here
     console.log('Logging out...')
     setUser(false)
+    setProfileDropdown(false)
+  }
+
+  const handleLogin = () => {
+    console.log('Logging in...')
+    setUser(true)
+    setProfileDropdown(false)
+  }
+
+  const handleSignup = () => {
+    console.log('Signing up...')
+    setUser(true)
+    setProfileDropdown(false)
   }
 
   return (
@@ -47,156 +52,121 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
             
-            {/* Quick Stats */}
-            <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-2 px-3 py-1 bg-[#D9C27B]/10 rounded-full">
-                <FaCalendarAlt className="text-[#D9C27B]" />
-                <span className="text-white">12 Today</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 rounded-full">
-                <FaChartBar className="text-green-400" />
-                <span className="text-white">₹15,240</span>
-              </div>
-            </div>
-
-            {/* Notifications */}
-            <div className="relative">
-              <button
-                onClick={() => setNotificationDropdown(!notificationDropdown)}
-                className="relative p-2 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 rounded-full hover:bg-[#D9C27B]/10"
-              >
-                <FaBell className="text-xl" />
-                {notifications.filter(n => n.unread).length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {notifications.filter(n => n.unread).length}
-                  </span>
-                )}
-              </button>
-
-              {/* Notifications Dropdown */}
-              {notificationDropdown && (
-                <div className="absolute right-0 mt-2 w-80 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
-                  <div className="p-4 border-b border-[#D9C27B]/20">
-                    <h3 className="text-white font-semibold">Notifications</h3>
-                  </div>
-                  <div className="max-h-64 overflow-y-auto">
-                    {notifications.map((notification) => (
-                      <div
-                        key={notification.id}
-                        className={`p-4 border-b border-gray-700/50 hover:bg-[#D9C27B]/5 transition-colors ${
-                          notification.unread ? 'bg-[#D9C27B]/5' : ''
-                        }`}
-                      >
-                        <p className="text-white text-sm">{notification.message}</p>
-                        <p className="text-gray-400 text-xs mt-1">{notification.time}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="p-3 text-center border-t border-[#D9C27B]/20">
-                    <button className="text-[#D9C27B] text-sm hover:text-[#F4E4A6] transition-colors">
-                      View All Notifications
-                    </button>
-                  </div>
+            {/* Quick Stats - Only show when admin is logged in */}
+            {user && (
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2 px-3 py-1 bg-[#D9C27B]/10 rounded-full">
+                  <FaCalendarAlt className="text-[#D9C27B]" />
+                  <span className="text-white">12 Today</span>
                 </div>
-              )}
-            </div>
+                
+              </div>
+            )}
 
             {/* Profile Section */}
-            {user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setProfileDropdown(!profileDropdown)}
-                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#D9C27B]/10 transition-all duration-200 group"
-                >
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
-                    <FaUserCircle className="text-black text-lg" />
-                  </div>
+            <div className="relative">
+              <button
+                onClick={() => setProfileDropdown(!profileDropdown)}
+                className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#D9C27B]/10 transition-all duration-200 group"
+              >
+                <div className="w-8 h-8 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
+                  <FaUserCircle className="text-black text-lg" />
+                </div>
+                {user && (
                   <div className="hidden lg:block text-left">
                     <p className="text-white text-sm font-medium">{adminUser.name}</p>
                     <p className="text-[#D9C27B] text-xs">{adminUser.role}</p>
                   </div>
-                  <svg className="w-4 h-4 text-gray-400 group-hover:text-[#D9C27B] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                )}
+                <svg className="w-4 h-4 text-gray-400 group-hover:text-[#D9C27B] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
 
-                {/* Profile Dropdown */}
-                {profileDropdown && (
-                  <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
-                    {/* User Info */}
-                    <div className="p-4 border-b border-[#D9C27B]/20">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
-                          <FaUserCircle className="text-black text-xl" />
-                        </div>
-                        <div>
-                          <p className="text-white font-semibold">{adminUser.name}</p>
-                          <p className="text-gray-400 text-sm">{adminUser.email}</p>
-                          <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
-                            {adminUser.role}
-                          </span>
+              {/* Profile Dropdown */}
+              {profileDropdown && (
+                <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
+                  {user ? (
+                    <>
+                      {/* User Info */}
+                      <div className="p-4 border-b border-[#D9C27B]/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
+                            <FaUserCircle className="text-black text-xl" />
+                          </div>
+                          <div>
+                            <p className="text-white font-semibold">{adminUser.name}</p>
+                            <p className="text-gray-400 text-sm">{adminUser.email}</p>
+                            <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
+                              {adminUser.role}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Menu Items */}
-                    <div className="py-2">
-                      <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
-                        <FaUserCircle className="text-lg" />
-                        <span>My Profile</span>
-                      </button>
-                      <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
-                        <FaCog className="text-lg" />
-                        <span>Settings</span>
-                      </button>
-                      <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
-                        <FaChartBar className="text-lg" />
-                        <span>Analytics</span>
-                      </button>
-                      <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
-                        <FaUsers className="text-lg" />
-                        <span>Manage Staff</span>
-                      </button>
-                    </div>
+                      {/* Menu Items */}
+                      <div className="py-2">
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaUserCircle className="text-lg" />
+                          <span>My Profile</span>
+                        </button>
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaCog className="text-lg" />
+                          <span>Settings</span>
+                        </button>
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaChartBar className="text-lg" />
+                          <span>Analytics</span>
+                        </button>
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaUsers className="text-lg" />
+                          <span>Manage Staff</span>
+                        </button>
+                      </div>
 
-                    {/* Logout */}
-                    <div className="border-t border-[#D9C27B]/20 py-2">
-                      <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200"
-                      >
-                        <FaSignOutAlt className="text-lg" />
-                        <span>Sign Out</span>
-                      </button>
+                      {/* Logout */}
+                      <div className="border-t border-[#D9C27B]/20 py-2">
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200"
+                        >
+                          <FaSignOutAlt className="text-lg" />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    /* Login/Signup Options */
+                    <div className="py-3">
+                      <div className="px-4 pb-3 border-b border-[#D9C27B]/20">
+                        <p className="text-white font-semibold text-center">Welcome to Admin Panel</p>
+                        <p className="text-gray-400 text-sm text-center mt-1">Please sign in to continue</p>
+                      </div>
+                      <div className="p-4 space-y-3">
+                        <button
+                          onClick={handleLogin}
+                          className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200"
+                        >
+                          <FaUserCircle className="text-lg" />
+                          <span>Login</span>
+                        </button>
+                        <button
+                          onClick={handleSignup}
+                          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-[#D9C27B] text-black rounded-full font-semibold hover:bg-[#F4E4A6] transition-all duration-200"
+                        >
+                          <FaUserCircle className="text-lg" />
+                          <span>Sign Up</span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <button
-                className="px-6 py-2 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200"
-              >
-                Admin Login
-              </button>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-3">
-            {user && (
-              <button
-                onClick={() => setNotificationDropdown(!notificationDropdown)}
-                className="relative p-2 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200"
-              >
-                <FaBell className="text-lg" />
-                {notifications.filter(n => n.unread).length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                    {notifications.filter(n => n.unread).length}
-                  </span>
-                )}
-              </button>
-            )}
-            
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
@@ -222,6 +192,18 @@ const Navbar = () => {
                   </div>
                 </div>
 
+                {/* Mobile Stats */}
+                <div className="flex items-center gap-3 text-sm">
+                  <div className="flex items-center gap-2 px-3 py-1 bg-[#D9C27B]/10 rounded-full">
+                    <FaCalendarAlt className="text-[#D9C27B]" />
+                    <span className="text-white">12 Today</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 rounded-full">
+                    <FaChartBar className="text-green-400" />
+                    <span className="text-white">₹15,240</span>
+                  </div>
+                </div>
+
                 {/* Mobile Menu Items */}
                 <div className="space-y-2">
                   <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
@@ -236,6 +218,10 @@ const Navbar = () => {
                     <FaChartBar />
                     <span>Analytics</span>
                   </button>
+                  <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
+                    <FaUsers />
+                    <span>Manage Staff</span>
+                  </button>
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 p-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all duration-200"
@@ -246,22 +232,36 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <button className="w-full px-4 py-2 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200">
-                Admin Login
-              </button>
+              <div className="space-y-4">
+                <div className="text-center py-2">
+                  <p className="text-white font-semibold">Welcome to Admin Panel</p>
+                  <p className="text-gray-400 text-sm mt-1">Please sign in to continue</p>
+                </div>
+                <div className="space-y-3">
+                  <button
+                    onClick={handleLogin}
+                    className="w-full px-4 py-2 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={handleSignup}
+                    className="w-full px-4 py-2 bg-[#D9C27B] text-black rounded-full font-semibold hover:bg-[#F4E4A6] transition-all duration-200"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         )}
       </div>
 
       {/* Click outside to close dropdowns */}
-      {(profileDropdown || notificationDropdown) && (
+      {profileDropdown && (
         <div
           className="fixed inset-0 z-40"
-          onClick={() => {
-            setProfileDropdown(false)
-            setNotificationDropdown(false)
-          }}
+          onClick={() => setProfileDropdown(false)}
         />
       )}
     </div>
