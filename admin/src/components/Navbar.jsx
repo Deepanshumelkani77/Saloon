@@ -72,12 +72,12 @@ const Navbar = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
                   <FaUserCircle className="text-black text-lg" />
                 </div>
-                {user && (
+                
                   <div className="hidden lg:block text-left">
                     <p className="text-white text-sm font-medium">{adminUser.name}</p>
                     <p className="text-[#D9C27B] text-xs">{adminUser.role}</p>
                   </div>
-                )}
+                
                 <svg className="w-4 h-4 text-gray-400 group-hover:text-[#D9C27B] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
