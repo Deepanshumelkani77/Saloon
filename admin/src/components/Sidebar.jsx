@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { 
   FaTachometerAlt, 
   FaCalendarAlt, 
@@ -13,8 +13,10 @@ import {
   FaBell,
   FaTimes
 } from 'react-icons/fa'
+import { AppContext } from '../context/AppContext'
 
-const Sidebar = ({ isOpen, onClose, user }) => {
+const Sidebar = () => {
+  const { user, setUser, sidebarOpen, setSidebarOpen } = useContext(AppContext)
   const [activeItem, setActiveItem] = useState('dashboard')
   const gold = '#D9C27B'
 
@@ -34,30 +36,34 @@ const Sidebar = ({ isOpen, onClose, user }) => {
     setActiveItem(itemId)
     // Close sidebar on mobile after selection
     if (window.innerWidth < 768) {
-      onClose()
+      setSidebarOpen(false)
     }
   }
 
   const handleLogout = () => {
     console.log('Logging out...')
-    // Add logout logic here
-    onClose()
+    setUser(false)
+    setSidebarOpen(false)
+  }
+
+  const closeSidebar = () => {
+    setSidebarOpen(false)
   }
 
   return (
     <>
       {/* Overlay for mobile */}
-      {isOpen && (
+      {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-          onClick={onClose}
+          onClick={closeSidebar}
         />
       )}
 
       {/* Sidebar */}
       <div className={`
         fixed top-0 left-0 h-[90vh] w-64 bg-black/95 backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 md:static md:z-auto
       `}>
         
@@ -73,7 +79,7 @@ const Sidebar = ({ isOpen, onClose, user }) => {
           
           {/* Close button for mobile */}
           <button
-            onClick={onClose}
+            onClick={closeSidebar}
             className="md:hidden p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
           >
             <FaTimes className="text-lg" />

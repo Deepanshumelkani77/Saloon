@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { FaCut, FaUserCircle, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa'
+import { AppContext } from '../context/AppContext'
 
-const Navbar = ({ onSidebarToggle, sidebarOpen }) => {
-  const [user, setUser] = useState(false) // Set to false by default, replace with actual auth state
+const Navbar = () => {
+  const { user, setUser, sidebarOpen, setSidebarOpen } = useContext(AppContext)
   const [profileDropdown, setProfileDropdown] = useState(false)
 
   const gold = '#D9C27B'
@@ -30,6 +31,10 @@ const Navbar = ({ onSidebarToggle, sidebarOpen }) => {
     console.log('Signing up...')
     setUser(true)
     setProfileDropdown(false)
+  }
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
   }
 
   return (
@@ -252,9 +257,7 @@ const Navbar = ({ onSidebarToggle, sidebarOpen }) => {
             
             {/* Sidebar Toggle Button */}
             <button
-              onClick={() => {
-                if (onSidebarToggle) onSidebarToggle()
-              }}
+              onClick={toggleSidebar}
               className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
             >
               <FaBars className="text-xl" />
