@@ -11,7 +11,7 @@ import Specialist from './pages/Specialist'
 
 const App = () => {
   return (
-    <div>
+    <div className="">
       <Navbar />
       <Sidebar />
 

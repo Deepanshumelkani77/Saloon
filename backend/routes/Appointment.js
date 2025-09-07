@@ -327,5 +327,95 @@ router.post('/update-payment/:id', async (req, res) => {
   }
 });
 
+// Dashboard Statistics - Appointment Stats
+router.get("/stats", async (req, res) => {
+  try {
+    // Total appointments count
+    const totalAppointments = await Appointment.countDocuments();
+    
+    // Today's appointments
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const todayAppointments = await Appointment.countDocuments({
+      appointmentDate: { $gte: today, $lt: tomorrow }
+    });
+
+    // This month's appointments and revenue
+    const currentMonth = new Date();
+    currentMonth.setDate(1);
+    currentMonth.setHours(0, 0, 0, 0);
+    
+    const monthlyAppointments = await Appointment.find({
+      appointmentDate: { $gte: currentMonth },
+      status: { $in: ['confirmed', 'completed'] }
+    });
+
+    // Calculate monthly revenue
+    const monthlyRevenue = monthlyAppointments.reduce((total, appointment) => {
+      const price = parseFloat(appointment.servicePrice.replace(/[₹,]/g, '')) || 0;
+      return total + price;
+    }, 0);
+
+    // Appointment status counts
+    const pendingAppointments = await Appointment.countDocuments({ status: 'pending' });
+    const confirmedAppointments = await Appointment.countDocuments({ status: 'confirmed' });
+    const completedAppointments = await Appointment.countDocuments({ status: 'completed' });
+    const cancelledAppointments = await Appointment.countDocuments({ status: 'cancelled' });
+
+    // Recent appointments (last 10)
+    const recentAppointments = await Appointment.find()
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select('customerName serviceName startTime status appointmentDate')
+      .lean();
+
+    // Format recent appointments for frontend
+    const formattedRecentAppointments = recentAppointments.map(appointment => ({
+      id: appointment._id,
+      customerName: appointment.customerName,
+      service: appointment.serviceName,
+      time: appointment.startTime,
+      status: appointment.status,
+      date: appointment.appointmentDate
+    }));
+
+    // Popular services (top 5)
+    const popularServices = await Appointment.aggregate([
+      { $match: { status: { $in: ['confirmed', 'completed'] } } },
+      { $group: { _id: '$serviceName', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 }
+    ]);
+
+    // Weekly stats for trend calculation
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    
+    const weeklyAppointments = await Appointment.countDocuments({
+      appointmentDate: { $gte: lastWeek }
+    });
+
+    res.json({
+      totalAppointments,
+      todayAppointments,
+      monthlyRevenue,
+      monthlyAppointments: monthlyAppointments.length,
+      pendingAppointments,
+      confirmedAppointments,
+      completedAppointments,
+      cancelledAppointments,
+      recentAppointments: formattedRecentAppointments,
+      popularServices,
+      weeklyAppointments,
+      // Growth calculations
+      appointmentGrowth: weeklyAppointments > 0 ? ((weeklyAppointments / Math.max(totalAppointments - weeklyAppointments, 1)) * 100).toFixed(1) : 0
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching appointment statistics", error: error.message });
+  }
+});
 
 module.exports = router;
