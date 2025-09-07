@@ -26,7 +26,7 @@ const App = () => {
         <main className={`
           flex-1 
           transition-all duration-300 ease-in-out
-          md:ml-64
+         
           min-h-[calc(100vh-10vh)]
           p-4 md:p-6 lg:p-8
           bg-gradient-to-br from-gray-900/30 via-black/30 to-gray-900/30
