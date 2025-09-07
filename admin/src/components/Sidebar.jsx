@@ -109,11 +109,13 @@ const Sidebar = ({ }) => {
               const isActive = activeItem === item.id
               
               return (
-                <button
+                <a href={item.path}>
+
+     <button
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
                   className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left group
+                     w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left group
                     ${isActive 
                       ? 'bg-[#D9C27B]/20 text-[#D9C27B] border-l-4 border-[#D9C27B]' 
                       : 'text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
@@ -128,6 +130,11 @@ const Sidebar = ({ }) => {
                     <div className="ml-auto w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse" />
                   )}
                 </button>
+
+                </a>
+           
+
+
               )
             })}
           </div>
