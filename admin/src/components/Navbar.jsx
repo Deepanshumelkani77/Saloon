@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { FaCut, FaUserCircle, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa'
 
-const Navbar = ({ onSidebarToggle }) => {
+const Navbar = ({ onSidebarToggle, sidebarOpen }) => {
   const [user, setUser] = useState(false) // Set to false by default, replace with actual auth state
   const [profileDropdown, setProfileDropdown] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const gold = '#D9C27B'
 
@@ -254,8 +253,7 @@ const Navbar = ({ onSidebarToggle }) => {
             {/* Sidebar Toggle Button */}
             <button
               onClick={() => {
-                setSidebarOpen(!sidebarOpen)
-                if (onSidebarToggle) onSidebarToggle(!sidebarOpen)
+                if (onSidebarToggle) onSidebarToggle()
               }}
               className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
             >

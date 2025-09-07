@@ -66,8 +66,8 @@ const Sidebar = ({ isOpen, onClose, user }) => {
           <div className="flex items-center gap-2">
             <FaCut className="text-2xl animate-spin-slow text-[#D9C27B]" />
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-white tracking-wide">Me & Guys</span>
-              <span className="text-xs tracking-widest font-normal text-[#D9C27B]">ADMIN PANEL</span>
+              <span className="text-lg font-bold text-white tracking-wide">Admin Dashboard</span>
+              <span className="text-xs tracking-widest font-normal text-[#D9C27B]">MANAGEMENT SYSTEM</span>
             </div>
           </div>
           
