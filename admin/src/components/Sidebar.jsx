@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { 
   FaTachometerAlt, 
   FaCalendarAlt, 
@@ -13,10 +13,8 @@ import {
   FaBell,
   FaTimes
 } from 'react-icons/fa'
-import { AppContext } from '../context/AppContext'
 
-const Sidebar = () => {
-  const { user, setUser, sidebarOpen, setSidebarOpen } = useContext(AppContext)
+const Sidebar = ({ isOpen, onClose, user }) => {
   const [activeItem, setActiveItem] = useState('dashboard')
   const gold = '#D9C27B'
 
@@ -36,34 +34,30 @@ const Sidebar = () => {
     setActiveItem(itemId)
     // Close sidebar on mobile after selection
     if (window.innerWidth < 768) {
-      setSidebarOpen(false)
+      onClose()
     }
   }
 
   const handleLogout = () => {
     console.log('Logging out...')
-    setUser(false)
-    setSidebarOpen(false)
-  }
-
-  const closeSidebar = () => {
-    setSidebarOpen(false)
+    // Add logout logic here
+    onClose()
   }
 
   return (
     <>
       {/* Overlay for mobile */}
-      {sidebarOpen && (
+      {isOpen && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-          onClick={closeSidebar}
+          onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
       <div className={`
         fixed top-0 left-0 h-[90vh] w-64 bg-black/95 backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 md:static md:z-auto
       `}>
         
@@ -79,7 +73,7 @@ const Sidebar = () => {
           
           {/* Close button for mobile */}
           <button
-            onClick={closeSidebar}
+            onClick={onClose}
             className="md:hidden p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
           >
             <FaTimes className="text-lg" />
@@ -153,14 +147,23 @@ const Sidebar = () => {
 
         {/* Logout Button */}
         <div className="p-4 border-t border-[#D9C27B]/20">
-          <button
+        {
+          user? <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all duration-200"
           >
             <FaSignOutAlt className="text-lg" />
             <span className="font-medium">Sign Out</span>
-          </button>
+          </button>:
+          <div><button>Login</button><button>Signup</button></div>
+        }
+         
         </div>
+
+
+
+
+
       </div>
     </>
   )

@@ -33,10 +33,6 @@ const Navbar = () => {
     setProfileDropdown(false)
   }
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
-
   return (
     <div className="  bg-black shadow-lg border-b border-[#D9C27B]/20 sticky top-0 z-50 h-[10vh]">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -257,7 +253,7 @@ const Navbar = () => {
             
             {/* Sidebar Toggle Button */}
             <button
-              onClick={toggleSidebar}
+              onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
             >
               <FaBars className="text-xl" />
