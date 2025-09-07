@@ -100,4 +100,46 @@ const { userId } = req.params;
   }
 });
 
+// Dashboard Statistics - User Stats
+router.get("/stats", async (req, res) => {
+  try {
+    // Total users count
+    const totalUsers = await User.countDocuments();
+    
+    // Users registered this month
+    const currentMonth = new Date();
+    currentMonth.setDate(1);
+    currentMonth.setHours(0, 0, 0, 0);
+    
+    const usersThisMonth = await User.countDocuments({
+      createdAt: { $gte: currentMonth }
+    });
+    
+    // Users registered today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const usersToday = await User.countDocuments({
+      createdAt: { $gte: today, $lt: tomorrow }
+    });
+
+    // Active users (users with at least one appointment)
+    const Appointment = require("../models/Appointment");
+    const activeUserIds = await Appointment.distinct("userId");
+    const activeUsers = activeUserIds.length;
+
+    res.json({
+      totalUsers,
+      usersThisMonth,
+      usersToday,
+      activeUsers,
+      userGrowth: usersThisMonth > 0 ? ((usersThisMonth / Math.max(totalUsers - usersThisMonth, 1)) * 100).toFixed(1) : 0
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user statistics", error: error.message });
+  }
+});
+
 module.exports = router;

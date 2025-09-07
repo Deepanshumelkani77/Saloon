@@ -13,7 +13,7 @@ const App = () => {
   const { sidebarOpen } = useContext(AppContext)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <div className="min-h-screen ">
       {/* Fixed Navbar */}
       <Navbar />
 
@@ -26,10 +26,10 @@ const App = () => {
         <main className={`
           flex-1 
           transition-all duration-300 ease-in-out
-         
-          min-h-[calc(100vh-10vh)]
-          p-4 md:p-6 lg:p-8
-          bg-gradient-to-br from-gray-900/30 via-black/30 to-gray-900/30
+          h-[90vh]
+          overflow-y-auto 
+          
+          
         `}>
           <Routes>
             <Route path='/' element={<Dashboard />} />
