@@ -34,7 +34,7 @@ const Navbar = ({ onSidebarToggle }) => {
   }
 
   return (
-    <div className="bg-black shadow-lg border-b border-[#D9C27B]/20 sticky top-0 z-50">
+    <div className="  bg-black shadow-lg border-b border-[#D9C27B]/20 sticky top-0 z-50">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
