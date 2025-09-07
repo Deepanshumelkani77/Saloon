@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { FaCut, FaUserCircle, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, FaUsers, FaBars, FaTimes } from 'react-icons/fa'
 
-const Navbar = () => {
+const Navbar = ({ onSidebarToggle }) => {
   const [user, setUser] = useState(false) // Set to false by default, replace with actual auth state
   const [profileDropdown, setProfileDropdown] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const gold = '#D9C27B'
 
@@ -165,96 +165,105 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button & Profile */}
           <div className="md:hidden flex items-center gap-3">
+            {/* Mobile Profile Icon */}
+            <div className="relative">
+              <button
+                onClick={() => setProfileDropdown(!profileDropdown)}
+                className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
+              >
+                <div className="w-6 h-6 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
+                  <FaUserCircle className="text-black text-sm" />
+                </div>
+              </button>
+
+              {/* Mobile Profile Dropdown */}
+              {profileDropdown && (
+                <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
+                  {user ? (
+                    <>
+                      {/* User Info */}
+                      <div className="p-4 border-b border-[#D9C27B]/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
+                            <FaUserCircle className="text-black text-xl" />
+                          </div>
+                          <div>
+                            <p className="text-white font-semibold">{adminUser.name}</p>
+                            <p className="text-gray-400 text-sm">{adminUser.email}</p>
+                            <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
+                              {adminUser.role}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Menu Items */}
+                      <div className="py-2">
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaUserCircle className="text-lg" />
+                          <span>My Profile</span>
+                        </button>
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                          <FaCog className="text-lg" />
+                          <span>Settings</span>
+                        </button>
+                      </div>
+
+                      {/* Logout */}
+                      <div className="border-t border-[#D9C27B]/20 py-2">
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200"
+                        >
+                          <FaSignOutAlt className="text-lg" />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    /* Login/Signup Options */
+                    <div className="py-3">
+                      <div className="px-4 pb-3 border-b border-[#D9C27B]/20">
+                        <p className="text-white font-semibold text-center">Welcome to Admin Panel</p>
+                        <p className="text-gray-400 text-sm text-center mt-1">Please sign in to continue</p>
+                      </div>
+                      <div className="p-4 space-y-3">
+                        <button
+                          onClick={handleLogin}
+                          className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200"
+                        >
+                          <FaUserCircle className="text-lg" />
+                          <span>Login</span>
+                        </button>
+                        <button
+                          onClick={handleSignup}
+                          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-[#D9C27B] text-black rounded-full font-semibold hover:bg-[#F4E4A6] transition-all duration-200"
+                        >
+                          <FaUserCircle className="text-lg" />
+                          <span>Sign Up</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            {/* Sidebar Toggle Button */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                setSidebarOpen(!sidebarOpen)
+                if (onSidebarToggle) onSidebarToggle(!sidebarOpen)
+              }}
               className="p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
             >
-              {mobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+              <FaBars className="text-xl" />
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#D9C27B]/20 py-4 animate-fade-in">
-            {user ? (
-              <div className="space-y-4">
-                {/* Mobile User Info */}
-                <div className="flex items-center gap-3 p-3 bg-[#D9C27B]/5 rounded-lg">
-                  <div className="w-10 h-10 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
-                    <FaUserCircle className="text-black text-lg" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold">{adminUser.name}</p>
-                    <p className="text-[#D9C27B] text-sm">{adminUser.role}</p>
-                  </div>
-                </div>
-
-                {/* Mobile Stats */}
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="flex items-center gap-2 px-3 py-1 bg-[#D9C27B]/10 rounded-full">
-                    <FaCalendarAlt className="text-[#D9C27B]" />
-                    <span className="text-white">12 Today</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 rounded-full">
-                    <FaChartBar className="text-green-400" />
-                    <span className="text-white">₹15,240</span>
-                  </div>
-                </div>
-
-                {/* Mobile Menu Items */}
-                <div className="space-y-2">
-                  <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
-                    <FaUserCircle />
-                    <span>My Profile</span>
-                  </button>
-                  <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
-                    <FaCog />
-                    <span>Settings</span>
-                  </button>
-                  <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
-                    <FaChartBar />
-                    <span>Analytics</span>
-                  </button>
-                  <button className="w-full flex items-center gap-3 p-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200">
-                    <FaUsers />
-                    <span>Manage Staff</span>
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-3 p-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all duration-200"
-                  >
-                    <FaSignOutAlt />
-                    <span>Sign Out</span>
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="text-center py-2">
-                  <p className="text-white font-semibold">Welcome to Admin Panel</p>
-                  <p className="text-gray-400 text-sm mt-1">Please sign in to continue</p>
-                </div>
-                <div className="space-y-3">
-                  <button
-                    onClick={handleLogin}
-                    className="w-full px-4 py-2 border-2 border-[#D9C27B] text-[#D9C27B] rounded-full font-semibold hover:bg-[#D9C27B] hover:text-black transition-all duration-200"
-                  >
-                    Login
-                  </button>
-                  <button
-                    onClick={handleSignup}
-                    className="w-full px-4 py-2 bg-[#D9C27B] text-black rounded-full font-semibold hover:bg-[#F4E4A6] transition-all duration-200"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Click outside to close dropdowns */}
