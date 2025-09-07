@@ -16,8 +16,7 @@ const navLinks = [
 const gold = '#D9C27B';
 
 const Navbar = ({ setLogin, setLoginMode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { user,logout } = useContext(AppContext);
+  const { user, logout, sidebarOpen, toggleSidebar, closeSidebar } = useContext(AppContext);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
@@ -193,7 +192,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
             )}
           </div>
         )}
-        <button onClick={() => setIsOpen(true)} className="text-3xl focus:outline-none" style={{ color: gold }}>
+        <button onClick={toggleSidebar} className="text-3xl focus:outline-none" style={{ color: gold }}>
           <FaBars />
         </button>
       </div>
@@ -202,7 +201,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
       <div
         className={`fixed top-0 left-0 w-3/4 h-full z-50 transition-transform duration-300
         bg-black/85 backdrop-blur-xl text-white
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{ maxWidth: '400px' }}
       >
         <div className="mt-1 flex flex-row justify-between items-center px-4 py-4 border-b" style={{ borderColor: gold }}>
@@ -210,7 +209,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
             <span className="text-2xl font-bold" style={{ color: gold }}>Me & Guys</span>
             <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>UNISEX SALON</span>
           </div>
-          <button onClick={() => setIsOpen(false)} className="text-2xl" style={{ color: gold }}>
+          <button onClick={closeSidebar} className="text-2xl" style={{ color: gold }}>
             <FaTimes />
           </button>
         </div>
@@ -235,7 +234,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                       to="/ladies"
                       className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
                       onClick={() => {
-                        setIsOpen(false);
+                        closeSidebar();
                         setServicesDropdown(false);
                       }}
                     >
@@ -248,7 +247,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                       to="/gents"
                       className="block py-2 px-4 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-all duration-200"
                       onClick={() => {
-                        setIsOpen(false);
+                        closeSidebar();
                         setServicesDropdown(false);
                       }}
                     >
@@ -269,7 +268,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                     isActive ? 'text-[#D9C27B]' : 'text-white hover:text-[#D9C27B]'
                   }`
                 }
-                onClick={() => setIsOpen(false)}
+                onClick={closeSidebar}
               >
                 {link.name}
               </NavLink>
@@ -285,7 +284,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
               }}
               onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
               onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
-              onClick={() => setIsOpen(false)}
+              onClick={closeSidebar}
             >
               Book Appointment
             </div>
@@ -304,7 +303,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                 onMouseOver={e => { e.currentTarget.style.backgroundColor = gold; e.currentTarget.style.color = '#000'; }}
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = gold; }}
                 onClick={() => {
-                  setIsOpen(false);
+                  closeSidebar();
                   setLoginMode('login');
                   setLogin(true);
                 }}
@@ -320,7 +319,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                 onMouseOver={e => { e.currentTarget.style.backgroundColor = '#F4E4A6'; }}
                 onMouseOut={e => { e.currentTarget.style.backgroundColor = gold; }}
                 onClick={() => {
-                  setIsOpen(false);
+                  closeSidebar();
                   setLoginMode('signup');
                   setLogin(true);
                 }}
@@ -333,11 +332,11 @@ const Navbar = ({ setLogin, setLoginMode }) => {
       </div>
 
       {/* Overlay for sidebar */}
-      {isOpen && (
+      {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 md:hidden"
           style={{ background: 'transparent' }}
-          onClick={() => setIsOpen(false)}
+          onClick={closeSidebar}
         />
       )}
     </div>

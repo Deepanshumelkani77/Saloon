@@ -9,13 +9,23 @@ const AppContextProvider = (props) => {
 const [user,setUser]=useState(false);
 const [sidebarOpen, setSidebarOpen] = useState(false);
 
- 
+// Toggle function for sidebar
+const toggleSidebar = () => {
+  setSidebarOpen(prev => !prev);
+};
+
+// Close sidebar function
+const closeSidebar = () => {
+  setSidebarOpen(false);
+};
 
   const value = {
     user,
     setUser,
     sidebarOpen,
-    setSidebarOpen
+    setSidebarOpen,
+    toggleSidebar,
+    closeSidebar
   };
 
   return (

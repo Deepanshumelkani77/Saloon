@@ -18,6 +18,7 @@ const AppContextProvider = (props) => {
 
   const [user, setUser] = useState(initialUser);
   const [token, setToken] = useState(tokenCookie || null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // ✅ Handle Google login redirect (query params)
   useEffect(() => {
@@ -83,12 +84,26 @@ const AppContextProvider = (props) => {
     navigate("/");
   };
 
+  // Toggle function for sidebar
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev);
+  };
+
+  // Close sidebar function
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
   const value = {
     user,
     token,
     signup,
     login,
     logout,
+    sidebarOpen,
+    setSidebarOpen,
+    toggleSidebar,
+    closeSidebar,
   };
 
   return (

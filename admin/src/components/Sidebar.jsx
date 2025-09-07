@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import {useContext} from 'react'
+import {AppContext} from '../context/AppContext'
+
 import { 
   FaTachometerAlt, 
   FaCalendarAlt, 
@@ -14,7 +17,9 @@ import {
   FaTimes
 } from 'react-icons/fa'
 
-const Sidebar = ({ isOpen, onClose, user }) => {
+const Sidebar = ({ }) => {
+
+   const { user, sidebarOpen, closeSidebar } = useContext(AppContext);
   const [activeItem, setActiveItem] = useState('dashboard')
   const gold = '#D9C27B'
 
@@ -47,43 +52,28 @@ const Sidebar = ({ isOpen, onClose, user }) => {
   return (
     <>
       {/* Overlay for mobile */}
-      {isOpen && (
+      {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-          onClick={onClose}
+          onClick={closeSidebar}
         />
       )}
 
       {/* Sidebar */}
       <div className={`
-        fixed top-0 left-0 h-[90vh] w-64 bg-black/95 backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+       h-[100vh] w-full fixed top-0 left-0 md:h-[90vh] md:w-64 bg-black/95 backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 md:static md:z-auto
       `}>
         
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#D9C27B]/20">
-          <div className="flex items-center gap-2">
-            <FaCut className="text-2xl animate-spin-slow text-[#D9C27B]" />
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-white tracking-wide">Admin Dashboard</span>
-              <span className="text-xs tracking-widest font-normal text-[#D9C27B]">MANAGEMENT SYSTEM</span>
-            </div>
-          </div>
-          
-          {/* Close button for mobile */}
-          <button
-            onClick={onClose}
-            className="md:hidden p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
-          >
-            <FaTimes className="text-lg" />
-          </button>
-        </div>
+       
 
-        {/* User Profile Section */}
-        {user && (
-          <div className="p-4 border-b border-[#D9C27B]/20">
-            <div className="flex items-center gap-3 p-3 bg-[#D9C27B]/5 rounded-lg">
+    
+          <div className="p-4 border-b border-[#D9C27B]/20 ">
+          <div className="flex justify-between items-center  rounded-lg">
+          
+
+          <div className="flex items-center gap-3 p-3   ">
               <div className="w-12 h-12 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-full flex items-center justify-center">
                 <FaUserCircle className="text-black text-xl" />
               </div>
@@ -92,26 +82,24 @@ const Sidebar = ({ isOpen, onClose, user }) => {
                 <p className="text-[#D9C27B] text-xs">Super Admin</p>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Quick Stats */}
-        {user && (
-          <div className="p-4 border-b border-[#D9C27B]/20">
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="bg-[#D9C27B]/10 p-3 rounded-lg text-center">
-                <FaCalendarAlt className="text-[#D9C27B] mx-auto mb-1" />
-                <p className="text-white font-semibold">12</p>
-                <p className="text-gray-400">Today</p>
-              </div>
-              <div className="bg-green-500/10 p-3 rounded-lg text-center">
-                <FaMoneyBillWave className="text-green-400 mx-auto mb-1" />
-                <p className="text-white font-semibold">₹15K</p>
-                <p className="text-gray-400">Revenue</p>
-              </div>
-            </div>
+
+ 
+          {/* Close button for mobile */}
+          <button
+            onClick={closeSidebar}
+            className="md:hidden p-2 text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-lg transition-colors duration-200"
+          >
+            <FaTimes className="text-lg" />
+          </button>
+            
+          
           </div>
-        )}
+            
+          </div>
+       
+
+      
 
         {/* Navigation Menu */}
         <nav className="flex-1 p-4">
