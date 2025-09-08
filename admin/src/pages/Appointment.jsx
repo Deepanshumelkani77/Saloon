@@ -179,7 +179,7 @@ const Appointment = () => {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
+            <div className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
                   <FaClock className="text-yellow-400 text-xl" />
@@ -193,7 +193,7 @@ const Appointment = () => {
               </div>
             </div>
 
-            <div className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
+            <div className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                   <FaCheck className="text-blue-400 text-xl" />
@@ -207,7 +207,7 @@ const Appointment = () => {
               </div>
             </div>
 
-            <div className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
+            <div className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                   <FaCheck className="text-green-400 text-xl" />
@@ -221,14 +221,14 @@ const Appointment = () => {
               </div>
             </div>
 
-            <div className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
+            <div className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-[#D9C27B]/20 rounded-lg flex items-center justify-center">
                   <FaMoneyBillWave className="text-[#D9C27B] text-xl" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-white">
-                    ₹{appointments.filter(apt => apt.paid).reduce((sum, apt) => sum + apt.totalPrice, 0).toLocaleString()}
+                    ₹{appointments.filter(apt => apt.paid).reduce((sum, apt) => sum + (apt.totalPrice || 0), 0).toLocaleString()}
                   </p>
                   <p className="text-gray-400 text-sm">Revenue</p>
                 </div>
@@ -279,7 +279,7 @@ const Appointment = () => {
             filteredAppointments.map((appointment) => (
               <div
                 key={appointment._id}
-                className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-6 hover:border-[#D9C27B]/40 transition-all duration-200"
+                className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-6 hover:border-[#D9C27B]/40 transition-all duration-200"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   
@@ -346,7 +346,7 @@ const Appointment = () => {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-2xl font-bold text-[#D9C27B]">₹{appointment.totalPrice.toLocaleString()}</p>
+                          <p className="text-2xl font-bold text-[#D9C27B]">₹{(appointment.totalPrice || 0).toLocaleString()}</p>
                           <div className="flex items-center gap-2">
                             <span className={`px-2 py-1 rounded text-xs ${appointment.paid ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
                               {appointment.paid ? 'Paid' : 'Unpaid'}
@@ -472,7 +472,7 @@ const Appointment = () => {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Price</p>
-                      <p className="text-[#D9C27B] font-bold text-xl">₹{selectedAppointment.totalPrice.toLocaleString()}</p>
+                      <p className="text-[#D9C27B] font-bold text-xl">₹{(selectedAppointment.totalPrice || 0).toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
