@@ -102,6 +102,8 @@ const { userId } = req.params;
 
 // Dashboard Statistics - User Stats
 router.get("/stats", async (req, res) => {
+
+  console.log("user information");
   try {
     // Total users count
     const totalUsers = await User.countDocuments();
