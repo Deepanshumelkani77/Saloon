@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { 
-  FaCalendarAlt, 
-  FaClock, 
-  FaUser, 
-  FaCut, 
-  FaPhone, 
-  FaEnvelope, 
+  FaSearch, 
+  FaFilter, 
+  FaEye, 
   FaCheck, 
   FaTimes, 
-  FaMoneyBillWave,
-  FaEye,
-  FaFilter,
-  FaSearch,
-  FaUserTie
-} from 'react-icons/fa'
+  FaMoneyBillWave, 
+  FaClock, 
+  FaUser, 
+  FaCalendarAlt, 
+  FaPhone, 
+  FaEnvelope,
+  FaUserTie,
+  FaCut
+} from 'react-icons/fa';
 
 const Appointment = () => {
   const [appointments, setAppointments] = useState([])
@@ -22,93 +23,36 @@ const Appointment = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedAppointment, setSelectedAppointment] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const gold = '#D9C27B'
+  const API_BASE_URL = 'http://localhost:1000/api/appointment'
 
-  // Mock appointment data - replace with actual API call
-  const mockAppointments = [
-    {
-      id: 1,
-      customerName: 'John Doe',
-      email: 'john@example.com',
-      phone: '+91 9876543210',
-      service: 'Haircut & Beard Trim',
-      stylist: 'Alex Johnson',
-      date: '2025-01-08',
-      time: '10:00 AM',
-      duration: '45 min',
-      price: 800,
-      status: 'pending',
-      paid: false,
-      notes: 'Regular customer, prefers short cut'
-    },
-    {
-      id: 2,
-      customerName: 'Sarah Smith',
-      email: 'sarah@example.com',
-      phone: '+91 9876543211',
-      service: 'Hair Color & Styling',
-      stylist: 'Maria Garcia',
-      date: '2025-01-08',
-      time: '2:00 PM',
-      duration: '2 hours',
-      price: 2500,
-      status: 'confirmed',
-      paid: false,
-      notes: 'Wants blonde highlights'
-    },
-    {
-      id: 3,
-      customerName: 'Mike Wilson',
-      email: 'mike@example.com',
-      phone: '+91 9876543212',
-      service: 'Facial & Massage',
-      stylist: 'Lisa Brown',
-      date: '2025-01-08',
-      time: '4:30 PM',
-      duration: '90 min',
-      price: 1500,
-      status: 'completed',
-      paid: true,
-      notes: 'Anti-aging facial requested'
-    },
-    {
-      id: 4,
-      customerName: 'Emma Davis',
-      email: 'emma@example.com',
-      phone: '+91 9876543213',
-      service: 'Bridal Makeup',
-      stylist: 'Priya Sharma',
-      date: '2025-01-09',
-      time: '9:00 AM',
-      duration: '3 hours',
-      price: 5000,
-      status: 'confirmed',
-      paid: false,
-      notes: 'Wedding on Jan 10th, trial session'
-    },
-    {
-      id: 5,
-      customerName: 'David Brown',
-      email: 'david@example.com',
-      phone: '+91 9876543214',
-      service: 'Hair Wash & Cut',
-      stylist: 'Alex Johnson',
-      date: '2025-01-09',
-      time: '11:30 AM',
-      duration: '30 min',
-      price: 500,
-      status: 'cancelled',
-      paid: false,
-      notes: 'Cancelled due to emergency'
+  // Fetch appointments from backend
+  const fetchAppointments = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const response = await axios.get(`${API_BASE_URL}/all`, {
+        params: {
+          status: filterStatus !== 'all' ? filterStatus : undefined,
+          search: searchTerm || undefined
+        }
+      })
+      setAppointments(response.data)
+      setFilteredAppointments(response.data)
+    } catch (err) {
+      console.error('Error fetching appointments:', err)
+      setError('Failed to fetch appointments. Please try again.')
+    } finally {
+      setLoading(false)
     }
-  ]
+  }
 
   useEffect(() => {
-    // Simulate API call
-    setAppointments(mockAppointments)
-    setFilteredAppointments(mockAppointments)
-  }, [])
+    fetchAppointments()
+  }, [filterStatus, searchTerm])
 
   useEffect(() => {
     let filtered = appointments
@@ -130,16 +74,30 @@ const Appointment = () => {
     setFilteredAppointments(filtered)
   }, [appointments, filterStatus, searchTerm])
 
-  const updateAppointmentStatus = (id, newStatus) => {
-    setAppointments(prev => prev.map(apt => 
-      apt.id === id ? { ...apt, status: newStatus } : apt
-    ))
+  const updateAppointmentStatus = async (id, newStatus) => {
+    try {
+      await axios.put(`${API_BASE_URL}/admin/status/${id}`, {
+        status: newStatus
+      })
+      // Refresh appointments after update
+      fetchAppointments()
+    } catch (err) {
+      console.error('Error updating appointment status:', err)
+      setError('Failed to update appointment status. Please try again.')
+    }
   }
 
-  const togglePaymentStatus = (id) => {
-    setAppointments(prev => prev.map(apt => 
-      apt.id === id ? { ...apt, paid: !apt.paid } : apt
-    ))
+  const togglePaymentStatus = async (id, paid) => {
+    try {
+      await axios.put(`${API_BASE_URL}/admin/payment/${id}`, {
+        paid: paid
+      })
+      // Refresh appointments after update
+      fetchAppointments()
+    } catch (err) {
+      console.error('Error updating payment status:', err)
+      setError('Failed to update payment status. Please try again.')
+    }
   }
 
   const handleConfirm = (id) => {
@@ -148,14 +106,14 @@ const Appointment = () => {
 
   const handleComplete = (id) => {
     updateAppointmentStatus(id, 'completed')
-    // Automatically mark as paid when completed
-    setTimeout(() => {
-      togglePaymentStatus(id)
-    }, 500)
   }
 
   const handleCancel = (id) => {
     updateAppointmentStatus(id, 'cancelled')
+  }
+
+  const handlePaymentToggle = (id, currentPaidStatus) => {
+    togglePaymentStatus(id, !currentPaidStatus)
   }
 
   const getStatusColor = (status) => {
@@ -178,9 +136,36 @@ const Appointment = () => {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#23211b] p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D9C27B] mx-auto mb-4"></div>
+          <p className="text-white">Loading appointments...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-[#23211b] p-6">
       <div className="max-w-7xl mx-auto">
+        
+        {/* Error Message */}
+        {error && (
+          <div className="mb-6 bg-red-500/20 border border-red-500/30 rounded-xl p-4">
+            <div className="flex items-center gap-3">
+              <FaTimes className="text-red-400" />
+              <p className="text-red-400">{error}</p>
+              <button 
+                onClick={() => setError(null)}
+                className="ml-auto text-red-400 hover:text-red-300"
+              >
+                <FaTimes />
+              </button>
+            </div>
+          </div>
+        )}
         
         {/* Header */}
         <div className="mb-8">
@@ -243,7 +228,7 @@ const Appointment = () => {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-white">
-                    ₹{appointments.filter(apt => apt.paid).reduce((sum, apt) => sum + apt.price, 0).toLocaleString()}
+                    ₹{appointments.filter(apt => apt.paid).reduce((sum, apt) => sum + apt.totalPrice, 0).toLocaleString()}
                   </p>
                   <p className="text-gray-400 text-sm">Revenue</p>
                 </div>
@@ -293,7 +278,7 @@ const Appointment = () => {
           ) : (
             filteredAppointments.map((appointment) => (
               <div
-                key={appointment.id}
+                key={appointment._id}
                 className="bg-black/50 backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl p-6 hover:border-[#D9C27B]/40 transition-all duration-200"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -327,19 +312,19 @@ const Appointment = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                           <div className="flex items-center gap-2 text-gray-300">
                             <FaCut className="text-[#D9C27B]" />
-                            <span>{appointment.service}</span>
+                            <span>{appointment.serviceName}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-300">
                             <FaUserTie className="text-[#D9C27B]" />
-                            <span>{appointment.stylist}</span>
+                            <span>{appointment.stylistName}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-300">
                             <FaCalendarAlt className="text-[#D9C27B]" />
-                            <span>{appointment.date}</span>
+                            <span>{new Date(appointment.appointmentDate).toLocaleDateString()}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-300">
                             <FaClock className="text-[#D9C27B]" />
-                            <span>{appointment.time} ({appointment.duration})</span>
+                            <span>{appointment.startTime} - {appointment.endTime}</span>
                           </div>
                         </div>
 
@@ -361,7 +346,7 @@ const Appointment = () => {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-2xl font-bold text-[#D9C27B]">₹{appointment.price.toLocaleString()}</p>
+                          <p className="text-2xl font-bold text-[#D9C27B]">₹{appointment.totalPrice.toLocaleString()}</p>
                           <div className="flex items-center gap-2">
                             <span className={`px-2 py-1 rounded text-xs ${appointment.paid ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
                               {appointment.paid ? 'Paid' : 'Unpaid'}
@@ -387,7 +372,7 @@ const Appointment = () => {
 
                     {appointment.status === 'pending' && (
                       <button
-                        onClick={() => handleConfirm(appointment.id)}
+                        onClick={() => handleConfirm(appointment._id)}
                         className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors flex items-center gap-2"
                       >
                         <FaCheck />
@@ -397,7 +382,7 @@ const Appointment = () => {
 
                     {appointment.status === 'confirmed' && (
                       <button
-                        onClick={() => handleComplete(appointment.id)}
+                        onClick={() => handleComplete(appointment._id)}
                         className="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors flex items-center gap-2"
                       >
                         <FaCheck />
@@ -407,17 +392,17 @@ const Appointment = () => {
 
                     {appointment.status === 'completed' && !appointment.paid && (
                       <button
-                        onClick={() => togglePaymentStatus(appointment.id)}
+                        onClick={() => handlePaymentToggle(appointment._id, appointment.paid)}
                         className="px-4 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 transition-colors flex items-center gap-2"
                       >
                         <FaMoneyBillWave />
-                        <span className="hidden sm:inline">Mark Paid</span>
+                        Mark Paid
                       </button>
                     )}
 
                     {(appointment.status === 'pending' || appointment.status === 'confirmed') && (
                       <button
-                        onClick={() => handleCancel(appointment.id)}
+                        onClick={() => handleCancel(appointment._id)}
                         className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors flex items-center gap-2"
                       >
                         <FaTimes />
@@ -471,27 +456,23 @@ const Appointment = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-gray-400 text-sm">Service</p>
-                      <p className="text-white font-medium">{selectedAppointment.service}</p>
+                      <p className="text-white font-medium">{selectedAppointment.serviceName}</p>
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Stylist</p>
-                      <p className="text-white font-medium">{selectedAppointment.stylist}</p>
+                      <p className="text-white font-medium">{selectedAppointment.stylistName}</p>
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Date</p>
-                      <p className="text-white font-medium">{selectedAppointment.date}</p>
+                      <p className="text-white font-medium">{new Date(selectedAppointment.appointmentDate).toLocaleDateString()}</p>
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Time</p>
-                      <p className="text-white font-medium">{selectedAppointment.time}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-sm">Duration</p>
-                      <p className="text-white font-medium">{selectedAppointment.duration}</p>
+                      <p className="text-white font-medium">{selectedAppointment.startTime} - {selectedAppointment.endTime}</p>
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Price</p>
-                      <p className="text-[#D9C27B] font-bold text-xl">₹{selectedAppointment.price.toLocaleString()}</p>
+                      <p className="text-[#D9C27B] font-bold text-xl">₹{selectedAppointment.totalPrice.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>

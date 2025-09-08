@@ -418,4 +418,91 @@ router.get("/stats", async (req, res) => {
   }
 });
 
+// Admin: Get all appointments with filtering
+router.get("/admin/all", async (req, res) => {
+  try {
+    const { status, search, date } = req.query;
+    let query = {};
+
+    // Filter by status if provided
+    if (status && status !== 'all') {
+      query.status = status;
+    }
+
+    // Filter by date if provided
+    if (date) {
+      const startOfDay = new Date(date);
+      startOfDay.setHours(0, 0, 0, 0);
+      const endOfDay = new Date(date);
+      endOfDay.setHours(23, 59, 59, 999);
+      query.appointmentDate = { $gte: startOfDay, $lte: endOfDay };
+    }
+
+    let appointments = await Appointment.find(query)
+      .sort({ appointmentDate: -1, startTime: 1 });
+
+    // Filter by search term if provided
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      appointments = appointments.filter(apt => 
+        searchRegex.test(apt.customerName) ||
+        searchRegex.test(apt.serviceName) ||
+        searchRegex.test(apt.stylistName)
+      );
+    }
+
+    res.json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching appointments", error: error.message });
+  }
+});
+
+// Admin: Update appointment status
+router.put("/admin/status/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { status } = req.body;
+
+    if (!['pending', 'confirmed', 'completed', 'cancelled'].includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const appointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      { status },
+      { new: true }
+    );
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.json({ message: "Appointment status updated successfully", appointment });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating appointment status", error: error.message });
+  }
+});
+
+// Admin: Update payment status
+router.put("/admin/payment/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { paid } = req.body;
+
+    const appointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      { paid },
+      { new: true }
+    );
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.json({ message: "Payment status updated successfully", appointment });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating payment status", error: error.message });
+  }
+});
+
 module.exports = router;
