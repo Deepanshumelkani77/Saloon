@@ -27,14 +27,14 @@ const Appointment = () => {
   const [error, setError] = useState(null)
 
   const gold = '#D9C27B'
-  const API_BASE_URL = 'http://localhost:1000/api/appointment'
+  const API_BASE_URL = 'http://localhost:1000/appointment'
 
   // Fetch appointments from backend
   const fetchAppointments = async () => {
     try {
       setLoading(true)
       setError(null)
-      const response = await axios.get(`${API_BASE_URL}/all`, {
+      const response = await axios.get(`${API_BASE_URL}/admin/all`, {
         params: {
           status: filterStatus !== 'all' ? filterStatus : undefined,
           search: searchTerm || undefined
