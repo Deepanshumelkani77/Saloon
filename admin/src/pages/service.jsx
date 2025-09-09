@@ -507,7 +507,7 @@ const Service = () => {
                       name="description"
                       value={formData.description}
                       onChange={handleInputChange}
-                      required
+                     
                       rows="4"
                       className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/20 rounded-lg text-white focus:outline-none focus:border-[#D9C27B] transition-colors resize-none"
                       placeholder="Enter service description"
