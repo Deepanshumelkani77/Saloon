@@ -42,10 +42,13 @@ const Service = () => {
       setLoading(true);
       setError(null);
       const response = await axios.get(`${API_BASE_URL}/all`);
+      console.log('Fetched services:', response.data);
+      console.log('Services count:', response.data.length);
       setServices(response.data);
       setFilteredServices(response.data);
     } catch (err) {
       console.error('Error fetching services:', err);
+      console.error('Error details:', err.response?.data || err.message);
       setError('Failed to fetch services. Please try again.');
     } finally {
       setLoading(false);
@@ -62,9 +65,9 @@ const Service = () => {
 
     if (searchTerm) {
       filtered = filtered.filter(service => 
-        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.description.toLowerCase().includes(searchTerm.toLowerCase())
+        (service.name && service.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (service.category && service.category.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (service.description && service.description.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
@@ -305,10 +308,16 @@ const Service = () => {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredServices.length === 0 ? (
+          {loading ? (
+            <div className="col-span-full text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D9C27B] mx-auto mb-4"></div>
+              <p className="text-white">Loading services...</p>
+            </div>
+          ) : filteredServices.length === 0 ? (
             <div className="col-span-full text-center py-12">
               <FaCut className="text-6xl text-gray-600 mx-auto mb-4" />
               <p className="text-gray-400 text-lg">No services found</p>
+              <p className="text-gray-500 text-sm mt-2">Check console for API errors</p>
             </div>
           ) : (
             filteredServices.map((service) => (
