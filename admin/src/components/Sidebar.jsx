@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useContext} from 'react'
 import {AppContext} from '../context/AppContext'
+import { useLocation, Link } from 'react-router-dom'
 
 import { 
   FaTachometerAlt, 
@@ -20,8 +21,22 @@ import {
 const Sidebar = ({ }) => {
 
    const { user, sidebarOpen, closeSidebar } = useContext(AppContext);
-  const [activeItem, setActiveItem] = useState('dashboard')
+  const location = useLocation()
   const gold = '#D9C27B'
+
+  // Function to determine active item based on current path
+  const getActiveItem = (path) => {
+    if (path === '/') return 'dashboard'
+    if (path === '/appointments') return 'appointments'
+    if (path === '/services') return 'services'
+    if (path === '/staff') return 'staff'
+    if (path === '/analytics') return 'analytics'
+    if (path === '/payments') return 'payments'
+    if (path === '/inventory') return 'inventory'
+    if (path === '/notifications') return 'notifications'
+    if (path === '/settings') return 'settings'
+    return 'dashboard'
+  }
 
   const menuItems = [
     { id: 'dashboard', name: 'Dashboard', icon: FaTachometerAlt, path: '/' },
@@ -35,18 +50,17 @@ const Sidebar = ({ }) => {
     { id: 'settings', name: 'Settings', icon: FaCog, path: '/settings' },
   ]
 
-  const handleItemClick = (itemId) => {
-    setActiveItem(itemId)
+  const handleItemClick = () => {
     // Close sidebar on mobile after selection
     if (window.innerWidth < 768) {
-      onClose()
+      closeSidebar()
     }
   }
 
   const handleLogout = () => {
     console.log('Logging out...')
     // Add logout logic here
-    onClose()
+    closeSidebar()
   }
 
   return (
@@ -106,32 +120,29 @@ const Sidebar = ({ }) => {
           <div className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon
-              const isActive = activeItem === item.id
+              const isActive = getActiveItem(location.pathname) === item.id
               
               return (
-                <a href={item.path}>
-
-     <button
-                  key={item.id}
-                  onClick={() => handleItemClick(item.id)}
-                  className={`
-                     w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left group
-                    ${isActive 
-                      ? 'bg-[#D9C27B]/20 text-[#D9C27B] border-l-4 border-[#D9C27B]' 
-                      : 'text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
-                    }
-                  `}
-                >
-                  <Icon className={`text-lg ${isActive ? 'text-[#D9C27B]' : 'group-hover:text-[#D9C27B]'}`} />
-                  <span className="font-medium">{item.name}</span>
-                  
-                  {/* Active indicator */}
-                  {isActive && (
-                    <div className="ml-auto w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse" />
-                  )}
-                </button>
-
-                </a>
+                <Link key={item.id} to={item.path}>
+                  <button
+                    onClick={handleItemClick}
+                    className={`
+                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left group
+                      ${isActive 
+                        ? 'bg-[#D9C27B]/20 text-[#D9C27B] border-l-4 border-[#D9C27B]' 
+                        : 'text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
+                      }
+                    `}
+                  >
+                    <Icon className={`text-lg ${isActive ? 'text-[#D9C27B]' : 'group-hover:text-[#D9C27B]'}`} />
+                    <span className="font-medium">{item.name}</span>
+                    
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="ml-auto w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse" />
+                    )}
+                  </button>
+                </Link>
            
 
 
