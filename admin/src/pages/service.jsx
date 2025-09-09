@@ -320,9 +320,82 @@ const Service = () => {
             filteredServices.map((service) => (
               <div
                 key={service._id}
-                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300"
+                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-4 md:p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300"
               >
-                <div className="flex items-center justify-between">
+                {/* Mobile Layout */}
+                <div className="block md:hidden">
+                  {/* Top Row - Icon, Name, Category */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-xl flex items-center justify-center shadow-lg">
+                        <FaCut className="text-lg text-black" />
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300 mb-1">
+                        {service.name}
+                      </h3>
+                      <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs font-semibold rounded-full">
+                        {service.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Middle Row - Price & Duration */}
+                  <div className="flex items-center justify-center gap-8 mb-4 p-3 bg-black/30 rounded-xl border border-[#D9C27B]/20">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-[#D9C27B]/20 rounded-lg flex items-center justify-center">
+                        <FaMoneyBillWave className="text-[#D9C27B] text-sm" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[#D9C27B] font-bold">₹{service.price}</p>
+                        <p className="text-gray-400 text-xs">Price</p>
+                      </div>
+                    </div>
+                    
+                    <div className="w-px h-8 bg-[#D9C27B]/20"></div>
+                    
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gray-500/20 rounded-lg flex items-center justify-center">
+                        <FaClock className="text-gray-400 text-sm" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-white font-bold">{service.duration}m</p>
+                        <p className="text-gray-400 text-xs">Duration</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Row - Action Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleViewService(service)}
+                      className="flex-1 px-3 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <FaEye />
+                      <span>View</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        console.log('Service object:', service);
+                        handleEditService(service);
+                      }}
+                      className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <FaEdit />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteService(service._id)}
+                      className="px-3 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 flex items-center justify-center"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center justify-between">
                   {/* Left Side - Service Info */}
                   <div className="flex items-center gap-6 flex-1">
                     {/* Service Icon */}
