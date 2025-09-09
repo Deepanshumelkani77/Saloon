@@ -3,32 +3,23 @@ const mongoose = require("mongoose");
 const serviceSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    trim: true
+    required: true
   },
   price: {
     type: Number,
-    required: true,
-    min: 0
+    required: true
   },
   duration: {
     type: Number, // duration in minutes
-    required: true,
-    min: 1
+    required: true
   },
   category: {
     type: String,
-    required: true,
-    enum: ['Hair Cut', 'Hair Color', 'Facial', 'Massage', 'Manicure', 'Pedicure', 'Makeup', 'Skincare']
+    required: true
   },
   description: {
     type: String,
-    required: true,
-    trim: true
-  },
-  image: {
-    type: String,
-    default: ''
+    required: true
   },
   isActive: {
     type: Boolean,

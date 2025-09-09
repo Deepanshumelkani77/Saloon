@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { 
   FaSearch, 
   FaPlus, 
@@ -11,9 +10,9 @@ import {
   FaEye,
   FaTimes,
   FaCheck,
-  FaFilter,
-  FaImage
+  FaFilter
 } from 'react-icons/fa';
+import { serviceApiService } from '../services/serviceApi';
 
 const Service = () => {
   const [services, setServices] = useState([]);
@@ -30,11 +29,9 @@ const Service = () => {
     category: '',
     price: '',
     duration: '',
-    description: '',
-    image: ''
+    description: ''
   });
 
-  const API_BASE_URL = 'http://localhost:1000/service';
   const categories = ['Hair Cut', 'Hair Color', 'Facial', 'Massage', 'Manicure', 'Pedicure', 'Makeup', 'Skincare'];
 
   // Fetch services from backend
@@ -42,44 +39,12 @@ const Service = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_BASE_URL}/all`);
-      setServices(response.data);
-      setFilteredServices(response.data);
+      const services = await serviceApiService.getAllServices();
+      setServices(services);
+      setFilteredServices(services);
     } catch (err) {
       console.error('Error fetching services:', err);
       setError('Failed to fetch services. Please try again.');
-      // Mock data for development
-      const mockServices = [
-        {
-          _id: '1',
-          name: 'Classic Haircut',
-          category: 'Hair Cut',
-          price: 500,
-          duration: 45,
-          description: 'Professional haircut with styling',
-          image: '/api/placeholder/300/200'
-        },
-        {
-          _id: '2',
-          name: 'Hair Coloring',
-          category: 'Hair Color',
-          price: 2500,
-          duration: 120,
-          description: 'Full hair coloring service',
-          image: '/api/placeholder/300/200'
-        },
-        {
-          _id: '3',
-          name: 'Deep Cleansing Facial',
-          category: 'Facial',
-          price: 1200,
-          duration: 60,
-          description: 'Deep pore cleansing facial treatment',
-          image: '/api/placeholder/300/200'
-        }
-      ];
-      setServices(mockServices);
-      setFilteredServices(mockServices);
     } finally {
       setLoading(false);
     }
@@ -125,8 +90,7 @@ const Service = () => {
       category: '',
       price: '',
       duration: '',
-      description: '',
-      image: ''
+      description: ''
     });
     setShowModal(true);
   };
@@ -140,8 +104,7 @@ const Service = () => {
       category: service.category,
       price: service.price.toString(),
       duration: service.duration.toString(),
-      description: service.description,
-      image: service.image || ''
+      description: service.description
     });
     setShowModal(true);
   };
@@ -165,9 +128,9 @@ const Service = () => {
       };
 
       if (modalMode === 'add') {
-        await axios.post(`${API_BASE_URL}/create`, serviceData);
+        await serviceApiService.createService(serviceData);
       } else if (modalMode === 'edit') {
-        await axios.put(`${API_BASE_URL}/update/${selectedService._id}`, serviceData);
+        await serviceApiService.updateService(selectedService._id, serviceData);
       }
 
       setShowModal(false);
@@ -182,7 +145,7 @@ const Service = () => {
   const handleDeleteService = async (serviceId) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
-        await axios.delete(`${API_BASE_URL}/delete/${serviceId}`);
+        await serviceApiService.deleteService(serviceId);
         fetchServices();
       } catch (err) {
         console.error('Error deleting service:', err);
@@ -343,17 +306,9 @@ const Service = () => {
                 key={service._id}
                 className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl overflow-hidden hover:border-[#D9C27B]/40 transition-all duration-200 group"
               >
-                {/* Service Image */}
-                <div className="relative h-48 bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/20 flex items-center justify-center">
-                  {service.image ? (
-                    <img 
-                      src={service.image} 
-                      alt={service.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <FaImage className="text-4xl text-[#D9C27B]/50" />
-                  )}
+                {/* Service Header */}
+                <div className="relative h-20 bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/20 flex items-center justify-center">
+                  <FaCut className="text-3xl text-[#D9C27B]" />
                   
                   {/* Category Badge */}
                   <div className="absolute top-3 left-3">
@@ -435,15 +390,6 @@ const Service = () => {
               {modalMode === 'view' ? (
                 // View Mode
                 <div className="space-y-6">
-                  {selectedService?.image && (
-                    <div className="w-full h-48 rounded-lg overflow-hidden">
-                      <img 
-                        src={selectedService.image} 
-                        alt={selectedService.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -532,17 +478,6 @@ const Service = () => {
                     </div>
                   </div>
                   
-                  <div>
-                    <label className="block text-gray-400 text-sm mb-2">Image URL</label>
-                    <input
-                      type="url"
-                      name="image"
-                      value={formData.image}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/20 rounded-lg text-white focus:outline-none focus:border-[#D9C27B] transition-colors"
-                      placeholder="Enter image URL"
-                    />
-                  </div>
                   
                   <div>
                     <label className="block text-gray-400 text-sm mb-2">Description *</label>
