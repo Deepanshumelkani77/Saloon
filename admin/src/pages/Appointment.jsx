@@ -52,7 +52,7 @@ const Appointment = () => {
 
   useEffect(() => {
     fetchAppointments()
-  }, [filterStatus, searchTerm])
+  }, [filterStatus])
 
   useEffect(() => {
     let filtered = appointments
@@ -65,9 +65,11 @@ const Appointment = () => {
     // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(apt => 
-        apt.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        apt.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        apt.stylist.toLowerCase().includes(searchTerm.toLowerCase())
+        (apt.customerName && apt.customerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (apt.serviceName && apt.serviceName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (apt.stylistName && apt.stylistName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (apt.service && apt.service.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (apt.stylist && apt.stylist.toLowerCase().includes(searchTerm.toLowerCase()))
       )
     }
 
