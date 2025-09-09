@@ -303,15 +303,15 @@ const Service = () => {
           </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Services List */}
+        <div className="flex flex-col gap-4">
           {loading ? (
-            <div className="col-span-full text-center py-12">
+            <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D9C27B] mx-auto mb-4"></div>
               <p className="text-white">Loading services...</p>
             </div>
           ) : filteredServices.length === 0 ? (
-            <div className="col-span-full text-center py-12">
+            <div className="text-center py-12">
               <FaCut className="text-6xl text-gray-600 mx-auto mb-4" />
               <p className="text-gray-400 text-lg">No services found</p>
               <p className="text-gray-500 text-sm mt-2">Check console for API errors</p>
@@ -320,79 +320,84 @@ const Service = () => {
             filteredServices.map((service) => (
               <div
                 key={service._id}
-                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300 transform hover:-translate-y-1"
+                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300"
               >
-                {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-20 h-20  rounded-2xl"></div>
-                
-                {/* Category Badge */}
-                <div className="relative z-10 flex justify-between items-start mb-4">
-                  <span className="inline-block px-3 py-1 bg-[#D9C27B] text-black text-xs font-bold rounded-full">
-                    {service.category}
-                  </span>
-                  <div className="w-10 h-10 bg-[#D9C27B]/20 rounded-full flex items-center justify-center group-hover:bg-[#D9C27B]/30 transition-colors">
-                    <FaCut className="text-[#D9C27B] text-lg" />
-                  </div>
-                </div>
-
-                {/* Service Name */}
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#D9C27B] transition-colors">
-                    {service.name}
-                  </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#D9C27B] to-transparent rounded-full"></div>
-                </div>
-
-                {/* Price and Duration */}
-                <div className="flex items-center justify-between mb-6 p-4 bg-black/30 rounded-xl border border-[#D9C27B]/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#D9C27B]/20 rounded-lg flex items-center justify-center">
-                      <FaMoneyBillWave className="text-[#D9C27B] text-sm" />
+                <div className="flex items-center justify-between">
+                  {/* Left Side - Service Info */}
+                  <div className="flex items-center gap-6 flex-1">
+                    {/* Service Icon */}
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                        <FaCut className="text-2xl text-black" />
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[#D9C27B] font-bold text-lg">₹{service.price}</p>
-                      <p className="text-gray-400 text-xs">Price</p>
+
+                    {/* Service Details */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300 mb-1">
+                        {service.name}
+                      </h3>
+                      <span className="inline-block px-3 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs font-semibold rounded-full">
+                        {service.category}
+                      </span>
                     </div>
                   </div>
-                  
-                  <div className="w-px h-12 bg-[#D9C27B]/20"></div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gray-500/20 rounded-lg flex items-center justify-center">
-                      <FaClock className="text-gray-400 text-sm" />
+
+                  {/* Right Side - Price, Duration & Actions */}
+                  <div className="flex items-center gap-8">
+                    {/* Price & Duration */}
+                    <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <div className="w-10 h-10 bg-[#D9C27B]/20 rounded-lg flex items-center justify-center">
+                          <FaMoneyBillWave className="text-[#D9C27B] text-sm" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-[#D9C27B] font-bold text-lg">₹{service.price}</p>
+                          <p className="text-gray-400 text-xs">Price</p>
+                        </div>
+                      </div>
+                      
+                      <div className="w-px h-12 bg-[#D9C27B]/20"></div>
+                      
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <div className="w-10 h-10 bg-gray-500/20 rounded-lg flex items-center justify-center">
+                          <FaClock className="text-gray-400 text-sm" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-white font-bold text-lg">{service.duration}m</p>
+                          <p className="text-gray-400 text-xs">Duration</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-white font-bold text-lg">{service.duration}m</p>
-                      <p className="text-gray-400 text-xs">Duration</p>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => handleViewService(service)}
+                        className="px-4 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-200 flex items-center gap-2 text-sm font-medium group/btn"
+                      >
+                        <FaEye className="group-hover/btn:scale-110 transition-transform" />
+                        <span className="hidden lg:inline">View</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          console.log('Service object:', service);
+                          handleEditService(service);
+                        }}
+                        className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 flex items-center gap-2 text-sm font-medium group/btn"
+                      >
+                        <FaEdit className="group-hover/btn:scale-110 transition-transform" />
+                        <span className="hidden lg:inline">Edit</span>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteService(service._id)}
+                        className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 flex items-center gap-2 group/btn"
+                      >
+                        <FaTrash className="group-hover/btn:scale-110 transition-transform" />
+                        <span className="hidden lg:inline">Delete</span>
+                      </button>
                     </div>
                   </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => handleViewService(service)}
-                    className="flex-1 px-4 py-3 bg-[#D9C27B]/20 text-[#D9C27B] rounded-xl hover:bg-[#D9C27B]/20 border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium group/btn"
-                  >
-                    <FaEye className="group-hover/btn:scale-110 transition-transform" />
-                    View
-                  </button>
-                  <button
-                    onClick={() => {
-                      console.log('Service object:', service);
-                      handleEditService(service);
-                    }}
-                    className="flex-1 px-4 py-3 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium group/btn"
-                  >
-                    <FaEdit className="group-hover/btn:scale-110 transition-transform" />
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteService(service._id)}
-                    className="px-4 py-3 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 flex items-center justify-center group/btn"
-                  >
-                    <FaTrash className="group-hover/btn:scale-110 transition-transform" />
-                  </button>
                 </div>
 
                 {/* Bottom accent line */}
