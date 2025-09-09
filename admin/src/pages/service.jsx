@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { 
   FaSearch, 
   FaPlus, 
@@ -12,7 +13,6 @@ import {
   FaCheck,
   FaFilter
 } from 'react-icons/fa';
-import { serviceApiService } from '../services/serviceApi';
 
 const Service = () => {
   const [services, setServices] = useState([]);
@@ -32,6 +32,7 @@ const Service = () => {
     description: ''
   });
 
+  const API_BASE_URL = 'http://localhost:1000/service';
   const categories = ['Hair Cut', 'Hair Color', 'Facial', 'Massage', 'Manicure', 'Pedicure', 'Makeup', 'Skincare'];
 
   // Fetch services from backend
@@ -39,9 +40,9 @@ const Service = () => {
     try {
       setLoading(true);
       setError(null);
-      const services = await serviceApiService.getAllServices();
-      setServices(services);
-      setFilteredServices(services);
+      const response = await axios.get(`${API_BASE_URL}/all`);
+      setServices(response.data);
+      setFilteredServices(response.data);
     } catch (err) {
       console.error('Error fetching services:', err);
       setError('Failed to fetch services. Please try again.');
@@ -136,9 +137,9 @@ const Service = () => {
       };
 
       if (modalMode === 'add') {
-        await serviceApiService.createService(serviceData);
+        await axios.post(`${API_BASE_URL}/create`, serviceData);
       } else if (modalMode === 'edit') {
-        await serviceApiService.updateService(selectedService._id, serviceData);
+        await axios.put(`${API_BASE_URL}/update/${selectedService._id}`, serviceData);
       }
 
       setShowModal(false);
@@ -153,7 +154,7 @@ const Service = () => {
   const handleDeleteService = async (serviceId) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
-        await serviceApiService.deleteService(serviceId);
+        await axios.delete(`${API_BASE_URL}/delete/${serviceId}`);
         fetchServices();
       } catch (err) {
         console.error('Error deleting service:', err);
