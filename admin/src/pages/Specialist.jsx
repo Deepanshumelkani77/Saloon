@@ -430,9 +430,100 @@ const Specialist = () => {
             filteredStylists.map((stylist) => (
               <div
                 key={stylist._id}
-                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300"
+                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-4 md:p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300"
               >
-                <div className="flex items-center gap-6">
+                {/* Mobile Layout */}
+                <div className="block md:hidden">
+                  {/* Top Row - Image, Name, Specialty, Status */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+                        {stylist.image ? (
+                          <img 
+                            src={stylist.image} 
+                            alt={stylist.name}
+                            className="w-full h-full object-cover rounded-xl"
+                          />
+                        ) : (
+                          <FaUser className="text-xl text-black" />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300 mb-1">
+                        {stylist.name}
+                      </h3>
+                      <p className="text-[#D9C27B] font-semibold text-sm mb-2">{stylist.specialty}</p>
+                      <button
+                        onClick={() => handleToggleStatus(stylist._id)}
+                        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold transition-colors ${
+                          stylist.isActive 
+                            ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30' 
+                            : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
+                        }`}
+                      >
+                        {stylist.isActive ? <FaToggleOn /> : <FaToggleOff />}
+                        {stylist.isActive ? 'Active' : 'Inactive'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Middle Row - Details */}
+                  <div className="grid grid-cols-1 gap-3 mb-4 p-3 bg-black/30 rounded-xl border border-[#D9C27B]/20">
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <FaClock className="text-sm text-[#D9C27B]" />
+                      <span className="text-sm">Experience: {stylist.experience}</span>
+                    </div>
+                    
+                    {stylist.phone && (
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <FaPhone className="text-sm text-[#D9C27B]" />
+                        <span className="text-sm">{stylist.phone}</span>
+                      </div>
+                    )}
+                    
+                    {stylist.email && (
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <FaEnvelope className="text-sm text-[#D9C27B]" />
+                        <span className="text-sm truncate">{stylist.email}</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <FaClock className="text-sm text-[#D9C27B]" />
+                      <span className="text-sm">
+                        {stylist.workingHours?.start} - {stylist.workingHours?.end}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Bottom Row - Action Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleViewStylist(stylist)}
+                      className="flex-1 px-3 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <FaUser />
+                      <span>View</span>
+                    </button>
+                    <button
+                      onClick={() => handleEditStylist(stylist)}
+                      className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <FaEdit />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteStylist(stylist._id)}
+                      className="px-3 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 flex items-center justify-center"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center gap-6">
                   {/* Staff Image */}
                   <div className="flex-shrink-0">
                     <div className="w-20 h-20 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300 overflow-hidden">
