@@ -30,14 +30,15 @@ const getServiceById = async (req, res) => {
 
 // Create new service
 const createService = async (req, res) => {
+  console.log(req.body);
   try {
-    const { name, price, duration, category, description } = req.body;
+    const { name, price, duration, category } = req.body;
     
     // Validation
-    if (!name || !price || !duration || !category || !description) {
+    if (!name || !price || !duration || !category) {
       return res.status(400).json({ 
         message: 'Missing required fields', 
-        required: ['name', 'price', 'duration', 'category', 'description'] 
+        required: ['name', 'price', 'duration', 'category'] 
       });
     }
 
@@ -51,8 +52,7 @@ const createService = async (req, res) => {
       name,
       price: parseFloat(price),
       duration: parseInt(duration),
-      category,
-      description
+      category
     });
 
     const savedService = await newService.save();
@@ -67,13 +67,13 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, duration, category, description } = req.body;
+    const { name, price, duration, category } = req.body;
     
     // Validation
-    if (!name || !price || !duration || !category || !description) {
+    if (!name || !price || !duration || !category) {
       return res.status(400).json({ 
         message: 'Missing required fields', 
-        required: ['name', 'price', 'duration', 'category', 'description'] 
+        required: ['name', 'price', 'duration', 'category'] 
       });
     }
 
@@ -99,8 +99,7 @@ const updateService = async (req, res) => {
         name,
         price: parseFloat(price),
         duration: parseInt(duration),
-        category,
-        description
+        category
       },
       { new: true, runValidators: true }
     );

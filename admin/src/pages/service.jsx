@@ -28,8 +28,7 @@ const Service = () => {
     name: '',
     category: '',
     price: '',
-    duration: '',
-    description: ''
+    duration: ''
   });
 
   const API_BASE_URL = 'http://localhost:1000/service';
@@ -66,8 +65,7 @@ const Service = () => {
     if (searchTerm) {
       filtered = filtered.filter(service => 
         (service.name && service.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (service.category && service.category.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (service.description && service.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        (service.category && service.category.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
@@ -94,8 +92,7 @@ const Service = () => {
       name: '',
       category: '',
       price: '',
-      duration: '',
-      description: ''
+      duration: ''
     });
     setShowModal(true);
   };
@@ -116,8 +113,7 @@ const Service = () => {
       name: service.name || '',
       category: service.category || '',
       price: (service.price !== undefined && service.price !== null) ? String(service.price) : '',
-      duration: (service.duration !== undefined && service.duration !== null) ? String(service.duration) : '',
-      description: service.description || ''
+      duration: (service.duration !== undefined && service.duration !== null) ? String(service.duration) : ''
     });
     setShowModal(true);
   };
@@ -135,7 +131,8 @@ const Service = () => {
     
     try {
       const serviceData = {
-        ...formData,
+        name: formData.name,
+        category: formData.category,
         price: parseFloat(formData.price),
         duration: parseInt(formData.duration)
       };
@@ -343,9 +340,6 @@ const Service = () => {
                     {service.name}
                   </h3>
                   
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                    {service.description}
-                  </p>
 
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-4">
@@ -432,10 +426,6 @@ const Service = () => {
                     </div>
                   </div>
                   
-                  <div>
-                    <p className="text-gray-400 text-sm mb-2">Description</p>
-                    <p className="text-gray-300">{selectedService?.description}</p>
-                  </div>
                 </div>
               ) : (
                 // Add/Edit Form
@@ -501,18 +491,6 @@ const Service = () => {
                   </div>
                   
                   
-                  <div>
-                    <label className="block text-gray-400 text-sm mb-2">Description *</label>
-                    <textarea
-                      name="description"
-                      value={formData.description}
-                      onChange={handleInputChange}
-                     
-                      rows="4"
-                      className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/20 rounded-lg text-white focus:outline-none focus:border-[#D9C27B] transition-colors resize-none"
-                      placeholder="Enter service description"
-                    />
-                  </div>
                   
                   <div className="flex gap-4 pt-4">
                     <button
