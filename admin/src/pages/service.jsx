@@ -33,7 +33,8 @@ const Service = () => {
   });
 
   const API_BASE_URL = 'http://localhost:1000/service';
-  const categories = ['Hair Cut', 'Hair Color', 'Facial', 'Massage', 'Manicure', 'Pedicure', 'Makeup', 'Skincare'];
+
+  const categories = ["Men's Hair","Men's Grooming", "Men's Treatments", "Men's Skincare", "Women's Hair", "Women's Color", "Women's Treatments", "Women's Makeup","Women's Skincare","Women's Nails"];
 
   // Fetch services from backend
   const fetchServices = async () => {
