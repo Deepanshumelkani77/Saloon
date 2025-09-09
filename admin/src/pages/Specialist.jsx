@@ -15,7 +15,9 @@ import {
   FaToggleOn,
   FaToggleOff,
   FaStar,
-  FaUserTie
+  FaUserTie,
+  FaUpload,
+  FaImage
 } from 'react-icons/fa';
 
 const Specialist = () => {
@@ -29,6 +31,8 @@ const Specialist = () => {
   const [selectedStylist, setSelectedStylist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     specialty: '',
@@ -45,6 +49,8 @@ const Specialist = () => {
   });
 
   const API_BASE_URL = 'http://localhost:1000/stylist';
+  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
+  const uploadPreset = "Saloon";
 
   const specialties = [
     "Hair Cutting", "Hair Coloring", "Hair Styling", "Beard Grooming", 
@@ -98,6 +104,59 @@ const Specialist = () => {
     setFilteredStylists(filtered);
   }, [stylists, searchTerm, filterSpecialty, filterStatus]);
 
+  // Handle image upload to Cloudinary
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setError('Please select a valid image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB');
+      return;
+    }
+
+    setImageUploading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', uploadPreset);
+      formData.append('folder', 'salon/stylists');
+
+      const response = await axios.post(cloudinaryUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const imageUrl = response.data.secure_url;
+      setFormData(prev => ({
+        ...prev,
+        image: imageUrl
+      }));
+      setImagePreview(imageUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setError('Failed to upload image. Please try again.');
+    } finally {
+      setImageUploading(false);
+    }
+  };
+
+  // Handle file input change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  };
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -141,6 +200,7 @@ const Specialist = () => {
       workingHours: { start: '9:00 AM', end: '8:00 PM' },
       workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     });
+    setImagePreview(null);
     setShowModal(true);
   };
 
@@ -158,6 +218,7 @@ const Specialist = () => {
       workingHours: stylist.workingHours || { start: '9:00 AM', end: '8:00 PM' },
       workingDays: stylist.workingDays || ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     });
+    setImagePreview(stylist.image || null);
     setShowModal(true);
   };
 
@@ -494,6 +555,19 @@ const Specialist = () => {
               {modalMode === 'view' ? (
                 // View Mode
                 <div className="space-y-6">
+                  {/* Profile Image Display */}
+                  {selectedStylist?.image && (
+                    <div className="flex justify-center mb-6">
+                      <div className="w-32 h-32 rounded-2xl overflow-hidden border-2 border-[#D9C27B]/30">
+                        <img 
+                          src={selectedStylist.image} 
+                          alt={selectedStylist.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <p className="text-gray-400 text-sm">Name</p>
@@ -615,16 +689,77 @@ const Specialist = () => {
                       />
                     </div>
                     
-                    <div>
-                      <label className="block text-gray-400 text-sm mb-2">Profile Image URL</label>
-                      <input
-                        type="url"
-                        name="image"
-                        value={formData.image}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/20 rounded-lg text-white focus:outline-none focus:border-[#D9C27B] transition-colors"
-                        placeholder="Enter image URL (e.g., https://example.com/photo.jpg)"
-                      />
+                    <div className="md:col-span-2">
+                      <label className="block text-gray-400 text-sm mb-2">Profile Image</label>
+                      
+                      {/* Image Preview */}
+                      {(imagePreview || formData.image) && (
+                        <div className="mb-4 flex justify-center">
+                          <div className="relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-[#D9C27B]/30">
+                            <img 
+                              src={imagePreview || formData.image} 
+                              alt="Preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, image: '' }));
+                                setImagePreview(null);
+                              }}
+                              className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                            >
+                              <FaTimes className="text-xs" />
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Upload Button */}
+                      <div className="flex items-center gap-4">
+                        <label className="flex-1 cursor-pointer">
+                          <div className={`w-full px-4 py-3 border-2 border-dashed rounded-lg text-center transition-all duration-200 ${
+                            imageUploading 
+                              ? 'border-[#D9C27B]/50 bg-[#D9C27B]/10' 
+                              : 'border-[#D9C27B]/20 hover:border-[#D9C27B]/40 hover:bg-[#D9C27B]/5'
+                          }`}>
+                            {imageUploading ? (
+                              <div className="flex items-center justify-center gap-2 text-[#D9C27B]">
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#D9C27B]"></div>
+                                <span>Uploading...</span>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-center gap-2 text-gray-400 hover:text-[#D9C27B] transition-colors">
+                                <FaUpload />
+                                <span>Click to upload image</span>
+                              </div>
+                            )}
+                          </div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="hidden"
+                            disabled={imageUploading}
+                          />
+                        </label>
+                        
+                        {/* Manual URL Input */}
+                        <div className="flex-1">
+                          <input
+                            type="url"
+                            name="image"
+                            value={formData.image}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/20 rounded-lg text-white focus:outline-none focus:border-[#D9C27B] transition-colors"
+                            placeholder="Or paste image URL"
+                          />
+                        </div>
+                      </div>
+                      
+                      <p className="text-gray-500 text-xs mt-2">
+                        Upload an image (max 5MB) or paste an image URL
+                      </p>
                     </div>
 
                     <div>
