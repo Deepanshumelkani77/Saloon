@@ -320,67 +320,83 @@ const Service = () => {
             filteredServices.map((service) => (
               <div
                 key={service._id}
-                className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl overflow-hidden hover:border-[#D9C27B]/40 transition-all duration-200 group"
+                className="group relative bg-black border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300 transform hover:-translate-y-1"
               >
-                {/* Service Header */}
-                <div className="relative h-15 bg-black/20 flex items-center justify-center">
-                  <FaCut className="text-3xl text-[#D9C27B]" />
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 bg-[#D9C27B]/90 text-black text-xs font-semibold rounded-full">
-                      {service.category}
-                    </span>
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-20 h-20  rounded-2xl"></div>
+                
+                {/* Category Badge */}
+                <div className="relative z-10 flex justify-between items-start mb-4">
+                  <span className="inline-block px-3 py-1 bg-[#D9C27B] text-black text-xs font-bold rounded-full">
+                    {service.category}
+                  </span>
+                  <div className="w-10 h-10 bg-[#D9C27B]/20 rounded-full flex items-center justify-center group-hover:bg-[#D9C27B]/30 transition-colors">
+                    <FaCut className="text-[#D9C27B] text-lg" />
                   </div>
                 </div>
 
-                {/* Service Info */}
-                <div className="p-6">
-                  <h3 className="text-3xl font-bold  text-white mb-2 group-hover:text-[#D9C27B] transition-colors">
+                {/* Service Name */}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#D9C27B] transition-colors">
                     {service.name}
                   </h3>
-                  
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#D9C27B] to-transparent rounded-full"></div>
+                </div>
 
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1 text-[#D9C27B]">
-                        <FaMoneyBillWave className="text-sm" />
-                        <span className="font-semibold">₹{service.price}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-gray-400">
-                        <FaClock className="text-sm" />
-                        <span className="text-sm">{service.duration}m</span>
-                      </div>
+                {/* Price and Duration */}
+                <div className="flex items-center justify-between mb-6 p-4 bg-black/30 rounded-xl border border-[#D9C27B]/50">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-[#D9C27B]/20 rounded-lg flex items-center justify-center">
+                      <FaMoneyBillWave className="text-[#D9C27B] text-sm" />
+                    </div>
+                    <div>
+                      <p className="text-[#D9C27B] font-bold text-lg">₹{service.price}</p>
+                      <p className="text-gray-400 text-xs">Price</p>
                     </div>
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleViewService(service)}
-                      className="flex-1 px-3 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 transition-colors flex items-center justify-center gap-2 text-sm"
-                    >
-                      <FaEye />
-                      View
-                    </button>
-                    <button
-                      onClick={() => {
-                        console.log('Service object:', service);
-                        handleEditService(service);
-                      }}
-                      className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors flex items-center justify-center gap-2 text-sm"
-                    >
-                      <FaEdit />
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteService(service._id)}
-                      className="px-3 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors flex items-center justify-center"
-                    >
-                      <FaTrash />
-                    </button>
+                  
+                  <div className="w-px h-12 bg-[#D9C27B]/20"></div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-500/20 rounded-lg flex items-center justify-center">
+                      <FaClock className="text-gray-400 text-sm" />
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-lg">{service.duration}m</p>
+                      <p className="text-gray-400 text-xs">Duration</p>
+                    </div>
                   </div>
                 </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleViewService(service)}
+                    className="flex-1 px-4 py-3 bg-[#D9C27B]/20 text-[#D9C27B] rounded-xl hover:bg-[#D9C27B]/20 border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium group/btn"
+                  >
+                    <FaEye className="group-hover/btn:scale-110 transition-transform" />
+                    View
+                  </button>
+                  <button
+                    onClick={() => {
+                      console.log('Service object:', service);
+                      handleEditService(service);
+                    }}
+                    className="flex-1 px-4 py-3 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium group/btn"
+                  >
+                    <FaEdit className="group-hover/btn:scale-110 transition-transform" />
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteService(service._id)}
+                    className="px-4 py-3 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 flex items-center justify-center group/btn"
+                  >
+                    <FaTrash className="group-hover/btn:scale-110 transition-transform" />
+                  </button>
+                </div>
+
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D9C27B]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             ))
           )}
