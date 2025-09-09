@@ -97,14 +97,22 @@ const Service = () => {
 
   // Open modal for editing service
   const handleEditService = (service) => {
+    if (!service) {
+      console.error('Service object is undefined');
+      setError('Service data not found. Please refresh the page.');
+      return;
+    }
+    
+    console.log('Editing service:', service);
+    
     setModalMode('edit');
     setSelectedService(service);
     setFormData({
-      name: service.name,
-      category: service.category,
-      price: service.price.toString(),
-      duration: service.duration.toString(),
-      description: service.description
+      name: service.name || '',
+      category: service.category || '',
+      price: (service.price !== undefined && service.price !== null) ? String(service.price) : '',
+      duration: (service.duration !== undefined && service.duration !== null) ? String(service.duration) : '',
+      description: service.description || ''
     });
     setShowModal(true);
   };
@@ -351,7 +359,10 @@ const Service = () => {
                       View
                     </button>
                     <button
-                      onClick={() => handleEditService(service)}
+                      onClick={() => {
+                        console.log('Service object:', service);
+                        handleEditService(service);
+                      }}
                       className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors flex items-center justify-center gap-2 text-sm"
                     >
                       <FaEdit />
