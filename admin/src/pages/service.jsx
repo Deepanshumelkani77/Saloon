@@ -315,7 +315,7 @@ const Service = () => {
                 className="bg-black backdrop-blur-xl border border-[#D9C27B]/20 rounded-xl overflow-hidden hover:border-[#D9C27B]/40 transition-all duration-200 group"
               >
                 {/* Service Header */}
-                <div className="relative h-20 bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/20 flex items-center justify-center">
+                <div className="relative h-15 bg-black/20 flex items-center justify-center">
                   <FaCut className="text-3xl text-[#D9C27B]" />
                   
                   {/* Category Badge */}
@@ -328,7 +328,7 @@ const Service = () => {
 
                 {/* Service Info */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#D9C27B] transition-colors">
+                  <h3 className="text-3xl font-bold  text-white mb-2 group-hover:text-[#D9C27B] transition-colors">
                     {service.name}
                   </h3>
                   
