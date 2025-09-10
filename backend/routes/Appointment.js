@@ -3,6 +3,8 @@ const router = express.Router();
 const Appointment = require("../models/Appointment");
 const Service = require("../models/Service");
 const Stylist = require("../models/Stylist");
+const { sendConfirmationEmail } = require("../utils/emailService");
+
 
 // Helper function to convert time string to minutes
 const timeToMinutes = (timeStr) => {
@@ -504,5 +506,37 @@ router.put("/admin/payment/:appointmentId", async (req, res) => {
     res.status(500).json({ message: "Error updating payment status", error: error.message });
   }
 });
+
+
+//send email to user
+router.put("/confirm/:id", async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id).populate("user");
+    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+
+    appointment.status = "confirmed";
+    await appointment.save();
+
+    // User details
+    const userDetails = {
+      username: appointment.user.username,
+      email: appointment.user.email,
+      phone: appointment.user.phone,   // make sure phone is stored
+      date: appointment.date,
+      service: appointment.serviceName
+    };
+
+    // Send Email + SMS
+    await sendConfirmationEmail(userDetails.email, userDetails);
+   
+
+    res.json({ message: "Appointment confirmed and notification sent", appointment });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
 
 module.exports = router;

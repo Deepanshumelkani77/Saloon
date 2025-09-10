@@ -76,6 +76,7 @@ const Appointment = () => {
     setFilteredAppointments(filtered)
   }, [appointments, filterStatus, searchTerm])
 
+  
   const updateAppointmentStatus = async (id, newStatus) => {
     try {
       await axios.put(`${API_BASE_URL}/admin/status/${id}`, {
@@ -102,9 +103,16 @@ const Appointment = () => {
     }
   }
 
-  const handleConfirm = (id) => {
-    updateAppointmentStatus(id, 'confirmed')
+  const handleConfirm = async(id) => {
+try {
+      await axios.put(`${API_BASE_URL}/confirm/${id}`)
+    }catch (err) {
+      console.error('Error updating appointment status:', err)
+      setError('Failed to update appointment status. Please try again.')
+    }
+
   }
+
 
   const handleComplete = (id) => {
     updateAppointmentStatus(id, 'completed')
