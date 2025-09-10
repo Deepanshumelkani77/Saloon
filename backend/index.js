@@ -71,13 +71,13 @@ app.use("/admin", adminRouter);
 
 // Start Google login fro user
 app.get("/auth/google/user",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google-user", { scope: ["profile", "email"] })
 );
 
 // Google callback
 app.get(
   "/auth/google/user/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("google-user", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
     const token = jwt.sign(
       { id: req.user._id, email: req.user.email, name: req.user.name },
