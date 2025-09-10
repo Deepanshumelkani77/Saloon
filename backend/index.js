@@ -5,6 +5,9 @@ const passport = require("passport");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 
+
+
+
 //app config
 const app=express();
 const port=1000;
@@ -66,14 +69,14 @@ app.use("/admin", adminRouter);
 
 
 
-// Start Google login
-app.get("/auth/google",
+// Start Google login fro user
+app.get("/auth/google/user",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google callback
 app.get(
-  "/auth/google/callback",
+  "/auth/google/user/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
     const token = jwt.sign(
@@ -89,4 +92,30 @@ app.get(
   }
 );
 
+
+
+
+
+// Start Google login for admin
+app.get("/auth/google/admin",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// Google callback
+app.get(
+  "/auth/google/admin/callback",
+  passport.authenticate("google", { failureRedirect: "http://localhost:5174/login" }),
+  (req, res) => {
+    const token = jwt.sign(
+      { id: req.admin._id, email: req.admin.email, name: req.admin.name },
+      "your-jwt-secret",
+      { expiresIn: "24h" }
+    );
+
+    // Redirect to frontend with token and user info
+    res.redirect(
+      `http://localhost:5174/?token=${token}&id=${req.admin._id}&name=${req.admin.name}&email=${req.admin.email}`
+    );
+  }
+);
 

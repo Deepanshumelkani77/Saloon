@@ -6,9 +6,9 @@ const Admin = require("../models/Admin");
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com",
-      clientSecret: "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",
-      callbackURL: "http://localhost:1000/auth/google/callback",
+      clientID: "425613609140-v3m2frcg2tftd8fms8cih93bu6pgmutt.apps.googleusercontent.com",
+      clientSecret: "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",
+      callbackURL: "http://localhost:1000/auth/google/admin/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

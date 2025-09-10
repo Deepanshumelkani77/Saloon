@@ -62,7 +62,7 @@ const Login = () => {
 
 //google login
 const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:1000/auth/google";
+    window.location.href = "http://localhost:1000/auth/google/admin";
   };
 
 

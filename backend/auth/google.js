@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: "425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com",
       clientSecret: "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",
-      callbackURL: "http://localhost:1000/auth/google/callback",
+      callbackURL: "http://localhost:1000/auth/google/user/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -36,3 +36,8 @@ passport.deserializeUser(async (id, done) => {
   const user = await User.findById(id);
   done(null, user);
 });
+
+
+
+// clientID: "425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com",
+//       clientSecret: "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",
