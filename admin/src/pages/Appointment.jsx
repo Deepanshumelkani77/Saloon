@@ -104,13 +104,14 @@ const Appointment = () => {
   }
 
   const handleConfirm = async(id) => {
-try {
+    try {
       await axios.put(`${API_BASE_URL}/confirm/${id}`)
-    }catch (err) {
+      // Refresh appointments after confirmation
+      fetchAppointments()
+    } catch (err) {
       console.error('Error updating appointment status:', err)
       setError('Failed to update appointment status. Please try again.')
     }
-
   }
 
 
