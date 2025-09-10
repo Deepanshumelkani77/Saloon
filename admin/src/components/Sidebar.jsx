@@ -20,7 +20,7 @@ import {
 
 const Sidebar = ({ }) => {
 
-   const { user, sidebarOpen, closeSidebar } = useContext(AppContext);
+   const { admin, sidebarOpen, closeSidebar,logout } = useContext(AppContext);
   const location = useLocation()
   const gold = '#D9C27B'
 
@@ -154,8 +154,8 @@ const Sidebar = ({ }) => {
         {/* Logout Button */}
         <div className="p-4 border-t border-[#D9C27B]/20">
         {
-          user? <button
-            onClick={handleLogout}
+          admin? <button
+            onClick={logout}
             className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all duration-200"
           >
             <FaSignOutAlt className="text-lg" />
