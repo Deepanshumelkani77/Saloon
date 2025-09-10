@@ -4,6 +4,7 @@ const Admin = require("../models/Admin");
 
 
 passport.use(
+  "google-admin",   // unique name
   new GoogleStrategy(
     {
       clientID: "425613609140-v3m2frcg2tftd8fms8cih93bu6pgmutt.apps.googleusercontent.com",

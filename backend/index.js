@@ -1,9 +1,19 @@
 const express=require("express")
 const cors=require("cors")  //it is use for fetch data from database in frontend
-require("./auth/google"); // import google strategy
+
 const passport = require("passport");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
+
+
+
+// Load strategies
+require("./auth/google");
+require("./auth/googleAdmin");
+
+// Models
+const User = require("./models/User");
+const Admin = require("./models/Admin");
 
 
 
@@ -11,15 +21,39 @@ const jwt = require("jsonwebtoken");
 //app config
 const app=express();
 const port=1000;
+
 // Session middleware for passport
 app.use(session({
   secret: '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',
   resave: false,
   saveUninitialized: false
 }));
+
 // Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+// Serialize + Deserialize (supports both User & Admin)
+passport.serializeUser((user, done) => {
+  done(null, { id: user.id, role: user.role });
+});
+
+passport.deserializeUser(async (obj, done) => {
+  try {
+    let user;
+    if (obj.role === "admin") {
+      user = await Admin.findById(obj.id);
+    } else {
+      user = await User.findById(obj.id);
+    }
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
+
+
 
 app.listen(port,()=>{
     console.log("server is running",port);
@@ -98,23 +132,24 @@ app.get(
 
 // Start Google login for admin
 app.get("/auth/google/admin",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google-admin", { scope: ["profile", "email"] })
 );
 
 // Google callback
 app.get(
   "/auth/google/admin/callback",
-  passport.authenticate("google", { failureRedirect: "http://localhost:5174/login" }),
+  passport.authenticate("google-admin", { failureRedirect: "http://localhost:5174/login" }),
   (req, res) => {
+    // Passport stores user/admin always in req.user
     const token = jwt.sign(
-      { id: req.admin._id, email: req.admin.email, name: req.admin.name },
+      { id: req.user._id, email: req.user.email, name: req.user.username, role: "admin" },
       "your-jwt-secret",
       { expiresIn: "24h" }
     );
 
-    // Redirect to frontend with token and user info
+    // Redirect to ADMIN frontend with token and admin info
     res.redirect(
-      `http://localhost:5174/?token=${token}&id=${req.admin._id}&name=${req.admin.name}&email=${req.admin.email}`
+      `http://localhost:5174/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
