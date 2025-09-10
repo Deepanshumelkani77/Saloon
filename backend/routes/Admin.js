@@ -30,6 +30,7 @@ console.log(req.body);
 
 // Login
 router.post("/login", async (req, res) => {
+  console.log(req.body);
   try {
     const { email, password } = req.body;
 
@@ -46,7 +47,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token, user: { id: admin._id, name: admin.username, email: admin.email } });
+    res.json({ token, admin: { id: admin._id, name: admin.username, email: admin.email } });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
