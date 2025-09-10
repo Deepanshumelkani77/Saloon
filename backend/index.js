@@ -129,7 +129,7 @@ app.get(
 
 
 
-
+//passport have req.user object where user info is stored after login not req.admin
 // Start Google login for admin
 app.get("/auth/google/admin",
   passport.authenticate("google-admin", { scope: ["profile", "email"] })
