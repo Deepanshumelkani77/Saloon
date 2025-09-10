@@ -13,7 +13,7 @@ const AppContextProvider = (props) => {
   const location = useLocation();
 
 const [sidebarOpen, setSidebarOpen] = useState(false);
-const [loginForm, setLoginForm] = useState(false);
+const [openLogin,setOpenLogin] = useState(false);
 const [initialMode, setInitialMode] = useState("login");
 
 // Toggle function for sidebar
@@ -53,11 +53,11 @@ const closeSidebar = () => {
 
       // Save to cookies
       Cookies.set("token", tokenParam, { expires: 1 });
-      Cookies.set("admin", JSON.stringify(newAdmin), { expires: 1 });
+      Cookies.set("admin", JSON.stringify(newUser), { expires: 1 });
 
       // Update state
       setToken(tokenParam);
-      setAdmin(newAdmin);
+      setAdmin(newUser);
 
       // Remove params from URL
       navigate("/", { replace: true });
@@ -110,12 +110,14 @@ const closeSidebar = () => {
   const value = {
     admin,
     setAdmin,
+    token,
+    setToken,
     sidebarOpen,
     setSidebarOpen,
     toggleSidebar,
     closeSidebar,
-    loginForm,
-    setLoginForm,
+    openLogin,
+    setOpenLogin,
     signup,
     login,
     logout,

@@ -7,9 +7,9 @@ import {useNavigate} from 'react-router-dom'
 
 const gold = '#D9C27B';
 
-const Login = ({ onClose, }) => {
+const Login = () => {
 
- const { loginForm, setLoginForm, initialMode, setInitialMode } = useContext(AppContext);
+ const { openLogin, setOpenLogin, initialMode, setInitialMode } = useContext(AppContext);
 
   const [isSignup, setIsSignup] = useState(initialMode === 'signup');
   const [showPassword, setShowPassword] = useState(false);
@@ -38,11 +38,11 @@ const Login = ({ onClose, }) => {
     try {
       if (isSignup) {
         await signup(formData.fullName, formData.email, formData.password, formData.phone);
-        onClose(); // Close the modal
+        setOpenLogin(false); // Close the modal
         navigate("/");
       } else {
         await login(formData.email, formData.password);
-        onClose(); // Close the modal
+        setOpenLogin(false); // Close the modal
         navigate("/");
       }
     } catch (error) {
@@ -66,13 +66,16 @@ const handleGoogleLogin = () => {
   };
 
 
+  // Don't render if login modal is not open
+  if (!openLogin) return null;
+
   return (
-    <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setOpenLogin(false)}>
       <div className="bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="text-center py-8 px-6 border-b border-[#D9C27B]/20 relative">
           <button
-            onClick={onClose}
+            onClick={() => setOpenLogin(false)}
             className="absolute top-4 right-4 text-gray-400 hover:text-[#D9C27B] transition-colors text-xl"
           >
             <FaTimes />
