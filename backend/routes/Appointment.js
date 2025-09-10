@@ -509,6 +509,7 @@ router.put("/admin/payment/:appointmentId", async (req, res) => {
 
 
 router.put("/confirm/:id", async (req, res) => {
+  console.log(req.body);
   try {
     const appointment = await Appointment.findById(req.params.id);
     if (!appointment) {
