@@ -13,6 +13,8 @@ const AppContextProvider = (props) => {
   const location = useLocation();
 
 const [sidebarOpen, setSidebarOpen] = useState(false);
+const [loginForm, setLoginForm] = useState(false);
+const [initialMode, setInitialMode] = useState("login");
 
 // Toggle function for sidebar
 const toggleSidebar = () => {
@@ -111,7 +113,14 @@ const closeSidebar = () => {
     sidebarOpen,
     setSidebarOpen,
     toggleSidebar,
-    closeSidebar
+    closeSidebar,
+    loginForm,
+    setLoginForm,
+    signup,
+    login,
+    logout,
+    initialMode,
+    setInitialMode
   };
 
   return (

@@ -7,7 +7,10 @@ import {useNavigate} from 'react-router-dom'
 
 const gold = '#D9C27B';
 
-const Login = ({ onClose, initialMode = 'login' }) => {
+const Login = ({ onClose, }) => {
+
+ const { loginForm, setLoginForm, initialMode, setInitialMode } = useContext(AppContext);
+
   const [isSignup, setIsSignup] = useState(initialMode === 'signup');
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,6 +24,7 @@ const Login = ({ onClose, initialMode = 'login' }) => {
   const navigate = useNavigate();
   const { signup } = useContext(AppContext);
   const { login } = useContext(AppContext);
+ 
 
   const handleInputChange = (e) => {
     setFormData({
