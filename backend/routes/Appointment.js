@@ -4,6 +4,7 @@ const Appointment = require("../models/Appointment");
 const Service = require("../models/Service");
 const Stylist = require("../models/Stylist");
 const { sendConfirmationEmail } = require("../utils/emailService");
+const { sendConfirmationSMS } = require("../utils/smsService");
 
 
 // Helper function to convert time string to minutes
@@ -535,6 +536,15 @@ router.put("/confirm/:id", async (req, res) => {
     } catch (emailErr) {
       console.error("Email error:", emailErr.message);
     }
+
+
+     try {
+    await sendConfirmationSMS(userDetails.phone, userDetails);
+      console.log("📧 SMS sent to", userDetails.phone);
+    } catch (SMSErr) {
+      console.error("SMS error:", SMSErr.message);
+    }
+
 
     res.json({
       message: "Appointment confirmed and notification sent",
