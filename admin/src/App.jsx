@@ -11,6 +11,7 @@ import { AppContext } from './context/AppContext'
 
 const App = () => {
   const { sidebarOpen } = useContext(AppContext)
+  
 
   return (
     <div className="min-h-screen ">
