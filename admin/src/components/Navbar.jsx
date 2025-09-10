@@ -3,7 +3,7 @@ import { FaCut, FaUserCircle, FaCog, FaSignOutAlt, FaChartBar, FaCalendarAlt, Fa
 import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
-  const { user, setUser, sidebarOpen, setSidebarOpen } = useContext(AppContext)
+  const { admin, setAdmin, sidebarOpen, setSidebarOpen, setOpenLogin, setInitialMode, logout } = useContext(AppContext)
   const [profileDropdown, setProfileDropdown] = useState(false)
 
   const gold = '#D9C27B'
@@ -16,20 +16,19 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
-    console.log('Logging out...')
-    setUser(false)
+    logout()
     setProfileDropdown(false)
   }
 
   const handleLogin = () => {
-    console.log('Logging in...')
-    setUser(true)
+    setInitialMode('login')
+    setOpenLogin(true)
     setProfileDropdown(false)
   }
 
   const handleSignup = () => {
-    console.log('Signing up...')
-    setUser(true)
+    setInitialMode('signup')
+    setOpenLogin(true)
     setProfileDropdown(false)
   }
 
@@ -53,7 +52,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-6">
             
             {/* Quick Stats - Only show when admin is logged in */}
-            {user && (
+            {admin && (
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2 px-3 py-1 bg-[#D9C27B]/10 rounded-full">
                   <FaCalendarAlt className="text-[#D9C27B]" />
@@ -74,8 +73,8 @@ const Navbar = () => {
                 </div>
                 
                   <div className="hidden lg:block text-left">
-                    <p className="text-white text-sm font-medium">{adminUser.name}</p>
-                    <p className="text-[#D9C27B] text-xs">{adminUser.role}</p>
+                    <p className="text-white text-sm font-medium">{admin ? admin.name || admin.username : 'Guest'}</p>
+                    <p className="text-[#D9C27B] text-xs">{admin ? 'Admin' : 'Not logged in'}</p>
                   </div>
                 
                 <svg className="w-4 h-4 text-gray-400 group-hover:text-[#D9C27B] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +85,7 @@ const Navbar = () => {
               {/* Profile Dropdown */}
               {profileDropdown && (
                 <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
-                  {user ? (
+                  {admin ? (
                     <>
                       {/* User Info */}
                       <div className="p-4 border-b border-[#D9C27B]/20">
@@ -95,10 +94,10 @@ const Navbar = () => {
                             <FaUserCircle className="text-black text-xl" />
                           </div>
                           <div>
-                            <p className="text-white font-semibold">{adminUser.name}</p>
-                            <p className="text-gray-400 text-sm">{adminUser.email}</p>
+                            <p className="text-white font-semibold">{admin.name || admin.username}</p>
+                            <p className="text-gray-400 text-sm">{admin.email}</p>
                             <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
-                              {adminUser.role}
+                              Admin
                             </span>
                           </div>
                         </div>
@@ -181,7 +180,7 @@ const Navbar = () => {
               {/* Mobile Profile Dropdown */}
               {profileDropdown && (
                 <div className="absolute right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-[#D9C27B]/30 rounded-xl shadow-2xl z-50 animate-fade-in">
-                  {user ? (
+                  {admin ? (
                     <>
                       {/* User Info */}
                       <div className="p-4 border-b border-[#D9C27B]/20">
@@ -190,10 +189,10 @@ const Navbar = () => {
                             <FaUserCircle className="text-black text-xl" />
                           </div>
                           <div>
-                            <p className="text-white font-semibold">{adminUser.name}</p>
-                            <p className="text-gray-400 text-sm">{adminUser.email}</p>
+                            <p className="text-white font-semibold">{admin.name || admin.username}</p>
+                            <p className="text-gray-400 text-sm">{admin.email}</p>
                             <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
-                              {adminUser.role}
+                              Admin
                             </span>
                           </div>
                         </div>

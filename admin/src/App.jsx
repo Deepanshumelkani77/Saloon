@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Appointment from './pages/Appointment'
 import Service from './pages/Service'
 import Specialist from './pages/Specialist'
+import Login from './pages/Login'
 import { AppContext } from './context/AppContext'
 
 const App = () => {
@@ -43,6 +44,9 @@ const App = () => {
 
       {/* Footer */}
       <Footer />
+      
+      {/* Login Modal */}
+      <Login />
     </div>
   )
 }
