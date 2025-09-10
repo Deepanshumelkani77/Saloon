@@ -161,7 +161,7 @@ const Sidebar = ({ }) => {
             <FaSignOutAlt className="text-lg" />
             <span className="font-medium">Sign Out</span>
           </button>:
-          <button onClick={() => setOpenLogin(true)} className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-[#D9C27B] text-black font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 transform hover:from-[#F4E4A6] hover:via-[#D9C27B] hover:to-[#F4E4A6] group">
+          <button onClick={()=>{setOpenLogin(true)}} className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-[#D9C27B] text-black font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 transform hover:from-[#F4E4A6] hover:via-[#D9C27B] hover:to-[#F4E4A6] group">
             <FaUserCircle className="text-lg group-hover:rotate-12 transition-transform duration-300" />
             <span className="font-semibold tracking-wide">Signup/Login</span>
             <div className="w-2 h-2 bg-black/30 rounded-full animate-pulse"></div>
