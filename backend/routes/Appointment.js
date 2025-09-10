@@ -508,35 +508,42 @@ router.put("/admin/payment/:appointmentId", async (req, res) => {
 });
 
 
-//send email to user
 router.put("/confirm/:id", async (req, res) => {
   try {
-    const appointment = await Appointment.findById(req.params.id).populate("user");
-    if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
 
+    // update status
     appointment.status = "confirmed";
     await appointment.save();
 
-    // User details
+    // pull details from appointment itself
     const userDetails = {
-      username: appointment.user.username,
-      email: appointment.user.email,
-      phone: appointment.user.phone,   // make sure phone is stored
-      date: appointment.date,
+      username: appointment.customerName,
+      email: appointment.customerEmail,
+      phone: appointment.customerPhone,
+      date: appointment.appointmentDate,
       service: appointment.serviceName
     };
 
-    // Send Email + SMS
-    await sendConfirmationEmail(userDetails.email, userDetails);
-   
+    try {
+      await sendConfirmationEmail(userDetails.email, userDetails);
+      console.log("📧 Email sent to", userDetails.email);
+    } catch (emailErr) {
+      console.error("Email error:", emailErr.message);
+    }
 
-    res.json({ message: "Appointment confirmed and notification sent", appointment });
+    res.json({
+      message: "Appointment confirmed and notification sent",
+      appointment
+    });
   } catch (err) {
-    console.error(err);
+    console.error("Confirm route error:", err.message);
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 
 module.exports = router;
