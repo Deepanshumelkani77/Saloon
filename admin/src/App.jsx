@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Appointment from './pages/Appointment'
 import Service from './pages/Service'
 import Specialist from './pages/Specialist'
+import Profile from './pages/Profile'
 import Login from './pages/Login'
 import { AppContext } from './context/AppContext'
 
@@ -38,6 +39,7 @@ const App = () => {
             <Route path='/appointments' element={<Appointment />} />
             <Route path='/services' element={<Service />} />
             <Route path='/staff' element={<Specialist />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </main>
       </div>
