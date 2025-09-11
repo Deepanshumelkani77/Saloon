@@ -250,7 +250,7 @@ const Profile = () => {
               {/* Profile Info */}
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-2xl font-bold text-white mb-2">
-                  {admin?.username || 'Admin User'}
+                  {admin?.name || 'Admin User'}
                 </h2>
                 <p className="text-[#D9C27B] font-medium mb-2">Administrator</p>
                 <p className="text-gray-400">
@@ -321,7 +321,7 @@ const Profile = () => {
                 ) : (
                   <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
                     <FaUser className="text-[#D9C27B]" />
-                    <span className="text-white">{admin?.username || 'Not provided'}</span>
+                    <span className="text-white">{admin?.name || 'Not provided'}</span>
                   </div>
                 )}
               </div>

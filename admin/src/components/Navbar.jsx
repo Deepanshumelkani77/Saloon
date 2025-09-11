@@ -189,7 +189,7 @@ const Navbar = () => {
                             <FaUserCircle className="text-black text-xl" />
                           </div>
                           <div>
-                            <p className="text-white font-semibold">{ admin.username}</p>
+                            <p className="text-white font-semibold">{ admin.name}</p>
                             <p className="text-gray-400 text-sm">{admin.email}</p>
                             <span className="inline-block px-2 py-1 bg-[#D9C27B]/20 text-[#D9C27B] text-xs rounded-full mt-1">
                               Admin
