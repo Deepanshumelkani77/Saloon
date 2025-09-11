@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaCamera, FaEdit, FaSave, FaTimes, FaUpload, FaUserCircle } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const Profile = () => {
   const { admin, setAdmin, token } = useContext(AppContext);
@@ -87,10 +88,21 @@ const Profile = () => {
     setError(null);
     setSuccess(null);
 
+    
+
     try {
       const response = await axios.put(
-        `http://localhost:1000/admin/profile/${admin._id}`,
-        formData,
+        `http://localhost:1000/admin/profile/${admin.id}`,
+        {
+          username: formData.username,
+          email: formData.email,
+          phone: formData.phone_no,
+          address: formData.address,
+          gender: formData.gender,
+          dob: formData.dob,
+          bio: formData.bio,
+          image: formData.image
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,11 +111,22 @@ const Profile = () => {
         }
       );
 
-      if (response.data) {
-        setAdmin(response.data);
-        // Update cookies
-        const Cookies = require('js-cookie');
-        Cookies.set('admin', JSON.stringify(response.data), { expires: 1 });
+      if (response.data && response.data.admin) {
+        const updatedAdmin = response.data.admin;
+        setAdmin(updatedAdmin);
+        // Update cookies with complete admin data
+        Cookies.set('admin', JSON.stringify(updatedAdmin), { expires: 1 });
+        // Update form data to reflect saved changes
+        setFormData({
+          username: updatedAdmin.username || '',
+          email: updatedAdmin.email || '',
+          phone_no: updatedAdmin.phone_no || '',
+          bio: updatedAdmin.bio || '',
+          image: updatedAdmin.image || '',
+          address: updatedAdmin.address || '',
+          gender: updatedAdmin.gender || '',
+          dob: updatedAdmin.dob || ''
+        });
         setSuccess('Profile updated successfully!');
         setIsEditing(false);
       }

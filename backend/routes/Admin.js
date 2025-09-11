@@ -55,10 +55,10 @@ router.post("/login", async (req, res) => {
 
 // Update admin profile
 router.put("/profile/:adminId", async (req, res) => {
-  console.log(req.body)
+  console.log(req.params);
   try {
     const { adminId } = req.params;
-    const { username,email, phone, address, dob,  bio,image } = req.body;
+    const { username, email, phone, address, dob, bio, image, gender } = req.body;
     console.log(req.body);
 
     const updatedAdmin = await Admin.findByIdAndUpdate(
@@ -67,8 +67,9 @@ router.put("/profile/:adminId", async (req, res) => {
         username,
         email,
         image,
-        phone_no:phone,
+        phone_no: phone,
         address,
+        gender,
         dob,
         bio
       },
@@ -81,7 +82,17 @@ router.put("/profile/:adminId", async (req, res) => {
 
     res.json({
       message: "Profile updated successfully",
-      user: updatedAdmin
+      admin: {
+        id: updatedAdmin._id,
+        username: updatedAdmin.username,
+        email: updatedAdmin.email,
+        phone_no: updatedAdmin.phone_no,
+        address: updatedAdmin.address,
+        gender: updatedAdmin.gender,
+        dob: updatedAdmin.dob,
+        bio: updatedAdmin.bio,
+        image: updatedAdmin.image
+      }
     });
   } catch (error) {
     res.status(500).json({ message: "Error updating profile", error: error.message });
@@ -90,7 +101,7 @@ router.put("/profile/:adminId", async (req, res) => {
 
 
 router.get("/info/:userId", async (req, res) => {
-console.log(req.body);
+
 const { userId } = req.params;
   try {
     const admin = await Admin.findById(userId);
