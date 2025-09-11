@@ -63,7 +63,7 @@ const Profile = () => {
       if (response.data.secure_url) {
         setFormData(prev => ({
           ...prev,
-          profileImage: response.data.secure_url
+          image: response.data.secure_url
         }));
         setSuccess('Image uploaded successfully!');
       }
@@ -89,7 +89,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:1000/admin/profile/${admin.id}`,
+        `http://localhost:1000/admin/profile/${admin._id}`,
         formData,
         {
           headers: {
@@ -99,11 +99,11 @@ const Profile = () => {
         }
       );
 
-      if (response.data.admin) {
-        setAdmin(response.data.admin);
+      if (response.data) {
+        setAdmin(response.data);
         // Update cookies
         const Cookies = require('js-cookie');
-        Cookies.set('admin', JSON.stringify(response.data.admin), { expires: 1 });
+        Cookies.set('admin', JSON.stringify(response.data), { expires: 1 });
         setSuccess('Profile updated successfully!');
         setIsEditing(false);
       }
@@ -117,11 +117,14 @@ const Profile = () => {
 
   const handleCancel = () => {
     setFormData({
-      name: admin?.name || admin?.username || '',
+      username: admin?.username || '',
       email: admin?.email || '',
-      phone: admin?.phone || '',
+      phone_no: admin?.phone_no || '',
       bio: admin?.bio || '',
-      profileImage: admin?.profileImage || ''
+      image: admin?.image || '',
+      address: admin?.address || '',
+      gender: admin?.gender || '',
+      dob: admin?.dob || ''
     });
     setIsEditing(false);
     setError(null);
@@ -184,9 +187,9 @@ const Profile = () => {
               {/* Profile Image */}
               <div className="relative">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#D9C27B]/30 bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6]">
-                  {formData.profileImage ? (
+                  {formData.image ? (
                     <img 
-                      src={formData.profileImage} 
+                      src={formData.image} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -224,7 +227,7 @@ const Profile = () => {
               {/* Profile Info */}
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-2xl font-bold text-white mb-2">
-                  {admin?.name || admin?.username || 'Admin User'}
+                  {admin?.username || 'Admin User'}
                 </h2>
                 <p className="text-[#D9C27B] font-medium mb-2">Administrator</p>
                 <p className="text-gray-400">
@@ -275,27 +278,27 @@ const Profile = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
-              {/* Name */}
+              {/* Username */}
               <div>
                 <label className="block text-gray-400 text-sm font-medium mb-2">
-                  Full Name
+                  Username
                 </label>
                 {isEditing ? (
                   <div className="relative">
                     <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#D9C27B]" />
                     <input
                       type="text"
-                      name="name"
-                      value={formData.name}
+                      name="username"
+                      value={formData.username}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
-                      placeholder="Enter your full name"
+                      placeholder="Enter your username"
                     />
                   </div>
                 ) : (
                   <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
                     <FaUser className="text-[#D9C27B]" />
-                    <span className="text-white">{admin?.name || admin?.username || 'Not provided'}</span>
+                    <span className="text-white">{admin?.username || 'Not provided'}</span>
                   </div>
                 )}
               </div>
@@ -335,8 +338,8 @@ const Profile = () => {
                     <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#D9C27B]" />
                     <input
                       type="tel"
-                      name="phone"
-                      value={formData.phone}
+                      name="phone_no"
+                      value={formData.phone_no}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
                       placeholder="Enter your phone number"
@@ -345,7 +348,74 @@ const Profile = () => {
                 ) : (
                   <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
                     <FaPhone className="text-[#D9C27B]" />
-                    <span className="text-white">{admin?.phone || 'Not provided'}</span>
+                    <span className="text-white">{admin?.phone_no || 'Not provided'}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="block text-gray-400 text-sm font-medium mb-2">
+                  Address
+                </label>
+                {isEditing ? (
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
+                      placeholder="Enter your address"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
+                    <span className="text-white">{admin?.address || 'Not provided'}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Gender */}
+              <div>
+                <label className="block text-gray-400 text-sm font-medium mb-2">
+                  Gender
+                </label>
+                {isEditing ? (
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                ) : (
+                  <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
+                    <span className="text-white">{admin?.gender || 'Not provided'}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Date of Birth */}
+              <div>
+                <label className="block text-gray-400 text-sm font-medium mb-2">
+                  Date of Birth
+                </label>
+                {isEditing ? (
+                  <input
+                    type="date"
+                    name="dob"
+                    value={formData.dob ? new Date(formData.dob).toISOString().split('T')[0] : ''}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
+                  />
+                ) : (
+                  <div className="flex items-center gap-3 p-3 bg-gray-900/30 rounded-lg">
+                    <span className="text-white">{admin?.dob ? new Date(admin.dob).toLocaleDateString() : 'Not provided'}</span>
                   </div>
                 )}
               </div>
