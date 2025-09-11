@@ -89,7 +89,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        'http://localhost:1000/admin/profile',
+        `http://localhost:1000/admin/profile/${admin.id}`,
         formData,
         {
           headers: {

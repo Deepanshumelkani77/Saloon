@@ -67,7 +67,7 @@ router.put("/profile/:adminId", async (req, res) => {
         username,
         email,
         image,
-        phone,
+        phone_no:phone,
         address,
         dob,
         bio
