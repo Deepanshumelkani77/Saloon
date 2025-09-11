@@ -105,10 +105,10 @@ const Navbar = () => {
 
                       {/* Menu Items */}
                       <div className="py-2">
-                        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
+                       <a href="/profile"> <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
                           <FaUserCircle className="text-lg" />
                           <span>My Profile</span>
-                        </button>
+                        </button></a>
                         <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 transition-all duration-200">
                           <FaCog className="text-lg" />
                           <span>Settings</span>
