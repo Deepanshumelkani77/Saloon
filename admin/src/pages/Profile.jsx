@@ -13,11 +13,14 @@ const Profile = () => {
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    name: admin?.name || admin?.username || '',
+    username: admin?.username || '',
     email: admin?.email || '',
-    phone: admin?.phone || '',
+    phone_no: admin?.phone_no || '',
     bio: admin?.bio || '',
-    profileImage: admin?.profileImage || ''
+    image: admin?.image || '',
+    address: admin?.address || '',
+    gender: admin?.gender || '',
+    dob: admin?.dob || ''
   });
 
   const gold = '#D9C27B';

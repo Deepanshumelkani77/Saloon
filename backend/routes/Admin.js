@@ -55,6 +55,7 @@ router.post("/login", async (req, res) => {
 
 // Update admin profile
 router.put("/profile/:adminId", async (req, res) => {
+  console.log(req.body)
   try {
     const { adminId } = req.params;
     const { username,email, phone, address, dob,  bio,image } = req.body;
@@ -89,7 +90,7 @@ router.put("/profile/:adminId", async (req, res) => {
 
 
 router.get("/info/:userId", async (req, res) => {
-
+console.log(req.body);
 const { userId } = req.params;
   try {
     const admin = await Admin.findById(userId);
