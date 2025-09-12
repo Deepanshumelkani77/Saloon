@@ -53,6 +53,7 @@ const AppContextProvider = (props) => {
         password,
         phone,
       });
+       
       alert("Signup successful! Please login.");
     } catch (error) {
       alert(error.response?.data?.message || "Signup failed");

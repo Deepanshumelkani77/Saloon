@@ -74,6 +74,9 @@ const closeSidebar = () => {
         phone,
       });
       alert("Signup successful! Please login.");
+      // Redirect to login page after successful signup
+      setInitialMode("login");
+      setOpenLogin(true);
     } catch (error) {
       alert(error.response?.data?.message || "Signup failed");
     }
