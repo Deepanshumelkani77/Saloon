@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
 
-
+export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
   
