@@ -63,7 +63,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden bg-black">
+    <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-[90vh] overflow-hidden bg-black">
       {/* Main Slider Container */}
       <div 
         className="flex transition-transform duration-700 ease-in-out h-full"

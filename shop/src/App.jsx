@@ -3,18 +3,21 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar.jsx"
 import Home from "./pages/Home.jsx"
 
-
 const App = () => {
   return (
-    <div>
-      <Navbar/>
+    <div className="min-h-screen ">
+      {/* Navigation */}
+      <Navbar />
 
-      <main>
-<Routes>
-  <Route path='/' element={<Home/>}/>
-</Routes>
+      {/* Main Content */}
+      <main className="w-full ">
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
       </main>
       
+      {/* Footer Spacer */}
+      <div className="h-20"></div>
     </div>
   )
 }
