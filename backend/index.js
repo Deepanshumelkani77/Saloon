@@ -92,12 +92,14 @@ const paymentRouter = require("./routes/Payment.js");
 const serviceRouter = require("./routes/serviceRoutes.js");
 const stylistRouter = require("./routes/stylistRoutes.js");
 const adminRouter = require("./routes/Admin.js");
+const productRouter=require("./routes/Product.js")
 app.use("/user",user);
 app.use("/appointment",appointment);
 app.use("/payment", paymentRouter);
 app.use("/service", serviceRouter);
 app.use("/stylist", stylistRouter);
 app.use("/admin", adminRouter);
+app.us("/product",productRouter);
 
 
 
