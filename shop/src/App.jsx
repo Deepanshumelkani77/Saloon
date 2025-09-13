@@ -5,19 +5,19 @@ import Home from "./pages/Home.jsx"
 
 const App = () => {
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen w-full overflow-x-hidden">
       {/* Navigation */}
       <Navbar />
 
       {/* Main Content */}
-      <main className="w-full ">
+      <main className="w-full   px-0">
         <Routes>
           <Route path='/' element={<Home />} />
         </Routes>
       </main>
       
       {/* Footer Spacer */}
-      <div className="h-20"></div>
+      <div className="h-16 sm:h-20 md:h-24"></div>
     </div>
   )
 }

@@ -86,7 +86,7 @@ const Category = () => {
           {categories.map((category, index) => (
             <div
               key={category.id}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.gradient} backdrop-blur-sm border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:flex-1 lg:max-w-[280px] xl:max-w-[300px] 2xl:max-w-[320px] flex-shrink-0`}
+              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.gradient} backdrop-blur-sm border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer w-full sm:w-[100%]  md:w-[45%] lg:flex-1 lg:max-w-[300px] xl:max-w-[300px] 2xl:max-w-[320px] flex-shrink-0`}
               onMouseEnter={() => setHoveredCategory(category.id)}
               onMouseLeave={() => setHoveredCategory(null)}
             >
@@ -101,7 +101,7 @@ const Category = () => {
               )}
 
               {/* Image Container */}
-              <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
+              <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[28rem] overflow-hidden">
                 <img 
                   src={category.image} 
                   alt={category.name}
