@@ -152,13 +152,13 @@ const Category = () => {
               </div>
 
               {/* Animated Border */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+              <div className="absolute inset-0 rounded-2xl border-2 border-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
                    style={{
                      background: `linear-gradient(45deg, ${gold}, #F4E4A6, ${gold})`,
                      padding: '2px',
                      borderRadius: '1rem'
                    }}>
-                <div className="w-full h-full bg-black rounded-2xl"></div>
+                <div className="w-full h-full bg-transparent rounded-2xl"></div>
               </div>
             </div>
           ))}

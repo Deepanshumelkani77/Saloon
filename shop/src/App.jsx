@@ -5,7 +5,7 @@ import Home from "./pages/Home.jsx"
 
 const App = () => {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden">
+    <div className="min-h-screen w-full ">
       {/* Navigation */}
       <Navbar />
 
