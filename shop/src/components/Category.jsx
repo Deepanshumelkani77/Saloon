@@ -108,10 +108,10 @@ const Category = () => {
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute inset-0 "></div>
                 
                 {/* Hover Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-t from-[#D9C27B]/30 to-transparent transition-opacity duration-500 ${
+                <div className={`absolute inset-0  transition-opacity duration-500 ${
                   hoveredCategory === category.id ? 'opacity-100' : 'opacity-0'
                 }`}></div>
               </div>
@@ -152,14 +152,7 @@ const Category = () => {
               </div>
 
               {/* Animated Border */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
-                   style={{
-                     background: `linear-gradient(45deg, ${gold}, #F4E4A6, ${gold})`,
-                     padding: '2px',
-                     borderRadius: '1rem'
-                   }}>
-                <div className="w-full h-full bg-transparent rounded-2xl"></div>
-              </div>
+             
             </div>
           ))}
         </div>
