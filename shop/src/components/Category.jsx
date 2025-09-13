@@ -101,7 +101,7 @@ const Category = () => {
               )}
 
               {/* Image Container */}
-              <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[28rem] overflow-hidden">
+              <div className="relative h-100 sm:h-100 md:h-[20rem] lg:h-[25rem] xl:h-[30rem] overflow-hidden">
                 <img 
                   src={category.image} 
                   alt={category.name}
