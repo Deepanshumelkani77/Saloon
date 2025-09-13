@@ -55,8 +55,8 @@ const Category = () => {
   ];
 
   return (
-    <div className="w-full bg-black py-16 md:py-20 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
+    <div className="w-full py-16 md:py-20 lg:py-24">
+      <div className=" w-full mx-auto px-4 sm:px-6 lg:px-20">
         
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -82,11 +82,11 @@ const Category = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
+        <div className="flex justify-center gap-4 md:gap-6 lg:gap-8 flex-wrap lg:flex-nowrap">
           {categories.map((category, index) => (
             <div
               key={category.id}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.gradient} backdrop-blur-sm border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer`}
+              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.gradient} backdrop-blur-sm border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:flex-1 lg:max-w-[280px] xl:max-w-[300px] 2xl:max-w-[320px] flex-shrink-0`}
               onMouseEnter={() => setHoveredCategory(category.id)}
               onMouseLeave={() => setHoveredCategory(null)}
             >
@@ -101,11 +101,11 @@ const Category = () => {
               )}
 
               {/* Image Container */}
-              <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
+              <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
                 <img 
                   src={category.image} 
                   alt={category.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -117,36 +117,36 @@ const Category = () => {
               </div>
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                 <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
                   {/* Category Name */}
-                  <h3 className="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-[#D9C27B] transition-colors duration-300">
+                  <h3 className="text-white font-bold text-xl md:text-2xl lg:text-3xl mb-3 group-hover:text-[#D9C27B] transition-colors duration-300">
                     {category.name}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-gray-300 text-sm md:text-base mb-3 leading-relaxed">
+                  <p className="text-gray-300 text-sm md:text-base lg:text-lg mb-4 leading-relaxed">
                     {category.description}
                   </p>
                   
                   {/* Product Count */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[#D9C27B] font-semibold text-sm">
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="text-[#D9C27B] font-semibold text-sm md:text-base">
                       {category.productCount}
                     </span>
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} className="text-[#D9C27B] text-xs" />
+                        <FaStar key={i} className="text-[#D9C27B] text-xs md:text-sm" />
                       ))}
                     </div>
                   </div>
                   
                   {/* CTA Button */}
-                  <button className={`w-full bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-[#D9C27B] group-hover:to-[#F4E4A6] group-hover:text-black transform ${
+                  <button className={`w-full bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] py-3 md:py-4 px-6 md:px-8 rounded-full font-semibold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-[#D9C27B] group-hover:to-[#F4E4A6] group-hover:text-black transform ${
                     hoveredCategory === category.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                   }`}>
                     Shop Now
-                    <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
+                    <FaArrowRight className="text-xs md:text-sm transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
               </div>
@@ -164,25 +164,7 @@ const Category = () => {
           ))}
         </div>
 
-        {/* Bottom CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Can't find what you're looking for?
-            </h3>
-            <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
-              Our beauty experts are here to help you find the perfect products for your unique needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black px-8 py-4 rounded-full font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 text-lg">
-                Contact Expert
-              </button>
-              <button className="border-2 border-[#D9C27B] text-[#D9C27B] px-8 py-4 rounded-full font-bold hover:bg-[#D9C27B] hover:text-black transition-all duration-300 text-lg">
-                View All Products
-              </button>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

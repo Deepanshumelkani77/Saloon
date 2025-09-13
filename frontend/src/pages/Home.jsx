@@ -7,7 +7,7 @@ import GoogleMap from '../components/GoogleMap.jsx';
 
 const Home = () => {
   return (
-    <div className="bg-gradient-to-br from-black via-[#23211b] to-[#181818] w-full">
+    <div className=" w-full">
       <Header/>
       <Service/>
       <VideoSlider/>
