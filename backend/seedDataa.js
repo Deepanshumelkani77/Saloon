@@ -20,11 +20,11 @@ const connectDB = async () => {
 const products = [
   // ================== HAIR ==================
   // Shampoo
-  { name: "L’Oreal Men Shampoo ", image: "https://via.placeholder.com/300?text=L'Oreal+Men+Shampoo+1", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "L’Oreal", count: 5},
+  { name: "L’Oreal Men Shampoo ", image: "https://i.pinimg.com/1200x/a4/ea/2f/a4ea2fac3ae146e25e324b695e9095f7.jpg", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "L’Oreal", count: 5},
   { name: "Dove Women Shampoo ", image: "https://via.placeholder.com/300?text=Dove+Women+Shampoo+2", size: 250, price: 349, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Dove", count: 0 },
   { name: "Pantene Women Shampoo ", image: "https://via.placeholder.com/300?text=Pantene+Women+Shampoo+3", size: 300, price: 399, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Pantene", count: 0 },
   { name: "Head & Shoulders Men Shampoo ", image: "https://via.placeholder.com/300?text=Head+Shoulders+Men+Shampoo+4", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "Head & Shoulders", count: 0 },
-  { name: "Tresemme Women Shampoo ", image: "https://via.placeholder.com/300?text=Tresemme+Women+Shampoo+5", size: 250, price: 499, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Tresemme", count: 3 },
+  { name: "Tresemme Women Shampoo ", image: "https://i.pinimg.com/1200x/07/2f/7a/072f7ac2d0f8cada6b197d8803f38013.jpg", size: 250, price: 499, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Tresemme", count: 3 },
 
   // Conditioner
   { name: "L’Oreal Women Conditioner ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Conditioner+1", size: 200, price: 399, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "L’Oreal", count: 0 },
@@ -35,13 +35,13 @@ const products = [
 
   // Hair Oil
   { name: "Parachute Men Hair Oil ", image: "https://via.placeholder.com/300?text=Parachute+Men+Hair+Oil+1", size: 150, price: 199, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Parachute", count: 0 },
-  { name: "Bajaj Almond Women Hair Oil ", image: "https://via.placeholder.com/300?text=Bajaj+Almond+Women+Hair+Oil+2", size: 200, price: 249, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Bajaj", count: 4 },
+  { name: "Bajaj Almond Women Hair Oil ", image: "https://via.placeholder.com/300?text=Bajaj+Almond+Women+Hair+Oil+2", size: 200, price: 249, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Bajaj", count: 0 },
   { name: "Indulekha Women Hair Oil ", image: "https://via.placeholder.com/300?text=Indulekha+Women+Hair+Oil+3", size: 100, price: 499, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Indulekha", count: 0 },
   { name: "Kesh King Men Hair Oil ", image: "https://via.placeholder.com/300?text=Kesh+King+Men+Hair+Oil+4", size: 150, price: 299, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Kesh King", count: 0 },
-  { name: "L’Oreal Women Hair Oil ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Oil+5", size: 200, price: 399, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "L’Oreal", count: 2 },
+  { name: "L’Oreal Women Hair Oil ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Oil+5", size: 200, price: 399, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "L’Oreal", count: 0 },
   // Treatments & Serums
   { name: "L’Oreal Women Hair Serum ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Serum+1", size: 100, price: 699, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Matrix Men Hair Serum ", image: "https://via.placeholder.com/300?text=Matrix+Men+Hair+Serum+2", size: 80, price: 599, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Matrix", count: 1 },
+  { name: "Matrix Men Hair Serum ", image: "https://i.pinimg.com/1200x/b2/2c/a4/b22ca4b15f0a155a6d0912679aada4f6.jpg", size: 80, price: 599, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Matrix", count: 1 },
   { name: "Tresemme Women Hair Serum ", image: "https://via.placeholder.com/300?text=Tresemme+Women+Hair+Serum+3", size: 120, price: 799, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "Tresemme", count: 0 },
   { name: "Schwarzkopf Men Hair Serum ", image: "https://via.placeholder.com/300?text=Schwarzkopf+Men+Hair+Serum+4", size: 100, price: 999, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Schwarzkopf", count: 0 },
   { name: "L’Oreal Women Hair Serum ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Serum+5", size: 150, price: 899, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "L’Oreal", count: 0 },
@@ -91,7 +91,7 @@ const products = [
 
   // Suncare & Spf
   { name: "Nivea Men SPF 30 Sunscreen ", image: "https://via.placeholder.com/300?text=Nivea+Men+SPF+30+Sunscreen+1", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Lakme Women SPF 40 Sunscreen ", image: "https://via.placeholder.com/300?text=Lakme+Women+SPF+40+Sunscreen+2", size: 80, price: 449, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lakme", count: 0 },
+  { name: "Lakme Women SPF 40 Sunscreen ", image: "https://i.pinimg.com/1200x/ff/51/02/ff5102195376a591c406bf9388bb9451.jpg", size: 80, price: 449, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lakme", count: 5 },
   { name: "Lotus Women SPF 50 Sunscreen ", image: "https://via.placeholder.com/300?text=Lotus+Women+SPF+50+Sunscreen+3", size: 90, price: 499, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lotus", count: 0 },
   { name: "Garnier Men SPF 20 Sunscreen ", image: "https://via.placeholder.com/300?text=Garnier+Men+SPF+20+Sunscreen+4", size: 110, price: 349, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Garnier", count: 0 },
   { name: "Pond’s Women SPF 30 Sunscreen ", image: "https://via.placeholder.com/300?text=Pond's+Women+SPF+30+Sunscreen+5", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Pond’s", count: 0 },
@@ -183,7 +183,6 @@ const seedData = async () => {
     
     // Clear existing data
     console.log("Clearing existing data...");
-    await Product.deleteMany({});
     await Product.deleteMany({});
     console.log("Existing data cleared");
     
