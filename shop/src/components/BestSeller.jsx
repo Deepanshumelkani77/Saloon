@@ -68,7 +68,7 @@ const BestSeller = () => {
   }
 
   return (
-    <div className="w-full py-16 md:py-20 lg:py-24">
+    <div className="w-full py-0 md:py-0 lg:py-0">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20">
         
         {/* Header Section */}
@@ -128,10 +128,7 @@ const BestSeller = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 
-                {/* Hover Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-t from-[#D9C27B]/30 to-transparent transition-opacity duration-500 ${
-                  hoveredProduct === product._id ? 'opacity-100' : 'opacity-0'
-                }`}></div>
+               
 
                 {/* Action Buttons */}
                 <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-3 transition-all duration-500 ${
@@ -208,15 +205,7 @@ const BestSeller = () => {
                 </div>
               </div>
 
-              {/* Animated Border */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
-                   style={{
-                     background: `linear-gradient(45deg, ${gold}, #F4E4A6, ${gold})`,
-                     padding: '2px',
-                     borderRadius: '1rem'
-                   }}>
-                <div className="w-full h-full bg-transparent rounded-2xl"></div>
-              </div>
+              
             </div>
           ))}
         </div>
