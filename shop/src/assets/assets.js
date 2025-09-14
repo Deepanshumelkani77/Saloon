@@ -7,7 +7,8 @@ import skin from "./skin.jpeg"
 import men from "./men.jpeg"
 import women from "./women.jpeg"
 import accessories from "./dryer.jpeg"
+import video from "./video.mp4"
 
 export const assets={
-    a1,a2,a3,a4,hair,skin,men,women,accessories
+    a1,a2,a3,a4,hair,skin,men,women,accessories,video
 }
