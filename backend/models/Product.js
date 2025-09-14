@@ -8,6 +8,7 @@ const productSchema=new mongoose.Schema({
     category:{type:String,required:true},
     subCategory:{type:String,required:true},
     for:{type:String,required:true},
+    brand:{type:String},
     count:{type:Number,default:0}
 })
 
