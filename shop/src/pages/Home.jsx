@@ -2,6 +2,7 @@ import React from 'react'
 import Header from "../components/Header.jsx"
 import Category from "../components/Category.jsx"
 import BestSeller from "../components/BestSeller.jsx"
+import Video from "../components/Video.jsx"
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Header/>
       <Category/>
       <BestSeller/>
+      <Video/>
     </div>
   )
 }
