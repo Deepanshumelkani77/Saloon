@@ -38,6 +38,11 @@ const BestSeller = () => {
     console.log('Adding to cart:', product);
   };
 
+  const handleBuyNow = (product) => {
+    // Buy now functionality - to be implemented
+    console.log('Buy now:', product);
+  };
+
   const handleAddToWishlist = (product) => {
     // Add to wishlist functionality - to be implemented
     console.log('Adding to wishlist:', product);
@@ -119,11 +124,11 @@ const BestSeller = () => {
               </div>
 
               {/* Product Image */}
-              <div className="relative h-64 sm:h-72 md:h-80 overflow-hidden">
+              <div className="relative h-100 sm:h-100 md:h-100 lg:h-100 overflow-hidden">
                 <img 
                   src={product.image || '/api/placeholder/300/400'} 
                   alt={product.name}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full  transition-transform duration-700 "
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -147,7 +152,7 @@ const BestSeller = () => {
               </div>
 
               {/* Product Info */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
                   {/* Category */}
                   <div className="flex items-center gap-2 mb-2">
@@ -192,16 +197,25 @@ const BestSeller = () => {
                     </span>
                   </div>
                   
-                  {/* Add to Cart Button */}
-                  <button 
-                    onClick={() => handleAddToCart(product)}
-                    className={`w-full bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] py-3 px-6 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-[#D9C27B] group-hover:to-[#F4E4A6] group-hover:text-black transform ${
-                      hoveredProduct === product._id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                    }`}
-                  >
-                    <FaShoppingCart className="text-sm" />
-                    Add to Cart
-                  </button>
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    {/* Buy Now Button */}
+                    <button 
+                      onClick={() => handleBuyNow(product)}
+                      className="flex-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black py-3 px-4 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:scale-105"
+                    >
+                      Buy Now
+                    </button>
+                    
+                    {/* Add to Cart Button */}
+                    <button 
+                      onClick={() => handleAddToCart(product)}
+                      className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 px-4 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black"
+                    >
+                      <FaShoppingCart className="text-sm" />
+                      Cart
+                    </button>
+                  </div>
                 </div>
               </div>
 

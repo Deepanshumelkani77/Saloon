@@ -4,7 +4,7 @@ import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaChevronDown, FaCut
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("Hair Care");
+  const [activeCategory, setActiveCategory] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(3);
 
