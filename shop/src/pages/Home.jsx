@@ -3,6 +3,7 @@ import Header from "../components/Header.jsx"
 import Category from "../components/Category.jsx"
 import BestSeller from "../components/BestSeller.jsx"
 import Video from "../components/Video.jsx"
+import Footer from "../components/Footer.jsx"
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Category/>
       <BestSeller/>
       <Video/>
+      <Footer/>
     </div>
   )
 }

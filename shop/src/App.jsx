@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar.jsx"
 import Home from "./pages/Home.jsx"
+import Footer from "./components/Footer.jsx"
 
 const App = () => {
   return (
@@ -16,8 +17,7 @@ const App = () => {
         </Routes>
       </main>
       
-      {/* Footer Spacer */}
-      <div className="h-16 sm:h-20 md:h-24"></div>
+     
     </div>
   )
 }
