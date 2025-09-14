@@ -21,58 +21,58 @@ const products = [
   // ================== HAIR ==================
   // Shampoo
   { name: "L’Oreal Men Shampoo ", image: "https://i.pinimg.com/1200x/a4/ea/2f/a4ea2fac3ae146e25e324b695e9095f7.jpg", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "L’Oreal", count: 5},
-  { name: "Dove Women Shampoo ", image: "https://via.placeholder.com/300?text=Dove+Women+Shampoo+2", size: 250, price: 349, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Dove", count: 0 },
-  { name: "Pantene Women Shampoo ", image: "https://via.placeholder.com/300?text=Pantene+Women+Shampoo+3", size: 300, price: 399, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Pantene", count: 0 },
-  { name: "Head & Shoulders Men Shampoo ", image: "https://via.placeholder.com/300?text=Head+Shoulders+Men+Shampoo+4", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "Head & Shoulders", count: 0 },
+  { name: "Dove Women Shampoo ", image: "https://i.pinimg.com/736x/fb/87/5f/fb875f0e302f6d5b28b33ae13b559c78.jpg", size: 250, price: 349, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Dove", count: 0 },
+  { name: "Pantene Women Shampoo ", image: "https://i.pinimg.com/1200x/ec/64/40/ec644085bdfbd6142c1a4283e64c6fc0.jpg", size: 300, price: 399, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Pantene", count: 0 },
+  { name: "Head & Shoulders Men Shampoo ", image: "https://i.pinimg.com/736x/a2/2c/84/a22c84f2850a130f623663cbd3663194.jpg", size: 200, price: 299, category: "Hair", subCategory: "Shampoo", for: "Male", brand: "Head & Shoulders", count: 0 },
   { name: "Tresemme Women Shampoo ", image: "https://i.pinimg.com/1200x/07/2f/7a/072f7ac2d0f8cada6b197d8803f38013.jpg", size: 250, price: 499, category: "Hair", subCategory: "Shampoo", for: "Female", brand: "Tresemme", count: 3 },
 
   // Conditioner
-  { name: "L’Oreal Women Conditioner ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Conditioner+1", size: 200, price: 399, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Dove Men Conditioner ", image: "https://via.placeholder.com/300?text=Dove+Men+Conditioner+2", size: 180, price: 299, category: "Hair", subCategory: "Conditioner", for: "Male", brand: "Dove", count: 0 },
-  { name: "Tresemme Women Conditioner ", image: "https://via.placeholder.com/300?text=Tresemme+Women+Conditioner+3", size: 220, price: 449, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Tresemme", count: 0 },
-  { name: "Pantene Women Conditioner ", image: "https://via.placeholder.com/300?text=Pantene+Women+Conditioner+4", size: 250, price: 349, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Pantene", count: 0 },
-  { name: "Herbal Essences Women Conditioner ", image: "https://via.placeholder.com/300?text=Herbal+Essences+Women+Conditioner+5", size: 200, price: 399, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Herbal Essences", count: 0 },
+  { name: "L’Oreal Women Conditioner ", image: "https://i.pinimg.com/1200x/30/7e/c6/307ec648f0101e93d4262623dfa79323.jpg", size: 200, price: 399, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Dove Men Conditioner ", image: "https://i.pinimg.com/1200x/a7/b3/93/a7b393e12b22ec52d38593b435ed7e9f.jpg", size: 180, price: 299, category: "Hair", subCategory: "Conditioner", for: "Male", brand: "Dove", count: 0 },
+  { name: "Tresemme Women Conditioner ", image: "https://i.pinimg.com/1200x/84/dc/4a/84dc4a7e88a5da9ec3885d3ce4ac3cd0.jpg", size: 220, price: 449, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Tresemme", count: 0 },
+  { name: "Pantene Women Conditioner ", image: "https://i.pinimg.com/1200x/aa/33/af/aa33af06522d51e992b4300c0c50737e.jpg", size: 250, price: 349, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Pantene", count: 0 },
+  { name: "Herbal Essences Women Conditioner ", image: "https://i.pinimg.com/736x/f5/69/c2/f569c2d05d2681b8b8b62cd30676301e.jpg", size: 400, price: 399, category: "Hair", subCategory: "Conditioner", for: "Female", brand: "Herbal Essences", count: 0 },
 
   // Hair Oil
-  { name: "Parachute Men Hair Oil ", image: "https://via.placeholder.com/300?text=Parachute+Men+Hair+Oil+1", size: 150, price: 199, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Parachute", count: 0 },
-  { name: "Bajaj Almond Women Hair Oil ", image: "https://via.placeholder.com/300?text=Bajaj+Almond+Women+Hair+Oil+2", size: 200, price: 249, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Bajaj", count: 0 },
-  { name: "Indulekha Women Hair Oil ", image: "https://via.placeholder.com/300?text=Indulekha+Women+Hair+Oil+3", size: 100, price: 499, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Indulekha", count: 0 },
-  { name: "Kesh King Men Hair Oil ", image: "https://via.placeholder.com/300?text=Kesh+King+Men+Hair+Oil+4", size: 150, price: 299, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Kesh King", count: 0 },
-  { name: "L’Oreal Women Hair Oil ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Oil+5", size: 200, price: 399, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Parachute Men Hair Oil ", image: "https://i.pinimg.com/1200x/2f/1d/5d/2f1d5daf302deff52f0ff8db91af9b60.jpg", size: 150, price: 199, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Parachute", count: 0 },
+  { name: "Bajaj Almond Women Hair Oil ", image: "https://i.pinimg.com/1200x/55/f5/9a/55f59a390968eb8174d8bc13556242b8.jpg", size: 200, price: 249, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Bajaj", count: 0 },
+  { name: "Indulekha Women Hair Oil ", image: "https://i.pinimg.com/736x/a0/6a/77/a06a777c0367ac6c75a0792f09018649.jpg", size: 100, price: 499, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "Indulekha", count: 0 },
+  { name: "Kesh King Men Hair Oil ", image: "https://i.pinimg.com/1200x/5c/9b/b2/5c9bb293ffe58cf025c1885e87099576.jpg", size: 150, price: 299, category: "Hair", subCategory: "Hair Oil", for: "Male", brand: "Kesh King", count: 0 },
+  { name: "L’Oreal Women Hair Oil ", image: "https://i.pinimg.com/736x/d1/a6/d3/d1a6d336ef66371819026832b738f119.jpg", size: 200, price: 399, category: "Hair", subCategory: "Hair Oil", for: "Female", brand: "L’Oreal", count: 0 },
   // Treatments & Serums
-  { name: "L’Oreal Women Hair Serum ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Serum+1", size: 100, price: 699, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "L’Oreal Women Hair Serum ", image: "https://i.pinimg.com/736x/09/15/0e/09150ee8d1585dc677b8cdd1d8049392.jpg", size: 100, price: 699, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "L’Oreal", count: 0 },
   { name: "Matrix Men Hair Serum ", image: "https://i.pinimg.com/1200x/b2/2c/a4/b22ca4b15f0a155a6d0912679aada4f6.jpg", size: 80, price: 599, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Matrix", count: 1 },
-  { name: "Tresemme Women Hair Serum ", image: "https://via.placeholder.com/300?text=Tresemme+Women+Hair+Serum+3", size: 120, price: 799, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "Tresemme", count: 0 },
-  { name: "Schwarzkopf Men Hair Serum ", image: "https://via.placeholder.com/300?text=Schwarzkopf+Men+Hair+Serum+4", size: 100, price: 999, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Schwarzkopf", count: 0 },
-  { name: "L’Oreal Women Hair Serum ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Hair+Serum+5", size: 150, price: 899, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Tresemme Women Hair Serum ", image: "https://i.pinimg.com/736x/cf/3c/99/cf3c99b341f8cdd53fba8c57b829409f.jpg", size: 120, price: 799, category: "Hair", subCategory: "Treatments & Serums", for: "Female", brand: "Tresemme", count: 0 },
+  { name: "Schwarzkopf Men Hair Serum ", image: "https://i.pinimg.com/474x/70/2c/1e/702c1ed8a5be53880aef0e2e481d7a9f.jpg", size: 100, price: 999, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "Schwarzkopf", count: 0 },
+  { name: "L’Oreal Men Hair Serum ", image: "https://i.pinimg.com/1200x/95/ac/c3/95acc323fccf60bf98f873eda8eba7c5.jpg", size: 150, price: 899, category: "Hair", subCategory: "Treatments & Serums", for: "Male", brand: "L’Oreal", count: 0 },
 
   // Hair Masks
-  { name: "Tresemme Women Hair Mask ", image: "https://via.placeholder.com/300?text=Tresemme+Women+Hair+Mask+1", size: 200, price: 799, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Tresemme", count: 0 },
-  { name: "L’Oreal Men Hair Mask ", image: "https://via.placeholder.com/300?text=L'Oreal+Men+Hair+Mask+2", size: 180, price: 699, category: "Hair", subCategory: "Hair Masks", for: "Male", brand: "L’Oreal", count: 0 },
-  { name: "Matrix Women Hair Mask ", image: "https://via.placeholder.com/300?text=Matrix+Women+Hair+Mask+3", size: 250, price: 899, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Matrix", count: 0 },
-  { name: "Schwarzkopf Men Hair Mask ", image: "https://via.placeholder.com/300?text=Schwarzkopf+Men+Hair+Mask+4", size: 220, price: 999, category: "Hair", subCategory: "Hair Masks", for: "Male", brand: "Schwarzkopf", count: 0 },
-  { name: "Dove Women Hair Mask ", image: "https://via.placeholder.com/300?text=Dove+Women+Hair+Mask+5", size: 200, price: 799, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Dove", count: 0 },
+  { name: "Tresemme Women Hair Mask ", image: "https://i.pinimg.com/1200x/b8/f8/b9/b8f8b9e25a7e3d1776835a13fbf3e648.jpg", size: 200, price: 799, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Tresemme", count: 0 },
+  { name: "L’Oreal Men Hair Mask ", image: "https://i.pinimg.com/736x/e5/44/d7/e544d71158bf8d24cf9d4acc35b0c894.jpg", size: 180, price: 699, category: "Hair", subCategory: "Hair Masks", for: "Male", brand: "L’Oreal", count: 0 },
+  { name: "Matrix Women Hair Mask ", image: "https://i.pinimg.com/1200x/33/26/1e/33261ecc82b48c7d786c65a69057c748.jpg", size: 250, price: 899, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Matrix", count: 0 },
+  { name: "Schwarzkopf Men Hair Mask ", image: "https://i.pinimg.com/1200x/73/d0/c4/73d0c4791569218e30d871c87d707e1f.jpg", size: 220, price: 999, category: "Hair", subCategory: "Hair Masks", for: "Male", brand: "Schwarzkopf", count: 0 },
+  { name: "Dove Women Hair Mask ", image: "https://i.pinimg.com/1200x/23/ab/29/23ab290b2976091320a2b567e719df2c.jpg", size: 200, price: 799, category: "Hair", subCategory: "Hair Masks", for: "Female", brand: "Dove", count: 0 },
 
   // Dry Shampoo
-  { name: "Batiste Women Dry Shampoo ", image: "https://via.placeholder.com/300?text=Batiste+Women+Dry+Shampoo+1", size: 150, price: 699, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "Batiste", count: 0 },
-  { name: "Tresemme Men Dry Shampoo ", image: "https://via.placeholder.com/300?text=Tresemme+Men+Dry+Shampoo+2", size: 200, price: 599, category: "Hair", subCategory: "Dry Shampoo", for: "Male", brand: "Tresemme", count: 0 },
-  { name: "L’Oreal Women Dry Shampoo ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Dry+Shampoo+3", size: 180, price: 799, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Schwarzkopf Men Dry Shampoo ", image: "https://via.placeholder.com/300?text=Schwarzkopf+Men+Dry+Shampoo+4", size: 200, price: 899, category: "Hair", subCategory: "Dry Shampoo", for: "Male", brand: "Schwarzkopf", count: 0 },
-  { name: "Matrix Women Dry Shampoo ", image: "https://via.placeholder.com/300?text=Matrix+Women+Dry+Shampoo+5", size: 220, price: 999, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "Matrix", count: 0 },
+  { name: "Batiste Women Dry Shampoo ", image: "https://i.pinimg.com/736x/ef/a2/98/efa298b644212186706302e611acb060.jpg", size: 150, price: 699, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "Batiste", count: 0 },
+  { name: "Tresemme Men Dry Shampoo ", image: "https://i.pinimg.com/1200x/f8/6f/f4/f86ff49dbbccea31e7748ee16082d45b.jpg", size: 200, price: 599, category: "Hair", subCategory: "Dry Shampoo", for: "Male", brand: "Tresemme", count: 0 },
+  { name: "L’Oreal Women Dry Shampoo ", image: "https://i.pinimg.com/736x/73/d4/a9/73d4a9837d6d05fc54a867e888d7661e.jpg", size: 180, price: 799, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Schwarzkopf Men Dry Shampoo ", image: "https://i.pinimg.com/1200x/0f/20/d5/0f20d5e3bfb621ea8ffdfd7402035851.jpg", size: 200, price: 899, category: "Hair", subCategory: "Dry Shampoo", for: "Male", brand: "Schwarzkopf", count: 0 },
+  { name: "Matrix Women Dry Shampoo ", image: "https://i.pinimg.com/736x/72/49/03/72490387b3e1cc0a33fc616493aa874c.jpg", size: 220, price: 999, category: "Hair", subCategory: "Dry Shampoo", for: "Female", brand: "Matrix", count: 0 },
 
   // Travel Size
-  { name: "L’Oreal Travel Shampoo ", image: "https://via.placeholder.com/300?text=L'Oreal+Travel+Shampoo+1", size: 50, price: 199, category: "Hair", subCategory: "Travel Size", for: "Male", brand: "L’Oreal", count: 0 },
-  { name: "Dove Travel Conditioner ", image: "https://via.placeholder.com/300?text=Dove+Travel+Conditioner+2", size: 60, price: 249, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Dove", count: 0 },
-  { name: "Pantene Travel Hair Oil ", image: "https://via.placeholder.com/300?text=Pantene+Travel+Hair+Oil+3", size: 40, price: 149, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Pantene", count: 0 },
-  { name: "Tresemme Travel Hair Mask ", image: "https://via.placeholder.com/300?text=Tresemme+Travel+Hair+Mask+4", size: 70, price: 199, category: "Hair", subCategory: "Travel Size", for: "Male", brand: "Tresemme", count: 0 },
-  { name: "Matrix Travel Hair Serum ", image: "https://via.placeholder.com/300?text=Matrix+Travel+Hair+Serum+5", size: 60, price: 299, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Matrix", count: 0 },
+  { name: "L’Oreal Travel Shampoo ", image: "https://i.pinimg.com/736x/bf/31/a6/bf31a68082ac366a508c2a008a4b169c.jpg", size: 50, price: 199, category: "Hair", subCategory: "Travel Size", for: "Male", brand: "L’Oreal", count: 0 },
+  { name: "Dove Travel Conditioner ", image: "https://i.pinimg.com/1200x/c0/65/95/c065958d67e9782c616d1c6f49c0f35d.jpg", size: 60, price: 249, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Dove", count: 0 },
+  { name: "Pantene Travel Hair Oil ", image: "https://i.pinimg.com/736x/8c/e7/92/8ce792b5871fff8cd609885066717b2b.jpg", size: 40, price: 149, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Pantene", count: 0 },
+  { name: "Tresemme Travel Hair Mask ", image: "https://i.pinimg.com/1200x/0d/28/3f/0d283f42875fef95fbc589c3ed71871f.jpg", size: 70, price: 199, category: "Hair", subCategory: "Travel Size", for: "Male", brand: "Tresemme", count: 0 },
+  { name: "Matrix Travel Hair Serum ", image: "https://i.pinimg.com/1200x/b2/2c/a4/b22ca4b15f0a155a6d0912679aada4f6.jpg", size: 60, price: 299, category: "Hair", subCategory: "Travel Size", for: "Female", brand: "Matrix", count: 0 },
 
   // Gifts & Bundles
-  { name: "L’Oreal Hair Care Gift Set ", image: "https://via.placeholder.com/300?text=L'Oreal+Hair+Care+Gift+Set+1", size: 500, price: 1299, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Dove Hair Care Bundle ", image: "https://via.placeholder.com/300?text=Dove+Hair+Care+Bundle+2", size: 600, price: 1399, category: "Hair", subCategory: "Gifts & Bundles", for: "Male", brand: "Dove", count: 0 },
-  { name: "Tresemme Styling Pack ", image: "https://via.placeholder.com/300?text=Tresemme+Styling+Pack+3", size: 550, price: 1499, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "Tresemme", count: 0 },
-  { name: "Pantene Combo Pack ", image: "https://via.placeholder.com/300?text=Pantene+Combo+Pack+4", size: 580, price: 1599, category: "Hair", subCategory: "Gifts & Bundles", for: "Male", brand: "Pantene", count: 0 },
-  { name: "Matrix Professional Bundle ", image: "https://via.placeholder.com/300?text=Matrix+Professional+Bundle+5", size: 600, price: 1699, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "Matrix", count: 0 },
+  { name: "L’Oreal Hair Care Gift Set ", image: "https://i.pinimg.com/1200x/5e/1a/d4/5e1ad4c0f9aa16f6989c62931afc33fd.jpg", size: 500, price: 1299, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Dove Hair Care Bundle ", image: "https://i.pinimg.com/736x/35/09/37/350937a11c0913ea84ea83021a8c20e7.jpg", size: 600, price: 1399, category: "Hair", subCategory: "Gifts & Bundles", for: "Male", brand: "Dove", count: 0 },
+  { name: "Tresemme Styling Pack ", image: "https://i.pinimg.com/736x/4e/c8/b5/4ec8b505b1174cc536c25b60b2ecea65.jpg", size: 550, price: 1499, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "Tresemme", count: 0 },
+  { name: "Pantene Combo Pack ", image: "https://i.pinimg.com/736x/a6/c7/83/a6c7836d0deb19759e1e63fcbd37ceed.jpg", size: 580, price: 1599, category: "Hair", subCategory: "Gifts & Bundles", for: "Male", brand: "Pantene", count: 0 },
+  { name: "Matrix Professional Bundle ", image: "https://i.pinimg.com/736x/b0/88/1d/b0881de1dc4cbf534506911ad61eedd1.jpg", size: 600, price: 1699, category: "Hair", subCategory: "Gifts & Bundles", for: "Female", brand: "Matrix", count: 0 },
 
   // ================== SKIN ==================
   // Moisturisers
