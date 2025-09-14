@@ -78,7 +78,8 @@ const Navbar = () => {
             <div className=" flex items-center space-x-6 xl:space-x-8">
               {categories.map((category, index) => (
                 <div key={`${category.name}-${index}`} className="relative">
-                  <button
+
+                  <a href="/hair"> <button
                     type="button"
                     onClick={() => handleCategoryClick(category.name)}
                     className={`px-4 py-3 text-lg font-semibold flex items-center gap-2 transition-all duration-200 whitespace-nowrap rounded-lg ${
@@ -91,7 +92,8 @@ const Navbar = () => {
                     <FaChevronDown className={`text-sm transition-transform duration-200 ${
                       activeDropdown === category.name ? 'rotate-180' : ''
                     }`} />
-                  </button>
+                  </button></a>
+                 
                   
                   {/* Enhanced Dropdown Menu */}
                   {activeDropdown === category.name && (

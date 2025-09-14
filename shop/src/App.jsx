@@ -15,6 +15,7 @@ const App = () => {
       <main className="w-full   px-0">
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/hair' element={<Hair />} />
         </Routes>
       </main>
       
