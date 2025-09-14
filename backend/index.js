@@ -99,7 +99,7 @@ app.use("/payment", paymentRouter);
 app.use("/service", serviceRouter);
 app.use("/stylist", stylistRouter);
 app.use("/admin", adminRouter);
-app.us("/product",productRouter);
+app.use("/product",productRouter);
 
 
 
