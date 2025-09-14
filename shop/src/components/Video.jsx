@@ -3,8 +3,8 @@ import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute, FaExpand, FaStar, FaQuoteLef
 import { assets } from "../assets/assets.js";
 
 const Video = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoRef = useRef(null);
@@ -115,69 +115,14 @@ const Video = () => {
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={() => setIsPlaying(false)}
                 poster="/api/placeholder/1200/675"
+                autoPlay
+                muted
+                loop
               />
               
               {/* Video Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
               
-              {/* Play Button Overlay */}
-              {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <button
-                    onClick={togglePlay}
-                    className="group bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-6 rounded-full hover:scale-110 transition-all duration-300 shadow-2xl"
-                  >
-                    <FaPlay className="text-3xl md:text-4xl ml-1 group-hover:ml-2 transition-all duration-300" />
-                  </button>
-                </div>
-              )}
-              
-              {/* Video Controls */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6">
-                
-                {/* Progress Bar */}
-                <div className="mb-4">
-                  <div 
-                    className="w-full h-2 bg-gray-600 rounded-full cursor-pointer"
-                    onClick={handleProgressClick}
-                  >
-                    <div 
-                      className="h-full bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] rounded-full transition-all duration-300"
-                      style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
-                    />
-                  </div>
-                </div>
-                
-                {/* Control Buttons */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={togglePlay}
-                      className="text-white hover:text-[#D9C27B] transition-colors duration-300 p-2"
-                    >
-                      {isPlaying ? <FaPause className="text-xl" /> : <FaPlay className="text-xl" />}
-                    </button>
-                    
-                    <button
-                      onClick={toggleMute}
-                      className="text-white hover:text-[#D9C27B] transition-colors duration-300 p-2"
-                    >
-                      {isMuted ? <FaVolumeMute className="text-xl" /> : <FaVolumeUp className="text-xl" />}
-                    </button>
-                    
-                    <span className="text-white text-sm">
-                      {formatTime(currentTime)} / {formatTime(duration)}
-                    </span>
-                  </div>
-                  
-                  <button
-                    onClick={() => videoRef.current?.requestFullscreen()}
-                    className="text-white hover:text-[#D9C27B] transition-colors duration-300 p-2"
-                  >
-                    <FaExpand className="text-xl" />
-                  </button>
-                </div>
-              </div>
             </div>
             
             {/* Video Info */}
