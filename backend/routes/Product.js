@@ -24,6 +24,31 @@ router.get("/bestsellers", async (req, res) => {
     }
 });
 
+router.get("/hair",async(req,res)=>{
 
+const category="hair";
+const data=Product.findBy
+
+
+})
+
+
+// ✅ Get all products in "Hair" category
+router.get("/hair", async (req, res) => {
+  try {
+    const data = await Product.find({ category: "Hair" }); // filter only Hair
+    res.json({
+      success: true,
+      data
+    });
+  } catch (error) {
+    console.error("Error fetching hair products:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch hair products",
+      error: error.message
+    });
+  }
+});
 
 module.exports=router;
