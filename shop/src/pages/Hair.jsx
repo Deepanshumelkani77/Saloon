@@ -349,7 +349,7 @@ const Hair = () => {
                     </div>
 
                     {/* Enhanced Product Info */}
-                    <div className="p-3 md:p-4 lg:p-4 xl:p-5 space-y-2 md:space-y-3 lg:space-y-3 xl:space-y-4">
+                    <div className="p-3 md:p-4 lg:p-4 xl:p-5 space-y-2 md:space-y-3 lg:space-y-1 xl:space-y-1">
                       {/* Product Name with Animation */}
                       <div className="space-y-1 md:space-y-1 lg:space-y-1 xl:space-y-2">
                         <h3 className="text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
@@ -391,10 +391,7 @@ const Hair = () => {
                           </div>
                         </div>
                         
-                        {/* Price per unit info */}
-                        <div className="text-gray-400 text-xs hidden md:block">
-                          Best price guaranteed • Free shipping over ₹999
-                        </div>
+                        
                       </div>
                       
                       {/* Enhanced Action Buttons */}
@@ -419,6 +416,7 @@ const Hair = () => {
 
                     
                     </div>
+                 
                   </div>
                 ))}
               </div>
