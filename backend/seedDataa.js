@@ -76,60 +76,60 @@ const products = [
 
   // ================== SKIN ==================
   // Moisturisers
-  { name: "Nivea Men Moisturiser ", image: "https://via.placeholder.com/300?text=Nivea+Men+Moisturiser+1", size: 50, price: 299, category: "Skin", subCategory: "Moisturisers", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Pond’s Women Moisturiser ", image: "https://via.placeholder.com/300?text=Pond's+Women+Moisturiser+2", size: 60, price: 349, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Pond’s", count: 0 },
-  { name: "Olay Women Moisturiser ", image: "https://via.placeholder.com/300?text=Olay+Women+Moisturiser+3", size: 70, price: 399, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Olay", count: 0 },
-  { name: "Garnier Men Moisturiser ", image: "https://via.placeholder.com/300?text=Garnier+Men+Moisturiser+4", size: 80, price: 449, category: "Skin", subCategory: "Moisturisers", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Lakme Women Moisturiser ", image: "https://via.placeholder.com/300?text=Lakme+Women+Moisturiser+5", size: 90, price: 499, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Lakme", count: 0 },
+  { name: "Nivea Men Moisturiser ", image: "https://i.pinimg.com/1200x/3d/f2/7c/3df27c2426623d37b38da8d529aab262.jpg", size: 50, price: 299, category: "Skin", subCategory: "Moisturisers", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Pond’s Women Moisturiser ", image: "https://i.pinimg.com/736x/33/24/3c/33243ccde40de9a169b8cdb481c722ca.jpg", size: 60, price: 349, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Pond’s", count: 0 },
+  { name: "Olay Women Moisturiser ", image: "https://i.pinimg.com/1200x/c5/d7/f5/c5d7f5b8dcaf08d36564b17744817d27.jpg", size: 70, price: 399, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Olay", count: 0 },
+  { name: "Garnier Men Moisturiser ", image: "https://i.pinimg.com/1200x/82/8f/12/828f1212819366d588291db270c3b5bb.jpg", size: 80, price: 449, category: "Skin", subCategory: "Moisturisers", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Lakme Women Moisturiser ", image: "https://i.pinimg.com/736x/77/91/c9/7791c9a45a491165d78b3a6116227a7b.jpg", size: 90, price: 499, category: "Skin", subCategory: "Moisturisers", for: "Female", brand: "Lakme", count: 0 },
 
   // Cleansers
-  { name: "Nivea Men Cleanser ", image: "https://via.placeholder.com/300?text=Nivea+Men+Cleanser+1", size: 100, price: 299, category: "Skin", subCategory: "Cleansers", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Pond’s Women Cleanser ", image: "https://via.placeholder.com/300?text=Pond's+Women+Cleanser+2", size: 120, price: 349, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Pond’s", count: 0 },
-  { name: "Olay Women Cleanser ", image: "https://via.placeholder.com/300?text=Olay+Women+Cleanser+3", size: 150, price: 399, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Olay", count: 0 },
-  { name: "Garnier Men Cleanser ", image: "https://via.placeholder.com/300?text=Garnier+Men+Cleanser+4", size: 130, price: 349, category: "Skin", subCategory: "Cleansers", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Lakme Women Cleanser ", image: "https://via.placeholder.com/300?text=Lakme+Women+Cleanser+5", size: 140, price: 449, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Lakme", count: 0 },
+  { name: "Nivea Men Cleanser ", image: "https://i.pinimg.com/736x/db/50/da/db50da51bb62502015279a066cebef59.jpg", size: 100, price: 299, category: "Skin", subCategory: "Cleansers", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Pond’s Women Cleanser ", image: "https://i.pinimg.com/736x/2c/b1/4e/2cb14e4dc1dbfe7425c96051706a76fa.jpg", size: 120, price: 349, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Pond’s", count: 0 },
+  { name: "Olay Women Cleanser ", image: "https://i.pinimg.com/1200x/72/24/e1/7224e1805a81dc40499f9b166eeb1020.jpg", size: 150, price: 399, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Olay", count: 0 },
+  { name: "Garnier Men Cleanser ", image: "https://i.pinimg.com/1200x/a4/b2/1a/a4b21a65219ac0d12e984ff0f42ededc.jpg", size: 130, price: 349, category: "Skin", subCategory: "Cleansers", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Lakme Women Cleanser ", image: "https://i.pinimg.com/1200x/98/28/1d/98281de374df0faf8111661f275a2c6f.jpg", size: 140, price: 449, category: "Skin", subCategory: "Cleansers", for: "Female", brand: "Lakme", count: 0 },
 
   // Suncare & Spf
-  { name: "Nivea Men SPF 30 Sunscreen ", image: "https://via.placeholder.com/300?text=Nivea+Men+SPF+30+Sunscreen+1", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Nivea Men SPF 30 Sunscreen ", image: "https://i.pinimg.com/1200x/37/4d/ba/374dba5e2a494ec3b26e27ab22d97031.jpg", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Nivea", count: 0 },
   { name: "Lakme Women SPF 40 Sunscreen ", image: "https://i.pinimg.com/1200x/ff/51/02/ff5102195376a591c406bf9388bb9451.jpg", size: 80, price: 449, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lakme", count: 5 },
-  { name: "Lotus Women SPF 50 Sunscreen ", image: "https://via.placeholder.com/300?text=Lotus+Women+SPF+50+Sunscreen+3", size: 90, price: 499, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lotus", count: 0 },
-  { name: "Garnier Men SPF 20 Sunscreen ", image: "https://via.placeholder.com/300?text=Garnier+Men+SPF+20+Sunscreen+4", size: 110, price: 349, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Pond’s Women SPF 30 Sunscreen ", image: "https://via.placeholder.com/300?text=Pond's+Women+SPF+30+Sunscreen+5", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Pond’s", count: 0 },
+  { name: "Lotus Women SPF 50 Sunscreen ", image: "https://i.pinimg.com/736x/2a/77/40/2a774010063ca26d16a17771bacac526.jpg", size: 90, price: 499, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Lotus", count: 0 },
+  { name: "Garnier Men SPF 20 Sunscreen ", image: "https://i.pinimg.com/1200x/ec/8c/a4/ec8ca4799802480a86a817da08a642e8.jpg", size: 110, price: 349, category: "Skin", subCategory: "Suncare & Spf", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Pond’s Women SPF 30 Sunscreen ", image: "https://i.pinimg.com/736x/79/61/25/796125cab8a8ed2d57cd03b1e09e4c8f.jpg", size: 100, price: 399, category: "Skin", subCategory: "Suncare & Spf", for: "Female", brand: "Pond’s", count: 0 },
 
   // Eyecare & Creams
-  { name: "Olay Women Eye Cream ", image: "https://via.placeholder.com/300?text=Olay+Women+Eye+Cream+1", size: 30, price: 599, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Olay", count: 0 },
-  { name: "Nivea Men Eye Cream ", image: "https://via.placeholder.com/300?text=Nivea+Men+Eye+Cream+2", size: 25, price: 499, category: "Skin", subCategory: "Eyecare & Creams", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Lakme Women Eye Gel ", image: "https://via.placeholder.com/300?text=Lakme+Women+Eye+Gel+3", size: 20, price: 449, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Lakme", count: 0 },
-  { name: "Garnier Men Eye Roll-On ", image: "https://via.placeholder.com/300?text=Garnier+Men+Eye+Roll-On+4", size: 15, price: 399, category: "Skin", subCategory: "Eyecare & Creams", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Pond’s Women Eye Cream ", image: "https://via.placeholder.com/300?text=Pond's+Women+Eye+Cream+5", size: 25, price: 499, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Pond’s", count: 0 },
+  { name: "Olay Women Eye Cream ", image: "https://i.pinimg.com/1200x/87/fe/8d/87fe8d3419123c5a91a14e4ad3d4e901.jpg", size: 30, price: 599, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Olay", count: 0 },
+  { name: "Nivea Men Eye Cream ", image: "https://i.pinimg.com/1200x/4f/9a/bf/4f9abf7bd3ba825c83079b9a0c5db077.jpg", size: 25, price: 499, category: "Skin", subCategory: "Eyecare & Creams", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Lakme Women Eye Gel ", image: "https://i.pinimg.com/1200x/50/77/62/507762dabfeac5030a75493dc4e319f8.jpg", size: 20, price: 449, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Lakme", count: 0 },
+  { name: "Garnier Men Eye Roll-On ", image: "https://i.pinimg.com/736x/1b/f2/05/1bf20518ee4154edb69035b2ed51c5a9.jpg", size: 15, price: 399, category: "Skin", subCategory: "Eyecare & Creams", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Pond’s Women Eye Cream ", image: "https://i.pinimg.com/736x/81/a5/d4/81a5d43e2fe1d1643f6bebd3fcf532b5.jpg", size: 25, price: 499, category: "Skin", subCategory: "Eyecare & Creams", for: "Female", brand: "Pond’s", count: 0 },
 
   // Face Serums
-  { name: "L’Oreal Women Face Serum ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Face+Serum+1", size: 30, price: 799, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Nivea Men Face Serum ", image: "https://via.placeholder.com/300?text=Nivea+Men+Face+Serum+2", size: 40, price: 699, category: "Skin", subCategory: "Face Serums", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Olay Women Face Serum ", image: "https://via.placeholder.com/300?text=Olay+Women+Face+Serum+3", size: 35, price: 899, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "Olay", count: 0 },
-  { name: "Garnier Men Face Serum ", image: "https://via.placeholder.com/300?text=Garnier+Men+Face+Serum+4", size: 30, price: 749, category: "Skin", subCategory: "Face Serums", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Lakme Women Face Serum ", image: "https://via.placeholder.com/300?text=Lakme+Women+Face+Serum+5", size: 25, price: 799, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "Lakme", count: 0 },
+  { name: "L’Oreal Women Face Serum ", image: "https://i.pinimg.com/1200x/c6/c6/37/c6c637948f433ef61d7c2aa16a7f9c67.jpg", size: 30, price: 799, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Nivea Men Face Serum ", image: "https://i.pinimg.com/1200x/9d/76/3d/9d763d50db4263a8d661de8b27be13f7.jpg", size: 40, price: 699, category: "Skin", subCategory: "Face Serums", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Olay Women Face Serum ", image: "https://i.pinimg.com/1200x/bf/33/e4/bf33e41bb045eddba45a9d4d09a6646e.jpg", size: 35, price: 899, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "Olay", count: 0 },
+  { name: "Garnier Men Face Serum ", image: "https://i.pinimg.com/1200x/4e/c1/f7/4ec1f7fd3cd7f92e1c1f16aeae027d6c.jpg", size: 30, price: 749, category: "Skin", subCategory: "Face Serums", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Lakme Women Face Serum ", image: "https://i.pinimg.com/736x/97/7a/14/977a1429626258e1ea5d637d04cde523.jpg", size: 25, price: 799, category: "Skin", subCategory: "Face Serums", for: "Female", brand: "Lakme", count: 0 },
 
   // Face & Sheet Masks
-  { name: "The Face Shop Women Sheet Mask ", image: "https://via.placeholder.com/300?text=FaceShop+Women+Sheet+Mask+1", size: 20, price: 199, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "The Face Shop", count: 0 },
-  { name: "Innisfree Women Sheet Mask ", image: "https://via.placeholder.com/300?text=Innisfree+Women+Sheet+Mask+2", size: 20, price: 249, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Innisfree", count: 0 },
-  { name: "Garnier Men Face Mask ", image: "https://via.placeholder.com/300?text=Garnier+Men+Face+Mask+3", size: 30, price: 199, category: "Skin", subCategory: "Face & Sheet Masks", for: "Male", brand: "Garnier", count: 0 },
-  { name: "Olay Women Face Mask ", image: "https://via.placeholder.com/300?text=Olay+Women+Face+Mask+4", size: 25, price: 299, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Olay", count: 0 },
-  { name: "Pond’s Women Face Mask ", image: "https://via.placeholder.com/300?text=Pond's+Women+Face+Mask+5", size: 25, price: 249, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Pond’s", count: 0 },
+  { name: "The Face Shop Women Sheet Mask ", image: "https://i.pinimg.com/1200x/c2/94/f9/c294f9fd9d533892f7c385121de9db64.jpg", size: 20, price: 199, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "The Face Shop", count: 0 },
+  { name: "Innisfree Women Sheet Mask ", image: "https://i.pinimg.com/736x/af/27/42/af27421506deaaa5d3e2baf3eb3e4d12.jpg", size: 20, price: 249, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Innisfree", count: 0 },
+  { name: "Garnier Men Face Mask ", image: "https://i.pinimg.com/1200x/08/02/28/080228b18c0963aca7272f36f91ee6b6.jpg", size: 30, price: 199, category: "Skin", subCategory: "Face & Sheet Masks", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Olay Women Face Mask ", image: "https://i.pinimg.com/1200x/88/df/c5/88dfc5cd2e7f43e939ff2311502af317.jpg", size: 25, price: 299, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Olay", count: 0 },
+  { name: "Pond’s Women Face Mask ", image: "https://i.pinimg.com/736x/12/d9/54/12d954b91683cc8d2484b1961ad6826e.jpg", size: 25, price: 249, category: "Skin", subCategory: "Face & Sheet Masks", for: "Female", brand: "Pond’s", count: 0 },
 
   // Toner
-  { name: "L’Oreal Women Toner ", image: "https://via.placeholder.com/300?text=L'Oreal+Women+Toner+1", size: 100, price: 499, category: "Skin", subCategory: "Toner", for: "Female", brand: "L’Oreal", count: 0 },
-  { name: "Nivea Men Toner ", image: "https://via.placeholder.com/300?text=Nivea+Men+Toner+2", size: 120, price: 399, category: "Skin", subCategory: "Toner", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Lakme Women Toner ", image: "https://via.placeholder.com/300?text=Lakme+Women+Toner+3", size: 110, price: 449, category: "Skin", subCategory: "Toner", for: "Female", brand: "Lakme", count: 0 },
-  { name: "Olay Women Toner ", image: "https://via.placeholder.com/300?text=Olay+Women+Toner+4", size: 130, price: 499, category: "Skin", subCategory: "Toner", for: "Female", brand: "Olay", count: 0 },
-  { name: "Garnier Men Toner ", image: "https://via.placeholder.com/300?text=Garnier+Men+Toner+5", size: 140, price: 399, category: "Skin", subCategory: "Toner", for: "Male", brand: "Garnier", count: 0 },
+  { name: "L’Oreal Women Toner ", image: "https://i.pinimg.com/736x/af/6e/db/af6edbeb8fcee3a7b5bd16d8cf196451.jpg", size: 100, price: 499, category: "Skin", subCategory: "Toner", for: "Female", brand: "L’Oreal", count: 0 },
+  { name: "Nivea Men Toner ", image: "https://i.pinimg.com/736x/d4/42/d1/d442d18c4ea66d7ca07615dc9fabbaba.jpg", size: 120, price: 399, category: "Skin", subCategory: "Toner", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Lakme Women Toner ", image: "https://i.pinimg.com/736x/2b/f7/5f/2bf75f245befc9b517a7ce601f61b240.jpg", size: 110, price: 449, category: "Skin", subCategory: "Toner", for: "Female", brand: "Lakme", count: 0 },
+  { name: "Olay Women Toner ", image: "https://i.pinimg.com/1200x/ba/35/4b/ba354baeb2d5d2d3baa473acd1f27e5b.jpg", size: 130, price: 499, category: "Skin", subCategory: "Toner", for: "Female", brand: "Olay", count: 0 },
+  { name: "Garnier Men Toner ", image: "https://i.pinimg.com/736x/48/bc/df/48bcdf232cbdaf4d94c9404c231d1160.jpg", size: 140, price: 399, category: "Skin", subCategory: "Toner", for: "Male", brand: "Garnier", count: 0 },
 
   // Face Oils
-  { name: "Bio-Oil Women Face Oil ", image: "https://via.placeholder.com/300?text=Bio-Oil+Women+Face+Oil+1", size: 50, price: 699, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Bio-Oil", count: 0 },
-  { name: "Kama Ayurveda Women Face Oil ", image: "https://via.placeholder.com/300?text=Kama+Ayurveda+Women+Face+Oil+2", size: 30, price: 799, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Kama Ayurveda", count: 0 },
-  { name: "Forest Essentials Women Face Oil ", image: "https://via.placeholder.com/300?text=Forest+Essentials+Women+Face+Oil+3", size: 25, price: 899, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Forest Essentials", count: 0 },
-  { name: "Nivea Men Face Oil ", image: "https://via.placeholder.com/300?text=Nivea+Men+Face+Oil+4", size: 40, price: 599, category: "Skin", subCategory: "Face Oils", for: "Male", brand: "Nivea", count: 0 },
-  { name: "Garnier Men Face Oil ", image: "https://via.placeholder.com/300?text=Garnier+Men+Face+Oil+5", size: 35, price: 649, category: "Skin", subCategory: "Face Oils", for: "Male", brand: "Garnier", count: 0 },
+  { name: "Bio-Oil Women Face Oil ", image: "https://i.pinimg.com/736x/52/5c/5b/525c5be252d8cc50a288432ef1bde7a1.jpg", size: 50, price: 699, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Bio-Oil", count: 0 },
+  { name: "Kama Ayurveda Women Face Oil ", image: "https://i.pinimg.com/736x/b6/1a/48/b61a4874437161fcc557a8302e697db2.jpg", size: 30, price: 799, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Kama Ayurveda", count: 0 },
+  { name: "Forest Essentials Women Face Oil ", image: "https://i.pinimg.com/736x/61/60/81/6160814f02a972ca2916c6e3393d76ba.jpg", size: 25, price: 899, category: "Skin", subCategory: "Face Oils", for: "Female", brand: "Forest Essentials", count: 0 },
+  { name: "Nivea Men Face Oil ", image: "https://i.pinimg.com/1200x/39/9d/db/399ddbdd2e69601e88ee53d7ea238517.jpg", size: 40, price: 599, category: "Skin", subCategory: "Face Oils", for: "Male", brand: "Nivea", count: 0 },
+  { name: "Garnier Men Face Oil ", image: "https://i.pinimg.com/736x/94/86/ae/9486ae56b6687a22f417553ac541dc32.jpg", size: 35, price: 649, category: "Skin", subCategory: "Face Oils", for: "Male", brand: "Garnier", count: 0 },
 
   // ================== ACCESSORIES ==================
   // Hair Dryers
