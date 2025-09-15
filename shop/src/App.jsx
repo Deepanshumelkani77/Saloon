@@ -18,7 +18,7 @@ const App = () => {
           <Route path='/hair' element={<Hair />} />
         </Routes>
       </main>
-      
+       <Footer/>
      
     </div>
   )

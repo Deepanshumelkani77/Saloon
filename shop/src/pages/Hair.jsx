@@ -117,65 +117,115 @@ const Hair = () => {
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative max-w-md mx-auto mb-8">
-          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search hair products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-gray-800/50 border border-gray-600 rounded-full pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-2 focus:ring-[#D9C27B]/50 transition-all duration-300"
-          />
-          {searchTerm && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#D9C27B] transition-colors"
-            >
-              <FaTimes />
-            </button>
-          )}
-        </div>
-
-        {/* Filter Buttons */}
-        <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-[#D9C27B]/20 rounded-2xl p-6 mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <FaFilter className="text-[#D9C27B]" />
-            <span className="text-[#D9C27B] font-semibold">Filter by Category</span>
-          </div>
+        {/* Enhanced Search & Filter Section */}
+        <div className="relative mb-8 ">
+          {/* Decorative Background Elements */}
+          <div className="absolute inset-0  rounded-3xl blur-3xl"></div>
           
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => setSubCategory("all")}
-              className={`px-4 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
-                subCategory === "all"
-                  ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
-                  : 'bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black'
-              }`}
-            >
-              All Products
-            </button>
+          <div className="relative bg-black  border-2 border-[#D9C27B]/30 rounded-3xl p-8 shadow-2xl">
             
-            {subCategories.map((category) => (
+            {/* Search Bar */}
+            <div className="relative max-w-2xl mx-auto mb-8">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 rounded-2xl blur-sm"></div>
+              <div className="relative bg-gray-800/60 backdrop-blur-sm border border-[#D9C27B]/40 rounded-2xl overflow-hidden">
+                <FaSearch className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#D9C27B] text-lg" />
+                <input
+                  type="text"
+                  placeholder="Search premium hair products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-transparent pl-16 pr-16 py-4 text-white placeholder-gray-300 text-lg focus:outline-none"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm("")}
+                    className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#D9C27B] transition-all duration-300 hover:scale-110"
+                  >
+                    <FaTimes className="text-lg" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Filter Header */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B]/50 rounded-full px-8 py-3 mb-4">
+                <FaFilter className="text-[#D9C27B] text-lg" />
+                <span className="text-[#D9C27B] font-bold text-lg">Premium Categories</span>
+                <FaFilter className="text-[#D9C27B] text-lg" />
+              </div>
+              <p className="text-gray-300 text-sm">Choose your hair care category to discover specialized products</p>
+            </div>
+            
+            {/* Enhanced Filter Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
+              {/* All Products Button - Special Design */}
               <button
-                key={category}
-                onClick={() => setSubCategory(category)}
-                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
-                  subCategory === category
-                    ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
-                    : 'bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black'
+                onClick={() => setSubCategory("all")}
+                className={`group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 transform hover:scale-105 ${
+                  subCategory === "all"
+                    ? 'bg-gradient-to-br from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black shadow-2xl shadow-[#D9C27B]/30'
+                    : 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-2 border-[#D9C27B]/30 text-white hover:border-[#D9C27B] hover:shadow-xl hover:shadow-[#D9C27B]/20'
                 }`}
               >
-                {category}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <div className="relative text-center">
+                  <div className={`text-2xl mb-2 ${subCategory === "all" ? 'text-black' : 'text-[#D9C27B]'}`}>✨</div>
+                  <div className="font-bold text-sm">All Products</div>
+                  <div className={`text-xs mt-1 ${subCategory === "all" ? 'text-black/70' : 'text-gray-400'}`}>View Everything</div>
+                </div>
               </button>
-            ))}
-          </div>
-          
-          <div className="mt-4 text-gray-400 text-sm">
-            Showing {filteredProducts.length} products
-            {subCategory !== "all" && (
-              <span className="text-[#D9C27B]"> in {subCategory}</span>
-            )}
+              
+              {/* Category Buttons */}
+              {subCategories.map((category, index) => {
+                const icons = ["🧴", "💧", "🌿", "✨", "🎭", "🌪️", "✈️", "🎁"];
+                const descriptions = [
+                  "Clean & Nourish",
+                  "Hydrate & Soften", 
+                  "Natural Care",
+                  "Repair & Restore",
+                  "Deep Treatment",
+                  "Quick Refresh",
+                  "On-the-Go",
+                  "Special Sets"
+                ];
+                
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSubCategory(category)}
+                    className={`group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 transform hover:scale-105 ${
+                      subCategory === category
+                        ? 'bg-gradient-to-br from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black shadow-2xl shadow-[#D9C27B]/30'
+                        : 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-2 border-[#D9C27B]/30 text-white hover:border-[#D9C27B] hover:shadow-xl hover:shadow-[#D9C27B]/20'
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div className="relative text-center">
+                      <div className="text-2xl mb-2">{icons[index]}</div>
+                      <div className="font-bold text-sm leading-tight">{category}</div>
+                      <div className={`text-xs mt-1 ${subCategory === category ? 'text-black/70' : 'text-gray-400'}`}>
+                        {descriptions[index]}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            
+            {/* Results Counter with Animation */}
+            <div className="text-center">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-[#D9C27B]/30 rounded-full px-6 py-3">
+                <div className="w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse"></div>
+                <span className="text-gray-300 font-medium">
+                  Showing <span className="text-[#D9C27B] font-bold text-lg">{filteredProducts.length}</span> premium products
+                  {subCategory !== "all" && (
+                    <span className="text-[#F4E4A6] ml-2">in {subCategory}</span>
+                  )}
+                </span>
+                <div className="w-2 h-2 bg-[#F4E4A6] rounded-full animate-pulse"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
