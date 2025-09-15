@@ -351,11 +351,11 @@ const Hair = () => {
                     {/* Enhanced Product Info */}
                     <div className="p-3 md:p-4 lg:p-4 xl:p-5 space-y-2 md:space-y-3 lg:space-y-1 xl:space-y-1">
                       {/* Product Name with Animation */}
-                      <div className="space-y-1 md:space-y-1 lg:space-y-1 xl:space-y-2">
-                        <h3 className="text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
+                      <div className="space-y-1 md:space-y-1 lg:space-y-1 xl:space-y-2 h-12 md:h-14 lg:h-16 xl:h-20 flex flex-col justify-start">
+                        <h3 className="text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2 overflow-hidden">
                           {product.name}
                         </h3>
-                        <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500"></div>
+                        <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500 mt-auto"></div>
                       </div>
                       
                       {/* Enhanced Rating */}
