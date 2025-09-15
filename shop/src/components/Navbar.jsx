@@ -13,22 +13,27 @@ const Navbar = () => {
   const categories = [
     {
       name: 'Hair Care',
+      path:'/hair',
       items: ['Shampoo', 'Conditioner', 'Hair Oil', 'Hair Mask', 'Styling Products', 'Hair Serum', 'Dry Shampoo']
     },
     {
       name: 'Skin Care',
+      path:'/skin',
       items: ['Cleanser', 'Moisturizer', 'Serum', 'Face Mask', 'Sunscreen', 'Toner', 'Eye Cream']
     },
     {
       name: 'Accessories',
+      path:'/accessories',
       items: ['Hair Brushes', 'Combs', 'Hair Clips', 'Headbands', 'Scrunchies', 'Hair Ties', 'Bobby Pins']
     },
     {
       name: 'Men',
+      path:'/men',
       items: ['Beard Oil', 'Aftershave', 'Hair Gel', 'Face Wash', 'Cologne', 'Shaving Cream', 'Beard Balm']
     },
     {
       name: 'Women',
+      path:'/women',
       items: ['Makeup', 'Nail Care', 'Perfume', 'Hair Accessories', 'Beauty Tools', 'Lipstick', 'Foundation']
     }
   ];
@@ -79,7 +84,7 @@ const Navbar = () => {
               {categories.map((category, index) => (
                 <div key={`${category.name}-${index}`} className="relative">
 
-                  <a href="/hair"> <button
+                  <a href={category.path}> <button
                     type="button"
                     onClick={() => handleCategoryClick(category.name)}
                     className={`px-4 py-3 text-lg font-semibold flex items-center gap-2 transition-all duration-200 whitespace-nowrap rounded-lg ${
