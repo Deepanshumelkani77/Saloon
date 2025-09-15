@@ -140,36 +140,76 @@ const Hair = () => {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20 pb-16">
         <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* Left Sidebar - Filters */}
-          <div className="w-full lg:w-80 flex-shrink-0">
+          {/* Mobile Filter Select - Only visible on mobile */}
+          <div className="lg:hidden mb-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 rounded-2xl blur-sm"></div>
+              <div className="relative bg-gray-800/60 backdrop-blur-sm border border-[#D9C27B]/40 rounded-2xl overflow-hidden">
+                <FaFilter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#D9C27B] text-sm" />
+                <select
+                  value={subCategory}
+                  onChange={(e) => setSubCategory(e.target.value)}
+                  className="w-full bg-transparent pl-12 pr-4 py-3 text-white text-sm focus:outline-none appearance-none cursor-pointer"
+                >
+                  <option value="all" className="bg-gray-800 text-white">✨ All Products</option>
+                  <option value="Shampoo" className="bg-gray-800 text-white">🧴 Shampoo</option>
+                  <option value="Conditioner" className="bg-gray-800 text-white">💧 Conditioner</option>
+                  <option value="Hair Oil" className="bg-gray-800 text-white">🌿 Hair Oil</option>
+                  <option value="Treatments & Serums" className="bg-gray-800 text-white">✨ Treatments & Serums</option>
+                  <option value="Hair Masks" className="bg-gray-800 text-white">🎭 Hair Masks</option>
+                  <option value="Dry Shampoo" className="bg-gray-800 text-white">🌪️ Dry Shampoo</option>
+                  <option value="Travel Size" className="bg-gray-800 text-white">✈️ Travel Size</option>
+                  <option value="Gifts & Bundles" className="bg-gray-800 text-white">🎁 Gifts & Bundles</option>
+                </select>
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#D9C27B] pointer-events-none">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Mobile Results Counter */}
+            <div className="mt-4 text-center">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-[#D9C27B]/30 rounded-full px-3 py-1">
+                <div className="w-1.5 h-1.5 bg-[#D9C27B] rounded-full animate-pulse"></div>
+                <span className="text-gray-300 text-xs">
+                  <span className="text-[#D9C27B] font-bold">{filteredProducts.length}</span> products
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Left Sidebar - Filters - Only visible on desktop */}
+          <div className="hidden lg:block lg:w-80 flex-shrink-0">
             <div className="sticky top-8">
-              <div className="bg-black border-2 border-[#D9C27B]/30 rounded-3xl p-3 sm:p-6 shadow-2xl">
+              <div className="bg-black border-2 border-[#D9C27B]/30 rounded-3xl p-6 shadow-2xl">
                 
                 {/* Filter Header */}
-                <div className="text-center mb-4 sm:mb-6">
-                  <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B]/50 rounded-full px-3 sm:px-6 py-1 sm:py-2 mb-2 sm:mb-3">
-                    <FaFilter className="text-[#D9C27B] text-xs sm:text-sm" />
-                    <span className="text-[#D9C27B] font-bold text-xs sm:text-sm">Categories</span>
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B]/50 rounded-full px-6 py-2 mb-3">
+                    <FaFilter className="text-[#D9C27B]" />
+                    <span className="text-[#D9C27B] font-bold">Categories</span>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm hidden sm:block">Filter by hair care type</p>
+                  <p className="text-gray-300 text-sm">Filter by hair care type</p>
                 </div>
                 
                 {/* Filter Buttons - Vertical Layout */}
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-3">
                   {/* All Products Button */}
                   <button
                     onClick={() => setSubCategory("all")}
-                    className={`w-full group relative overflow-hidden rounded-xl p-2 sm:p-4 transition-all duration-300 ${
+                    className={`w-full group relative overflow-hidden rounded-xl p-4 transition-all duration-300 ${
                       subCategory === "all"
                         ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black shadow-lg'
                         : 'bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-[#D9C27B]/30 text-white hover:border-[#D9C27B] hover:shadow-lg'
                     }`}
                   >
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <div className={`text-sm sm:text-xl ${subCategory === "all" ? 'text-black' : 'text-[#D9C27B]'}`}>✨</div>
+                    <div className="flex items-center gap-3">
+                      <div className={`text-xl ${subCategory === "all" ? 'text-black' : 'text-[#D9C27B]'}`}>✨</div>
                       <div className="text-left">
-                        <div className="font-bold text-xs sm:text-sm">All Products</div>
-                        <div className={`text-xs hidden sm:block ${subCategory === "all" ? 'text-black/70' : 'text-gray-400'}`}>View Everything</div>
+                        <div className="font-bold text-sm">All Products</div>
+                        <div className={`text-xs ${subCategory === "all" ? 'text-black/70' : 'text-gray-400'}`}>View Everything</div>
                       </div>
                     </div>
                   </button>
@@ -192,17 +232,17 @@ const Hair = () => {
                       <button
                         key={category}
                         onClick={() => setSubCategory(category)}
-                        className={`w-full group relative overflow-hidden rounded-xl p-2 sm:p-4 transition-all duration-300 ${
+                        className={`w-full group relative overflow-hidden rounded-xl p-4 transition-all duration-300 ${
                           subCategory === category
                             ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black shadow-lg'
                             : 'bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-[#D9C27B]/30 text-white hover:border-[#D9C27B] hover:shadow-lg'
                         }`}
                       >
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <div className="text-sm sm:text-xl">{icons[index]}</div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-xl">{icons[index]}</div>
                           <div className="text-left">
-                            <div className="font-bold text-xs sm:text-sm leading-tight">{category}</div>
-                            <div className={`text-xs hidden sm:block ${subCategory === category ? 'text-black/70' : 'text-gray-400'}`}>
+                            <div className="font-bold text-sm leading-tight">{category}</div>
+                            <div className={`text-xs ${subCategory === category ? 'text-black/70' : 'text-gray-400'}`}>
                               {descriptions[index]}
                             </div>
                           </div>
@@ -213,10 +253,10 @@ const Hair = () => {
                 </div>
                 
                 {/* Results Counter */}
-                <div className="mt-4 sm:mt-6 text-center">
-                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-[#D9C27B]/30 rounded-full px-3 sm:px-4 py-1 sm:py-2">
-                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[#D9C27B] rounded-full animate-pulse"></div>
-                    <span className="text-gray-300 text-xs sm:text-sm">
+                <div className="mt-6 text-center">
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-[#D9C27B]/30 rounded-full px-4 py-2">
+                    <div className="w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse"></div>
+                    <span className="text-gray-300 text-sm">
                       <span className="text-[#D9C27B] font-bold">{filteredProducts.length}</span> products
                     </span>
                   </div>
@@ -244,7 +284,7 @@ const Hair = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
                 {filteredProducts.map((product, index) => (
                   <div
                     key={product._id}
@@ -261,7 +301,7 @@ const Hair = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
                     
                     {/* Product Image */}
-                    <div className="relative h-48 sm:h-100 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
+                    <div className="relative h-48 md:h-56 lg:h-64 xl:h-72 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
                       <img 
                         src={product.image || '/api/placeholder/300/400'} 
                         alt={product.name}
@@ -309,10 +349,10 @@ const Hair = () => {
                     </div>
 
                     {/* Enhanced Product Info */}
-                    <div className="p-3 sm:p-6 space-y-2 sm:space-y-4">
+                    <div className="p-3 md:p-4 lg:p-4 xl:p-5 space-y-2 md:space-y-3 lg:space-y-3 xl:space-y-4">
                       {/* Product Name with Animation */}
-                      <div className="space-y-1 sm:space-y-2">
-                        <h3 className="text-white font-bold text-sm sm:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
+                      <div className="space-y-1 md:space-y-1 lg:space-y-1 xl:space-y-2">
+                        <h3 className="text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
                           {product.name}
                         </h3>
                         <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500"></div>
@@ -324,71 +364,60 @@ const Hair = () => {
                           {[...Array(5)].map((_, i) => (
                             <FaStar 
                               key={i} 
-                              className="text-[#D9C27B] text-xs sm:text-base group-hover:scale-110 transition-transform duration-300" 
+                              className="text-[#D9C27B] text-xs md:text-sm lg:text-sm xl:text-base group-hover:scale-110 transition-transform duration-300" 
                               style={{ animationDelay: `${i * 50}ms` }}
                             />
                           ))}
-                          <span className="text-gray-300 text-xs sm:text-sm ml-1 sm:ml-2 font-medium">(4.5)</span>
+                          <span className="text-gray-300 text-xs md:text-xs lg:text-sm xl:text-sm ml-1 md:ml-1 lg:ml-2 xl:ml-2 font-medium">(4.5)</span>
                         </div>
-                        <div className="text-gray-400 text-xs hidden sm:block">
+                        <div className="text-gray-400 text-xs hidden md:block">
                           127 reviews
                         </div>
                       </div>
 
                       {/* Enhanced Price Section */}
-                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-[#D9C27B]/20">
-                        <div className="flex items-center justify-between mb-1 sm:mb-2">
-                          <div className="flex items-center gap-1 sm:gap-3">
-                            <span className="text-[#D9C27B] font-bold text-lg sm:text-2xl">
+                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl p-2 md:p-3 lg:p-3 xl:p-4 border border-[#D9C27B]/20">
+                        <div className="flex items-center justify-between mb-1 md:mb-1 lg:mb-2 xl:mb-2">
+                          <div className="flex items-center gap-1 md:gap-2 lg:gap-2 xl:gap-3">
+                            <span className="text-[#D9C27B] font-bold text-lg md:text-xl lg:text-xl xl:text-2xl">
                               ₹{product.price}
                             </span>
-                            <span className="text-gray-500 text-sm sm:text-lg line-through">
+                            <span className="text-gray-500 text-sm md:text-base lg:text-base xl:text-lg line-through">
                               ₹{Math.round(product.price * 1.2)}
                             </span>
                           </div>
-                          <div className="text-green-400 text-xs sm:text-sm font-bold bg-green-400/10 px-2 sm:px-3 py-1 rounded-full">
+                          <div className="text-green-400 text-xs md:text-xs lg:text-sm xl:text-sm font-bold bg-green-400/10 px-2 md:px-2 lg:px-3 xl:px-3 py-1 rounded-full">
                             SAVE ₹{Math.round(product.price * 0.2)}
                           </div>
                         </div>
                         
                         {/* Price per unit info */}
-                        <div className="text-gray-400 text-xs hidden sm:block">
+                        <div className="text-gray-400 text-xs hidden md:block">
                           Best price guaranteed • Free shipping over ₹999
                         </div>
                       </div>
                       
                       {/* Enhanced Action Buttons */}
-                      <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
+                      <div className="flex gap-2 md:gap-2 lg:gap-3 xl:gap-3 pt-1 md:pt-1 lg:pt-2 xl:pt-2">
                         <button 
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 sm:py-4 px-3 sm:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
+                          className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 md:py-3 lg:py-3 xl:py-4 px-3 md:px-4 lg:px-5 xl:px-6 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl font-bold text-xs md:text-xs lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-1 lg:gap-2 xl:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-                          <span className="relative z-10"><span className="hidden sm:inline">💳</span> Buy Now</span>
+                          <span className="relative z-10"><span className="hidden lg:inline">💳</span> Buy</span>
                         </button>
                         
                         <button 
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] sm:border-2 text-[#D9C27B] py-2 sm:py-4 px-3 sm:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
+                          className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border lg:border-2 xl:border-2 text-[#D9C27B] py-2 md:py-3 lg:py-3 xl:py-4 px-3 md:px-4 lg:px-5 xl:px-6 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl font-bold text-xs md:text-xs lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-1 lg:gap-2 xl:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>
-                          <FaShoppingCart className="text-xs sm:text-sm relative z-10" />
-                          <span className="relative z-10 hidden sm:inline">Add to Cart</span>
+                          <FaShoppingCart className="text-xs md:text-xs lg:text-sm xl:text-sm relative z-10" />
+                          <span className="relative z-10 hidden lg:inline"> Cart</span>
                         </button>
                       </div>
 
-                      {/* Additional Features */}
-                      <div className="flex items-center justify-between text-xs text-gray-400 pt-1 sm:pt-2 border-t border-gray-700/50 hidden sm:flex">
-                        <span className="flex items-center gap-1">
-                          🚚 Free Delivery
-                        </span>
-                        <span className="flex items-center gap-1">
-                          🔄 Easy Returns
-                        </span>
-                        <span className="flex items-center gap-1">
-                          ⭐ Premium Quality
-                        </span>
-                      </div>
+                    
                     </div>
                   </div>
                 ))}
