@@ -24,19 +24,10 @@ router.get("/bestsellers", async (req, res) => {
     }
 });
 
-router.get("/hair",async(req,res)=>{
-
-const category="hair";
-const data=Product.findBy
-
-
-})
-
-
-// ✅ Get all products in "Hair" category
+// Get all products in "Hair" category
 router.get("/hair", async (req, res) => {
   try {
-    const data = await Product.find({ category: "Hair" }); // filter only Hair
+    const data = await Product.find({ category: "Hair" }); // filter only Hair category
     res.json({
       success: true,
       data
