@@ -100,126 +100,153 @@ const BestSeller = () => {
         </div>
 
         {/* Best Sellers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {bestSellers.map((product, index) => (
             <div
               key={product._id}
-              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-[#D9C27B]/20 hover:border-[#D9C27B]/40 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer"
-              onMouseEnter={() => setHoveredProduct(product._id)}
-              onMouseLeave={() => setHoveredProduct(null)}
+              className="group relative overflow-hidden rounded-3xl bg-black border-2 border-[#D9C27B]/30 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#D9C27B]/20"
+              style={{
+                animationDelay: `${index * 100}ms`
+              }}
             >
-              {/* Rank Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <div className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                  <FaTrophy className="text-xs" />
-                  #{index + 1}
-                </div>
-              </div>
-
-              {/* Sold Count Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <div className="bg-black/70 text-[#D9C27B] text-xs font-semibold px-3 py-1 rounded-full">
-                  {product.count} sold
-                </div>
-              </div>
-
+              {/* Decorative Elements */}
+              <div className="absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-tr from-[#F4E4A6]/20 to-[#D9C27B]/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+              
               {/* Product Image */}
-              <div className="relative h-100 sm:h-100 md:h-100 lg:h-100 overflow-hidden">
+              <div className="relative h-90 sm:h-100 overflow-hidden rounded-t-3xl">
                 <img 
                   src={product.image || '/api/placeholder/300/400'} 
                   alt={product.name}
-                  className="w-full h-full  transition-transform duration-700 "
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                 />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 
-               
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+                
+                {/* Rank Badge */}
+                <div className="absolute top-4 left-4">
+                  <div className="bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black text-xs font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
+                    <span className="flex items-center gap-1">
+                      <FaTrophy className="text-xs" />
+                      #{index + 1} Best Seller
+                    </span>
+                  </div>
+                </div>
 
-                {/* Action Buttons */}
-                <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-3 transition-all duration-500 ${
-                  hoveredProduct === product._id ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-                }`}>
+                {/* Sold Count Badge */}
+                <div className="absolute top-4 right-4">
+                  <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    {product.count} sold
+                  </div>
+                </div>
+                
+                {/* Enhanced Quick Actions */}
+                <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
                   <button 
                     onClick={() => handleAddToWishlist(product)}
-                    className="bg-black/70 hover:bg-[#D9C27B] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110"
+                    className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
                   >
-                    <FaHeart className="text-lg" />
+                    <FaHeart className="text-sm" />
                   </button>
-                  <button className="bg-black/70 hover:bg-[#D9C27B] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110">
-                    <FaEye className="text-lg" />
+                  <button className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
+                    <FaEye className="text-sm" />
                   </button>
+                </div>
+
+                {/* Stock Indicator */}
+                <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="bg-green-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                    ✓ In Stock
+                  </div>
                 </div>
               </div>
 
-              {/* Product Info */}
-              <div className="p-4 sm:p-6">
-                <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
-                  {/* Category */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#D9C27B] text-xs font-semibold uppercase tracking-wide">
-                      {product.category}
-                    </span>
-                    {product.subCategory && (
-                      <>
-                        <span className="text-gray-500">•</span>
-                        <span className="text-gray-400 text-xs">
-                          {product.subCategory}
-                        </span>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Product Name */}
-                  <h3 className="text-white font-bold text-lg md:text-xl mb-3 group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
+              {/* Enhanced Product Info */}
+              <div className="p-6 space-y-4">
+                {/* Product Name with Animation */}
+                <div className="space-y-2">
+                  <h3 className="text-white font-bold text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
                     {product.name}
                   </h3>
-                  
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 mb-4">
+                  <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500"></div>
+                </div>
+                
+                {/* Enhanced Rating */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} className="text-[#D9C27B] text-sm" />
+                      <FaStar 
+                        key={i} 
+                        className="text-[#D9C27B] text-base group-hover:scale-110 transition-transform duration-300" 
+                        style={{ animationDelay: `${i * 50}ms` }}
+                      />
                     ))}
-                    <span className="text-gray-400 text-sm ml-2">(4.8)</span>
+                    <span className="text-gray-300 text-sm ml-2 font-medium">(4.8)</span>
                   </div>
+                  <div className="text-gray-400 text-xs">
+                    {product.count} reviews
+                  </div>
+                </div>
 
-                  {/* Price */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#D9C27B] font-bold text-xl">
+                {/* Enhanced Price Section */}
+                <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl p-4 border border-[#D9C27B]/20">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[#D9C27B] font-bold text-2xl">
                         ₹{product.price}
                       </span>
-                      <span className="text-gray-500 text-sm line-through">
+                      <span className="text-gray-500 text-lg line-through">
                         ₹{Math.round(product.price * 1.2)}
                       </span>
                     </div>
-                    <span className="text-green-400 text-sm font-semibold">
-                      17% OFF
-                    </span>
+                    <div className="text-green-400 text-sm font-bold bg-green-400/10 px-3 py-1 rounded-full">
+                      SAVE ₹{Math.round(product.price * 0.2)}
+                    </div>
                   </div>
                   
-                  {/* Action Buttons */}
-                  <div className="flex gap-3">
-                    {/* Buy Now Button */}
-                    <button 
-                      onClick={() => handleBuyNow(product)}
-                      className="flex-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black py-3 px-4 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:scale-105"
-                    >
-                      Buy Now
-                    </button>
-                    
-                    {/* Add to Cart Button */}
-                    <button 
-                      onClick={() => handleAddToCart(product)}
-                      className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 px-4 rounded-full font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black"
-                    >
-                      <FaShoppingCart className="text-sm" />
-                      Cart
-                    </button>
+                  {/* Price per unit info */}
+                  <div className="text-gray-400 text-xs">
+                    Best price guaranteed • Free shipping over ₹999
                   </div>
                 </div>
-              </div>
+                
+                {/* Enhanced Action Buttons */}
+                <div className="flex gap-3 pt-2">
+                  <button 
+                    onClick={() => handleBuyNow(product)}
+                    className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-4 px-6 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative z-10">💳 Buy Now</span>
+                  </button>
+                  
+                  <button 
+                    onClick={() => handleAddToCart(product)}
+                    className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-4 px-6 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>
+                    <FaShoppingCart className="text-sm relative z-10" />
+                    <span className="relative z-10">Add to Cart</span>
+                  </button>
+                </div>
 
-              
+                {/* Additional Features */}
+                <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-700/50">
+                  <span className="flex items-center gap-1">
+                    🚚 Free Delivery
+                  </span>
+                  <span className="flex items-center gap-1">
+                    🔄 Easy Returns
+                  </span>
+                  <span className="flex items-center gap-1">
+                    ⭐ Premium Quality
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>

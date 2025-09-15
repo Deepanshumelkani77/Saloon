@@ -248,7 +248,7 @@ const Hair = () => {
                 {filteredProducts.map((product, index) => (
                   <div
                     key={product._id}
-                    className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90 backdrop-blur-xl border-2 border-[#D9C27B]/30 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02] hover:rotate-1 hover:shadow-2xl hover:shadow-[#D9C27B]/20"
+                    className="group  relative overflow-hidden rounded-3xl bg-black border-2 border-[#D9C27B]/30 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02]  hover:shadow-2xl hover:shadow-[#D9C27B]/20"
                     style={{
                       animationDelay: `${index * 100}ms`
                     }}
@@ -261,7 +261,7 @@ const Hair = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
                     
                     {/* Product Image */}
-                    <div className="relative h-72 sm:h-80 overflow-hidden rounded-t-3xl">
+                    <div className="relative h-90 sm:h-100 overflow-hidden rounded-t-3xl">
                       <img 
                         src={product.image || '/api/placeholder/300/400'} 
                         alt={product.name}
