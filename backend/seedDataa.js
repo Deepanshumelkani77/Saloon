@@ -133,46 +133,46 @@ const products = [
 
   // ================== ACCESSORIES ==================
   // Hair Dryers
-  { name: "Philips Hair Dryer ", image: "https://via.placeholder.com/300?text=Philips+Hair+Dryer+1", size: 500, price: 1499, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Philips", count: 0 },
-  { name: "Nova Hair Dryer ", image: "https://via.placeholder.com/300?text=Nova+Hair+Dryer+2", size: 550, price: 1299, category: "Accessories", subCategory: "Hair Dryers", for: "Male", brand: "Nova", count: 0 },
-  { name: "Havells Hair Dryer ", image: "https://via.placeholder.com/300?text=Havells+Hair+Dryer+3", size: 600, price: 1399, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Havells", count: 0 },
-  { name: "Syska Hair Dryer ", image: "https://via.placeholder.com/300?text=Syska+Hair+Dryer+4", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Dryers", for: "Male", brand: "Syska", count: 0 },
-  { name: "Panasonic Hair Dryer ", image: "https://via.placeholder.com/300?text=Panasonic+Hair+Dryer+5", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Panasonic", count: 0 },
+  { name: "Philips Hair Dryer ", image: "https://i.pinimg.com/1200x/9f/2d/ef/9f2def9218a169b27b1284cf924073a8.jpg", size: 500, price: 1499, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Philips", count: 0 },
+  { name: "Nova Hair Dryer ", image: "https://i.pinimg.com/736x/73/87/26/73872674875718b0de5aa3ca3d8fe56b.jpg", size: 550, price: 1299, category: "Accessories", subCategory: "Hair Dryers", for: "Male", brand: "Nova", count: 0 },
+  { name: "Havells Hair Dryer ", image: "https://i.pinimg.com/736x/6b/29/34/6b2934bcb4d5034916a5501b23368dc4.jpg", size: 600, price: 1399, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Havells", count: 0 },
+  { name: "Sokany Hair Dryer ", image: "https://i.pinimg.com/736x/5b/06/8c/5b068c829d86489853f08e8ff5cc3b51.jpg", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Dryers", for: "Male", brand: "Sokany", count: 0 },
+  { name: "Panasonic Hair Dryer ", image: "https://i.pinimg.com/736x/6f/d2/7f/6fd27f8f5990b48a081d11c552912eb4.jpg", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Dryers", for: "Female", brand: "Panasonic", count: 0 },
 
   // Hair Straighteners
-  { name: "Philips Hair Straightener ", image: "https://via.placeholder.com/300?text=Philips+Hair+Straightener+1", size: 500, price: 1999, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Philips", count: 0 },
-  { name: "Nova Hair Straightener ", image: "https://via.placeholder.com/300?text=Nova+Hair+Straightener+2", size: 550, price: 1799, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Nova", count: 0 },
-  { name: "Havells Hair Straightener ", image: "https://via.placeholder.com/300?text=Havells+Hair+Straightener+3", size: 600, price: 1899, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Havells", count: 0 },
-  { name: "Syska Hair Straightener ", image: "https://via.placeholder.com/300?text=Syska+Hair+Straightener+4", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Syska", count: 0 },
-  { name: "Panasonic Hair Straightener ", image: "https://via.placeholder.com/300?text=Panasonic+Hair+Straightener+5", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Panasonic", count: 0 },
+  { name: "Philips Hair Straightener ", image: "https://i.pinimg.com/1200x/00/40/29/004029b40db901b9be5be7962e0b315a.jpg", size: 500, price: 1999, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Philips", count: 0 },
+  { name: "Nova Hair Straightener ", image: "https://i.pinimg.com/736x/95/13/a4/9513a47ab9d309334f53d99b37813712.jpg", size: 550, price: 1799, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Nova", count: 0 },
+  { name: "Havells Hair Straightener ", image: "https://i.pinimg.com/736x/9c/ce/de/9ccededeb623a0332c642018d185641e.jpg", size: 600, price: 1899, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Havells", count: 0 },
+  { name: "Syska Hair Straightener ", image: "https://i.pinimg.com/1200x/db/2f/4b/db2f4b98db9fd021a91f5315d5abd0ae.jpg", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Syska", count: 0 },
+  { name: "Panasonic Hair Straightener ", image: "https://i.pinimg.com/1200x/cd/0b/75/cd0b75035f5d4292e28769c9444fe93f.jpg", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Straighteners", for: "Female", brand: "Panasonic", count: 0 },
 
   // Hair Curler
-  { name: "Philips Hair Curler ", image: "https://via.placeholder.com/300?text=Philips+Hair+Curler+1", size: 500, price: 1999, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Philips", count: 0 },
-  { name: "Nova Hair Curler ", image: "https://via.placeholder.com/300?text=Nova+Hair+Curler+2", size: 550, price: 1799, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Nova", count: 0 },
-  { name: "Havells Hair Curler ", image: "https://via.placeholder.com/300?text=Havells+Hair+Curler+3", size: 600, price: 1899, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Havells", count: 0 },
-  { name: "Syska Hair Curler ", image: "https://via.placeholder.com/300?text=Syska+Hair+Curler+4", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Syska", count: 0 },
-  { name: "Panasonic Hair Curler ", image: "https://via.placeholder.com/300?text=Panasonic+Hair+Curler+5", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Panasonic", count: 0 },
+  { name: "Philips Hair Curler ", image: "https://i.pinimg.com/736x/6b/f2/96/6bf2967f267137b132c198c224fa8a2b.jpg", size: 500, price: 1999, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Philips", count: 0 },
+  { name: "Nova Hair Curler ", image: "https://i.pinimg.com/736x/4b/64/57/4b645703cc8c5d0476e938aacc76a323.jpg", size: 550, price: 1799, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Nova", count: 0 },
+  { name: "Havells Hair Curler ", image: "https://i.pinimg.com/1200x/49/5b/bc/495bbc36a554e44ba2043a7e7c70c280.jpg", size: 600, price: 1899, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Havells", count: 0 },
+  { name: "Syska Hair Curler ", image: "https://i.pinimg.com/736x/1b/a7/96/1ba796963505d9d3a1096a7388df378e.jpg", size: 650, price: 1599, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Syska", count: 0 },
+  { name: "Panasonic Hair Curler ", image: "https://i.pinimg.com/736x/3a/ba/1c/3aba1c4b8c1f806e65d54829cf0f722e.jpg", size: 700, price: 1699, category: "Accessories", subCategory: "Hair Curler", for: "Female", brand: "Panasonic", count: 0 },
 
   // Hair Brush
-  { name: "Vega Hair Brush ", image: "https://via.placeholder.com/300?text=Vega+Hair+Brush+1", size: 100, price: 299, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Vega", count: 0 },
-  { name: "Roots Hair Brush ", image: "https://via.placeholder.com/300?text=Roots+Hair+Brush+2", size: 120, price: 349, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Roots", count: 0 },
-  { name: "Denman Hair Brush ", image: "https://via.placeholder.com/300?text=Denman+Hair+Brush+3", size: 90, price: 249, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Denman", count: 0 },
-  { name: "Tangle Teezer Hair Brush ", image: "https://via.placeholder.com/300?text=Tangle+Teezer+Hair+Brush+4", size: 110, price: 399, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Tangle Teezer", count: 0 },
-  { name: "Gubb Hair Brush ", image: "https://via.placeholder.com/300?text=Gubb+Hair+Brush+5", size: 130, price: 349, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Gubb", count: 0 },
+  { name: "Vega Hair Brush ", image: "https://i.pinimg.com/1200x/a9/dd/ec/a9ddecb000c91a8ecf88bf7fde67201c.jpg", size: 100, price: 299, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Vega", count: 0 },
+  { name: "Roots Hair Brush ", image: "https://i.pinimg.com/1200x/05/e7/42/05e7427b5a2b321f735eb5a8fbb74e1b.jpg", size: 120, price: 349, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Roots", count: 0 },
+  { name: "Denman Hair Brush ", image: "https://i.pinimg.com/1200x/f0/41/a4/f041a4a9611146021f9923c2d1ca087e.jpg", size: 90, price: 249, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Denman", count: 0 },
+  { name: "Tangle Teezer Hair Brush ", image: "https://i.pinimg.com/736x/b8/89/2e/b8892e4ff310870faee946fe652eeb05.jpg", size: 110, price: 399, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Tangle Teezer", count: 0 },
+  { name: "Gubb Hair Brush ", image: "https://i.pinimg.com/1200x/fa/a6/99/faa6990dbb42c1d104b6e163b4bb3b6a.jpg", size: 130, price: 349, category: "Accessories", subCategory: "Hair Brush", for: "Female", brand: "Gubb", count: 0 },
 
   // Trimmers & Clippers
-  { name: "Philips Trimmer ", image: "https://via.placeholder.com/300?text=Philips+Trimmer+1", size: 200, price: 1999, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Philips", count: 0 },
-  { name: "Nova Trimmer ", image: "https://via.placeholder.com/300?text=Nova+Trimmer+2", size: 220, price: 1799, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Nova", count: 0 },
-  { name: "Havells Trimmer ", image: "https://via.placeholder.com/300?text=Havells+Trimmer+3", size: 250, price: 1899, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Havells", count: 0 },
-  { name: "Syska Trimmer ", image: "https://via.placeholder.com/300?text=Syska+Trimmer+4", size: 230, price: 1599, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Syska", count: 0 },
-  { name: "Panasonic Trimmer ", image: "https://via.placeholder.com/300?text=Panasonic+Trimmer+5", size: 240, price: 1699, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Panasonic", count: 0 },
+  { name: "Philips Trimmer ", image: "https://i.pinimg.com/1200x/f1/c8/c2/f1c8c2bdfa0cacb376eb2545b0915084.jpg", size: 200, price: 1999, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Philips", count: 0 },
+  { name: "Nova Trimmer ", image: "https://i.pinimg.com/736x/62/cd/c3/62cdc38ce8587eab3e4e7860d4e20f48.jpg", size: 220, price: 1799, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Nova", count: 0 },
+  { name: "Havells Trimmer ", image: "https://i.pinimg.com/736x/67/1b/80/671b80f51bbbefab832232d3c29e0644.jpg", size: 250, price: 1899, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Havells", count: 0 },
+  { name: "Syska Trimmer ", image: "https://i.pinimg.com/1200x/b5/2b/bc/b52bbc75db481a3d34911c9e14cebb9f.jpg", size: 230, price: 1599, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Syska", count: 0 },
+  { name: "Panasonic Trimmer ", image: "https://i.pinimg.com/1200x/21/bb/8b/21bb8bf912bb19cd102d6afc8c21e06c.jpg", size: 240, price: 1699, category: "Accessories", subCategory: "Trimmers & Clippers", for: "Male", brand: "Panasonic", count: 0 },
 
   // Cosmetic Lenses
-  { name: "Bausch & Lomb Lenses ", image: "https://via.placeholder.com/300?text=Bausch+%26+Lomb+Lenses+1", size: 2, price: 999, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Bausch & Lomb", count: 0 },
-  { name: "Freshlook Lenses ", image: "https://via.placeholder.com/300?text=Freshlook+Lenses+2", size: 2, price: 1099, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Freshlook", count: 0 },
-  { name: "Acuvue Lenses ", image: "https://via.placeholder.com/300?text=Acuvue+Lenses+3", size: 2, price: 1199, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Acuvue", count: 0 },
-  { name: "Bella Lenses ", image: "https://via.placeholder.com/300?text=Bella+Lenses+4", size: 2, price: 1299, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Bella", count: 0 },
-  { name: "ColourVUE Lenses ", image: "https://via.placeholder.com/300?text=ColourVUE+Lenses+5", size: 2, price: 1399, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "ColourVUE", count: 0 },
+  { name: "Bausch & Lomb Lenses ", image: "https://i.pinimg.com/736x/7b/ae/cb/7baecbebc5e7bb1dc028eb454ba8cb10.jpg", size: 2, price: 999, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Bausch & Lomb", count: 0 },
+  { name: "Freshlook Lenses ", image: "https://i.pinimg.com/736x/b4/3c/aa/b43caa60c06cd71168665fa862a82203.jpg", size: 2, price: 1099, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Freshlook", count: 0 },
+  { name: "Acuvue Lenses ", image: "https://i.pinimg.com/1200x/f5/21/ac/f521ac654fbdf69a1d2c38a35768fe06.jpg", size: 2, price: 1199, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Acuvue", count: 0 },
+  { name: "Bella Lenses ", image: "https://i.pinimg.com/736x/e9/7e/75/e97e75da841051da8560dd848a389e2e.jpg", size: 2, price: 1299, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Bella", count: 0 },
+  { name: "ColourVUE Lenses ", image: "https://i.pinimg.com/736x/f0/96/bb/f096bba499b294a7c86380767e49e036.jpg", size: 2, price: 1399, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "ColourVUE", count: 0 },
 ];
 
 
