@@ -284,139 +284,131 @@ const Hair = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
                 {filteredProducts.map((product, index) => (
                   <div
                     key={product._id}
-                    className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-black border border-[#D9C27B]/30 sm:border-2 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#D9C27B]/20"
+                    className="group relative bg-gradient-to-br from-gray-900/90 via-black to-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-3xl overflow-hidden hover:border-[#D9C27B]/60 transition-all duration-500 hover:transform hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#D9C27B]/25"
                     style={{
                       animationDelay: `${index * 100}ms`
                     }}
                   >
-                    {/* Decorative Elements */}
-                    <div className="absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-tr from-[#F4E4A6]/20 to-[#D9C27B]/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    {/* Elegant Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#D9C27B]/5 via-transparent to-[#F4E4A6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     
-                    {/* Shimmer Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                    
-                    {/* Product Image */}
-                    <div className="relative h-48 md:h-56 lg:h-64 xl:h-72 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
+                    {/* Premium Product Image */}
+                    <div className="relative aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] xl:aspect-[4/5] overflow-hidden">
                       <img 
-                        src={product.image || '/api/placeholder/300/400'} 
+                        src={product.image || '/api/placeholder/400/500'} 
                         alt={product.name}
-                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                       />
                       
-                      {/* Enhanced Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+                      {/* Sophisticated Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
                       
-                      {/* Premium Badge */}
-                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-                        <div className="bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black text-xs font-bold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-lg animate-pulse">
-                          <span className="flex items-center gap-1">
-                            <span className="hidden sm:inline">✨</span> <span className="text-xs sm:text-xs">{product.subCategory}</span>
-                          </span>
+                      {/* Category Badge */}
+                      <div className="absolute top-4 left-4">
+                        <div className="bg-black/80 backdrop-blur-md border border-[#D9C27B]/30 text-[#D9C27B] text-xs font-semibold px-3 py-1.5 rounded-full">
+                          {product.subCategory}
                         </div>
                       </div>
 
                       {/* Discount Badge */}
-                      <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-full shadow-lg">
-                          17% OFF
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                          20% OFF
                         </div>
                       </div>
                       
-                      {/* Enhanced Quick Actions */}
-                      <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 flex gap-1 sm:gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                      {/* Quick Action Buttons */}
+                      <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
                         <button 
                           onClick={() => handleAddToWishlist(product)}
-                          className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
+                          className="bg-black/80 backdrop-blur-md border border-gray-600/50 hover:border-[#D9C27B]/60 text-white hover:text-[#D9C27B] p-2.5 rounded-full transition-all duration-300 hover:scale-110"
                         >
-                          <FaHeart className="text-xs sm:text-sm" />
+                          <FaHeart className="text-sm" />
                         </button>
-                        <button className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
-                          <FaEye className="text-xs sm:text-sm" />
+                        <button className="bg-black/80 backdrop-blur-md border border-gray-600/50 hover:border-[#D9C27B]/60 text-white hover:text-[#D9C27B] p-2.5 rounded-full transition-all duration-300 hover:scale-110">
+                          <FaEye className="text-sm" />
                         </button>
                       </div>
 
-                      {/* Stock Indicator */}
-                      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="bg-green-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2 sm:px-3 py-1 rounded-full">
-                          <span className="hidden sm:inline">✓</span> In Stock
+                      {/* Stock Status */}
+                      <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="bg-emerald-500/90 backdrop-blur-md text-white text-xs font-medium px-3 py-1 rounded-full">
+                          ✓ In Stock
                         </div>
                       </div>
                     </div>
 
-                    {/* Enhanced Product Info */}
-                    <div className="p-3 md:p-4 lg:p-4 xl:p-5 space-y-2 md:space-y-3 lg:space-y-1 xl:space-y-1">
-                      {/* Product Name with Animation */}
-                      <div className="space-y-1 md:space-y-1 lg:space-y-1 xl:space-y-2 h-12 md:h-14 lg:h-16 xl:h-20 flex flex-col justify-start">
-                        <h3 className="text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2 overflow-hidden">
+                    {/* Professional Product Details */}
+                    <div className="p-2 sm:p-4 lg:p-5 xl:p-6 space-y-1 sm:space-y-3 lg:space-y-3 xl:space-y-4">
+                      {/* Product Title */}
+                      <div className="space-y-1 sm:space-y-2">
+                        <h3 className="text-white font-bold text-sm sm:text-base lg:text-lg xl:text-lg leading-tight group-hover:text-[#D9C27B] transition-colors duration-300 line-clamp-2">
                           {product.name}
                         </h3>
-                        <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500 mt-auto"></div>
+                        <div className="w-0 group-hover:w-8 sm:group-hover:w-10 lg:group-hover:w-12 xl:group-hover:w-12 h-0.5 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500"></div>
                       </div>
                       
-                      {/* Enhanced Rating */}
-                      <div className="flex items-center justify-between">
+                      {/* Rating & Reviews - Hidden on Mobile */}
+                      <div className="hidden sm:flex items-center justify-between">
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
                             <FaStar 
                               key={i} 
-                              className="text-[#D9C27B] text-xs md:text-sm lg:text-sm xl:text-base group-hover:scale-110 transition-transform duration-300" 
-                              style={{ animationDelay: `${i * 50}ms` }}
+                              className="text-[#D9C27B] text-sm" 
                             />
                           ))}
-                          <span className="text-gray-300 text-xs md:text-xs lg:text-sm xl:text-sm ml-1 md:ml-1 lg:ml-2 xl:ml-2 font-medium">(4.5)</span>
+                          <span className="text-gray-400 text-sm lg:text-sm xl:text-sm ml-2 lg:ml-2 xl:ml-2 font-medium">4.8</span>
                         </div>
-                        <div className="text-gray-400 text-xs hidden md:block">
-                          127 reviews
-                        </div>
+                        <span className="text-gray-500 text-sm lg:text-sm xl:text-sm">
+                          (234 reviews)
+                        </span>
                       </div>
 
-                      {/* Enhanced Price Section */}
-                      <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl p-2 md:p-3 lg:p-3 xl:p-4 border border-[#D9C27B]/20">
-                        <div className="flex items-center justify-between mb-1 md:mb-1 lg:mb-2 xl:mb-2">
-                          <div className="flex items-center gap-1 md:gap-2 lg:gap-2 xl:gap-3">
-                            <span className="text-[#D9C27B] font-bold text-lg md:text-xl lg:text-xl xl:text-2xl">
+                      {/* Pricing Section */}
+                      <div className="bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl sm:rounded-xl lg:rounded-2xl xl:rounded-2xl p-2 sm:p-3 lg:p-4 xl:p-4 border border-gray-700/30">
+                        <div className="flex items-center justify-between mb-0 sm:mb-1 lg:mb-2 xl:mb-2">
+                          <div className="flex items-baseline gap-1 sm:gap-1 lg:gap-2 xl:gap-2">
+                            <span className="text-[#D9C27B] font-bold text-lg sm:text-xl lg:text-2xl xl:text-2xl">
                               ₹{product.price}
                             </span>
-                            <span className="text-gray-500 text-sm md:text-base lg:text-base xl:text-lg line-through">
-                              ₹{Math.round(product.price * 1.2)}
+                            <span className="text-gray-500 text-sm sm:text-base lg:text-lg xl:text-lg line-through">
+                              ₹{Math.round(product.price * 1.25)}
                             </span>
                           </div>
-                          <div className="text-green-400 text-xs md:text-xs lg:text-sm xl:text-sm font-bold bg-green-400/10 px-2 md:px-2 lg:px-3 xl:px-3 py-1 rounded-full">
-                            SAVE ₹{Math.round(product.price * 0.2)}
+                          <div className="text-emerald-400 text-xs sm:text-xs lg:text-sm xl:text-sm font-semibold bg-emerald-400/10 px-2 sm:px-2 lg:px-3 xl:px-3 py-1 rounded-full">
+                            Save ₹{Math.round(product.price * 0.25)}
                           </div>
                         </div>
-                        
-                        
+                        <div className="text-gray-400 text-xs sm:text-xs lg:text-xs xl:text-xs hidden sm:block">
+                          Free shipping • Easy returns
+                        </div>
                       </div>
                       
-                      {/* Enhanced Action Buttons */}
-                      <div className="flex gap-2 md:gap-2 lg:gap-3 xl:gap-3 pt-1 md:pt-1 lg:pt-2 xl:pt-2">
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 sm:gap-2 lg:gap-3 xl:gap-3 pt-0 sm:pt-1 lg:pt-2 xl:pt-2">
                         <button 
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 md:py-3 lg:py-3 xl:py-4 px-3 md:px-4 lg:px-5 xl:px-6 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl font-bold text-xs md:text-xs lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-1 lg:gap-2 xl:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
+                          className="flex-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] hover:from-[#F4E4A6] hover:to-[#D9C27B] text-black font-bold py-2 sm:py-2 lg:py-3 xl:py-3 px-2 sm:px-3 lg:px-4 xl:px-4 rounded-xl sm:rounded-xl lg:rounded-2xl xl:rounded-2xl text-xs sm:text-sm lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-1 lg:gap-2 xl:gap-2 hover:shadow-lg hover:shadow-[#D9C27B]/30 hover:scale-[1.02] transform"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-                          <span className="relative z-10"><span className="hidden lg:inline">💳</span> Buy</span>
+                          <span>Buy Now</span>
                         </button>
                         
                         <button 
                           onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border lg:border-2 xl:border-2 text-[#D9C27B] py-2 md:py-3 lg:py-3 xl:py-4 px-3 md:px-4 lg:px-5 xl:px-6 rounded-xl md:rounded-xl lg:rounded-2xl xl:rounded-2xl font-bold text-xs md:text-xs lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-1 lg:gap-2 xl:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
+                          className="flex-1 bg-transparent border-2 border-[#D9C27B]/60 hover:bg-[#D9C27B]/10 text-[#D9C27B] font-bold py-2 sm:py-2 lg:py-3 xl:py-3 px-2 sm:px-3 lg:px-4 xl:px-4 rounded-xl sm:rounded-xl lg:rounded-2xl xl:rounded-2xl text-xs sm:text-sm lg:text-sm xl:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-1 lg:gap-2 xl:gap-2 hover:border-[#D9C27B] hover:scale-[1.02] transform"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>
-                          <FaShoppingCart className="text-xs md:text-xs lg:text-sm xl:text-sm relative z-10" />
-                          <span className="relative z-10 hidden lg:inline"> Cart</span>
+                          <FaShoppingCart className="text-xs sm:text-sm lg:text-sm xl:text-sm" />
+                          <span className="hidden sm:inline lg:inline xl:inline">Add to Cart</span>
                         </button>
                       </div>
-
-                    
                     </div>
                  
+
                   </div>
                 ))}
               </div>
