@@ -44,6 +44,17 @@ const Navbar = () => {
     setIsSearchOpen(false);
   };
 
+  const handleCategoryHover = (categoryName) => {
+    setActiveCategory(categoryName);
+    setActiveDropdown(categoryName);
+    setIsSearchOpen(false);
+  };
+
+  const handleCategoryLeave = () => {
+    setActiveDropdown(null);
+    setActiveCategory("");
+  };
+
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
     if (!isSearchOpen) {
@@ -82,11 +93,15 @@ const Navbar = () => {
           <div className=" hidden lg:flex justify-center">
             <div className=" flex items-center space-x-6 xl:space-x-8">
               {categories.map((category, index) => (
-                <div key={`${category.name}-${index}`} className="relative">
+                <div 
+                  key={`${category.name}-${index}`} 
+                  className="relative"
+                  onMouseEnter={() => handleCategoryHover(category.name)}
+                  onMouseLeave={handleCategoryLeave}
+                >
 
                   <a href={category.path}> <button
                     type="button"
-                    onClick={() => handleCategoryClick(category.name)}
                     className={`px-4 py-3 text-lg font-semibold flex items-center gap-2 transition-all duration-200 whitespace-nowrap rounded-lg ${
                       activeCategory === category.name
                         ? 'text-[#D9C27B] bg-[#D9C27B]/10 border-b-2 border-[#D9C27B]'
@@ -313,8 +328,8 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Overlay to close dropdowns when clicking outside */}
-      {(activeDropdown || isSearchOpen) && (
+      {/* Overlay to close search dropdown when clicking outside */}
+      {isSearchOpen && (
         <div
           className="fixed inset-0 z-40"
           onClick={closeAllDropdowns}
