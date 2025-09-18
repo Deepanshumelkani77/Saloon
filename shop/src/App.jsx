@@ -6,6 +6,7 @@ import Footer from "./components/Footer.jsx"
 import Hair from "./pages/Hair.jsx"
 import Skin from "./pages/Skin.jsx"
 import Accessories from './pages/Accessories.jsx';
+import Men from './pages/Men.jsx'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/hair' element={<Hair />} />
           <Route path='/skin' element={<Skin/>}/>
           <Route path="/accessories" element={<Accessories/>}></Route>
+          <Route path='/men' element={<Men/>}/>
         </Routes>
       </main>
        <Footer/>

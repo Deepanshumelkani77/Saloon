@@ -176,10 +176,10 @@ const products = [
 
 
   // Beard Oil
-{ name: "Ustraa Beard Oil", image: "https://i.pinimg.com/736x/f0/bb/01/f0bb012c2db4af6c5f8dca0cb3a8c6d1.jpg", size: 50, price: 399, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Ustraa", count: 0 },
-{ name: "Beardo Beard Oil", image: "https://i.pinimg.com/736x/67/29/fd/6729fd10a60b8dc9b36ff8b9cc5f6bb7.jpg", size: 60, price: 349, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Beardo", count: 0 },
-{ name: "Bombay Shaving Company Beard Oil", image: "https://i.pinimg.com/736x/06/32/62/063262ed50d2c35e899fe5b289e5d32d.jpg", size: 55, price: 299, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
-{ name: "The Man Company Beard Oil", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 45, price: 449, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "The Man Company", count: 0 },
+{ name: "Ustraa Beard Oil", image: "https://i.pinimg.com/1200x/59/db/fe/59dbfec30e6d4b5f4a673dd200effb78.jpg", size: 50, price: 399, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Ustraa", count: 0 },
+{ name: "Beardo Beard Oil", image: "https://i.pinimg.com/736x/f2/08/26/f20826151def731573324d73dd323cbb.jpg", size: 60, price: 349, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Beardo", count: 0 },
+{ name: "Bombay Shaving Company Beard Oil", image: "https://i.pinimg.com/736x/74/f1/2d/74f12dcd6dc2e135ae3aa2cfba5679e2.jpg", size: 55, price: 299, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
+{ name: "The Man Company Beard Oil", image: "https://i.pinimg.com/1200x/bc/21/c9/bc21c9f24dd0469d111b1f15e40e448b.jpg", size: 45, price: 449, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "The Man Company", count: 0 },
 { name: "UrbanGabru Beard Oil", image: "https://i.pinimg.com/736x/f7/b1/2c/f7b12cf7b6e54b83b82067493df75e72.jpg", size: 50, price: 379, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "UrbanGabru", count: 0 },
 
 // Aftershave
