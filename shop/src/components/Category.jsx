@@ -14,7 +14,8 @@ const Category = () => {
       description: 'Professional hair treatments & styling products',
       productCount: '150+ Products',
       popular: true,
-      gradient: 'from-purple-600/20 to-pink-600/20'
+      gradient: 'from-purple-600/20 to-pink-600/20',
+      path:'/hair'
     },
     {
       id: 2,
@@ -23,7 +24,8 @@ const Category = () => {
       description: 'Premium skincare for radiant, healthy skin',
       productCount: '120+ Products',
       popular: true,
-      gradient: 'from-blue-600/20 to-cyan-600/20'
+      gradient: 'from-blue-600/20 to-cyan-600/20',
+      path:'/skin'
     },
     {
       id: 3,
@@ -32,7 +34,8 @@ const Category = () => {
       description: 'Complete grooming solutions for modern men',
       productCount: '90+ Products',
       popular: false,
-      gradient: 'from-gray-600/20 to-slate-600/20'
+      gradient: 'from-gray-600/20 to-slate-600/20',
+      path:'accessories'
     },
     {
       id: 4,
@@ -41,7 +44,8 @@ const Category = () => {
       description: 'Luxury beauty essentials & cosmetics',
       productCount: '200+ Products',
       popular: true,
-      gradient: 'from-rose-600/20 to-red-600/20'
+      gradient: 'from-rose-600/20 to-red-600/20',
+      path:'/men'
     },
     {
       id: 5,
@@ -50,7 +54,8 @@ const Category = () => {
       description: 'Professional tools & beauty accessories',
       productCount: '80+ Products',
       popular: false,
-      gradient: 'from-emerald-600/20 to-green-600/20'
+      gradient: 'from-emerald-600/20 to-green-600/20',
+      path:'/women'
     }
   ];
 
@@ -142,12 +147,12 @@ const Category = () => {
                   </div>
                   
                   {/* CTA Button */}
-                  <button className={`w-full bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] py-3 md:py-4 px-6 md:px-8 rounded-full font-semibold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-[#D9C27B] group-hover:to-[#F4E4A6] group-hover:text-black transform ${
+             <a href={category.path}>     <button className={`w-full bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] text-[#D9C27B] py-3 md:py-4 px-6 md:px-8 rounded-full font-semibold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-[#D9C27B] group-hover:to-[#F4E4A6] group-hover:text-black transform ${
                     hoveredCategory === category.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                  }`}>
+                  }`}  >
                     Shop Now
                     <FaArrowRight className="text-xs md:text-sm transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                  </button></a>
                 </div>
               </div>
 
