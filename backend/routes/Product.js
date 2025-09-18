@@ -122,4 +122,23 @@ router.get("/women", async (req, res) => {
 
 
 
+router.get("/show/:id", async (req, res) => {
+  const { id } = req.params; 
+  try {
+    const data = await Product.findById(id); // filter only Hair category
+    res.json({
+      success: true,
+      data
+    });
+  } catch (error) {
+    console.error("Error fetching hair products:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch hair products",
+      error: error.message
+    });
+  }
+});
+
+
 module.exports=router;
