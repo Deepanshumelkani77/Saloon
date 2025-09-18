@@ -226,53 +226,53 @@ const products = [
 
 
 // Makeup
-{ name: "Maybelline Makeup Kit", image: "https://i.pinimg.com/736x/3d/ae/48/3dae48203e0653cb7cf9307b0b6df2f2.jpg", size: 200, price: 1299, category: "Women", subCategory: "Makeup", for: "Female", brand: "Maybelline", count: 0 },
-{ name: "Lakme Complete Makeup Kit", image: "https://i.pinimg.com/736x/70/b5/74/70b57480df93d65c6f1a3e7e2eeb11a3.jpg", size: 250, price: 1499, category: "Women", subCategory: "Makeup", for: "Female", brand: "Lakme", count: 0 },
-{ name: "L'Oreal Paris Makeup Essentials", image: "https://i.pinimg.com/736x/77/aa/67/77aa6705bfb9d184f40d14dbe3cf15b2.jpg", size: 220, price: 1599, category: "Women", subCategory: "Makeup", for: "Female", brand: "L'Oreal", count: 0 },
-{ name: "Swiss Beauty Makeup Kit", image: "https://i.pinimg.com/736x/9d/56/16/9d56166c55b65aa0ecf9466c7af23e4e.jpg", size: 210, price: 1199, category: "Women", subCategory: "Makeup", for: "Female", brand: "Swiss Beauty", count: 0 },
-{ name: "Colorbar Makeup Combo", image: "https://i.pinimg.com/736x/f8/2a/c3/f82ac3f7a0b84a60d2d32ac10a5e3f70.jpg", size: 240, price: 1399, category: "Women", subCategory: "Makeup", for: "Female", brand: "Colorbar", count: 0 },
+{ name: "Maybelline Makeup Kit", image: "https://i.pinimg.com/1200x/59/39/35/593935177e3a71e54161f2380c010194.jpg", size: 200, price: 1299, category: "Women", subCategory: "Makeup", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme Complete Makeup Kit", image: "https://i.pinimg.com/736x/bb/cc/f5/bbccf5691c0dc073d3e7fa8ba76b9b3f.jpg", size: 250, price: 1499, category: "Women", subCategory: "Makeup", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal Paris Makeup Essentials", image: "https://i.pinimg.com/736x/aa/65/66/aa656645749153fb3ed01d9db0031d15.jpg", size: 220, price: 1599, category: "Women", subCategory: "Makeup", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "Swiss Beauty Makeup Kit", image: "https://i.pinimg.com/736x/66/82/5d/66825d93dcf1d241de47ad9d111bab8b.jpg", size: 210, price: 1199, category: "Women", subCategory: "Makeup", for: "Female", brand: "Swiss Beauty", count: 0 },
+{ name: "Colorbar Makeup Combo", image: "https://i.pinimg.com/736x/73/22/ca/7322ca8c1ea52ae704a460328a7b8e54.jpg", size: 240, price: 1399, category: "Women", subCategory: "Makeup", for: "Female", brand: "Colorbar", count: 0 },
 
 // Nail Care
-{ name: "Lakme Nail Polish Set", image: "https://i.pinimg.com/736x/53/4a/bb/534abb8f0dbcb902c50c49f1a32953a4.jpg", size: 50, price: 299, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Lakme", count: 0 },
-{ name: "Maybelline Nail Polish Remover", image: "https://i.pinimg.com/736x/f3/6c/25/f36c25a534a7f7ac963c569b379e40c1.jpg", size: 60, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Maybelline", count: 0 },
-{ name: "Nykaa Nail Polish", image: "https://i.pinimg.com/736x/23/0c/df/230cdf6e55ef20e3a82cb4b6c5e78b9b.jpg", size: 55, price: 249, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Nykaa", count: 0 },
-{ name: "Colorbar Nail Enamel", image: "https://i.pinimg.com/736x/46/bb/6a/46bb6a7b6cb3f46a9abdc6a949efc425.jpg", size: 70, price: 229, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Colorbar", count: 0 },
-{ name: "Faces Canada Nail Polish", image: "https://i.pinimg.com/736x/73/0d/18/730d18295f3dfba1fc71d3b6e34c0a04.jpg", size: 65, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Faces Canada", count: 0 },
+{ name: "Lakme Nail Polish Set", image: "https://i.pinimg.com/736x/05/43/88/054388b5781c25078fa8990cf96bfaa3.jpg", size: 50, price: 299, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Lakme", count: 0 },
+{ name: "Maybelline Nail Polish Remover", image: "https://i.pinimg.com/736x/76/60/cf/7660cf2ce2d631a1248df056f38bb5e1.jpg", size: 60, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Nykaa Nail Polish", image: "https://i.pinimg.com/736x/43/df/23/43df230f10070d006320cbef4db7322c.jpg", size: 55, price: 249, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Nykaa", count: 0 },
+{ name: "Colorbar Nail Enamel", image: "https://i.pinimg.com/1200x/63/d5/19/63d519b35beeb13d30714f52ab90d608.jpg", size: 70, price: 229, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Colorbar", count: 0 },
+{ name: "Faces Canada Nail Polish", image: "https://i.pinimg.com/1200x/4e/03/cd/4e03cd3f15dea3d0c9e2f501568f2165.jpg", size: 65, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Faces Canada", count: 0 },
 
 // Perfume
-{ name: "Chanel Coco Mademoiselle", image: "https://i.pinimg.com/736x/c1/4f/27/c14f2753d50c09d92d5b5d9059087f45.jpg", size: 100, price: 5499, category: "Women", subCategory: "Perfume", for: "Female", brand: "Chanel", count: 0 },
-{ name: "Dior J'adore", image: "https://i.pinimg.com/736x/9a/7f/18/9a7f1875bcb6f3e0c2bbf3f5a1e8e442.jpg", size: 90, price: 5999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Dior", count: 0 },
-{ name: "Gucci Bloom", image: "https://i.pinimg.com/736x/8d/36/35/8d36359e880e548ae7d47a244b364a53.jpg", size: 95, price: 4999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Gucci", count: 0 },
-{ name: "YSL Black Opium", image: "https://i.pinimg.com/736x/14/fd/6f/14fd6f5afdb116b7d56d75dd2b07293b.jpg", size: 85, price: 6199, category: "Women", subCategory: "Perfume", for: "Female", brand: "YSL", count: 0 },
-{ name: "Versace Bright Crystal", image: "https://i.pinimg.com/736x/19/fb/6c/19fb6c844eaa2761af31db22b6f586bb.jpg", size: 80, price: 4799, category: "Women", subCategory: "Perfume", for: "Female", brand: "Versace", count: 0 },
+{ name: "Chanel Coco Mademoiselle", image: "https://i.pinimg.com/1200x/f3/fb/66/f3fb66ddb801929ce1f6096a9fdc3bbd.jpg", size: 100, price: 5499, category: "Women", subCategory: "Perfume", for: "Female", brand: "Chanel", count: 0 },
+{ name: "Dior J'adore", image: "https://i.pinimg.com/736x/41/d9/43/41d943bf4e720d566abd6bf41c906d5e.jpg", size: 90, price: 5999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Dior", count: 0 },
+{ name: "Gucci Bloom", image: "https://i.pinimg.com/1200x/b6/e9/a2/b6e9a20bfa4401c2e269320953b162fe.jpg", size: 95, price: 4999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Gucci", count: 0 },
+{ name: "YSL Black Opium", image: "https://i.pinimg.com/736x/ac/23/e7/ac23e7748d55d0ba75fc7939b7f6fa33.jpg", size: 85, price: 6199, category: "Women", subCategory: "Perfume", for: "Female", brand: "YSL", count: 0 },
+{ name: "Versace Bright Crystal", image: "https://i.pinimg.com/1200x/91/c7/03/91c703eaa0a7b9c79c8a46f7013e102e.jpg", size: 80, price: 4799, category: "Women", subCategory: "Perfume", for: "Female", brand: "Versace", count: 0 },
 
 // Hair Accessories
-{ name: "Hair Clips Set", image: "https://i.pinimg.com/736x/ed/41/67/ed41673f7e1e5e1f3f92a3452d65b2e3.jpg", size: 30, price: 199, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
-{ name: "Pearl Hairband", image: "https://i.pinimg.com/736x/bb/73/1a/bb731a7b2f28df0a4f69977a81a546b6.jpg", size: 25, price: 249, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
-{ name: "Scrunchies Pack", image: "https://i.pinimg.com/736x/dc/c2/bc/dcc2bcdbb2b7ed8b28f84758ad601ea7.jpg", size: 35, price: 149, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
-{ name: "Crystal Hair Pin", image: "https://i.pinimg.com/736x/2c/8b/6f/2c8b6fa1a9e5f147ac52c6a204d9cb3b.jpg", size: 20, price: 299, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
-{ name: "Floral Hair Comb", image: "https://i.pinimg.com/736x/7a/ab/d7/7aabd7bfe15dc850f50f6436d4177859.jpg", size: 28, price: 179, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Hair Clips Set", image: "https://i.pinimg.com/1200x/02/b2/21/02b221de9d6ccefe2622683a13a88707.jpg", size: 30, price: 199, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Pearl Hairband", image: "https://i.pinimg.com/736x/ac/b7/f8/acb7f8a9aaf8ff9bcc93064c660ffa82.jpg", size: 25, price: 249, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Scrunchies Pack", image: "https://i.pinimg.com/736x/c7/af/8e/c7af8ef678a523ee973c9f3436a2ffc0.jpg", size: 35, price: 149, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Crystal Hair Pin", image: "https://i.pinimg.com/736x/b8/2d/0a/b82d0aad0d46f274ce50559a3873e884.jpg", size: 20, price: 299, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Floral Hair Comb", image: "https://i.pinimg.com/736x/88/18/ce/8818ce3c6a8c8fbbda97e21656e8910c.jpg", size: 28, price: 179, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
 
 // Beauty Tools
-{ name: "Makeup Brushes Set", image: "https://i.pinimg.com/736x/85/2a/9b/852a9b96ad00b01589a8aa54cc5d5d2b.jpg", size: 150, price: 899, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
-{ name: "Eyelash Curler", image: "https://i.pinimg.com/736x/7b/83/f5/7b83f5f82e171c79a6ad39a3ad26821b.jpg", size: 60, price: 199, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
-{ name: "Beauty Blender Sponge", image: "https://i.pinimg.com/736x/7b/3a/2c/7b3a2c5f8f8932f8aab0d44a16390244.jpg", size: 40, price: 149, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
-{ name: "Facial Roller", image: "https://i.pinimg.com/736x/04/4b/87/044b870d2a9e0d4168b3a69e918e4389.jpg", size: 90, price: 499, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
-{ name: "Compact Mirror", image: "https://i.pinimg.com/736x/23/3e/f7/233ef7f844c172dbf1cd59d00e89646c.jpg", size: 35, price: 249, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Makeup Brushes Set", image: "https://i.pinimg.com/1200x/58/89/82/588982af14fcb70bbd08ae30b8b07321.jpg", size: 150, price: 899, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Eyelash Curler", image: "https://i.pinimg.com/736x/48/f2/98/48f2984e3e9de0a51b9b3542722f7c19.jpg", size: 60, price: 199, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Beauty Blender Sponge", image: "https://i.pinimg.com/1200x/dc/8f/fd/dc8ffd3522af5cdeebb63471338fe14f.jpg", size: 40, price: 149, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Facial Roller", image: "https://i.pinimg.com/1200x/24/f6/e9/24f6e9b61c49d4d2a647e7d66f0db656.jpg", size: 90, price: 499, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Compact Mirror", image: "https://i.pinimg.com/1200x/61/f7/02/61f70251f3ed5084d120e273f4f08696.jpg", size: 35, price: 249, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
 
 // Lipstick
-{ name: "Maybelline SuperStay Lipstick", image: "https://i.pinimg.com/736x/ea/f0/d6/eaf0d6312558c3927983b1b7dcb5c26a.jpg", size: 20, price: 499, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Maybelline", count: 0 },
-{ name: "Lakme Matte Lipstick", image: "https://i.pinimg.com/736x/92/d6/b7/92d6b7a73a7b76acbfb5f3e2972e8bbd.jpg", size: 18, price: 399, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Lakme", count: 0 },
-{ name: "L'Oreal Paris Rouge Lipstick", image: "https://i.pinimg.com/736x/af/48/b1/af48b1cb53676c06671ee2cf97d77502.jpg", size: 22, price: 549, category: "Women", subCategory: "Lipstick", for: "Female", brand: "L'Oreal", count: 0 },
-{ name: "Colorbar Velvet Matte Lipstick", image: "https://i.pinimg.com/736x/f8/2a/c3/f82ac3f7a0b84a60d2d32ac10a5e3f70.jpg", size: 19, price: 429, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Colorbar", count: 0 },
-{ name: "MAC Ruby Woo Lipstick", image: "https://i.pinimg.com/736x/8d/cf/2b/8dcf2b105c6f6a6d72655a5b39f98bc6.jpg", size: 21, price: 1799, category: "Women", subCategory: "Lipstick", for: "Female", brand: "MAC", count: 0 },
+{ name: "Maybelline SuperStay Lipstick", image: "https://i.pinimg.com/1200x/0a/68/b6/0a68b691be930d3dcb57a4e8223e03d7.jpg", size: 20, price: 499, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme Matte Lipstick", image: "https://i.pinimg.com/1200x/5f/af/0a/5faf0a9ae4dad784b9302c92f78ffaab.jpg", size: 18, price: 399, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal Paris Rouge Lipstick", image: "https://i.pinimg.com/736x/11/20/ed/1120ed75528051109532feb57af4c9ab.jpg", size: 22, price: 549, category: "Women", subCategory: "Lipstick", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "Colorbar Velvet Matte Lipstick", image: "https://i.pinimg.com/736x/7d/58/d2/7d58d22ddc4b7856f92f4404a08a9308.jpg", size: 19, price: 429, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Colorbar", count: 0 },
+{ name: "MAC Ruby Woo Lipstick", image: "https://i.pinimg.com/736x/84/93/e2/8493e2b7d68aa4a1c22c08d66d3218ed.jpg", size: 21, price: 1799, category: "Women", subCategory: "Lipstick", for: "Female", brand: "MAC", count: 0 },
 
 // Foundation
-{ name: "Maybelline Fit Me Foundation", image: "https://i.pinimg.com/736x/65/76/14/657614217599e47cf73e8b54152e5a4e.jpg", size: 120, price: 549, category: "Women", subCategory: "Foundation", for: "Female", brand: "Maybelline", count: 0 },
-{ name: "Lakme 9to5 Foundation", image: "https://i.pinimg.com/736x/0c/f1/40/0cf14028e05a8d5a3823f92d41d3d4fa.jpg", size: 110, price: 499, category: "Women", subCategory: "Foundation", for: "Female", brand: "Lakme", count: 0 },
-{ name: "L'Oreal True Match Foundation", image: "https://i.pinimg.com/736x/2d/ef/9a/2def9ac530ef61ef91b4f02adff49d38.jpg", size: 115, price: 799, category: "Women", subCategory: "Foundation", for: "Female", brand: "L'Oreal", count: 0 },
-{ name: "MAC Studio Fix Foundation", image: "https://i.pinimg.com/736x/71/64/09/71640995d463d0e72e31f72da7c38e3a.jpg", size: 125, price: 2999, category: "Women", subCategory: "Foundation", for: "Female", brand: "MAC", count: 0 },
-{ name: "Huda Beauty Foundation", image: "https://i.pinimg.com/736x/52/c5/f8/52c5f83ad17629cd426cd3930b69c544.jpg", size: 130, price: 3299, category: "Women", subCategory: "Foundation", for: "Female", brand: "Huda Beauty", count: 0 },
+{ name: "Maybelline Fit Me Foundation", image: "https://i.pinimg.com/736x/0d/92/4a/0d924a2e1aea87350dcd4f262b47eb5f.jpg", size: 120, price: 549, category: "Women", subCategory: "Foundation", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme 9to5 Foundation", image: "https://i.pinimg.com/736x/83/9a/93/839a935734332e53376622e724a7f897.jpg", size: 110, price: 499, category: "Women", subCategory: "Foundation", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal True Match Foundation", image: "https://i.pinimg.com/736x/60/cb/5c/60cb5ceea55bbe7e28bffb25e1c22a10.jpg", size: 115, price: 799, category: "Women", subCategory: "Foundation", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "MAC Studio Fix Foundation", image: "https://i.pinimg.com/1200x/b3/12/45/b31245480a719cef608d39d436f08cdf.jpg", size: 125, price: 2999, category: "Women", subCategory: "Foundation", for: "Female", brand: "MAC", count: 0 },
+{ name: "Huda Beauty Foundation", image: "https://i.pinimg.com/736x/9d/ba/f4/9dbaf4098b0fefb315551579f0b6545b.jpg", size: 130, price: 3299, category: "Women", subCategory: "Foundation", for: "Female", brand: "Huda Beauty", count: 0 },
 
 
 ];
