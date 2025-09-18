@@ -173,6 +173,108 @@ const products = [
   { name: "Acuvue Lenses ", image: "https://i.pinimg.com/1200x/f5/21/ac/f521ac654fbdf69a1d2c38a35768fe06.jpg", size: 2, price: 1199, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Acuvue", count: 0 },
   { name: "Bella Lenses ", image: "https://i.pinimg.com/736x/e9/7e/75/e97e75da841051da8560dd848a389e2e.jpg", size: 2, price: 1299, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "Bella", count: 0 },
   { name: "ColourVUE Lenses ", image: "https://i.pinimg.com/736x/f0/96/bb/f096bba499b294a7c86380767e49e036.jpg", size: 2, price: 1399, category: "Accessories", subCategory: "Cosmetic Lenses", for: "Female", brand: "ColourVUE", count: 0 },
+
+
+  // Beard Oil
+{ name: "Ustraa Beard Oil", image: "https://i.pinimg.com/736x/f0/bb/01/f0bb012c2db4af6c5f8dca0cb3a8c6d1.jpg", size: 50, price: 399, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Ustraa", count: 0 },
+{ name: "Beardo Beard Oil", image: "https://i.pinimg.com/736x/67/29/fd/6729fd10a60b8dc9b36ff8b9cc5f6bb7.jpg", size: 60, price: 349, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Beardo", count: 0 },
+{ name: "Bombay Shaving Company Beard Oil", image: "https://i.pinimg.com/736x/06/32/62/063262ed50d2c35e899fe5b289e5d32d.jpg", size: 55, price: 299, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
+{ name: "The Man Company Beard Oil", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 45, price: 449, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "The Man Company", count: 0 },
+{ name: "UrbanGabru Beard Oil", image: "https://i.pinimg.com/736x/f7/b1/2c/f7b12cf7b6e54b83b82067493df75e72.jpg", size: 50, price: 379, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "UrbanGabru", count: 0 },
+
+// Aftershave
+{ name: "Old Spice Aftershave", image: "https://i.pinimg.com/736x/92/ff/77/92ff7752de4fbc9cdd6ad75e8a62f84f.jpg", size: 100, price: 299, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Old Spice", count: 0 },
+{ name: "Nivea Men Aftershave", image: "https://i.pinimg.com/736x/3a/21/2e/3a212ef46d97f70a4ffda26c41c6d91b.jpg", size: 120, price: 349, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Gillette Aftershave", image: "https://i.pinimg.com/736x/55/f0/ea/55f0ea26f34c3d20b1997f5aa40df2d7.jpg", size: 90, price: 279, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Gillette", count: 0 },
+{ name: "Park Avenue Aftershave", image: "https://i.pinimg.com/736x/04/25/9c/04259c82d586ae054f32137a268943a8.jpg", size: 110, price: 199, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Park Avenue", count: 0 },
+{ name: "Wild Stone Aftershave", image: "https://i.pinimg.com/736x/bb/91/72/bb91723289d17d2c5f6df0036af86c66.jpg", size: 100, price: 259, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Wild Stone", count: 0 },
+
+// Hair Gel
+{ name: "Set Wet Hair Gel", image: "https://i.pinimg.com/736x/0e/1d/6b/0e1d6bb703f3d0a15c90ef85b60a3baf.jpg", size: 150, price: 149, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Set Wet", count: 0 },
+{ name: "Gatsby Hair Gel", image: "https://i.pinimg.com/736x/25/9e/fc/259efcd94dd28bfa09ed43038e4961f7.jpg", size: 200, price: 199, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Gatsby", count: 0 },
+{ name: "Brylcreem Hair Gel", image: "https://i.pinimg.com/736x/dc/94/c1/dc94c13c30b152a0e57e4d7b79234b88.jpg", size: 180, price: 169, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Brylcreem", count: 0 },
+{ name: "L'Oreal Men Expert Hair Gel", image: "https://i.pinimg.com/736x/40/29/26/402926e6b74b1b8c5cb24ef63dc8d2a1.jpg", size: 170, price: 299, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "L'Oreal Men Expert", count: 0 },
+{ name: "Schwarzkopf Hair Gel", image: "https://i.pinimg.com/736x/f9/88/d7/f988d76f18a7e4c263c6dd80ef6095d7.jpg", size: 160, price: 349, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Schwarzkopf", count: 0 },
+
+// Face Wash
+{ name: "Nivea Men Face Wash", image: "https://i.pinimg.com/736x/5b/45/3f/5b453f10b6fcabacdb9d6718c3210d13.jpg", size: 100, price: 199, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Pond's Men Face Wash", image: "https://i.pinimg.com/736x/76/c6/06/76c606bdc51f9f1d60c0177021043b86.jpg", size: 120, price: 179, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Pond's", count: 0 },
+{ name: "Beardo Face Wash", image: "https://i.pinimg.com/736x/67/29/fd/6729fd10a60b8dc9b36ff8b9cc5f6bb7.jpg", size: 110, price: 229, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Beardo", count: 0 },
+{ name: "Garnier Men OilClear Face Wash", image: "https://i.pinimg.com/736x/0a/63/56/0a63565a4e78b1fbc1d28a55b10c25d7.jpg", size: 130, price: 189, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Garnier Men", count: 0 },
+{ name: "The Man Company Face Wash", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 125, price: 249, category: "Men", subCategory: "Face Wash", for: "Male", brand: "The Man Company", count: 0 },
+
+// Cologne
+{ name: "Davidoff Cool Water", image: "https://i.pinimg.com/736x/2f/59/5a/2f595a1e740a8bcbb0f4af0c66bdbd47.jpg", size: 125, price: 2499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Davidoff", count: 0 },
+{ name: "Calvin Klein Eternity Men", image: "https://i.pinimg.com/736x/16/4a/f2/164af2055b2d1e234bbfd30a8022664f.jpg", size: 100, price: 2999, category: "Men", subCategory: "Cologne", for: "Male", brand: "Calvin Klein", count: 0 },
+{ name: "Hugo Boss Bottled", image: "https://i.pinimg.com/736x/08/d2/f1/08d2f15da06540707b71df80b01007ab.jpg", size: 110, price: 3499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Hugo Boss", count: 0 },
+{ name: "Armani Code", image: "https://i.pinimg.com/736x/4d/8f/34/4d8f34a5cfd1ad97b879a25442fcb2a7.jpg", size: 115, price: 3299, category: "Men", subCategory: "Cologne", for: "Male", brand: "Armani", count: 0 },
+{ name: "Burberry Men Cologne", image: "https://i.pinimg.com/736x/35/11/8c/35118c32a0bd61d90ac7b72ff2bfa8a3.jpg", size: 120, price: 2799, category: "Men", subCategory: "Cologne", for: "Male", brand: "Burberry", count: 0 },
+
+// Shaving Cream
+{ name: "Gillette Shaving Cream", image: "https://i.pinimg.com/736x/4e/c4/8d/4ec48d7c00f33ea7f4174a14270d2f23.jpg", size: 70, price: 129, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Gillette", count: 0 },
+{ name: "Nivea Men Shaving Cream", image: "https://i.pinimg.com/736x/32/f2/f7/32f2f7830934c843c978a4c71dbbf621.jpg", size: 75, price: 149, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Park Avenue Shaving Cream", image: "https://i.pinimg.com/736x/04/25/9c/04259c82d586ae054f32137a268943a8.jpg", size: 80, price: 99, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Park Avenue", count: 0 },
+{ name: "Dettol Shaving Cream", image: "https://i.pinimg.com/736x/47/b0/fc/47b0fc34f6e77229db9f177c289c3b43.jpg", size: 85, price: 139, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Dettol", count: 0 },
+{ name: "Godrej Shaving Cream", image: "https://i.pinimg.com/736x/ba/25/5d/ba255d1c2a6a7d810c7b3b08f68b7b6d.jpg", size: 90, price: 119, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Godrej", count: 0 },
+
+// Beard Balm
+{ name: "Ustraa Beard Balm", image: "https://i.pinimg.com/736x/2d/cf/aa/2dcfaa39ef417a3256b6c58051f14755.jpg", size: 50, price: 349, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Ustraa", count: 0 },
+{ name: "Beardo Beard Balm", image: "https://i.pinimg.com/736x/2e/f9/b0/2ef9b0dfc148d0edc9772f0b087531e7.jpg", size: 55, price: 329, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Beardo", count: 0 },
+{ name: "The Man Company Beard Balm", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 60, price: 379, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "The Man Company", count: 0 },
+{ name: "UrbanGabru Beard Balm", image: "https://i.pinimg.com/736x/f7/b1/2c/f7b12cf7b6e54b83b82067493df75e72.jpg", size: 65, price: 319, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "UrbanGabru", count: 0 },
+{ name: "Bombay Shaving Company Beard Balm", image: "https://i.pinimg.com/736x/06/32/62/063262ed50d2c35e899fe5b289e5d32d.jpg", size: 70, price: 299, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
+
+
+// Makeup
+{ name: "Maybelline Makeup Kit", image: "https://i.pinimg.com/736x/3d/ae/48/3dae48203e0653cb7cf9307b0b6df2f2.jpg", size: 200, price: 1299, category: "Women", subCategory: "Makeup", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme Complete Makeup Kit", image: "https://i.pinimg.com/736x/70/b5/74/70b57480df93d65c6f1a3e7e2eeb11a3.jpg", size: 250, price: 1499, category: "Women", subCategory: "Makeup", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal Paris Makeup Essentials", image: "https://i.pinimg.com/736x/77/aa/67/77aa6705bfb9d184f40d14dbe3cf15b2.jpg", size: 220, price: 1599, category: "Women", subCategory: "Makeup", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "Swiss Beauty Makeup Kit", image: "https://i.pinimg.com/736x/9d/56/16/9d56166c55b65aa0ecf9466c7af23e4e.jpg", size: 210, price: 1199, category: "Women", subCategory: "Makeup", for: "Female", brand: "Swiss Beauty", count: 0 },
+{ name: "Colorbar Makeup Combo", image: "https://i.pinimg.com/736x/f8/2a/c3/f82ac3f7a0b84a60d2d32ac10a5e3f70.jpg", size: 240, price: 1399, category: "Women", subCategory: "Makeup", for: "Female", brand: "Colorbar", count: 0 },
+
+// Nail Care
+{ name: "Lakme Nail Polish Set", image: "https://i.pinimg.com/736x/53/4a/bb/534abb8f0dbcb902c50c49f1a32953a4.jpg", size: 50, price: 299, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Lakme", count: 0 },
+{ name: "Maybelline Nail Polish Remover", image: "https://i.pinimg.com/736x/f3/6c/25/f36c25a534a7f7ac963c569b379e40c1.jpg", size: 60, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Nykaa Nail Polish", image: "https://i.pinimg.com/736x/23/0c/df/230cdf6e55ef20e3a82cb4b6c5e78b9b.jpg", size: 55, price: 249, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Nykaa", count: 0 },
+{ name: "Colorbar Nail Enamel", image: "https://i.pinimg.com/736x/46/bb/6a/46bb6a7b6cb3f46a9abdc6a949efc425.jpg", size: 70, price: 229, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Colorbar", count: 0 },
+{ name: "Faces Canada Nail Polish", image: "https://i.pinimg.com/736x/73/0d/18/730d18295f3dfba1fc71d3b6e34c0a04.jpg", size: 65, price: 199, category: "Women", subCategory: "Nail Care", for: "Female", brand: "Faces Canada", count: 0 },
+
+// Perfume
+{ name: "Chanel Coco Mademoiselle", image: "https://i.pinimg.com/736x/c1/4f/27/c14f2753d50c09d92d5b5d9059087f45.jpg", size: 100, price: 5499, category: "Women", subCategory: "Perfume", for: "Female", brand: "Chanel", count: 0 },
+{ name: "Dior J'adore", image: "https://i.pinimg.com/736x/9a/7f/18/9a7f1875bcb6f3e0c2bbf3f5a1e8e442.jpg", size: 90, price: 5999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Dior", count: 0 },
+{ name: "Gucci Bloom", image: "https://i.pinimg.com/736x/8d/36/35/8d36359e880e548ae7d47a244b364a53.jpg", size: 95, price: 4999, category: "Women", subCategory: "Perfume", for: "Female", brand: "Gucci", count: 0 },
+{ name: "YSL Black Opium", image: "https://i.pinimg.com/736x/14/fd/6f/14fd6f5afdb116b7d56d75dd2b07293b.jpg", size: 85, price: 6199, category: "Women", subCategory: "Perfume", for: "Female", brand: "YSL", count: 0 },
+{ name: "Versace Bright Crystal", image: "https://i.pinimg.com/736x/19/fb/6c/19fb6c844eaa2761af31db22b6f586bb.jpg", size: 80, price: 4799, category: "Women", subCategory: "Perfume", for: "Female", brand: "Versace", count: 0 },
+
+// Hair Accessories
+{ name: "Hair Clips Set", image: "https://i.pinimg.com/736x/ed/41/67/ed41673f7e1e5e1f3f92a3452d65b2e3.jpg", size: 30, price: 199, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Pearl Hairband", image: "https://i.pinimg.com/736x/bb/73/1a/bb731a7b2f28df0a4f69977a81a546b6.jpg", size: 25, price: 249, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Scrunchies Pack", image: "https://i.pinimg.com/736x/dc/c2/bc/dcc2bcdbb2b7ed8b28f84758ad601ea7.jpg", size: 35, price: 149, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Crystal Hair Pin", image: "https://i.pinimg.com/736x/2c/8b/6f/2c8b6fa1a9e5f147ac52c6a204d9cb3b.jpg", size: 20, price: 299, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+{ name: "Floral Hair Comb", image: "https://i.pinimg.com/736x/7a/ab/d7/7aabd7bfe15dc850f50f6436d4177859.jpg", size: 28, price: 179, category: "Women", subCategory: "Hair Accessories", for: "Female", brand: "Generic", count: 0 },
+
+// Beauty Tools
+{ name: "Makeup Brushes Set", image: "https://i.pinimg.com/736x/85/2a/9b/852a9b96ad00b01589a8aa54cc5d5d2b.jpg", size: 150, price: 899, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Eyelash Curler", image: "https://i.pinimg.com/736x/7b/83/f5/7b83f5f82e171c79a6ad39a3ad26821b.jpg", size: 60, price: 199, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Beauty Blender Sponge", image: "https://i.pinimg.com/736x/7b/3a/2c/7b3a2c5f8f8932f8aab0d44a16390244.jpg", size: 40, price: 149, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Facial Roller", image: "https://i.pinimg.com/736x/04/4b/87/044b870d2a9e0d4168b3a69e918e4389.jpg", size: 90, price: 499, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+{ name: "Compact Mirror", image: "https://i.pinimg.com/736x/23/3e/f7/233ef7f844c172dbf1cd59d00e89646c.jpg", size: 35, price: 249, category: "Women", subCategory: "Beauty Tools", for: "Female", brand: "Generic", count: 0 },
+
+// Lipstick
+{ name: "Maybelline SuperStay Lipstick", image: "https://i.pinimg.com/736x/ea/f0/d6/eaf0d6312558c3927983b1b7dcb5c26a.jpg", size: 20, price: 499, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme Matte Lipstick", image: "https://i.pinimg.com/736x/92/d6/b7/92d6b7a73a7b76acbfb5f3e2972e8bbd.jpg", size: 18, price: 399, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal Paris Rouge Lipstick", image: "https://i.pinimg.com/736x/af/48/b1/af48b1cb53676c06671ee2cf97d77502.jpg", size: 22, price: 549, category: "Women", subCategory: "Lipstick", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "Colorbar Velvet Matte Lipstick", image: "https://i.pinimg.com/736x/f8/2a/c3/f82ac3f7a0b84a60d2d32ac10a5e3f70.jpg", size: 19, price: 429, category: "Women", subCategory: "Lipstick", for: "Female", brand: "Colorbar", count: 0 },
+{ name: "MAC Ruby Woo Lipstick", image: "https://i.pinimg.com/736x/8d/cf/2b/8dcf2b105c6f6a6d72655a5b39f98bc6.jpg", size: 21, price: 1799, category: "Women", subCategory: "Lipstick", for: "Female", brand: "MAC", count: 0 },
+
+// Foundation
+{ name: "Maybelline Fit Me Foundation", image: "https://i.pinimg.com/736x/65/76/14/657614217599e47cf73e8b54152e5a4e.jpg", size: 120, price: 549, category: "Women", subCategory: "Foundation", for: "Female", brand: "Maybelline", count: 0 },
+{ name: "Lakme 9to5 Foundation", image: "https://i.pinimg.com/736x/0c/f1/40/0cf14028e05a8d5a3823f92d41d3d4fa.jpg", size: 110, price: 499, category: "Women", subCategory: "Foundation", for: "Female", brand: "Lakme", count: 0 },
+{ name: "L'Oreal True Match Foundation", image: "https://i.pinimg.com/736x/2d/ef/9a/2def9ac530ef61ef91b4f02adff49d38.jpg", size: 115, price: 799, category: "Women", subCategory: "Foundation", for: "Female", brand: "L'Oreal", count: 0 },
+{ name: "MAC Studio Fix Foundation", image: "https://i.pinimg.com/736x/71/64/09/71640995d463d0e72e31f72da7c38e3a.jpg", size: 125, price: 2999, category: "Women", subCategory: "Foundation", for: "Female", brand: "MAC", count: 0 },
+{ name: "Huda Beauty Foundation", image: "https://i.pinimg.com/736x/52/c5/f8/52c5f83ad17629cd426cd3930b69c544.jpg", size: 130, price: 3299, category: "Women", subCategory: "Foundation", for: "Female", brand: "Huda Beauty", count: 0 },
+
+
 ];
 
 

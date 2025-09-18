@@ -117,7 +117,7 @@ const Navbar = () => {
                   
                   {/* Enhanced Dropdown Menu */}
                   {activeDropdown === category.name && (
-                    <div className="absolute top-11 left-1/2 transform -translate-x-1/2 mt-3 w-80 bg-gradient-to-br from-black/98 to-gray-900/98 backdrop-blur-xl border-2 border-[#D9C27B]/30 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                    <div className="absolute top-10.5 left-1/2 transform -translate-x-1/2 mt-3 w-80 bg-gradient-to-br from-black/98 to-gray-900/98 backdrop-blur-xl border-2 border-[#D9C27B]/30 rounded-2xl shadow-2xl z-50 overflow-hidden">
                       {/* Dropdown Header */}
                       <div className="bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 px-6 py-4 border-b border-[#D9C27B]/20">
                         <h3 className="text-lg font-bold text-[#D9C27B] flex items-center gap-2">
