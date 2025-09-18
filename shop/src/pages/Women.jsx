@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   FaFilter,
   FaSearch,
@@ -17,6 +18,7 @@ const Women = () => {
   const [error, setError] = useState(null);
   const [subCategory, setSubCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams] = useSearchParams();
 
   const subCategories = [
     'Makeup',
@@ -31,6 +33,14 @@ const Women = () => {
   useEffect(() => {
     fetchWomenProducts();
   }, []);
+
+  // Sync subcategory from URL query parameter
+  useEffect(() => {
+    const sub = searchParams.get('sub');
+    if (sub) {
+      setSubCategory(sub);
+    }
+  }, [searchParams]);
 
   const fetchWomenProducts = async () => {
     try {

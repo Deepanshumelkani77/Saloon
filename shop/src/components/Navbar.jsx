@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaChevronDown, FaCut } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -102,7 +103,7 @@ const Navbar = () => {
 
                   <a href={category.path}> <button
                     type="button"
-                    className={`px-4 py-3 text-lg font-semibold flex items-center gap-2 transition-all duration-200 whitespace-nowrap rounded-lg ${
+                    className={`cursor-pointer px-4 py-3 text-lg font-semibold flex items-center gap-2 transition-all duration-200 whitespace-nowrap rounded-lg ${
                       activeCategory === category.name
                         ? 'text-[#D9C27B] bg-[#D9C27B]/10 border-b-2 border-[#D9C27B]'
                         : 'text-white hover:text-[#D9C27B] hover:bg-[#D9C27B]/5'
@@ -130,9 +131,10 @@ const Navbar = () => {
                       {/* Dropdown Items */}
                       <div className=" py-4 px-2 max-h-80 overflow-y-auto">
                         {category.items.map((item, itemIndex) => (
-                          <a
+                          <Link
                             key={`${item}-${itemIndex}`}
-                            href="#"
+                            to={`${category.path}?sub=${encodeURIComponent(item)}`}
+                            onClick={closeAllDropdowns}
                             className="group flex items-center gap-4 px-6 py-4 mx-2 text-base text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-[#D9C27B]/20 hover:to-[#D9C27B]/10 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
                           >
                             <div className="w-3 h-3 bg-gradient-to-br from-[#D9C27B] to-yellow-600 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -140,7 +142,7 @@ const Navbar = () => {
                             <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                               <span className="text-[#D9C27B] text-sm">→</span>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                       
@@ -300,13 +302,14 @@ const Navbar = () => {
                 {activeDropdown === category.name && (
                   <div className="pb-4 pl-8 space-y-2">
                     {category.items.map((item, itemIndex) => (
-                      <a
+                      <Link
                         key={`mobile-${item}-${itemIndex}`}
-                        href="#"
+                        to={`${category.path}?sub=${encodeURIComponent(item)}`}
+                        onClick={toggleMobileMenu}
                         className="block px-4 py-3 text-base text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/5 rounded-lg transition-colors duration-200"
                       >
                         {item}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
