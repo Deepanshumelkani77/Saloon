@@ -180,49 +180,49 @@ const products = [
 { name: "Beardo Beard Oil", image: "https://i.pinimg.com/736x/f2/08/26/f20826151def731573324d73dd323cbb.jpg", size: 60, price: 349, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Beardo", count: 0 },
 { name: "Bombay Shaving Company Beard Oil", image: "https://i.pinimg.com/736x/74/f1/2d/74f12dcd6dc2e135ae3aa2cfba5679e2.jpg", size: 55, price: 299, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
 { name: "The Man Company Beard Oil", image: "https://i.pinimg.com/1200x/bc/21/c9/bc21c9f24dd0469d111b1f15e40e448b.jpg", size: 45, price: 449, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "The Man Company", count: 0 },
-{ name: "UrbanGabru Beard Oil", image: "https://i.pinimg.com/736x/f7/b1/2c/f7b12cf7b6e54b83b82067493df75e72.jpg", size: 50, price: 379, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "UrbanGabru", count: 0 },
+{ name: "UrbanGabru Beard Oil", image: "https://i.pinimg.com/736x/17/d1/e5/17d1e53e869912447c64244590095f59.jpg", size: 50, price: 379, category: "Men", subCategory: "Beard Oil", for: "Male", brand: "UrbanGabru", count: 0 },
 
 // Aftershave
-{ name: "Old Spice Aftershave", image: "https://i.pinimg.com/736x/92/ff/77/92ff7752de4fbc9cdd6ad75e8a62f84f.jpg", size: 100, price: 299, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Old Spice", count: 0 },
-{ name: "Nivea Men Aftershave", image: "https://i.pinimg.com/736x/3a/21/2e/3a212ef46d97f70a4ffda26c41c6d91b.jpg", size: 120, price: 349, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Nivea", count: 0 },
-{ name: "Gillette Aftershave", image: "https://i.pinimg.com/736x/55/f0/ea/55f0ea26f34c3d20b1997f5aa40df2d7.jpg", size: 90, price: 279, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Gillette", count: 0 },
-{ name: "Park Avenue Aftershave", image: "https://i.pinimg.com/736x/04/25/9c/04259c82d586ae054f32137a268943a8.jpg", size: 110, price: 199, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Park Avenue", count: 0 },
-{ name: "Wild Stone Aftershave", image: "https://i.pinimg.com/736x/bb/91/72/bb91723289d17d2c5f6df0036af86c66.jpg", size: 100, price: 259, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Wild Stone", count: 0 },
+{ name: "Old Spice Aftershave", image: "https://i.pinimg.com/1200x/18/20/12/1820129273c1ceb3ebf498559bf2c267.jpg", size: 100, price: 299, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Old Spice", count: 0 },
+{ name: "Nivea Men Aftershave", image: "https://i.pinimg.com/736x/95/5a/19/955a19631551d46f945195a4a401d899.jpg", size: 120, price: 349, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Gillette Aftershave", image: "https://i.pinimg.com/1200x/8e/f8/05/8ef805ca48c17ae87b0eed012c300be7.jpg", size: 90, price: 279, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Gillette", count: 0 },
+{ name: "Park Avenue Aftershave", image: "https://i.pinimg.com/1200x/6d/38/c3/6d38c396707081ba41a72fed55a4f701.jpg", size: 110, price: 199, category: "Men", subCategory: "Aftershave", for: "Male", brand: "Park Avenue", count: 0 },
+
 
 // Hair Gel
-{ name: "Set Wet Hair Gel", image: "https://i.pinimg.com/736x/0e/1d/6b/0e1d6bb703f3d0a15c90ef85b60a3baf.jpg", size: 150, price: 149, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Set Wet", count: 0 },
-{ name: "Gatsby Hair Gel", image: "https://i.pinimg.com/736x/25/9e/fc/259efcd94dd28bfa09ed43038e4961f7.jpg", size: 200, price: 199, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Gatsby", count: 0 },
-{ name: "Brylcreem Hair Gel", image: "https://i.pinimg.com/736x/dc/94/c1/dc94c13c30b152a0e57e4d7b79234b88.jpg", size: 180, price: 169, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Brylcreem", count: 0 },
-{ name: "L'Oreal Men Expert Hair Gel", image: "https://i.pinimg.com/736x/40/29/26/402926e6b74b1b8c5cb24ef63dc8d2a1.jpg", size: 170, price: 299, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "L'Oreal Men Expert", count: 0 },
-{ name: "Schwarzkopf Hair Gel", image: "https://i.pinimg.com/736x/f9/88/d7/f988d76f18a7e4c263c6dd80ef6095d7.jpg", size: 160, price: 349, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Schwarzkopf", count: 0 },
+{ name: "Set Wet Hair Gel", image: "https://i.pinimg.com/1200x/53/b5/9e/53b59ebc28d077d2acb77e9bcddf6741.jpg", size: 150, price: 149, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Set Wet", count: 0 },
+{ name: "Gatsby Hair Gel", image: "https://i.pinimg.com/1200x/44/e8/28/44e82888d43f1b2c7a91df8473f45b0c.jpg", size: 200, price: 199, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Gatsby", count: 0 },
+{ name: "Brylcreem Hair Gel", image: "https://i.pinimg.com/736x/cf/29/6d/cf296d24aba8fb0e7cc6e129301dbef0.jpg", size: 180, price: 169, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Brylcreem", count: 0 },
+{ name: "L'Oreal Men Expert Hair Gel", image: "https://i.pinimg.com/736x/ef/f3/fa/eff3fa0678507e02b766ef7c14bf2201.jpg", size: 170, price: 299, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "L'Oreal Men Expert", count: 0 },
+{ name: "Schwarzkopf Hair Gel", image: "https://i.pinimg.com/736x/7f/ae/f3/7faef32843e15b64ad143de462743dee.jpg", size: 160, price: 349, category: "Men", subCategory: "Hair Gel", for: "Male", brand: "Schwarzkopf", count: 0 },
 
 // Face Wash
-{ name: "Nivea Men Face Wash", image: "https://i.pinimg.com/736x/5b/45/3f/5b453f10b6fcabacdb9d6718c3210d13.jpg", size: 100, price: 199, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Nivea", count: 0 },
-{ name: "Pond's Men Face Wash", image: "https://i.pinimg.com/736x/76/c6/06/76c606bdc51f9f1d60c0177021043b86.jpg", size: 120, price: 179, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Pond's", count: 0 },
-{ name: "Beardo Face Wash", image: "https://i.pinimg.com/736x/67/29/fd/6729fd10a60b8dc9b36ff8b9cc5f6bb7.jpg", size: 110, price: 229, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Beardo", count: 0 },
-{ name: "Garnier Men OilClear Face Wash", image: "https://i.pinimg.com/736x/0a/63/56/0a63565a4e78b1fbc1d28a55b10c25d7.jpg", size: 130, price: 189, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Garnier Men", count: 0 },
-{ name: "The Man Company Face Wash", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 125, price: 249, category: "Men", subCategory: "Face Wash", for: "Male", brand: "The Man Company", count: 0 },
+{ name: "Nivea Men Face Wash", image: "https://i.pinimg.com/736x/69/69/fe/6969fe0cb5f7c2b70ff73aeaf8ac378b.jpg", size: 100, price: 199, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Pond's Men Face Wash", image: "https://i.pinimg.com/736x/8a/4e/70/8a4e701ed50149dccea9cdd21528ccea.jpg", size: 120, price: 179, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Pond's", count: 0 },
+{ name: "Beardo Face Wash", image: "https://i.pinimg.com/1200x/c5/15/81/c515816860149f8de0afc23091406297.jpg", size: 110, price: 229, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Beardo", count: 0 },
+{ name: "Garnier Men OilClear Face Wash", image: "https://i.pinimg.com/736x/a4/b2/1a/a4b21a65219ac0d12e984ff0f42ededc.jpg", size: 130, price: 189, category: "Men", subCategory: "Face Wash", for: "Male", brand: "Garnier Men", count: 0 },
+{ name: "The Man Company Face Wash", image: "https://i.pinimg.com/1200x/99/d7/d7/99d7d7ee9f1346b666cb7625a16df2ce.jpg", size: 125, price: 249, category: "Men", subCategory: "Face Wash", for: "Male", brand: "The Man Company", count: 0 },
 
 // Cologne
-{ name: "Davidoff Cool Water", image: "https://i.pinimg.com/736x/2f/59/5a/2f595a1e740a8bcbb0f4af0c66bdbd47.jpg", size: 125, price: 2499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Davidoff", count: 0 },
-{ name: "Calvin Klein Eternity Men", image: "https://i.pinimg.com/736x/16/4a/f2/164af2055b2d1e234bbfd30a8022664f.jpg", size: 100, price: 2999, category: "Men", subCategory: "Cologne", for: "Male", brand: "Calvin Klein", count: 0 },
-{ name: "Hugo Boss Bottled", image: "https://i.pinimg.com/736x/08/d2/f1/08d2f15da06540707b71df80b01007ab.jpg", size: 110, price: 3499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Hugo Boss", count: 0 },
-{ name: "Armani Code", image: "https://i.pinimg.com/736x/4d/8f/34/4d8f34a5cfd1ad97b879a25442fcb2a7.jpg", size: 115, price: 3299, category: "Men", subCategory: "Cologne", for: "Male", brand: "Armani", count: 0 },
-{ name: "Burberry Men Cologne", image: "https://i.pinimg.com/736x/35/11/8c/35118c32a0bd61d90ac7b72ff2bfa8a3.jpg", size: 120, price: 2799, category: "Men", subCategory: "Cologne", for: "Male", brand: "Burberry", count: 0 },
+{ name: "Davidoff Cool Water", image: "https://i.pinimg.com/1200x/54/b4/52/54b4529c1e6fabc91a83e9930831975d.jpg", size: 125, price: 2499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Davidoff", count: 0 },
+{ name: "Calvin Klein Eternity Men", image: "https://i.pinimg.com/736x/23/61/d5/2361d5d658aa314bcfb05413d3083e70.jpg", size: 100, price: 2999, category: "Men", subCategory: "Cologne", for: "Male", brand: "Calvin Klein", count: 0 },
+{ name: "Hugo Boss Bottled", image: "https://i.pinimg.com/736x/c1/45/d4/c145d40e232e612998d86d38c3ebf5ca.jpg", size: 110, price: 3499, category: "Men", subCategory: "Cologne", for: "Male", brand: "Hugo Boss", count: 0 },
+{ name: "Armani Code", image: "https://i.pinimg.com/1200x/1a/d5/30/1ad5308e7137d534757de33b764d4cf3.jpg", size: 115, price: 3299, category: "Men", subCategory: "Cologne", for: "Male", brand: "Armani", count: 0 },
+{ name: "Burberry Men Cologne", image: "https://i.pinimg.com/736x/4f/d0/76/4fd0765bc1edaca15f8ff6726fb02bf3.jpg", size: 120, price: 2799, category: "Men", subCategory: "Cologne", for: "Male", brand: "Burberry", count: 0 },
 
 // Shaving Cream
-{ name: "Gillette Shaving Cream", image: "https://i.pinimg.com/736x/4e/c4/8d/4ec48d7c00f33ea7f4174a14270d2f23.jpg", size: 70, price: 129, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Gillette", count: 0 },
-{ name: "Nivea Men Shaving Cream", image: "https://i.pinimg.com/736x/32/f2/f7/32f2f7830934c843c978a4c71dbbf621.jpg", size: 75, price: 149, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Nivea", count: 0 },
-{ name: "Park Avenue Shaving Cream", image: "https://i.pinimg.com/736x/04/25/9c/04259c82d586ae054f32137a268943a8.jpg", size: 80, price: 99, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Park Avenue", count: 0 },
-{ name: "Dettol Shaving Cream", image: "https://i.pinimg.com/736x/47/b0/fc/47b0fc34f6e77229db9f177c289c3b43.jpg", size: 85, price: 139, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Dettol", count: 0 },
-{ name: "Godrej Shaving Cream", image: "https://i.pinimg.com/736x/ba/25/5d/ba255d1c2a6a7d810c7b3b08f68b7b6d.jpg", size: 90, price: 119, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Godrej", count: 0 },
+{ name: "Gillette Shaving Cream", image: "https://i.pinimg.com/736x/77/88/75/77887587a45ec20573d98b6c280c22e4.jpg", size: 70, price: 129, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Gillette", count: 0 },
+{ name: "Nivea Men Shaving Cream", image: "https://i.pinimg.com/1200x/99/57/e8/9957e8e06fd934b1ded7645b3aebe617.jpg", size: 75, price: 149, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Nivea", count: 0 },
+{ name: "Park Avenue Shaving Cream", image: "https://i.pinimg.com/736x/59/94/a9/5994a937aa0e8b712c2b39c4fb758e8e.jpg", size: 80, price: 99, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Park Avenue", count: 0 },
+{ name: "Dettol Shaving Cream", image: "https://i.pinimg.com/736x/14/af/4f/14af4fc8769ea484ba02389ac9388b7f.jpg", size: 85, price: 139, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Dettol", count: 0 },
+{ name: "Godrej Shaving Cream", image: "https://i.pinimg.com/736x/e9/c2/30/e9c230984c0b4ef54658fd530128e389.jpg", size: 90, price: 119, category: "Men", subCategory: "Shaving Cream", for: "Male", brand: "Godrej", count: 0 },
 
 // Beard Balm
-{ name: "Ustraa Beard Balm", image: "https://i.pinimg.com/736x/2d/cf/aa/2dcfaa39ef417a3256b6c58051f14755.jpg", size: 50, price: 349, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Ustraa", count: 0 },
-{ name: "Beardo Beard Balm", image: "https://i.pinimg.com/736x/2e/f9/b0/2ef9b0dfc148d0edc9772f0b087531e7.jpg", size: 55, price: 329, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Beardo", count: 0 },
-{ name: "The Man Company Beard Balm", image: "https://i.pinimg.com/736x/f2/5a/c5/f25ac50212b27e52f53cc21e3f34bbf3.jpg", size: 60, price: 379, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "The Man Company", count: 0 },
-{ name: "UrbanGabru Beard Balm", image: "https://i.pinimg.com/736x/f7/b1/2c/f7b12cf7b6e54b83b82067493df75e72.jpg", size: 65, price: 319, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "UrbanGabru", count: 0 },
-{ name: "Bombay Shaving Company Beard Balm", image: "https://i.pinimg.com/736x/06/32/62/063262ed50d2c35e899fe5b289e5d32d.jpg", size: 70, price: 299, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
+{ name: "Ustraa Beard Balm", image: "https://i.pinimg.com/1200x/6e/a4/27/6ea427ceb6c54884dc618ecca95fcfe3.jpg", size: 50, price: 349, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Ustraa", count: 0 },
+{ name: "Beardo Beard Balm", image: "https://i.pinimg.com/736x/b4/7f/e5/b47fe583d97539f1e5a6f5b5435454a3.jpg", size: 55, price: 329, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Beardo", count: 0 },
+{ name: "The Man Company Beard Balm", image: "https://i.pinimg.com/736x/34/3d/12/343d126f4070ba1bf369ed0f7da2117f.jpg", size: 60, price: 379, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "The Man Company", count: 0 },
+{ name: "UrbanGabru Beard Balm", image: "https://i.pinimg.com/736x/fe/c2/ae/fec2ae9ef471c6e027b88a7e25845730.jpg", size: 65, price: 319, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "UrbanGabru", count: 0 },
+{ name: "Bombay Shaving Company Beard Balm", image: "https://i.pinimg.com/736x/88/11/3e/88113e356fcf6ffee0562c6e93724b43.jpg", size: 70, price: 299, category: "Men", subCategory: "Beard Balm", for: "Male", brand: "Bombay Shaving Co.", count: 0 },
 
 
 // Makeup
