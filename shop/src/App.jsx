@@ -8,6 +8,7 @@ import Skin from "./pages/Skin.jsx"
 import Accessories from './pages/Accessories.jsx';
 import Men from './pages/Men.jsx'
 import Women from './pages/Women.jsx'
+import Show from './pages/Show.jsx'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/accessories" element={<Accessories/>}></Route>
           <Route path='/men' element={<Men/>}/>
           <Route path='/women' element={<Women/>}/>
+           <Route path='/show/:id' element={<Show/>}/>
         </Routes>
       </main>
        <Footer/>

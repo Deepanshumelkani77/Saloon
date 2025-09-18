@@ -346,9 +346,9 @@ const Hair = () => {
                         <button className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
                           <FaHeart className="text-sm" />
                         </button>
-                        <button className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
+                       <a href={`/show/${product._id}`}> <button  className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
                           <FaEye className="text-sm" />
-                        </button>
+                        </button></a>
                       </div>
 
                       {/* Stock Indicator */}
