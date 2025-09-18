@@ -86,7 +86,7 @@ const Show = () => {
       <div className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl bg-[#D9C27B]/10"></div>
       <div className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full blur-3xl bg-[#F4E4A6]/10"></div>
 
-      <div className="w-full h-full overflow-auto mx-auto px-4 sm:px-6 lg:px-20 py-8">
+      <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-20 py-6 lg:py-6 overflow-auto lg:overflow-hidden">
         {/* Breadcrumb */}
         <div className="text-sm text-gray-400 mb-6">
           <span className="hover:text-[#D9C27B] cursor-pointer">Home</span>
@@ -98,11 +98,11 @@ const Show = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Gallery */}
-          <div className="bg-black/70 backdrop-blur-md border-2 border-[#D9C27B]/30 rounded-3xl p-4 lg:p-6 relative shadow-[0_0_40px_-10px_rgba(217,194,123,0.25)]">
+          <div className="bg-black/70 backdrop-blur-md border-2 border-[#D9C27B]/30 rounded-3xl p-3 lg:p-4 relative shadow-[0_0_40px_-10px_rgba(217,194,123,0.25)] h-full flex flex-col lg:sticky lg:top-4 lg:h-[82vh]">
             {/* Corner shine */}
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#D9C27B]/40 to-transparent rounded-t-3xl"/>
             {/* Main Image */}
-            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden rounded-2xl flex-1 min-h-[320px]">
               <img
                 src={images[activeIndex]}
                 alt={product.name}
@@ -127,7 +127,7 @@ const Show = () => {
             </div>
 
             {/* Thumbnails */}
-            <div className="mt-4 grid grid-cols-5 sm:grid-cols-6 md:grid-cols-7 gap-3">
+            <div className="mt-3 grid grid-cols-5 sm:grid-cols-6 gap-2 lg:gap-3 h-16">
               {images.map((img, idx) => (
                 <button
                   key={idx}
@@ -159,7 +159,7 @@ const Show = () => {
           </div>
 
           {/* Right: Details */}
-          <div>
+          <div className="h-full flex flex-col lg:h-[82vh] lg:overflow-auto lg:pr-2">
             {/* Title */}
             <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
               <span className="bg-gradient-to-r from-white via-[#F4E4A6] to-[#D9C27B] bg-clip-text text-transparent">
