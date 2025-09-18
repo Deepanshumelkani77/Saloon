@@ -123,6 +123,7 @@ router.get("/women", async (req, res) => {
 
 
 router.get("/show/:id", async (req, res) => {
+  console.log("hello")
   const { id } = req.params; 
   try {
     const data = await Product.findById(id); // filter only Hair category

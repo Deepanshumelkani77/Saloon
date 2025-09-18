@@ -20,7 +20,7 @@ const Show = () => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:1000/show/${id}`);
+      const res = await axios.get(`http://localhost:1000/product/show/${id}`);
       if (res.data && res.data.success) {
         setProduct(res.data.data);
       } else {
