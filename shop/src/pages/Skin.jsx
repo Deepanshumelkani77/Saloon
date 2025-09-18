@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { 
   FaFilter, 
   FaSearch, 
@@ -17,6 +18,7 @@ const Skin = () => {
   const [error, setError] = useState(null);
   const [subCategory, setSubCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams] = useSearchParams();
 
   const subCategories = [
     "Moisturisers",
@@ -32,6 +34,14 @@ const Skin = () => {
   useEffect(() => {
     fetchSkinProducts();
   }, []);
+
+  // Sync subcategory from URL query parameter
+  useEffect(() => {
+    const sub = searchParams.get('sub');
+    if (sub) {
+      setSubCategory(sub);
+    }
+  }, [searchParams]);
 
   const fetchSkinProducts = async () => {
     try {

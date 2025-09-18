@@ -15,17 +15,36 @@ const Navbar = () => {
     {
       name: 'Hair Care',
       path:'/hair',
-      items: ['Shampoo', 'Conditioner', 'Hair Oil', 'Hair Mask', 'Styling Products', 'Hair Serum', 'Dry Shampoo']
+      items: [   "Shampoo",
+    "Conditioner", 
+    "Hair Oil",
+    "Treatments & Serums",
+    "Hair Masks",
+    "Dry Shampoo",
+    "Travel Size",
+    "Gifts & Bundles"]
     },
     {
       name: 'Skin Care',
       path:'/skin',
-      items: ['Cleanser', 'Moisturizer', 'Serum', 'Face Mask', 'Sunscreen', 'Toner', 'Eye Cream']
+      items: ["Moisturisers",
+    "Cleansers", 
+    "Suncare & Spf",
+    "Eyecare & Creams",
+    "Face Serums",
+    "Face & Sheet Masks",
+    "Toners",
+    "Face Oils"]
     },
     {
       name: 'Accessories',
       path:'/accessories',
-      items: ['Hair Brushes', 'Combs', 'Hair Clips', 'Headbands', 'Scrunchies', 'Hair Ties', 'Bobby Pins']
+      items: [   "Hair Dryers",
+    "Hair Straighteners", 
+    "Hair Curler",
+    "Hair Brush",
+    "Trimmers & Clippers",
+    "Cosmetic Lenses"]
     },
     {
       name: 'Men',
