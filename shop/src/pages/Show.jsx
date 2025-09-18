@@ -81,8 +81,12 @@ const Show = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818]">
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-20 py-8">
+    <div className="h-[90vh] bg-gradient-to-br from-black via-[#23211b] to-[#181818] relative overflow-hidden">
+      {/* Ambient decorative glows */}
+      <div className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl bg-[#D9C27B]/10"></div>
+      <div className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full blur-3xl bg-[#F4E4A6]/10"></div>
+
+      <div className="w-full h-full overflow-auto mx-auto px-4 sm:px-6 lg:px-20 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-gray-400 mb-6">
           <span className="hover:text-[#D9C27B] cursor-pointer">Home</span>
@@ -94,13 +98,15 @@ const Show = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Gallery */}
-          <div className="bg-black border-2 border-[#D9C27B]/30 rounded-3xl p-4 lg:p-6 relative">
+          <div className="bg-black/70 backdrop-blur-md border-2 border-[#D9C27B]/30 rounded-3xl p-4 lg:p-6 relative shadow-[0_0_40px_-10px_rgba(217,194,123,0.25)]">
+            {/* Corner shine */}
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#D9C27B]/40 to-transparent rounded-t-3xl"/>
             {/* Main Image */}
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <img
                 src={images[activeIndex]}
                 alt={product.name}
-                className="w-full h-full object-cover transition-all duration-700 hover:scale-[1.02]"
+                className="w-full h-full object-cover transition-all duration-700 hover:scale-[1.03]"
               />
               {/* Shimmer */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
@@ -112,6 +118,12 @@ const Show = () => {
                   </div>
                 </div>
               ) : null}
+              {/* Best Seller badge */}
+              <div className="absolute top-4 left-4">
+                <div className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                  Best Seller
+                </div>
+              </div>
             </div>
 
             {/* Thumbnails */}
@@ -149,7 +161,11 @@ const Show = () => {
           {/* Right: Details */}
           <div>
             {/* Title */}
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">{product.name}</h1>
+            <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+              <span className="bg-gradient-to-r from-white via-[#F4E4A6] to-[#D9C27B] bg-clip-text text-transparent">
+                {product.name}
+              </span>
+            </h1>
             <div className="mt-2 flex items-center gap-3 text-sm text-gray-400">
               <span className="px-3 py-1 rounded-full bg-[#D9C27B]/10 border border-[#D9C27B]/30 text-[#D9C27B] font-semibold">
                 {product.category || 'Category'}
@@ -163,7 +179,7 @@ const Show = () => {
             </div>
 
             {/* Price */}
-            <div className="mt-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl p-4 border border-[#D9C27B]/20">
+            <div className="mt-6 bg-gradient-to-r from-gray-800/60 to-gray-900/60 rounded-2xl p-5 border border-[#D9C27B]/30 shadow-[0_0_30px_-12px_rgba(217,194,123,0.25)]">
               <div className="flex items-end gap-4">
                 <div className="text-3xl font-extrabold text-[#D9C27B]">₹{price}</div>
                 <div className="text-lg text-gray-500 line-through">₹{mrp}</div>
@@ -173,21 +189,21 @@ const Show = () => {
             </div>
 
             {/* Description */}
-            <div className="mt-6 text-gray-300 leading-relaxed">
+            <div className="mt-6 text-gray-300 leading-relaxed bg-black/40 border border-[#D9C27B]/20 rounded-2xl p-4">
               {product.description || 'Premium quality product curated by professionals. Experience salon-grade results at home with safe and effective ingredients.'}
             </div>
 
             {/* Features */}
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="flex items-center gap-3 bg-black border border-[#D9C27B]/30 rounded-xl p-3">
+              <div className="flex items-center gap-3 bg-black/70 backdrop-blur-sm border border-[#D9C27B]/30 rounded-xl p-3">
                 <FaTruck className="text-[#D9C27B]" />
                 <div className="text-gray-300 text-sm">Fast Delivery</div>
               </div>
-              <div className="flex items-center gap-3 bg-black border border-[#D9C27B]/30 rounded-xl p-3">
+              <div className="flex items-center gap-3 bg-black/70 backdrop-blur-sm border border-[#D9C27B]/30 rounded-xl p-3">
                 <FaSyncAlt className="text-[#D9C27B]" />
                 <div className="text-gray-300 text-sm">Easy Returns</div>
               </div>
-              <div className="flex items-center gap-3 bg-black border border-[#D9C27B]/30 rounded-xl p-3">
+              <div className="flex items-center gap-3 bg-black/70 backdrop-blur-sm border border-[#D9C27B]/30 rounded-xl p-3">
                 <FaShieldAlt className="text-[#D9C27B]" />
                 <div className="text-gray-300 text-sm">Secure Payments</div>
               </div>
@@ -198,14 +214,14 @@ const Show = () => {
               <div className="flex items-center bg-black border border-[#D9C27B]/30 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
-                  className="px-4 py-3 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                  className="px-4 py-3 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition shadow hover:shadow-[#D9C27B]/30"
                 >
                   -
                 </button>
                 <div className="px-6 py-3 text-[#D9C27B] font-bold">{qty}</div>
                 <button
                   onClick={() => setQty((q) => Math.min(10, q + 1))}
-                  className="px-4 py-3 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                  className="px-4 py-3 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition shadow hover:shadow-[#D9C27B]/30"
                 >
                   +
                 </button>
@@ -213,27 +229,27 @@ const Show = () => {
 
               <button
                 onClick={handleBuyNow}
-                className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.02]"
+                className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.03]"
               >
                 💳 Buy Now
               </button>
 
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black"
+                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-2xl hover:shadow-[#D9C27B]/20"
               >
                 <span className="inline-flex items-center gap-2"><FaShoppingCart /> Add to Cart</span>
               </button>
 
               <button
-                className="px-4 py-3 bg-black border border-[#D9C27B]/30 rounded-xl text-gray-300 hover:text-white hover:border-[#D9C27B]"
+                className="px-4 py-3 bg-black/70 backdrop-blur-sm border border-[#D9C27B]/30 rounded-xl text-gray-300 hover:text-white hover:border-[#D9C27B]"
                 title="Add to Wishlist"
               >
                 <FaHeart />
               </button>
 
               <button
-                className="px-4 py-3 bg-black border border-[#D9C27B]/30 rounded-xl text-gray-300 hover:text-white hover:border-[#D9C27B]"
+                className="px-4 py-3 bg-black/70 backdrop-blur-sm border border-[#D9C27B]/30 rounded-xl text-gray-300 hover:text-white hover:border-[#D9C27B]"
                 title="Share"
               >
                 <FaShareAlt />
@@ -242,7 +258,7 @@ const Show = () => {
 
             {/* Info Blocks */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-black border border-[#D9C27B]/30 rounded-2xl p-5">
+              <div className="bg-black/60 backdrop-blur-md border border-[#D9C27B]/30 rounded-2xl p-5 shadow-[0_0_25px_-12px_rgba(217,194,123,0.25)]">
                 <h3 className="text-[#D9C27B] font-bold mb-3">Highlights</h3>
                 <ul className="list-disc pl-5 text-gray-300 space-y-1 text-sm">
                   <li>Premium, salon-grade formulation</li>
@@ -251,7 +267,7 @@ const Show = () => {
                   <li>Best results with regular use</li>
                 </ul>
               </div>
-              <div className="bg-black border border-[#D9C27B]/30 rounded-2xl p-5">
+              <div className="bg-black/60 backdrop-blur-md border border-[#D9C27B]/30 rounded-2xl p-5 shadow-[0_0_25px_-12px_rgba(217,194,123,0.25)]">
                 <h3 className="text-[#D9C27B] font-bold mb-3">Delivery & Returns</h3>
                 <p className="text-gray-300 text-sm">Estimated delivery in 2-5 working days. Free returns within 7 days of delivery in original condition.</p>
               </div>
