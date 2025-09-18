@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaChevronDown, FaCut } from 'react-icons/fa';
+import { FaShoppingCart, FaBars, FaTimes, FaChevronDown, FaCut } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(3);
 
   const gold = '#D9C27B';
@@ -61,13 +60,11 @@ const Navbar = () => {
   const handleCategoryClick = (categoryName) => {
     setActiveCategory(categoryName);
     setActiveDropdown(activeDropdown === categoryName ? null : categoryName);
-    setIsSearchOpen(false);
   };
 
   const handleCategoryHover = (categoryName) => {
     setActiveCategory(categoryName);
     setActiveDropdown(categoryName);
-    setIsSearchOpen(false);
   };
 
   const handleCategoryLeave = () => {
@@ -75,22 +72,13 @@ const Navbar = () => {
     setActiveCategory("");
   };
 
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-    if (!isSearchOpen) {
-      setActiveDropdown(null);
-    }
-  };
-
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setActiveDropdown(null);
-    setIsSearchOpen(false);
   };
 
   const closeAllDropdowns = () => {
     setActiveDropdown(null);
-    setIsSearchOpen(false);
   };
 
   return (
@@ -180,80 +168,6 @@ const Navbar = () => {
 
           {/* Right Side Icons - Right */}
           <div className="flex justify-end items-center space-x-4 relative">
-            {/* Search Icon */}
-            <div className="relative">
-              <button 
-                onClick={toggleSearch}
-                className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200"
-              >
-                <FaSearch className="text-xl md:text-2xl" />
-              </button>
-              
-              {/* Enhanced Search Dropdown */}
-              {isSearchOpen && (
-                <div className="absolute top-full right-0 mt-3 w-96 sm:w-[28rem] bg-gradient-to-br from-black/98 to-gray-900/98 backdrop-blur-xl border-2 border-[#D9C27B]/30 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                  {/* Search Header */}
-                  <div className="bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 px-6 py-4 border-b border-[#D9C27B]/20">
-                    <h3 className="text-lg font-bold text-[#D9C27B] flex items-center gap-2">
-                      <FaSearch className="text-base animate-pulse" />
-                      Search Products
-                    </h3>
-                    <p className="text-sm text-gray-400 mt-1">Find your perfect beauty essentials</p>
-                  </div>
-                  
-                  {/* Search Input */}
-                  <div className="p-6">
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Search for hair care, skin care, accessories..."
-                        className="w-full bg-gradient-to-r from-gray-900/80 to-gray-800/80 border-2 border-gray-700 rounded-xl pl-14 pr-4 py-4 text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-2 focus:ring-[#D9C27B]/50 transition-all duration-300 text-base"
-                        autoFocus
-                      />
-                      <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-[#D9C27B] text-lg" />
-                    </div>
-                    
-                    {/* Popular Searches */}
-                    <div className="mt-6">
-                      <h4 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[#D9C27B] rounded-full"></span>
-                        Popular Searches
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {['Hair Oil', 'Face Mask', 'Shampoo', 'Moisturizer', 'Serum', 'Beard Oil'].map((term) => (
-                          <button
-                            key={term}
-                            className="px-4 py-2 bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 text-[#D9C27B] text-sm rounded-full hover:from-[#D9C27B]/30 hover:to-[#D9C27B]/20 hover:text-white transition-all duration-300 border border-[#D9C27B]/30 hover:border-[#D9C27B]/50"
-                          >
-                            {term}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Quick Categories */}
-                    <div className="mt-6">
-                      <h4 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[#D9C27B] rounded-full"></span>
-                        Quick Categories
-                      </h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        {['Hair Care', 'Skin Care', 'Men\'s Grooming', 'Accessories'].map((cat) => (
-                          <button
-                            key={cat}
-                            className="group flex items-center gap-3 p-3 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg hover:from-[#D9C27B]/20 hover:to-[#D9C27B]/10 transition-all duration-300 border border-gray-600 hover:border-[#D9C27B]/50"
-                          >
-                            <div className="w-2 h-2 bg-[#D9C27B] rounded-full opacity-60 group-hover:opacity-100"></div>
-                            <span className="text-gray-300 group-hover:text-white text-sm font-medium">{cat}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
             {/* Cart */}
             <div className="relative">
               <button className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200">
@@ -265,11 +179,6 @@ const Navbar = () => {
                 )}
               </button>
             </div>
-
-            {/* User Account */}
-            <button className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200">
-              <FaUser className="text-xl md:text-2xl" />
-            </button>
 
             {/* Mobile menu button */}
             <div className="lg:hidden">
@@ -289,17 +198,7 @@ const Navbar = () => {
         <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-[#D9C27B]/20">
           <div className="px-4 pt-4 pb-6 space-y-3">
             
-            {/* Mobile Search */}
-            <div className="mb-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:border-[#D9C27B] focus:outline-none focus:ring-1 focus:ring-[#D9C27B] transition-all"
-                />
-                <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
-              </div>
-            </div>
+            {/* Mobile Search removed */}
 
             {/* Mobile Categories */}
             {categories.map((category, index) => (
@@ -341,22 +240,12 @@ const Navbar = () => {
                 <FaShoppingCart className="text-xl" />
                 <span className="text-lg font-medium">Cart ({cartCount})</span>
               </button>
-              <button className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
-                <FaUser className="text-xl" />
-                <span className="text-lg font-medium">Account</span>
-              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Overlay to close search dropdown when clicking outside */}
-      {isSearchOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={closeAllDropdowns}
-        />
-      )}
+      {/* Overlay removed (search disabled) */}
     </nav>
   );
 };
