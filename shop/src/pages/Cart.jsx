@@ -24,11 +24,10 @@ const Cart = () => {
     try {
       setLoading(true)
       setError(null)
-      // Expecting backend route to return cart items with populated product details
-      // Adjust the endpoint if your API differs
+      // Backend returns { success, cart } with cart.items and populated items.productId
       const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
       if (res.data?.success) {
-        setItems(res.data.data || [])
+        setItems(res.data.cart?.items || [])
       } else {
         setError('Failed to load cart')
       }
@@ -41,7 +40,7 @@ const Cart = () => {
   }
 
   const subtotal = useMemo(
-    () => items.reduce((sum, it) => sum + (it.product?.price || 0) * (it.quantity || 1), 0),
+    () => items.reduce((sum, it) => sum + ((it.productId?.price) || 0) * (it.quantity || 1), 0),
     [items]
   )
 
@@ -50,13 +49,13 @@ const Cart = () => {
     if (nextQty < 1 || nextQty > 10) return
     try {
       setUpdating(true)
-      const res = await axios.post('http://localhost:1000/cart/update', {
+      const res = await axios.put('http://localhost:1000/cart/update', {
         userId: user?.id,
         productId,
         quantity: nextQty,
       })
       if (res.data?.success) {
-        setItems((prev) => prev.map((it) => (it.product?._id === productId ? { ...it, quantity: nextQty } : it)))
+        setItems((prev) => prev.map((it) => (it.productId?._id === productId ? { ...it, quantity: nextQty } : it)))
       }
     } catch (err) {
       console.error('Error updating quantity:', err)
@@ -70,12 +69,12 @@ const Cart = () => {
     if (!user) return alert('Please login first')
     try {
       setUpdating(true)
-      const res = await axios.post('http://localhost:1000/cart/remove', {
+      const res = await axios.delete('http://localhost:1000/cart/remove', { data: {
         userId: user?.id,
         productId,
-      })
+      }})
       if (res.data?.success) {
-        setItems((prev) => prev.filter((it) => it.product?._id !== productId))
+        setItems((prev) => prev.filter((it) => it.productId?._id !== productId))
       }
     } catch (err) {
       console.error('Error removing item:', err)
@@ -139,7 +138,7 @@ const Cart = () => {
             {/* Items List */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((it) => {
-                const p = it.product || {}
+                const p = it.productId || {}
                 const qty = it.quantity || 1
                 const price = p.price || 0
                 const total = price * qty
