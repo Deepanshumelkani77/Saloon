@@ -9,9 +9,6 @@ const AppContextProvider = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
-
-
   // Restore user from cookies if available
   const userCookie = Cookies.get("user");
   const tokenCookie = Cookies.get("token");
@@ -22,18 +19,6 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(initialUser);
   const [token, setToken] = useState(tokenCookie || null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-
-
-
-
-
-
-
-
-
-
-
 
   // ✅ Handle Google login redirect (query params)
   useEffect(() => {
