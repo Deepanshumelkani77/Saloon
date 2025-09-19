@@ -18,6 +18,7 @@ const Men = () => {
   const [error, setError] = useState(null);
   const [subCategory, setSubCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [qtyMap, setQtyMap] = useState({});
   const [searchParams] = useSearchParams();
 
   const subCategories = [
@@ -69,8 +70,18 @@ const Men = () => {
   });
 
   const handleAddToCart = (product) => {
-    console.log('Adding to cart:', product);
+    const qty = qtyMap[product._id] ?? 1;
+    console.log('Adding to cart:', { product, qty });
     // TODO: Add cart functionality here
+  };
+
+  const changeQty = (productId, delta) => {
+    setQtyMap((prev) => {
+      const current = prev[productId] ?? 1;
+      const next = Math.min(10, Math.max(1, current + delta));
+      if (next === current) return prev;
+      return { ...prev, [productId]: next };
+    });
   };
 
   const handleAddToWishlist = (product) => {
@@ -397,10 +408,32 @@ const Men = () => {
                         </div>
                       </div>
 
+                      {/* Quantity Selector */}
+                      <div className="mt-2 flex items-center justify-between">
+                        <div className="inline-flex items-center border border-[#D9C27B]/40 rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => changeQty(product._id, -1)}
+                            className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                          >
+                            -
+                          </button>
+                          <div className="px-4 py-2 text-[#D9C27B] font-bold min-w-10 text-center">
+                            {qtyMap[product._id] ?? 1}
+                          </div>
+                          <button
+                            onClick={() => changeQty(product._id, +1)}
+                            className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <span className="text-xs text-gray-400 ml-3">Max 10 per order</span>
+                      </div>
+
                       {/* Enhanced Action Buttons */}
                       <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
                         <button
-                          onClick={() => handleAddToCart(product)}
+                          onClick={() => handleAddToCart(product, qtyMap[product._id] ?? 1)}
                           className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
