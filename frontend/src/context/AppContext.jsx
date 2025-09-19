@@ -1,27 +1,22 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
-  
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Restore user from cookies if available
-  const userCookie = Cookies.get("user");
-  const tokenCookie = Cookies.get("token");
+  // Restore from localStorage
+  const storedUser = localStorage.getItem("user");
+  const storedToken = localStorage.getItem("token");
 
-  const initialUser =
-    userCookie && userCookie !== "undefined" ? JSON.parse(userCookie) : null;
-
-  const [user, setUser] = useState(initialUser);
-  const [token, setToken] = useState(tokenCookie || null);
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
+  const [token, setToken] = useState(storedToken || null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // ✅ Handle Google login redirect (query params)
+  // ✅ Handle Google login redirect
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tokenParam = params.get("token");
@@ -32,15 +27,13 @@ const AppContextProvider = (props) => {
     if (tokenParam && id && email) {
       const newUser = { _id: id, name, email };
 
-      // Save to cookies
-      Cookies.set("token", tokenParam, { expires: 1 });
-      Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+      // Save in localStorage
+      localStorage.setItem("token", tokenParam);
+      localStorage.setItem("user", JSON.stringify(newUser));
 
-      // Update state
       setToken(tokenParam);
       setUser(newUser);
 
-      // Remove params from URL
       navigate("/", { replace: true });
     }
   }, [location.search, navigate]);
@@ -54,7 +47,6 @@ const AppContextProvider = (props) => {
         password,
         phone,
       });
-       
       alert("Signup successful! Please login.");
     } catch (error) {
       alert(error.response?.data?.message || "Signup failed");
@@ -68,8 +60,10 @@ const AppContextProvider = (props) => {
         email,
         password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 });
-      Cookies.set("user", JSON.stringify(response.data.user), { expires: 1 });
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
       setUser(response.data.user);
       setToken(response.data.token);
     } catch (error) {
@@ -79,22 +73,15 @@ const AppContextProvider = (props) => {
 
   // Logout
   const logout = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
     setToken(null);
     navigate("/");
   };
 
-  // Toggle function for sidebar
-  const toggleSidebar = () => {
-    setSidebarOpen(prev => !prev);
-  };
-
-  // Close sidebar function
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
+  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
+  const closeSidebar = () => setSidebarOpen(false);
 
   const value = {
     user,
