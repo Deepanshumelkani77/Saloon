@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useContext, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { 
   FaFilter, 
@@ -77,10 +77,16 @@ const Hair = () => {
 
 
 
-//quantity
+// Quantity map and cart add
 
-
-const [count,setCount]=useState(1);
+const changeQty = (productId, delta) => {
+  setQtyMap((prev) => {
+    const current = prev[productId] ?? 1;
+    const next = Math.min(10, Math.max(1, current + delta));
+    if (next === current) return prev;
+    return { ...prev, [productId]: next };
+  });
+};
 
 const handleAddToCart = async (productId) => {
   if (!user) {
@@ -90,10 +96,11 @@ const handleAddToCart = async (productId) => {
   }
 
   try {
+    const qty = qtyMap[productId] ?? 1;
     const res = await axios.post("http://localhost:1000/cart/add", {
       userId: user._id,   // make sure your context has `_id` not `id`
       productId,
-      quantity: count
+      quantity: qty
     });
 
     if (res.data.success) {
@@ -442,18 +449,16 @@ const handleAddToCart = async (productId) => {
                       <div className="mt-2 flex items-center justify-between">
                         <div className="inline-flex items-center border border-[#D9C27B]/40 rounded-xl overflow-hidden">
                           <button
-                            onClick={() => setCount((prev) => prev - 1)}
-
+                            onClick={() => changeQty(product._id, -1)}
                             className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
                           >
                             -
                           </button>
                           <div className="px-4 py-2 text-[#D9C27B] font-bold min-w-10 text-center">
-                            {count}
+                            {qtyMap[product._id] ?? 1}
                           </div>
                           <button
-                           onClick={() => setCount((prev) => prev + 1)}
-
+                           onClick={() => changeQty(product._id, +1)}
                             className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
                           >
                             +
@@ -465,7 +470,7 @@ const handleAddToCart = async (productId) => {
                       {/* Enhanced Action Buttons */}
                       <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
                         <button 
-                          onClick={() => handleAddToCart(product)}
+                          onClick={() => handleAddToCart(product._id)}
                           className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>

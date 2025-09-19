@@ -6,6 +6,7 @@ const Cart= require("../models/Cart");
 
 // 🛒 Add product to cart
 router.post("/add", async (req, res) => {
+  console.log("hello",req.body);
   try {
     const { userId, productId, quantity } = req.body;
 
