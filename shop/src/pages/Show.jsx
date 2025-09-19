@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaStar, FaShoppingCart, FaHeart, FaShareAlt, FaShieldAlt, FaTruck, FaSyncAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { AppContext } from '../context/AppContext';
 
 const Show = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const Show = () => {
   const [error, setError] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [qty, setQty] = useState(1);
+  const { user } = useContext(AppContext);
 
   useEffect(() => {
     fetchProduct();
@@ -46,9 +48,25 @@ const Show = () => {
   const mrp = product ? Math.round(price * 1.2) : 0;
   const discount = product?.discount ?? (price ? 20 : 0);
 
-  const handleAddToCart = () => {
-    // TODO: Integrate with cart system
-    console.log('Add to cart', { product, qty });
+  const handleAddToCart = async () => {
+    if (!user) {
+      alert('Please login to add to cart!');
+      return;
+    }
+    try {
+      const productId = product?._id || id;
+      const res = await axios.post('http://localhost:1000/cart/add', {
+        userId: user?.id,
+        productId,
+        quantity: qty,
+      });
+      if (res.data?.success) {
+        alert('Added to cart!');
+      }
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      alert('Failed to add product to cart');
+    }
   };
 
   const handleBuyNow = () => {
