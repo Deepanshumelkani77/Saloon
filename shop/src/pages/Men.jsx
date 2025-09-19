@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-
+import Footer from "../components/Footer.jsx"
 import { useSearchParams } from 'react-router-dom';
 import {
   FaFilter,
@@ -489,6 +489,7 @@ const Men = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

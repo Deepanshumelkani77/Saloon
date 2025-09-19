@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Footer from "../components/Footer.jsx"
 import { 
   FaFilter, 
   FaSearch, 
@@ -509,7 +510,9 @@ const handleAddToCart = async (productId) => {
           </div>
         </div>
       </div>
+        <Footer/>
     </div>
+      
   );
 };
 

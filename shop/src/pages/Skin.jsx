@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Footer from "../components/Footer.jsx"
 import { 
   FaFilter, 
   FaSearch, 
@@ -496,6 +497,7 @@ const Skin = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
