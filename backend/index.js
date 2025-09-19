@@ -101,7 +101,7 @@ app.use("/service", serviceRouter);
 app.use("/stylist", stylistRouter);
 app.use("/admin", adminRouter);
 app.use("/product",productRouter);
-app.use("/cart",cartRouter);
+app.use("/cart",cartRouter)
 
 
 
