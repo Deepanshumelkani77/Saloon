@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaBars, FaTimes, FaChevronDown, FaCut } from 'react-icons/fa';
+import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,12 +82,15 @@ const Navbar = () => {
     setActiveDropdown(null);
   };
 
+
+  const {user}=useContext(AppContext)
   return (
     <nav className="bg-black border-b border-[#D9C27B]/20 sticky top-0 z-50 backdrop-blur-xl h-[10vh]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center justify-between h-20">
           
-          {/* Logo - Left */}
+       
+{user?   
           <div className="flex justify-start">
             <a href="/" className="flex items-center gap-3 py-2 cursor-pointer">
               <FaCut className="text-3xl md:text-4xl animate-spin-slow" style={{ color: gold }} />
@@ -95,7 +99,9 @@ const Navbar = () => {
                 <span className="text-sm tracking-widest font-normal" style={{ color: gold }}>S H O P</span>
               </div>
             </a>
-          </div>
+          </div>:<></>
+}
+
 
           {/* Desktop Navigation - Center */}
           <div className=" hidden lg:flex justify-center">
