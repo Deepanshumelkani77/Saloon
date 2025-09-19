@@ -29,7 +29,7 @@ const AppContextProvider = (props) => {
     const email = params.get("email");
 
     if (tokenParam && id && email) {
-      const newUser = { _id: id, name, email };
+      const newUser = { id: id, name, email };
 
       // Save to cookies
       Cookies.set("token", tokenParam, { expires: 1 });

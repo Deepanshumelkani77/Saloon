@@ -53,8 +53,10 @@ router.post("/login", async (req, res) => {
 
 // Update user profile
 router.put("/profile/:userId", async (req, res) => {
+  
   try {
     const { userId } = req.params;
+    console.log("hello",userId)
     const { username,email, phone, address, dob,  bio,image } = req.body;
     console.log(req.body);
 
