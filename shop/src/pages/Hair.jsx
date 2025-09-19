@@ -98,7 +98,7 @@ const handleAddToCart = async (productId) => {
   try {
     const qty = qtyMap[productId] ?? 1;
     const res = await axios.post("http://localhost:1000/cart/add", {
-      userId: user._id,   // make sure your context has `_id` not `id`
+      userId: user?.id,   // make sure your context has `_id` not `id`
       productId,
       quantity: qty
     });
