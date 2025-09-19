@@ -1,9 +1,17 @@
 const express=require("express")
 const cors=require("cors")  //it is use for fetch data from database in frontend
-
 const passport = require("passport");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
+
+
+
+//app config
+const app=express();
+const port=1000;
+app.listen(port,()=>{
+    console.log("server is running",port);
+})
 
 
 
@@ -18,9 +26,6 @@ const Admin = require("./models/Admin");
 
 
 
-//app config
-const app=express();
-const port=1000;
 
 // Session middleware for passport
 app.use(session({
@@ -55,9 +60,7 @@ passport.deserializeUser(async (obj, done) => {
 
 
 
-app.listen(port,()=>{
-    console.log("server is running",port);
-})
+
 
 
 
@@ -76,6 +79,8 @@ const mongoose = require("mongoose");
   };
 //db connectin model
 connectDB();
+
+
 
 
 //middleware

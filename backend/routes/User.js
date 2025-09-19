@@ -45,7 +45,17 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token, user: { id: user._id, name: user.username, email: user.email } });
+    // ✅ Save token & user in cookies so both apps can use them
+    res.cookie("token", token, { httpOnly: false, sameSite: "lax" });
+    res.cookie("user", JSON.stringify({ id: user._id, name: user.username, email: user.email }), {
+      httpOnly: false,
+      sameSite: "lax"
+    });
+
+    res.json({
+      token,
+      user: { id: user._id, name: user.username, email: user.email }
+    });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
