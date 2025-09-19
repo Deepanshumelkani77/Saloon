@@ -90,7 +90,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           
        
-{user?   
+  
           <div className="flex justify-start">
             <a href="/" className="flex items-center gap-3 py-2 cursor-pointer">
               <FaCut className="text-3xl md:text-4xl animate-spin-slow" style={{ color: gold }} />
@@ -99,8 +99,7 @@ const Navbar = () => {
                 <span className="text-sm tracking-widest font-normal" style={{ color: gold }}>S H O P</span>
               </div>
             </a>
-          </div>:<></>
-}
+          </div>
 
 
           {/* Desktop Navigation - Center */}
