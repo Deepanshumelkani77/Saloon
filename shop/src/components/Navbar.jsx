@@ -241,10 +241,12 @@ const Navbar = () => {
 
             {/* Mobile Actions */}
             <div className="flex items-center justify-around pt-6 border-t border-gray-700 mt-6">
-              <button className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
+             <a href="/cart">
+               <button className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
                 <FaShoppingCart className="text-xl" />
                 <span className="text-lg font-medium">Cart ({cartCount})</span>
               </button>
+             </a>
             </div>
           </div>
         </div>
