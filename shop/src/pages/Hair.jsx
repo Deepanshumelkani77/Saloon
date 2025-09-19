@@ -11,6 +11,9 @@ import {
   FaTrophy
 } from 'react-icons/fa';
 import axios from 'axios';
+import { AppContext } from '../context/AppContext'
+import { useNavigate } from "react-router-dom";
+
 
 const Hair = () => {
   const [data, setData] = useState([]);
@@ -20,6 +23,7 @@ const Hair = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [qtyMap, setQtyMap] = useState({});
   const [searchParams] = useSearchParams();
+  const {user}=useContext(AppContext);
 
   const subCategories = [
     "Shampoo",
@@ -69,25 +73,40 @@ const Hair = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const handleAddToCart = (product) => {
-    const qty = qtyMap[product._id] ?? 1;
-    console.log('Adding to cart:', { product, qty });
-    // Add cart functionality here
-  };
+ 
 
-  const changeQty = (productId, delta) => {
-    setQtyMap((prev) => {
-      const current = prev[productId] ?? 1;
-      const next = Math.min(10, Math.max(1, current + delta));
-      if (next === current) return prev;
-      return { ...prev, [productId]: next };
+
+
+//quantity
+
+
+const [count,setCount]=useState(1);
+
+const handleAddToCart = async (productId) => {
+  if (!user) {
+    alert("Please login to add to cart!");
+    
+    return;
+  }
+
+  try {
+    const res = await axios.post("http://localhost:1000/cart/add", {
+      userId: user._id,   // make sure your context has `_id` not `id`
+      productId,
+      quantity: count
     });
-  };
 
-  const handleAddToWishlist = (product) => {
-    console.log('Adding to wishlist:', product);
-    // Add wishlist functionality here
-  };
+    if (res.data.success) {
+      alert("Added to cart!");
+    }
+  } catch (err) {
+    console.error("Error adding to cart:", err);
+    alert("Failed to add product to cart");
+  }
+};
+
+
+
 
   if (loading) {
     return (
@@ -423,16 +442,18 @@ const Hair = () => {
                       <div className="mt-2 flex items-center justify-between">
                         <div className="inline-flex items-center border border-[#D9C27B]/40 rounded-xl overflow-hidden">
                           <button
-                            onClick={() => changeQty(product._id, -1)}
+                            onClick={() => setCount((prev) => prev - 1)}
+
                             className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
                           >
                             -
                           </button>
                           <div className="px-4 py-2 text-[#D9C27B] font-bold min-w-10 text-center">
-                            {qtyMap[product._id] ?? 1}
+                            {count}
                           </div>
                           <button
-                            onClick={() => changeQty(product._id, +1)}
+                           onClick={() => setCount((prev) => prev + 1)}
+
                             className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
                           >
                             +
@@ -452,7 +473,7 @@ const Hair = () => {
                         </button>
                         
                         <button 
-                          onClick={() => handleAddToCart(product)}
+                          onClick={() => handleAddToCart(product._id)}
                           className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>

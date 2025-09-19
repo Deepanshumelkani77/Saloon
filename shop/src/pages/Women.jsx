@@ -18,6 +18,7 @@ const Women = () => {
   const [error, setError] = useState(null);
   const [subCategory, setSubCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [qtyMap, setQtyMap] = useState({});
   const [searchParams] = useSearchParams();
 
   const subCategories = [
@@ -69,8 +70,18 @@ const Women = () => {
   });
 
   const handleAddToCart = (product) => {
-    console.log('Adding to cart:', product);
+    const qty = qtyMap[product._id] ?? 1;
+    console.log('Adding to cart:', { product, qty });
     // TODO: Add cart functionality here
+  };
+
+  const changeQty = (productId, delta) => {
+    setQtyMap((prev) => {
+      const current = prev[productId] ?? 1;
+      const next = Math.min(10, Math.max(1, current + delta));
+      if (next === current) return prev;
+      return { ...prev, [productId]: next };
+    });
   };
 
   const handleAddToWishlist = (product) => {
@@ -395,6 +406,28 @@ const Women = () => {
                         <div className="text-gray-400 text-xs hidden sm:block">
                           Best price guaranteed • Free shipping over ₹999
                         </div>
+                      </div>
+
+                      {/* Quantity Selector */}
+                      <div className="mt-2 flex items-center justify-between">
+                        <div className="inline-flex items-center border border-[#D9C27B]/40 rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => changeQty(product._id, -1)}
+                            className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                          >
+                            -
+                          </button>
+                          <div className="px-4 py-2 text-[#D9C27B] font-bold min-w-10 text-center">
+                            {qtyMap[product._id] ?? 1}
+                          </div>
+                          <button
+                            onClick={() => changeQty(product._id, +1)}
+                            className="px-3 py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <span className="text-xs text-gray-400 ml-3">Max 10 per order</span>
                       </div>
 
                       {/* Enhanced Action Buttons */}
