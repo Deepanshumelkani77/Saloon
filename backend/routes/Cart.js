@@ -42,6 +42,7 @@ router.post("/add", async (req, res) => {
 
 // 🛒 Get cart by user
 router.get("/:userId", async (req, res) => {
+  console.log("hello",req.params);
   try {
     const { userId } = req.params;
     const cart = await Cart.findOne({ userId }).populate("items.productId");

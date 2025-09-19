@@ -175,6 +175,7 @@ const Navbar = () => {
           <div className="flex justify-end items-center space-x-4 relative">
             {/* Cart */}
             <div className="relative">
+              <a href="/cart">
               <button className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200">
                 <FaShoppingCart className="text-xl md:text-2xl" />
                 {cartCount > 0 && (
@@ -183,6 +184,7 @@ const Navbar = () => {
                   </span>
                 )}
               </button>
+              </a>
             </div>
 
             {/* Mobile menu button */}
