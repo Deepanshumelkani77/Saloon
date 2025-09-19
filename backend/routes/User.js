@@ -41,15 +41,41 @@ router.post("/login", async (req, res) => {
     // create JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
-      "mysecretkey", // put in .env file
+      process.env.JWT_SECRET || "mysecretkey",
       { expiresIn: "1h" }
     );
 
-    res.json({ token, user: { id: user._id, name: user.username, email: user.email } });
+    // ✅ set cookie for cross-app session
+    res.cookie("token", token, {
+      httpOnly: true,  // secure cookie
+      secure: false,   // change to true in production (HTTPS)
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000,
+    });
+
+    res.json({ 
+      token, 
+      user: { id: user._id, name: user.username, email: user.email } 
+    });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+// ✅ Add this route
+router.get("/me", async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) return res.json({ user: null });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "mysecretkey");
+    const user = await User.findById(decoded.id).select("username email");
+    res.json({ user });
+  } catch (error) {
+    res.json({ user: null });
+  }
+});
+
 
 // Update user profile
 router.put("/profile/:userId", async (req, res) => {
