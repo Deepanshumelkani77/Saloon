@@ -232,7 +232,7 @@ const Cart = () => {
                 className="w-full mt-5 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.02] disabled:opacity-60"
                 disabled={!items.length || updating}
               >
-                Proceed to Payment
+                Place Order
               </button>
               <div className="text-xs text-gray-400 mt-3">Secure checkout • Easy returns</div>
             </div>
