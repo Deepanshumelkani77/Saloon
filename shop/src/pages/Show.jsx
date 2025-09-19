@@ -106,7 +106,7 @@ const Show = () => {
               <img
                 src={images[activeIndex]}
                 alt={product.name}
-                className="w-full h-full object-cover transition-all duration-700 hover:scale-[1.03]"
+                className="w-full h-full object-cover lg:object-contain transition-all duration-700 lg:hover:scale-[1.0] hover:scale-[1.03] bg-black"
               />
               {/* Shimmer */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
@@ -124,10 +124,42 @@ const Show = () => {
                   Best Seller
                 </div>
               </div>
+              {/* Overlay thumbnails for lg+ */}
+              <div className="hidden lg:block absolute left-3 right-3 bottom-3 bg-black/40 backdrop-blur-sm rounded-xl p-2">
+                <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                  {images.map((img, idx) => (
+                    <button
+                      key={`lgthumb-${idx}`}
+                      onClick={() => setActiveIndex(idx)}
+                      className={`h-14 w-14 flex-shrink-0 rounded-lg overflow-hidden border transition-all duration-300 ${
+                        activeIndex === idx ? 'border-[#D9C27B] ring-2 ring-[#D9C27B]/40' : 'border-[#D9C27B]/30 hover:border-[#D9C27B]'
+                      }`}
+                    >
+                      <img src={img} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Overlay prev/next for lg+ */}
+              <button
+                onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)}
+                className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 items-center gap-2 px-3 py-2 rounded-full border border-[#D9C27B]/40 text-gray-200 hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                aria-label="Previous image"
+              >
+                <FaChevronLeft />
+              </button>
+              <button
+                onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)}
+                className="hidden lg:flex absolute right-2 top-1/2 -translate-y-1/2 items-center gap-2 px-3 py-2 rounded-full border border-[#D9C27B]/40 text-gray-200 hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
+                aria-label="Next image"
+              >
+                <FaChevronRight />
+              </button>
             </div>
 
-            {/* Thumbnails */}
-            <div className="mt-3 grid grid-cols-5 sm:grid-cols-6 gap-2 lg:gap-3 h-16">
+            {/* Thumbnails for mobile/tablet */}
+            <div className="mt-3 grid grid-cols-5 sm:grid-cols-6 gap-2 lg:gap-3 h-16 lg:hidden">
               {images.map((img, idx) => (
                 <button
                   key={idx}
@@ -141,8 +173,8 @@ const Show = () => {
               ))}
             </div>
 
-            {/* Prev/Next */}
-            <div className="hidden sm:flex justify-between mt-4">
+            {/* Prev/Next for mobile/tablet */}
+            <div className="hidden sm:flex lg:hidden justify-between mt-4">
               <button
                 onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)}
                 className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#D9C27B]/40 text-gray-200 hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition"
