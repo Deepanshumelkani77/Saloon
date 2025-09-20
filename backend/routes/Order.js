@@ -40,7 +40,8 @@ router.post("/create", async (req, res) => {
       shippingAddress: shippingAddress || {},
       notes: notes || "",
       paymentMethod: paymentMethod || "COD",
-      status: paymentMethod === "ONLINE" ? "Pending" : "Pending",
+      // If payment completed via Razorpay, consider it paid at creation
+      status: paymentMethod === "ONLINE" ? "Paid" : "Pending",
     });
 
     await order.save();
