@@ -10,6 +10,7 @@ import Men from './pages/Men.jsx'
 import Women from './pages/Women.jsx'
 import Show from './pages/Show.jsx'
 import Cart from './pages/Cart.jsx'
+import Order from './pages/Order.jsx'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/women' element={<Women/>}/>
           <Route path='/show/:id' element={<Show/>} />
             <Route path='/cart' element={<Cart/>}/>
+            <Route path='/order' element={<Order/>}/>
         </Routes>
       </main>
      
