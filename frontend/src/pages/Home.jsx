@@ -4,6 +4,7 @@ import Service from '../components/Service.jsx';
 import VideoSlider from '../components/VideoSlider.jsx';
 import Partner from '../components/partner.jsx';
 import GoogleMap from '../components/GoogleMap.jsx';
+import {AppContext} from "../context/AppContext"
 
 const Home = () => {
   return (
