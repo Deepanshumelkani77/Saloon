@@ -87,12 +87,15 @@ const Order = () => {
 
   const handleConfirm = async(id) => {
     try {
+      setActingId(id)
       await axios.put(`http://localhost:1000/order/confirm/${id}`)
       // Refresh orders after confirmation
-    
+      await loadOrders(statusFilter)
     } catch (err) {
       console.error('Error updating orders status:', err)
       setError('Failed to update orders status. Please try again.')
+    } finally {
+      setActingId('')
     }
   }
 
