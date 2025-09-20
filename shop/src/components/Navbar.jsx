@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaBars, FaTimes, FaChevronDown, FaCut } from 'react-icons/fa';
+import { FaShoppingCart, FaBars, FaTimes, FaChevronDown, FaCut, FaUserCircle } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext'
+import axios from 'axios'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
-  const [cartCount, setCartCount] = useState(3);
+  const [cartCount, setCartCount] = useState(0);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const gold = '#D9C27B';
 
@@ -83,7 +85,28 @@ const Navbar = () => {
   };
 
 
-  const {user}=useContext(AppContext)
+  const {user, logout}=useContext(AppContext)
+  console.log(user);
+
+  // Load cart count from backend
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        if (!user?.id) { setCartCount(0); return; }
+        const res = await axios.get(`http://localhost:1000/cart/${user.id}`)
+        if (res.data?.success) {
+          const items = res.data.cart?.items || []
+          const count = items.reduce((sum, it) => sum + (it.quantity || 1), 0)
+          setCartCount(count)
+        } else {
+          setCartCount(0)
+        }
+      } catch {
+        setCartCount(0)
+      }
+    }
+    fetchCount()
+  }, [user])
   return (
     <nav className="bg-black border-b border-[#D9C27B]/20 sticky top-0 z-50 backdrop-blur-xl h-[10vh]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20">
@@ -175,7 +198,7 @@ const Navbar = () => {
           <div className="flex justify-end items-center space-x-4 relative">
             {/* Cart */}
             <div className="relative">
-              <a href="/cart">
+              <Link to="/cart">
               <button className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200">
                 <FaShoppingCart className="text-xl md:text-2xl" />
                 {cartCount > 0 && (
@@ -184,7 +207,39 @@ const Navbar = () => {
                   </span>
                 )}
               </button>
-              </a>
+              </Link>
+            </div>
+
+            {/* Profile */}
+            <div className="relative hidden lg:block">
+              <button
+                onClick={() => setProfileOpen((v) => !v)}
+                className="text-gray-300 hover:text-[#D9C27B] p-3 transition-colors duration-200 flex items-center gap-2"
+              >
+                <FaUserCircle className="text-2xl" />
+                <span className="hidden xl:block text-sm">
+                  {user ? ( user.name || 'Account') : 'Account'}
+                </span>
+              </button>
+              {profileOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-black/98 to-gray-900/98 backdrop-blur-xl border-2 border-[#D9C27B]/30 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                  <div className="px-4 py-3 border-b border-[#D9C27B]/20">
+                    <div className="text-sm text-gray-400">Signed in as</div>
+                    <div className="text-white font-semibold truncate">{user ? (user.email || user.name) : 'Guest'}</div>
+                  </div>
+                  <div className="py-2">
+                    <Link to="/orders" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">My Orders</Link>
+                    <Link to="/cart" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">View Cart</Link>
+                  </div>
+                  <div className="border-t border-[#D9C27B]/20">
+                    {user ? (
+                      <button onClick={logout} className="w-full text-left px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10">Logout</button>
+                    ) : (
+                      <Link to="/login" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">Login</Link>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -243,12 +298,18 @@ const Navbar = () => {
 
             {/* Mobile Actions */}
             <div className="flex items-center justify-around pt-6 border-t border-gray-700 mt-6">
-             <a href="/cart">
-               <button className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
+              <Link to="/cart" className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
                 <FaShoppingCart className="text-xl" />
                 <span className="text-lg font-medium">Cart ({cartCount})</span>
-              </button>
-             </a>
+              </Link>
+              <div className="flex items-center gap-3 text-gray-300 p-3">
+                <FaUserCircle className="text-xl" />
+                {user ? (
+                  <Link to="/orders" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">My Orders</Link>
+                ) : (
+                  <Link to="/login" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">Login</Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
