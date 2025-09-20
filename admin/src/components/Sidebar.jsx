@@ -30,7 +30,7 @@ const Sidebar = ({ }) => {
     if (path === '/appointments') return 'appointments'
     if (path === '/services') return 'services'
     if (path === '/staff') return 'staff'
-    if (path === '/analytics') return 'analytics'
+    if (path === '/orders') return 'Orders'
     if (path === '/payments') return 'payments'
     if (path === '/inventory') return 'inventory'
     if (path === '/notifications') return 'notifications'

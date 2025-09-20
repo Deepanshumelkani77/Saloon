@@ -10,6 +10,7 @@ import Specialist from './pages/Specialist'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import { AppContext } from './context/AppContext'
+import Order from "./pages/Order.jsx"
 
 const App = () => {
   const { sidebarOpen } = useContext(AppContext)
@@ -40,6 +41,7 @@ const App = () => {
             <Route path='/services' element={<Service />} />
             <Route path='/staff' element={<Specialist />} />
             <Route path='/profile' element={<Profile />} />
+                  <Route path='/order' element={<Order />} />
           </Routes>
         </main>
       </div>
