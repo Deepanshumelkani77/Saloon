@@ -139,7 +139,7 @@ router.put("/confirm/:id", async (req, res) => {
     }
 
     // update status
-    order.status = "Confirmed";
+    order.status = "Paid";
     await order.save();
 
     // pull details from order itself
