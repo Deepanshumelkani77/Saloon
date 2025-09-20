@@ -48,7 +48,7 @@ router.post("/create", async (req, res) => {
 
     // Clear the user's cart after placing order
     try {
-      const cart = await Cart.findOne({ user: userId });
+      const cart = await Cart.findOne({ userId });
       if (cart) {
         cart.items = [];
         await cart.save();
@@ -87,6 +87,41 @@ router.get("/:userId", async (req, res) => {
     res.json({ success: true, orders });
   } catch (err) {
     res.status(500).json({ success: false, message: "Error fetching orders", error: err });
+  }
+});
+
+// Admin: get all orders (optionally filter by status via ?status=Paid)
+router.get("/", async (req, res) => {
+  try {
+    const filter = {};
+    if (req.query.status) filter.status = req.query.status;
+    const orders = await Order.find(filter)
+      .populate("user", "username email")
+      .sort({ createdAt: -1 });
+    return res.json({ success: true, orders });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: "Error fetching orders", error: err?.message || err });
+  }
+});
+
+// Admin: update order status (Allowed: Pending, Paid, Shipped, Delivered, Cancelled)
+router.patch("/:orderId/status", async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const allowed = ["Pending", "Paid", "Shipped", "Delivered", "Cancelled"];
+    if (!allowed.includes(status)) {
+      return res.status(400).json({ success: false, message: "Invalid status value" });
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+
+    order.status = status;
+    await order.save();
+    return res.json({ success: true, message: "Order status updated", order });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: "Error updating status", error: err?.message || err });
   }
 });
 

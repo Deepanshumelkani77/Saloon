@@ -43,7 +43,7 @@ const Sidebar = ({ }) => {
     { id: 'appointments', name: 'Appointments', icon: FaCalendarAlt, path: '/appointments' },
     { id: 'services', name: 'Services', icon: FaCut, path: '/services' },
     { id: 'staff', name: 'Staff Management', icon: FaUsers, path: '/staff' },
-    { id: 'analytics', name: 'Analytics', icon: FaChartBar, path: '/analytics' },
+    { id: 'Orders', name: 'Orders', icon: FaChartBar, path: '/orders' },
     { id: 'payments', name: 'Payments', icon: FaMoneyBillWave, path: '/payments' },
     { id: 'inventory', name: 'Inventory', icon: FaStore, path: '/inventory' },
     { id: 'notifications', name: 'Notifications', icon: FaBell, path: '/notifications' },
