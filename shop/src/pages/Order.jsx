@@ -114,45 +114,117 @@ const CheckoutForm = () => {
 
     try {
       setSubmitting(true)
-      const payload = {
-        userId: user?.id,
-        items: items.map((it) => ({
-          productId: it.productId?._id,
-          name: it.productId?.name,
-          price: it.productId?.price,
-          quantity: it.quantity || 1,
-        })),
-        subtotal,
-        shippingAddress: {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          addressLine1: form.addressLine1,
-          addressLine2: form.addressLine2,
-          city: form.city,
-          state: form.state,
-          pincode: form.pincode,
-          country: form.country,
-        },
-        notes: form.notes,
-        paymentMethod: form.paymentMethod,
+
+      // If ONLINE, initiate Razorpay checkout first
+      if (form.paymentMethod === 'ONLINE') {
+        const cleanAmount = Number(String(subtotal).replace(/[^0-9]/g, ''))
+        if (!cleanAmount || cleanAmount <= 0) {
+          alert('Invalid amount')
+          setSubmitting(false)
+          return
+        }
+
+        // Ensure Razorpay script is loaded
+        if (!window.Razorpay) {
+          await loadRazorpayScript()
+          if (!window.Razorpay) {
+            alert('Payment initialization failed')
+            setSubmitting(false)
+            return
+          }
+        }
+
+        // Create payment order on backend
+        const payRes = await axios.post('http://localhost:1000/payment/create-order', { amount: cleanAmount })
+        const options = {
+          key: 'rzp_test_PuXf2SZhGaKEGd',
+          amount: payRes.data.amount,
+          currency: 'INR',
+          name: 'Me & Guys Shop',
+          description: 'Product Order Payment',
+          order_id: payRes.data.id,
+          handler: async function (response) {
+            try {
+              const payload = buildOrderPayload({
+                paymentMethod: 'ONLINE',
+                notes: `${form.notes || ''} | payment_id: ${response.razorpay_payment_id}`,
+              })
+              const res2 = await axios.post('http://localhost:1000/order/create', payload)
+              if (res2.data?.success) {
+                alert('Payment successful! Order placed.')
+                navigate('/my-order')
+              } else {
+                alert(res2.data?.message || 'Order failed after payment')
+              }
+            } catch (e2) {
+              console.error('Order create after payment failed:', e2)
+              alert('Payment succeeded, but order creation failed.')
+            } finally {
+              setSubmitting(false)
+            }
+          },
+          prefill: {
+            name: form.name,
+            email: form.email,
+            contact: form.phone,
+          },
+          theme: { color: '#D9C27B' },
+        }
+        const razor = new window.Razorpay(options)
+        razor.open()
+        return
       }
 
-      // Adjust endpoint to your backend route as needed
+      // COD: create order directly
+      const payload = buildOrderPayload({ paymentMethod: 'COD' })
       const res = await axios.post('http://localhost:1000/order/create', payload)
       if (res.data?.success) {
         alert('Order placed successfully!')
-        navigate('/')
+        navigate('/my-order')
       } else {
         alert(res.data?.message || 'Order failed')
       }
     } catch (err) {
       console.error('Order error:', err?.response?.data || err.message)
       alert(err?.response?.data?.message || 'Failed to place order')
-    } finally {
       setSubmitting(false)
     }
   }
+
+  const buildOrderPayload = ({ paymentMethod, notes }) => ({
+    userId: user?.id,
+    items: items.map((it) => ({
+      productId: it.productId?._id,
+      name: it.productId?.name,
+      price: it.productId?.price,
+      quantity: it.quantity || 1,
+      image: it.productId?.image,
+    })),
+    subtotal,
+    shippingAddress: {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      addressLine1: form.addressLine1,
+      addressLine2: form.addressLine2,
+      city: form.city,
+      state: form.state,
+      pincode: form.pincode,
+      country: form.country,
+    },
+    notes: notes !== undefined ? notes : form.notes,
+    paymentMethod,
+  })
+
+  const loadRazorpayScript = () => new Promise((resolve) => {
+    if (document.getElementById('razorpay-sdk')) return resolve(true)
+    const script = document.createElement('script')
+    script.id = 'razorpay-sdk'
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    script.onload = () => resolve(true)
+    script.onerror = () => resolve(false)
+    document.body.appendChild(script)
+  })
 
   if (loading) {
     return (
@@ -241,9 +313,9 @@ const CheckoutForm = () => {
             <input id="cod" type="radio" name="paymentMethod" value="COD" checked={form.paymentMethod === 'COD'} onChange={onChange} />
             <label htmlFor="cod" className="text-gray-300">Cash on Delivery (COD)</label>
           </div>
-          <div className="flex items-center gap-3 opacity-70">
-            <input id="online" type="radio" name="paymentMethod" value="ONLINE" disabled />
-            <label htmlFor="online" className="text-gray-500">Online (Coming soon)</label>
+          <div className="flex items-center gap-3">
+            <input id="online" type="radio" name="paymentMethod" value="ONLINE" checked={form.paymentMethod === 'ONLINE'} onChange={onChange} />
+            <label htmlFor="online" className="text-gray-300">Online (Razorpay)</label>
           </div>
           <div>
             <label className="block text-sm text-gray-300 mb-1">Order Notes (optional)</label>
