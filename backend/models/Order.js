@@ -41,5 +41,23 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Helper to generate an order number like ORD-YYYYMMDD-ABC123
+function genOrderNumber() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return `ORD-${y}${m}${day}-${rand}`;
+}
+
+// Backfill orderNumber for legacy documents when they are updated/saved
+orderSchema.pre('validate', function(next) {
+  if (!this.orderNumber) {
+    this.orderNumber = genOrderNumber();
+  }
+  next();
+});
+
 module.exports = mongoose.model("Order", orderSchema);
 
