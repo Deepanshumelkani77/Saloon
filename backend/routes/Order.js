@@ -61,6 +61,23 @@ router.post("/create", async (req, res) => {
   }
 });
 
+// Cancel an order (only if still Pending)
+router.patch("/:orderId/cancel", async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findById(orderId);
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+    if (order.status !== "Pending") {
+      return res.status(400).json({ success: false, message: `Cannot cancel order in '${order.status}' status` });
+    }
+    order.status = "Cancelled";
+    await order.save();
+    return res.json({ success: true, message: "Order cancelled", order });
+  } catch (err) {
+    console.error("cancel order error", err)
+    return res.status(500).json({ success: false, message: "Error cancelling order", error: err?.message || err });
+  }
+});
 
 // Get user orders
 router.get("/:userId", async (req, res) => {

@@ -228,7 +228,7 @@ const Navbar = () => {
                     <div className="text-white font-semibold truncate">{user ? (user.email || user.name) : 'Guest'}</div>
                   </div>
                   <div className="py-2">
-                    <Link to="/orders" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">My Orders</Link>
+                    <Link to="/my-order" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">My Orders</Link>
                     <Link to="/cart" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">View Cart</Link>
                   </div>
                   <div className="border-t border-[#D9C27B]/20">
@@ -305,7 +305,7 @@ const Navbar = () => {
               <div className="flex items-center gap-3 text-gray-300 p-3">
                 <FaUserCircle className="text-xl" />
                 {user ? (
-                  <Link to="/orders" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">My Orders</Link>
+                  <Link to="/my-order" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">My Orders</Link>
                 ) : (
                   <Link to="/login" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">Login</Link>
                 )}

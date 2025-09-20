@@ -11,6 +11,7 @@ import Women from './pages/Women.jsx'
 import Show from './pages/Show.jsx'
 import Cart from './pages/Cart.jsx'
 import Order from './pages/Order.jsx'
+import MyOrder from './pages/MyOrder.jsx';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/show/:id' element={<Show/>} />
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/order' element={<Order/>}/>
+              <Route path='/my-order' element={<MyOrder/>}/>
         </Routes>
       </main>
      
