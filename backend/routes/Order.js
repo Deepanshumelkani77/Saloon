@@ -125,4 +125,62 @@ router.patch("/:orderId/status", async (req, res) => {
   }
 });
 
+
+
+// Confirm an order by ID
+router.put("/confirm/:id", async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate("user");
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // update status
+    order.status = "Confirmed";
+    await order.save();
+
+    // pull details from order itself
+    const userDetails = {
+      username: order.shippingAddress?.name || order.user?.username,
+      email: order.shippingAddress?.email || order.user?.email,
+      phone: order.shippingAddress?.phone,
+      orderNumber: order.orderNumber,
+      totalPrice: order.totalPrice,
+      items: order.items.map(i => ({
+        name: i.name,
+        qty: i.quantity,
+        price: i.price,
+      })),
+    };
+
+    // Send Email
+    try {
+      if (userDetails.email) {
+        await sendConfirmationEmail(userDetails.email, userDetails);
+        console.log("📧 Email sent to", userDetails.email);
+      }
+    } catch (emailErr) {
+      console.error("Email error:", emailErr.message);
+    }
+
+    // Send SMS
+    try {
+      if (userDetails.phone) {
+        await sendConfirmationSMS(userDetails.phone, userDetails);
+        console.log("📱 SMS sent to", userDetails.phone);
+      }
+    } catch (SMSErr) {
+      console.error("SMS error:", SMSErr.message);
+    }
+
+    res.json({
+      message: "✅ Order confirmed and notifications sent",
+      order,
+    });
+  } catch (err) {
+    console.error("Confirm route error:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = router;

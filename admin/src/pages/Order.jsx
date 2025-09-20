@@ -84,6 +84,19 @@ const Order = () => {
     setStatus(order._id, 'Cancelled')
   }
 
+
+  const handleConfirm = async(id) => {
+    try {
+      await axios.put(`http://localhost:1000/order/confirm/${id}`)
+      // Refresh orders after confirmation
+    
+    } catch (err) {
+      console.error('Error updating orders status:', err)
+      setError('Failed to update orders status. Please try again.')
+    }
+  }
+
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-black via-[#23211b] to-[#181818]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -175,7 +188,7 @@ const Order = () => {
                         {o.status !== 'Cancelled' && o.status !== 'Delivered' && (
                           <button
                             disabled={actingId === o._id}
-                            onClick={() => confirmOrder(o)}
+                             onClick={() => handleConfirm(o._id)}
                             className="px-3 py-2 rounded-lg text-black font-semibold bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] hover:shadow-2xl hover:shadow-[#D9C27B]/30 disabled:opacity-60"
                           >
                             {o.status === 'Pending' ? 'Confirm' : o.status === 'Paid' ? 'Ship' : 'Deliver'}
