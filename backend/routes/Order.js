@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-
+const { sendConfirmationEmail } = require("../utils/emailServiceOrder");
 
 
  //Helper to generate order numbers like ORD-20250920-ABC123
