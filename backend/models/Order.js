@@ -29,6 +29,7 @@ const addressSchema = new mongoose.Schema(
 
 const orderSchema = new mongoose.Schema(
   {
+    orderNumber: { type: String, required: true, unique: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     items: { type: [orderItemSchema], default: [] },
     totalPrice: { type: Number, required: true, default: 0 },

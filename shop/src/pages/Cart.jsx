@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { FaTrash, FaShoppingCart } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Cart = () => {
   const { user } = useContext(AppContext)
-  const navigate = useNavigate()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -85,10 +84,17 @@ const Cart = () => {
     }
   }
 
-  const proceedToPayment = () => {
+  const proceedToPayment = async () => {
     if (!user) return alert('Please login first')
     if (!items.length) return alert('Your cart is empty')
-    navigate('/order')
+    try {
+      // Placeholder for payment flow integration (e.g., Razorpay)
+      // You may replace this with your backend order creation and payment SDK
+      alert('Proceeding to payment...')
+    } catch (err) {
+      console.error('Payment init failed:', err)
+      alert('Payment initialization failed')
+    }
   }
 
   return (
@@ -226,7 +232,7 @@ const Cart = () => {
                 className="w-full mt-5 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.02] disabled:opacity-60"
                 disabled={!items.length || updating}
               >
-                Checkout
+                Place Order
               </button>
               <div className="text-xs text-gray-400 mt-3">Secure checkout • Easy returns</div>
             </div>

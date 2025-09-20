@@ -3,6 +3,16 @@ const router = express.Router();
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 
+// Helper to generate order numbers like ORD-20250920-ABC123
+const genOrderNumber = () => {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return `ORD-${y}${m}${day}-${rand}`;
+};
+
 // Create order (from checkout payload)
 router.post("/create", async (req, res) => {
   try {
@@ -23,6 +33,7 @@ router.post("/create", async (req, res) => {
     }));
 
     const order = new Order({
+      orderNumber: genOrderNumber(),
       user: userId,
       items: mapped,
       totalPrice: subtotal || 0,
@@ -50,45 +61,6 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Place order
-router.post("/place", async (req, res) => {
-  try {
-    const { userId } = req.body;
-
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
-    if (!cart || cart.items.length === 0) {
-      return res.status(400).json({ message: "Cart is empty" });
-    }
-
-    const totalPrice = cart.items.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
-      0
-    );
-
-    const newOrder = new Order({
-      user: userId,
-      // map to new schema format
-      items: cart.items.map((it) => ({
-        product: it.product,
-        quantity: it.quantity,
-        name: it.product?.name,
-        price: it.product?.price,
-        image: it.product?.image,
-      })),
-      totalPrice,
-    });
-
-    await newOrder.save();
-
-    // Empty cart after placing order
-    cart.items = [];
-    await cart.save();
-
-    res.json({ success: true, message: "Order placed successfully", order: newOrder });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "Error placing order", error: err });
-  }
-});
 
 // Get user orders
 router.get("/:userId", async (req, res) => {

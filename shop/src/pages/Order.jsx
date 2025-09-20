@@ -2,34 +2,14 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { useNavigate, Link } from 'react-router-dom'
-import { FiShoppingBag, FiUser, FiMail, FiPhone, FiHome, FiMapPin, FiGlobe, FiCreditCard, FiTruck, FiFileText, FiArrowLeft, FiLock } from 'react-icons/fi'
 
 const Order = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20 py-8">
         <header className="mb-8">
-          <div className="flex items-center gap-3">
-            <div className="text-[#D9C27B] text-3xl"><FiShoppingBag /></div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Secure Checkout</h1>
-              <p className="text-gray-400 mt-1">Complete your order with confidence</p>
-            </div>
-          </div>
-
-          {/* Progress indicator */}
-          <div className="mt-6">
-            <div className="flex items-center text-xs sm:text-sm text-gray-400 gap-2">
-              <span className="px-2 py-1 rounded-full bg-[#D9C27B]/10 text-[#D9C27B] border border-[#D9C27B]/30">1</span>
-              <span>Cart</span>
-              <div className="flex-1 h-px bg-gradient-to-r from-[#D9C27B]/50 to-transparent mx-2" />
-              <span className="px-2 py-1 rounded-full bg-[#D9C27B]/20 text-[#0b0b0b] font-bold">2</span>
-              <span className="text-white">Details</span>
-              <div className="flex-1 h-px bg-gradient-to-r from-[#D9C27B]/50 to-transparent mx-2" />
-              <span className="px-2 py-1 rounded-full bg-white/10 border border-white/20">3</span>
-              <span>Review</span>
-            </div>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Checkout</h1>
+          <p className="text-gray-400 mt-1">Secure and fast — your details are protected</p>
         </header>
 
         {/* Grid layout: form + summary */}
