@@ -125,14 +125,14 @@ app.get(
   passport.authenticate("google-user", { failureRedirect: "http://localhost:5173/login" }),
   (req, res) => {
     const token = jwt.sign(
-      { id: req.user._id, email: req.user.email, name: req.user.name },
+      { id: req.user._id, email: req.user.email, name: req.user.username },
       "your-jwt-secret",
       { expiresIn: "24h" }
     );
 
     // Redirect to frontend with token and user info
     res.redirect(
-      `http://localhost:5173/?token=${token}&id=${req.user._id}&name=${req.user.name}&email=${req.user.email}`
+      `http://localhost:5173/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
