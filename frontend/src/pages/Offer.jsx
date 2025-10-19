@@ -115,7 +115,7 @@ const Offer = () => {
         {/* Premium Card */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className="bg-gradient-to-br from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] p-1 rounded-3xl shadow-2xl">
-            <div className="bg-gradient-to-br from-black via-[#23211b] to-[#181818] rounded-3xl p-8 md:p-12">
+            <div className="bg-black rounded-3xl p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Left Side - Pricing */}
                 <div className="text-center md:text-left">
@@ -190,19 +190,19 @@ const Offer = () => {
 
         {/* Additional Benefits Section */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-black/50 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
+          <div className="bg-black backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
             <div className="text-[#D9C27B] text-4xl mb-4">💰</div>
             <h3 className="text-white font-bold text-xl mb-3">Save More</h3>
             <p className="text-gray-300 text-sm">Average savings of ₹2000+ per year with 10% discount on all services</p>
           </div>
           
-          <div className="bg-black/50 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
+          <div className="bg-black backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
             <div className="text-[#D9C27B] text-4xl mb-4">⚡</div>
             <h3 className="text-white font-bold text-xl mb-3">Priority Access</h3>
             <p className="text-gray-300 text-sm">Skip waiting lists and get preferred appointment slots</p>
           </div>
           
-          <div className="bg-black/50 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
+          <div className="bg-black backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-6 text-center hover:border-[#D9C27B]/60 transition-all duration-300">
             <div className="text-[#D9C27B] text-4xl mb-4">🎁</div>
             <h3 className="text-white font-bold text-xl mb-3">Exclusive Perks</h3>
             <p className="text-gray-300 text-sm">Member-only events, early access to new services, and special gifts</p>
@@ -213,17 +213,17 @@ const Offer = () => {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
           <div className="space-y-4">
-            <div className="bg-black/50 backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
+            <div className="bg-black backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
               <h4 className="text-[#D9C27B] font-bold text-lg mb-2">How long is the premium membership valid?</h4>
               <p className="text-gray-300">Your premium membership is valid for exactly 365 days from the date of purchase.</p>
             </div>
             
-            <div className="bg-black/50 backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
+            <div className="bg-black backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
               <h4 className="text-[#D9C27B] font-bold text-lg mb-2">Can I use the discount on all services?</h4>
               <p className="text-gray-300">Yes! The 10% discount applies to all salon services including haircuts, styling, treatments, and spa services.</p>
             </div>
             
-            <div className="bg-black/50 backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
+            <div className="bg-black backdrop-blur-sm border border-[#D9C27B]/30 rounded-2xl p-6">
               <h4 className="text-[#D9C27B] font-bold text-lg mb-2">Is the membership transferable?</h4>
               <p className="text-gray-300">Premium memberships are personal and non-transferable. They are linked to your account and cannot be shared.</p>
             </div>
