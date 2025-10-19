@@ -28,30 +28,70 @@ const Offer = () => {
 
     setLoading(true)
     try {
-      const response = await axios.post(
-        'http://localhost:1000/user/purchase-premium',
-        { userId: user.id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+      // Create Razorpay order
+      const orderResponse = await axios.post("http://localhost:1000/payment/create-order", { 
+        amount: 999 // Premium card price
+      })
+
+      const options = {
+        key: "rzp_test_PuXf2SZhGaKEGd",
+        amount: orderResponse.data.amount,
+        currency: "INR",
+        name: "Me & Guys Salon",
+        description: "Premium Membership Purchase",
+        order_id: orderResponse.data.id,
+        handler: async function (response) {
+          try {
+            // After successful payment, update user to premium
+            const premiumResponse = await axios.post(
+              'http://localhost:1000/user/purchase-premium',
+              { 
+                userId: user.id,
+                paymentId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+                signature: response.razorpay_signature
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
+            )
+
+            if (premiumResponse.data.success) {
+              setPurchaseSuccess(true)
+              // Update user context to reflect premium status
+              updateUser({ 
+                premiumUser: true,
+                premiumPurchaseDate: premiumResponse.data.user.premiumPurchaseDate,
+                premiumExpiryDate: premiumResponse.data.user.premiumExpiryDate
+              })
+              alert('🎉 Congratulations! You are now a Premium Member!\n✨ Enjoy 10% discount on all services for 1 year!')
+            }
+          } catch (error) {
+            console.error('Error updating premium status:', error)
+            alert('Payment successful, but failed to activate premium membership. Please contact support.')
+          }
+        },
+        prefill: {
+          name: user?.name,
+          email: user?.email,
+        },
+        theme: {
+          color: "#D9C27B", // Using your website's gold color
+        },
+        modal: {
+          ondismiss: function() {
+            setLoading(false)
           }
         }
-      )
-
-      if (response.data.success) {
-        setPurchaseSuccess(true)
-        // Update user context to reflect premium status
-        updateUser({ 
-          premiumUser: true,
-          premiumPurchaseDate: response.data.user.premiumPurchaseDate,
-          premiumExpiryDate: response.data.user.premiumExpiryDate
-        })
-        alert('Congratulations! You are now a Premium Member!')
       }
+
+      const razor = new window.Razorpay(options)
+      razor.open()
     } catch (error) {
       console.error('Premium purchase error:', error)
-      alert(error.response?.data?.message || 'Failed to purchase premium membership')
-    } finally {
+      alert(error.response?.data?.message || 'Failed to initiate payment. Please try again.')
       setLoading(false)
     }
   }
@@ -114,9 +154,15 @@ const Offer = () => {
                       ) : !user ? (
                         'Login to Purchase'
                       ) : (
-                        'Purchase Premium Card'
+                        '💳 Pay ₹999 - Get Premium'
                       )}
                     </button>
+                  )}
+                  
+                  {!user?.premiumUser && (
+                    <div className="text-xs text-gray-400 mt-3 text-center">
+                      🔒 Secure Razorpay Payment • 💯 Instant Activation • 📞 24/7 Support
+                    </div>
                   )}
                 </div>
 

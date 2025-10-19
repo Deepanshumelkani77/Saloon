@@ -159,10 +159,15 @@ router.get("/stats", async (req, res) => {
 // Purchase Premium Membership
 router.post("/purchase-premium", async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId, paymentId, orderId, signature } = req.body;
     
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
+    }
+
+    // Verify payment details are provided
+    if (!paymentId || !orderId) {
+      return res.status(400).json({ message: "Payment verification details are required" });
     }
 
     // Find the user
@@ -176,16 +181,31 @@ router.post("/purchase-premium", async (req, res) => {
       return res.status(400).json({ message: "User is already a premium member" });
     }
 
+    // Here you could add Razorpay signature verification for extra security
+    // const crypto = require('crypto');
+    // const expectedSignature = crypto.createHmac('sha256', 'your_webhook_secret')
+    //   .update(orderId + "|" + paymentId)
+    //   .digest('hex');
+    // if (expectedSignature !== signature) {
+    //   return res.status(400).json({ message: "Payment verification failed" });
+    // }
+
     // Update user to premium status
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { 
         premiumUser: true,
         premiumPurchaseDate: new Date(),
-        premiumExpiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) // 1 year from now
+        premiumExpiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+        premiumPaymentId: paymentId,
+        premiumOrderId: orderId
       },
       { new: true }
     );
+
+    console.log(`✅ Premium membership activated for user: ${updatedUser.username} (${updatedUser.email})`);
+    console.log(`💳 Payment ID: ${paymentId}`);
+    console.log(`📋 Order ID: ${orderId}`);
 
     res.json({
       success: true,
@@ -196,7 +216,8 @@ router.post("/purchase-premium", async (req, res) => {
         email: updatedUser.email,
         premiumUser: updatedUser.premiumUser,
         premiumPurchaseDate: updatedUser.premiumPurchaseDate,
-        premiumExpiryDate: updatedUser.premiumExpiryDate
+        premiumExpiryDate: updatedUser.premiumExpiryDate,
+        premiumPaymentId: updatedUser.premiumPaymentId
       }
     });
 

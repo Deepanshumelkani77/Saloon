@@ -14,7 +14,9 @@ googleId:{type:String},
 bio:{type:String},
 premiumUser:{type:Boolean,default:false},
 premiumPurchaseDate:{type:Date},
-premiumExpiryDate:{type:Date}
+premiumExpiryDate:{type:Date},
+premiumPaymentId:{type:String},
+premiumOrderId:{type:String}
 
 
 })
