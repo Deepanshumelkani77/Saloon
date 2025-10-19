@@ -72,6 +72,21 @@ const appointmentSchema = new mongoose.Schema({
   paid: {
     type: Boolean,
     default: false
+  },
+  // Premium discount fields
+  originalPrice: {
+    type: String
+  },
+  discountApplied: {
+    type: Boolean,
+    default: false
+  },
+  discountAmount: {
+    type: String
+  },
+  premiumDiscount: {
+    type: Boolean,
+    default: false
   }
 });
 

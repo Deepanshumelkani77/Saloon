@@ -3,6 +3,7 @@ const router = express.Router();
 const Appointment = require("../models/Appointment");
 const Service = require("../models/Service");
 const Stylist = require("../models/Stylist");
+const User = require("../models/User");
 const { sendConfirmationEmail } = require("../utils/emailService");
 const { sendConfirmationSMS } = require("../utils/smsService");
 
@@ -203,15 +204,18 @@ router.post("/book", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
     
-    // Get service and stylist details
+    // Get service, stylist, and user details
     console.log('Looking for service with ID:', serviceId);
     console.log('Looking for stylist with ID:', stylistId);
+    console.log('Looking for user with ID:', userId);
     
     const service = await Service.findById(serviceId);
     const stylist = await Stylist.findById(stylistId);
+    const user = await User.findById(userId);
     
     console.log('Found service:', service);
     console.log('Found stylist:', stylist);
+    console.log('Found user:', user);
     
     if (!service) {
       console.log('Service not found');
@@ -221,6 +225,42 @@ router.post("/book", async (req, res) => {
     if (!stylist) {
       console.log('Stylist not found');
       return res.status(404).json({ message: "Stylist not found" });
+    }
+
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Calculate pricing with premium discount
+    let finalPrice = service.price;
+    let originalPrice = service.price;
+    let discountApplied = false;
+    let discountAmount = 0;
+
+    // Check if user is premium and apply 10% discount
+    if (user.premiumUser) {
+      // Check if premium membership is still valid
+      const now = new Date();
+      const isExpired = user.premiumExpiryDate && now > user.premiumExpiryDate;
+      
+      if (!isExpired) {
+        // Extract numeric value from price string (e.g., "₹500" -> 500)
+        const numericPrice = parseFloat(service.price.replace(/[^\d.]/g, ''));
+        discountAmount = Math.round(numericPrice * 0.1); // 10% discount
+        const discountedPrice = numericPrice - discountAmount;
+        finalPrice = `₹${discountedPrice}`;
+        discountApplied = true;
+        
+        console.log(`🎉 Premium discount applied for user ${user.username}:`);
+        console.log(`   Original Price: ${originalPrice}`);
+        console.log(`   Discount (10%): ₹${discountAmount}`);
+        console.log(`   Final Price: ${finalPrice}`);
+      } else {
+        console.log('Premium membership expired, no discount applied');
+        // Update user premium status if expired
+        await User.findByIdAndUpdate(userId, { premiumUser: false });
+      }
     }
     
     // Calculate end time
@@ -259,14 +299,19 @@ router.post("/book", async (req, res) => {
       customerPhone,
       serviceId,
       serviceName: service.name,
-      servicePrice: service.price,
+      servicePrice: finalPrice, // Use discounted price if applicable
       serviceDuration: service.duration,
       stylistId,
       stylistName: stylist.name,
       appointmentDate: new Date(appointmentDate),
       startTime,
       endTime,
-      notes: notes || ''
+      notes: notes || '',
+      // Add discount information
+      originalPrice: originalPrice,
+      discountApplied: discountApplied,
+      discountAmount: discountApplied ? `₹${discountAmount}` : null,
+      premiumDiscount: discountApplied
     });
     
     await newAppointment.save();

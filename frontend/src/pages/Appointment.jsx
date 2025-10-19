@@ -164,6 +164,23 @@ const Appointment = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
+  // Calculate premium discount
+  const calculatePremiumPrice = (originalPrice) => {
+    if (!user?.premiumUser) return { finalPrice: originalPrice, discount: 0, discountAmount: 0 };
+    
+    // Extract numeric value from price string (e.g., "₹500" -> 500)
+    const numericPrice = parseFloat(originalPrice.replace(/[^\d.]/g, ''));
+    const discountAmount = Math.round(numericPrice * 0.1); // 10% discount
+    const discountedPrice = numericPrice - discountAmount;
+    
+    return {
+      finalPrice: `₹${discountedPrice}`,
+      discount: 10,
+      discountAmount: discountAmount,
+      originalPrice: originalPrice
+    };
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818] text-white">
@@ -190,6 +207,21 @@ const Appointment = () => {
           </div>
         </div>
       </section>
+
+      {/* Premium Status Indicator */}
+      {user?.premiumUser && (
+        <section className="py-4 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-[#D9C27B]/20 via-[#F4E4A6]/10 to-[#D9C27B]/20 border border-[#D9C27B]/30 rounded-2xl p-4 text-center">
+              <div className="flex items-center justify-center gap-2 text-[#D9C27B] font-bold">
+                <span className="text-2xl">👑</span>
+                <span>Premium Member - Enjoy 10% OFF on all services!</span>
+                <span className="text-2xl">✨</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Progress Indicator */}
       <section className="py-8 px-4 sm:px-6 lg:px-8">
@@ -309,7 +341,22 @@ const Appointment = () => {
                             {service.category.split("'s ")[1] || service.category}
                           </span>
                           </div>
-                          <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
+                          {user?.premiumUser ? (
+                            <div className="mb-1">
+                              <div className="flex items-center gap-2">
+                                <p className="text-gray-400 text-sm line-through">{service.price}</p>
+                                <span className="bg-[#D9C27B] text-black text-xs px-2 py-1 rounded-full font-bold">10% OFF</span>
+                              </div>
+                              <p className="text-[#D9C27B] font-semibold text-xl">
+                                {calculatePremiumPrice(service.price).finalPrice}
+                              </p>
+                              <p className="text-green-400 text-xs">
+                                💎 Premium Discount: Save ₹{calculatePremiumPrice(service.price).discountAmount}
+                              </p>
+                            </div>
+                          ) : (
+                            <p className="text-[#D9C27B] font-semibold text-xl mb-1">{service.price}</p>
+                          )}
                           <p className="text-gray-400 text-sm">{service.duration} min</p>
                         </div>
                     ))}
@@ -540,12 +587,35 @@ const Appointment = () => {
                           {services.find(s => s._id === formData.service)?.name}
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-300">Price:</span>
-                        <span className="text-[#D9C27B] font-bold">
-                          {services.find(s => s._id === formData.service)?.price}
-                        </span>
-                      </div>
+                      {user?.premiumUser ? (
+                        <>
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Original Price:</span>
+                            <span className="text-gray-400 line-through">
+                              {services.find(s => s._id === formData.service)?.price}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-green-400">💎 Premium Discount (10%):</span>
+                            <span className="text-green-400 font-bold">
+                              -₹{calculatePremiumPrice(services.find(s => s._id === formData.service)?.price || '₹0').discountAmount}
+                            </span>
+                          </div>
+                          <div className="flex justify-between border-t border-gray-600 pt-2">
+                            <span className="text-[#D9C27B] font-bold">Final Price:</span>
+                            <span className="text-[#D9C27B] font-bold text-xl">
+                              {calculatePremiumPrice(services.find(s => s._id === formData.service)?.price || '₹0').finalPrice}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="flex justify-between">
+                          <span className="text-gray-300">Price:</span>
+                          <span className="text-[#D9C27B] font-bold">
+                            {services.find(s => s._id === formData.service)?.price}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between">
                         <span className="text-gray-300">Duration:</span>
                         <span className="text-white">

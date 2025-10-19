@@ -260,12 +260,25 @@ const MyAppointment = () => {
                           <div className="space-y-2">
                             <div className="flex items-center space-x-2">
                               <FaMoneyBillWave className="text-[#D9C27B]" />
-                              <span className="font-bold text-[#D9C27B] text-lg">{appointment.servicePrice}</span>
+                              <div className="flex flex-col">
+                                <span className="font-bold text-[#D9C27B] text-lg">{appointment.servicePrice}</span>
+                                {appointment.premiumDiscount && (
+                                  <div className="flex items-center gap-1 text-xs">
+                                    <span className="text-gray-400 line-through">{appointment.originalPrice}</span>
+                                    <span className="bg-[#D9C27B] text-black px-2 py-1 rounded-full font-bold">10% OFF</span>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                             <div className={`inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(appointment.status)}`}>
                               {getStatusIcon(appointment.status)}
                               <span className="capitalize">{appointment.status}</span>
                             </div>
+                            {appointment.premiumDiscount && (
+                              <div className="text-xs text-green-400">
+                                💎 Premium Discount Applied: Saved {appointment.discountAmount}
+                              </div>
+                            )}
                           </div>
                         </div>
 
