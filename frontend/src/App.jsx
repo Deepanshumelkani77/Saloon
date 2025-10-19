@@ -13,6 +13,7 @@ import { AppContext } from './context/AppContext.jsx';
 import Cookies from 'js-cookie';
 import MyAppointment from './pages/MyAppointment.jsx';
 import MyProfile from './pages/MyProfile.jsx';
+import Offer from './pages/Offer.jsx';
 
 function App() {
 
@@ -57,6 +58,7 @@ useEffect(() => {
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/my-appointments" element={<MyAppointment />} />
           <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/offer" element={<Offer />} />
          
         </Routes>
       </main>

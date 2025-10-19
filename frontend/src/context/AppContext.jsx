@@ -95,12 +95,21 @@ const AppContextProvider = (props) => {
     setSidebarOpen(false);
   };
 
+  // Update user function
+  const updateUser = (updatedUserData) => {
+    const newUser = { ...user, ...updatedUserData };
+    setUser(newUser);
+    Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+  };
+
   const value = {
     user,
     token,
     signup,
     login,
     logout,
+    updateUser,
+    setUser,
     sidebarOpen,
     setSidebarOpen,
     toggleSidebar,
