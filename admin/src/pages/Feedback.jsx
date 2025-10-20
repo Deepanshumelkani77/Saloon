@@ -124,43 +124,59 @@ const Feedback = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 p-6 rounded-2xl border border-[#D9C27B]/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300 text-sm">Total Feedback</p>
-                <p className="text-3xl font-bold text-[#D9C27B]">{stats.totalFeedback || 0}</p>
+          <div className="bg-black/90 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/20 group hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-[#D9C27B] to-[#F4E4A6] shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <MessageSquare className="text-2xl text-black" />
               </div>
-              <MessageSquare className="w-8 h-8 text-[#D9C27B]" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300">
+                {stats.totalFeedback || 0}
+              </h3>
+              <p className="text-gray-300 text-sm font-medium">Total Feedback</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-500/20 to-green-400/20 p-6 rounded-2xl border border-green-400/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300 text-sm">Approved</p>
-                <p className="text-3xl font-bold text-green-400">{stats.approvedFeedback || 0}</p>
+          <div className="bg-black/90 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/20 group hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-green-500 to-green-400 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="text-2xl text-black" />
               </div>
-              <CheckCircle className="w-8 h-8 text-green-400" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300">
+                {stats.approvedFeedback || 0}
+              </h3>
+              <p className="text-gray-300 text-sm font-medium">Approved</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-6 rounded-2xl border border-yellow-400/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300 text-sm">Pending</p>
-                <p className="text-3xl font-bold text-yellow-400">{stats.pendingFeedback || 0}</p>
+          <div className="bg-black/90 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/20 group hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-400 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Eye className="text-2xl text-black" />
               </div>
-              <Eye className="w-8 h-8 text-yellow-400" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300">
+                {stats.pendingFeedback || 0}
+              </h3>
+              <p className="text-gray-300 text-sm font-medium">Pending</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-500/20 to-purple-400/20 p-6 rounded-2xl border border-purple-400/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300 text-sm">Avg Rating</p>
-                <p className="text-3xl font-bold text-purple-400">{stats.averageRating || 0}</p>
+          <div className="bg-black/90 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/20 group hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500 to-purple-400 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Star className="text-2xl text-black" />
               </div>
-              <Star className="w-8 h-8 text-purple-400" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-bold text-white group-hover:text-[#D9C27B] transition-colors duration-300">
+                {stats.averageRating || 0}
+              </h3>
+              <p className="text-gray-300 text-sm font-medium">Avg Rating</p>
             </div>
           </div>
         </div>
@@ -171,10 +187,10 @@ const Feedback = () => {
             <button
               key={tab}
               onClick={() => setFilter(tab)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 border ${
                 filter === tab
-                  ? 'bg-[#D9C27B] text-black'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  ? 'bg-[#D9C27B] text-black border-[#D9C27B]'
+                  : 'bg-black/50 text-gray-300 border-[#D9C27B]/30 hover:bg-black/70 hover:border-[#D9C27B]/50'
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -198,7 +214,7 @@ const Feedback = () => {
             filteredFeedbacks.map((feedback) => (
               <div
                 key={feedback._id}
-                className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-6 rounded-2xl border border-gray-700/50 hover:border-[#D9C27B]/30 transition-all duration-300"
+                className="bg-black/90 backdrop-blur-xl border border-[#D9C27B]/30 rounded-2xl p-6 hover:border-[#D9C27B]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/20"
               >
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   {/* Left Section - User Info & Rating */}
