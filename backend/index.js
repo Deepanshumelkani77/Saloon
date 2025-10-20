@@ -100,6 +100,7 @@ const adminRouter = require("./routes/Admin.js");
 const productRouter=require("./routes/Product.js")
 const cartRouter=require("./routes/Cart.js");
 const orderRouter=require("./routes/Order.js");
+const feedbackRouter=require("./routes/feedback.js");
 app.use("/user",user);
 app.use("/appointment",appointment);
 app.use("/payment", paymentRouter);
@@ -109,6 +110,7 @@ app.use("/admin", adminRouter);
 app.use("/product",productRouter);
 app.use("/cart",cartRouter)
 app.use("/order",orderRouter)
+app.use("/feedback",feedbackRouter)
 
 
 

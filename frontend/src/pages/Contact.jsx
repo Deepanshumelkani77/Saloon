@@ -39,12 +39,30 @@ const Contact = () => {
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
-  const handleReviewSubmit = (e) => {
+  const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    // Handle review submission logic here
-    console.log('Review:', reviewData);
-    alert('Thank you for your feedback! Your review has been submitted.');
-    setReviewData({ name: '', rating: 5, review: '' });
+    
+    try {
+      const response = await fetch('http://localhost:1000/feedback/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Thank you for your feedback! Your review has been submitted and will be reviewed before being published.');
+        setReviewData({ name: '', rating: 5, review: '' });
+      } else {
+        alert(data.message || 'Failed to submit feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      alert('Failed to submit feedback. Please check your connection and try again.');
+    }
   };
 
   const contactInfo = [
