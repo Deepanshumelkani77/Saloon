@@ -12,7 +12,7 @@ import {
   FaCog, 
   FaSignOutAlt,
   FaUserCircle,
-  FaMoneyBillWave,
+  FaComments,
   FaStore,
   FaBell,
   FaTimes
@@ -31,7 +31,7 @@ const Sidebar = ({ }) => {
     if (path === '/services') return 'services'
     if (path === '/staff') return 'staff'
     if (path === '/orders') return 'Orders'
-    if (path === '/payments') return 'payments'
+    if (path === '/feedback') return 'feedback'
     if (path === '/inventory') return 'inventory'
     if (path === '/notifications') return 'notifications'
     if (path === '/settings') return 'settings'
@@ -44,7 +44,7 @@ const Sidebar = ({ }) => {
     { id: 'services', name: 'Services', icon: FaCut, path: '/services' },
     { id: 'staff', name: 'Staff Management', icon: FaUsers, path: '/staff' },
     { id: 'Orders', name: 'Orders', icon: FaChartBar, path: '/orders' },
-    { id: 'payments', name: 'Payments', icon: FaMoneyBillWave, path: '/payments' },
+    { id: 'feedback', name: 'Feedback', icon: FaComments, path: '/feedback' },
     { id: 'inventory', name: 'Inventory', icon: FaStore, path: '/inventory' },
     { id: 'notifications', name: 'Notifications', icon: FaBell, path: '/notifications' },
     { id: 'settings', name: 'Settings', icon: FaCog, path: '/settings' },
