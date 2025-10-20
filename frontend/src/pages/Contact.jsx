@@ -77,21 +77,21 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#23211b] to-[#181818] text-white">
       {/* Map Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
               Find Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6]">Salon</span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] mx-auto mb-6"></div>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] mx-auto mb-4 md:mb-6"></div>
+            <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto px-2">
               Located in the heart of Haldwani - Easy to find and convenient parking available
             </p>
           </div>
           
           {/* Interactive Map Section */}
-          <div className="bg-black p-8 rounded-3xl border border-[#D9C27B]/20">
-            <div className="aspect-video bg-[#1a1a1a] rounded-2xl border border-[#D9C27B]/10 relative overflow-hidden">
+          <div className="bg-black p-4 md:p-8 rounded-2xl md:rounded-3xl border border-[#D9C27B]/20">
+            <div className="aspect-video bg-[#1a1a1a] rounded-xl md:rounded-2xl border border-[#D9C27B]/10 relative overflow-hidden">
               {/* Google Maps Embed */}
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3515.123456789!2d79.50632!3d29.22235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDEzJzIwLjUiTiA3OcKwMzAnMjIuOCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
@@ -105,20 +105,21 @@ const Contact = () => {
               ></iframe>
               
               {/* Overlay with salon info */}
-              <div className="absolute top-4 left-4 bg-black/90 backdrop-blur-sm p-4 rounded-xl border border-[#D9C27B]/30 max-w-xs">
-                <h3 className="text-lg font-bold text-[#D9C27B] mb-2 flex items-center gap-2">
-                  ✂️ Me & Guys Unisex Salon
+              <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-black/90 backdrop-blur-sm p-2 md:p-4 rounded-lg md:rounded-xl border border-[#D9C27B]/30 max-w-[280px] md:max-w-xs">
+                <h3 className="text-sm md:text-lg font-bold text-[#D9C27B] mb-1 md:mb-2 flex items-center gap-1 md:gap-2">
+                  ✂️ <span className="hidden sm:inline">Me & Guys Unisex Salon</span>
+                  <span className="sm:hidden">Me & Guys</span>
                 </h3>
-                <div className="space-y-1 text-sm text-white">
-                  <p className="flex items-center gap-2">
+                <div className="space-y-0.5 md:space-y-1 text-xs md:text-sm text-white">
+                  <p className="flex items-center gap-1 md:gap-2">
                     <span className="text-[#D9C27B]">📍</span>
-                    Kaladhungi Road, Kusumkhera
+                    <span className="truncate">Kaladhungi Road, Kusumkhera</span>
                   </p>
-                  <p className="flex items-center gap-2">
+                  <p className="flex items-center gap-1 md:gap-2">
                     <span className="text-[#D9C27B]">📞</span>
                     +91 7997135893
                   </p>
-                  <p className="flex items-center gap-2">
+                  <p className="flex items-center gap-1 md:gap-2">
                     <span className="text-[#D9C27B]">🕒</span>
                     9:00 AM - 9:00 PM
                   </p>
@@ -126,19 +127,19 @@ const Contact = () => {
               </div>
               
               {/* Action buttons overlay */}
-              <div className="absolute bottom-4 right-4 flex gap-2">
+              <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 flex gap-1 md:gap-2">
                 <a
                   href={`https://www.google.com/maps/dir/?api=1&destination=29.22235,79.50632`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-3 rounded-full shadow-lg hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 hover:scale-110"
+                  className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-2 md:p-3 rounded-full shadow-lg hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 hover:scale-110 text-sm md:text-base"
                   title="Get Directions"
                 >
                   🧭
                 </a>
                 <a
                   href="tel:+917997135893"
-                  className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-3 rounded-full shadow-lg hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 hover:scale-110"
+                  className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-2 md:p-3 rounded-full shadow-lg hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 hover:scale-110 text-sm md:text-base"
                   title="Call Now"
                 >
                   📞
@@ -147,42 +148,42 @@ const Contact = () => {
             </div>
             
             {/* Quick info cards below map */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <div className="bg-black/50 p-4 rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300">
-                <div className="text-2xl mb-2">📍</div>
-                <h4 className="font-semibold text-[#D9C27B] mb-1">Address</h4>
-                <p className="text-sm text-gray-300">Kaladhungi Road, Kusumkhera</p>
-                <p className="text-sm text-gray-400">Haldwani (263139)</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4 md:mt-6">
+              <div className="bg-black/50 p-3 md:p-4 rounded-lg md:rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">📍</div>
+                <h4 className="font-semibold text-[#D9C27B] mb-1 text-sm md:text-base">Address</h4>
+                <p className="text-xs md:text-sm text-gray-300">Kaladhungi Road, Kusumkhera</p>
+                <p className="text-xs md:text-sm text-gray-400">Haldwani (263139)</p>
               </div>
               
-              <div className="bg-black/50 p-4 rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300">
-                <div className="text-2xl mb-2">📞</div>
-                <h4 className="font-semibold text-[#D9C27B] mb-1">Contact</h4>
-                <p className="text-sm text-gray-300">+91 7997135893</p>
-                <p className="text-sm text-gray-400">Call us anytime</p>
+              <div className="bg-black/50 p-3 md:p-4 rounded-lg md:rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">📞</div>
+                <h4 className="font-semibold text-[#D9C27B] mb-1 text-sm md:text-base">Contact</h4>
+                <p className="text-xs md:text-sm text-gray-300">+91 7997135893</p>
+                <p className="text-xs md:text-sm text-gray-400">Call us anytime</p>
               </div>
               
-              <div className="bg-black/50 p-4 rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300">
-                <div className="text-2xl mb-2">🕒</div>
-                <h4 className="font-semibold text-[#D9C27B] mb-1">Hours</h4>
-                <p className="text-sm text-gray-300">Mon - Sun</p>
-                <p className="text-sm text-gray-400">9:00 AM - 9:00 PM</p>
+              <div className="bg-black/50 p-3 md:p-4 rounded-lg md:rounded-xl border border-[#D9C27B]/20 text-center hover:border-[#D9C27B]/40 transition-all duration-300 sm:col-span-2 md:col-span-1">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">🕒</div>
+                <h4 className="font-semibold text-[#D9C27B] mb-1 text-sm md:text-base">Hours</h4>
+                <p className="text-xs md:text-sm text-gray-300">Mon - Sun</p>
+                <p className="text-xs md:text-sm text-gray-400">9:00 AM - 9:00 PM</p>
               </div>
             </div>
             
             {/* Main action buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-4 md:mt-6">
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=29.22235,79.50632`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold py-3 px-8 rounded-full hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-full hover:from-[#F4E4A6] hover:to-[#D9C27B] transition-all duration-300 transform hover:scale-105 shadow-lg text-center text-sm md:text-base"
               >
                 🧭 Get Directions
               </a>
               <a
                 href="tel:+917997135893"
-                className="border-2 border-[#D9C27B] text-[#D9C27B] font-semibold py-3 px-8 rounded-full hover:bg-[#D9C27B] hover:text-black transition-all duration-300 transform hover:scale-105 text-center"
+                className="border-2 border-[#D9C27B] text-[#D9C27B] font-semibold py-2.5 md:py-3 px-6 md:px-8 rounded-full hover:bg-[#D9C27B] hover:text-black transition-all duration-300 transform hover:scale-105 text-center text-sm md:text-base"
               >
                 📞 Call Now
               </a>
