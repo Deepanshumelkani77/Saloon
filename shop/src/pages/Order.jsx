@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 
 const Order = () => {
   return (
@@ -31,6 +31,8 @@ export default Order
 const CheckoutForm = () => {
   const { user } = useContext(AppContext)
   const navigate = useNavigate()
+  const location = useLocation()
+  const buyNowData = location.state?.buyNow ? location.state.product : null
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -60,7 +62,23 @@ const CheckoutForm = () => {
         email: user.email || '',
         phone: user.phone || '',
       }))
-      fetchCart()
+      
+      // If Buy Now flow, use direct product data
+      if (buyNowData) {
+        setItems([{
+          productId: {
+            _id: buyNowData.productId,
+            name: buyNowData.name,
+            price: buyNowData.price,
+            image: buyNowData.image
+          },
+          quantity: buyNowData.quantity
+        }])
+        setLoading(false)
+      } else {
+        // Normal cart checkout flow
+        fetchCart()
+      }
     } else {
       setLoading(false)
     }
@@ -338,20 +356,37 @@ const CheckoutForm = () => {
 
 const OrderSummary = () => {
   const { user } = useContext(AppContext)
+  const location = useLocation()
+  const buyNowData = location.state?.buyNow ? location.state.product : null
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const load = async () => {
-      try {
-        setLoading(true)
-        const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
-        if (res.data?.success) setItems(res.data.cart?.items || [])
-      } catch {}
-      finally { setLoading(false) }
+      // If Buy Now flow, use direct product data
+      if (buyNowData) {
+        setItems([{
+          productId: {
+            _id: buyNowData.productId,
+            name: buyNowData.name,
+            price: buyNowData.price,
+            image: buyNowData.image
+          },
+          quantity: buyNowData.quantity
+        }])
+        setLoading(false)
+      } else {
+        // Normal cart checkout flow
+        try {
+          setLoading(true)
+          const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
+          if (res.data?.success) setItems(res.data.cart?.items || [])
+        } catch {}
+        finally { setLoading(false) }
+      }
     }
     if (user) load(); else setLoading(false)
-  }, [user])
+  }, [user, buyNowData])
 
   const subtotal = useMemo(
     () => items.reduce((sum, it) => sum + ((it.productId?.price) || 0) * (it.quantity || 1), 0),

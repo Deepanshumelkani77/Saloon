@@ -42,26 +42,24 @@ const BestSeller = () => {
     console.log('Adding to cart:', product);
   };
 
-  const handleBuyNow = async (product) => {
+  const handleBuyNow = (product) => {
     if (!user) {
       alert('Please login to buy!');
       return;
     }
-    try {
-      // Add to cart first
-      const res = await axios.post('http://localhost:1000/cart/add', {
-        userId: user?.id,
-        productId: product._id,
-        quantity: 1,
-      });
-      if (res.data?.success) {
-        // Redirect directly to order page
-        navigate('/order');
+    
+    navigate('/order', {
+      state: {
+        buyNow: true,
+        product: {
+          productId: product._id,
+          name: product.name,
+          price: product.price,
+          quantity: 1,
+          image: product.image
+        }
       }
-    } catch (err) {
-      console.error('Error processing buy now:', err);
-      alert('Failed to process order');
-    }
+    });
   };
 
   const handleAddToWishlist = (product) => {

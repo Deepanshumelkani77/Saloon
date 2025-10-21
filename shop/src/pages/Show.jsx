@@ -71,27 +71,25 @@ const Show = () => {
 
   const navigate = useNavigate();
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = () => {
     if (!user) {
       alert('Please login to buy!');
       return;
     }
-    try {
-      const productId = product?._id || id;
-      // Add to cart first
-      const res = await axios.post('http://localhost:1000/cart/add', {
-        userId: user?.id,
-        productId,
-        quantity: qty,
-      });
-      if (res.data?.success) {
-        // Redirect directly to order page
-        navigate('/order');
+    if (!product) return;
+    
+    navigate('/order', {
+      state: {
+        buyNow: true,
+        product: {
+          productId: product._id,
+          name: product.name,
+          price: product.price,
+          quantity: qty,
+          image: product.image
+        }
       }
-    } catch (err) {
-      console.error('Error processing buy now:', err);
-      alert('Failed to process order');
-    }
+    });
   };
 
   if (loading) {

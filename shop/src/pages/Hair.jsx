@@ -114,25 +114,28 @@ const handleAddToCart = async (productId) => {
   }
 };
 
-const handleBuyNow = async (productId) => {
+const handleBuyNow = (productId) => {
   if (!user) {
     alert("Please login to buy!");
     return;
   }
-  try {
-    const qty = qtyMap[productId] ?? 1;
-    const res = await axios.post("http://localhost:1000/cart/add", {
-      userId: user?.id,
-      productId,
-      quantity: qty
-    });
-    if (res.data.success) {
-      navigate('/order');
+  const product = data.find(p => p._id === productId);
+  if (!product) return;
+  
+  const qty = qtyMap[productId] ?? 1;
+  // Navigate with product info for direct checkout
+  navigate('/order', {
+    state: {
+      buyNow: true,
+      product: {
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        quantity: qty,
+        image: product.image
+      }
     }
-  } catch (err) {
-    console.error("Error processing buy now:", err);
-    alert("Failed to process order");
-  }
+  });
 };
 
 
