@@ -37,9 +37,24 @@ const BestSeller = () => {
     fetchBestSellers();
   }, []);
 
-  const handleAddToCart = (product) => {
-    // Add to cart functionality - to be implemented
-    console.log('Adding to cart:', product);
+  const handleAddToCart = async (product) => {
+    if (!user) {
+      alert('Please login to add to cart!');
+      return;
+    }
+    try {
+      const res = await axios.post('http://localhost:1000/cart/add', {
+        userId: user?.id,
+        productId: product._id,
+        quantity: 1
+      });
+      if (res.data.success) {
+        alert('Added to cart!');
+      }
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      alert('Failed to add product to cart');
+    }
   };
 
   const handleBuyNow = (product) => {
