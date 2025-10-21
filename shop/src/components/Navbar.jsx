@@ -257,8 +257,8 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-black/98 backdrop-blur-xl border-t border-[#D9C27B]/20 z-40 overflow-hidden">
-          <div className="h-full overflow-y-auto px-4 pt-4 pb-6 space-y-3">
+        <div className="lg:hidden absolute left-0 right-0 top-full bg-black/98 backdrop-blur-xl border-t border-[#D9C27B]/20 z-50 max-h-[calc(100vh-80px)] overflow-hidden">
+          <div className="overflow-y-auto px-4 pt-4 pb-6 space-y-3 max-h-[calc(100vh-80px)]">
             
             {/* Mobile Search removed */}
 
@@ -319,48 +319,46 @@ const Navbar = () => {
             ))}
 
             {/* Mobile Actions */}
-            <div className="sticky bottom-0 bg-gradient-to-t from-black via-black/95 to-transparent pt-6 mt-6">
-              <div className="border-t border-[#D9C27B]/30 pt-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <Link 
-                    to="/cart" 
-                    onClick={toggleMobileMenu}
-                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 border border-[#D9C27B]/30 text-[#D9C27B] hover:text-white hover:bg-gradient-to-r hover:from-[#D9C27B]/30 hover:to-[#D9C27B]/20 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
-                  >
-                    <FaShoppingCart className="text-lg" />
-                    <span className="font-medium">Cart ({cartCount})</span>
-                  </Link>
-                  
-                  {user ? (
-                    <Link 
-                      to="/my-order" 
-                      onClick={toggleMobileMenu} 
-                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
-                    >
-                      <FaUserCircle className="text-lg" />
-                      <span className="font-medium">Orders</span>
-                    </Link>
-                  ) : (
-                    <Link 
-                      to="/login" 
-                      onClick={toggleMobileMenu} 
-                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
-                    >
-                      <FaUserCircle className="text-lg" />
-                      <span className="font-medium">Login</span>
-                    </Link>
-                  )}
-                </div>
+            <div className="border-t border-[#D9C27B]/30 pt-4 mt-6 bg-black/95">
+              <div className="grid grid-cols-2 gap-3">
+                <Link 
+                  to="/cart" 
+                  onClick={toggleMobileMenu}
+                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 border border-[#D9C27B]/30 text-[#D9C27B] hover:text-white hover:bg-gradient-to-r hover:from-[#D9C27B]/30 hover:to-[#D9C27B]/20 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                >
+                  <FaShoppingCart className="text-lg" />
+                  <span className="font-medium">Cart ({cartCount})</span>
+                </Link>
                 
-                {user && (
-                  <button 
-                    onClick={() => { logout(); toggleMobileMenu(); }}
-                    className="w-full mt-3 flex items-center justify-center gap-2 bg-red-900/20 border border-red-500/30 text-red-400 hover:text-white hover:bg-red-900/30 transition-all duration-200 p-3 rounded-xl min-h-[48px]"
+                {user ? (
+                  <Link 
+                    to="/my-order" 
+                    onClick={toggleMobileMenu} 
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
                   >
-                    <span className="font-medium">Logout</span>
-                  </button>
+                    <FaUserCircle className="text-lg" />
+                    <span className="font-medium">Orders</span>
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/login" 
+                    onClick={toggleMobileMenu} 
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                  >
+                    <FaUserCircle className="text-lg" />
+                    <span className="font-medium">Login</span>
+                  </Link>
                 )}
               </div>
+              
+              {user && (
+                <button 
+                  onClick={() => { logout(); toggleMobileMenu(); }}
+                  className="w-full mt-3 flex items-center justify-center gap-2 bg-red-900/20 border border-red-500/30 text-red-400 hover:text-white hover:bg-red-900/30 transition-all duration-200 p-3 rounded-xl min-h-[48px]"
+                >
+                  <span className="font-medium">Logout</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
