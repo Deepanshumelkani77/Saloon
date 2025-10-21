@@ -274,9 +274,7 @@ const Navbar = () => {
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      activeCategory === category.name ? 'bg-[#D9C27B] animate-pulse' : 'bg-gray-600'
-                    }`}></span>
+                    
                     {category.name}
                   </span>
                   <FaChevronDown className={`text-sm transition-transform duration-300 ${
