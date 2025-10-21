@@ -25,6 +25,7 @@ const Hair = () => {
   const [qtyMap, setQtyMap] = useState({});
   const [searchParams] = useSearchParams();
   const {user}=useContext(AppContext);
+  const navigate = useNavigate();
 
   const subCategories = [
     "Shampoo",
@@ -110,6 +111,27 @@ const handleAddToCart = async (productId) => {
   } catch (err) {
     console.error("Error adding to cart:", err);
     alert("Failed to add product to cart");
+  }
+};
+
+const handleBuyNow = async (productId) => {
+  if (!user) {
+    alert("Please login to buy!");
+    return;
+  }
+  try {
+    const qty = qtyMap[productId] ?? 1;
+    const res = await axios.post("http://localhost:1000/cart/add", {
+      userId: user?.id,
+      productId,
+      quantity: qty
+    });
+    if (res.data.success) {
+      navigate('/order');
+    }
+  } catch (err) {
+    console.error("Error processing buy now:", err);
+    alert("Failed to process order");
   }
 };
 
@@ -471,7 +493,7 @@ const handleAddToCart = async (productId) => {
                       {/* Enhanced Action Buttons */}
                       <div className="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
                         <button 
-                          onClick={() => handleAddToCart(product._id)}
+                          onClick={() => handleBuyNow(product._id)}
                           className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>

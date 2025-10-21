@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaStar, FaShoppingCart, FaHeart, FaEye, FaFire, FaTrophy } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AppContext } from '../context/AppContext';
 
 const BestSeller = () => {
   const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const { user } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const gold = '#D9C27B';
 
@@ -38,9 +42,26 @@ const BestSeller = () => {
     console.log('Adding to cart:', product);
   };
 
-  const handleBuyNow = (product) => {
-    // Buy now functionality - to be implemented
-    console.log('Buy now:', product);
+  const handleBuyNow = async (product) => {
+    if (!user) {
+      alert('Please login to buy!');
+      return;
+    }
+    try {
+      // Add to cart first
+      const res = await axios.post('http://localhost:1000/cart/add', {
+        userId: user?.id,
+        productId: product._id,
+        quantity: 1,
+      });
+      if (res.data?.success) {
+        // Redirect directly to order page
+        navigate('/order');
+      }
+    } catch (err) {
+      console.error('Error processing buy now:', err);
+      alert('Failed to process order');
+    }
   };
 
   const handleAddToWishlist = (product) => {

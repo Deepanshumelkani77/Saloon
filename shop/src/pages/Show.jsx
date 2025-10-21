@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaStar, FaShoppingCart, FaHeart, FaShareAlt, FaShieldAlt, FaTruck, FaSyncAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
@@ -69,9 +69,29 @@ const Show = () => {
     }
   };
 
-  const handleBuyNow = () => {
-    // TODO: Integrate with checkout flow
-    console.log('Buy now', { product, qty });
+  const navigate = useNavigate();
+
+  const handleBuyNow = async () => {
+    if (!user) {
+      alert('Please login to buy!');
+      return;
+    }
+    try {
+      const productId = product?._id || id;
+      // Add to cart first
+      const res = await axios.post('http://localhost:1000/cart/add', {
+        userId: user?.id,
+        productId,
+        quantity: qty,
+      });
+      if (res.data?.success) {
+        // Redirect directly to order page
+        navigate('/order');
+      }
+    } catch (err) {
+      console.error('Error processing buy now:', err);
+      alert('Failed to process order');
+    }
   };
 
   if (loading) {
