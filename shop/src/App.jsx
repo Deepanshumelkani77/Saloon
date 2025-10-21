@@ -12,6 +12,7 @@ import Show from './pages/Show.jsx'
 import Cart from './pages/Cart.jsx'
 import Order from './pages/Order.jsx'
 import MyOrder from './pages/MyOrder.jsx';
+import Login from './pages/Login.jsx';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/order' element={<Order/>}/>
               <Route path='/my-order' element={<MyOrder/>}/>
+              <Route path='/login' element={<Login/>}/>
         </Routes>
       </main>
      
