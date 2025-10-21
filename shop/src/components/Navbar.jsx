@@ -183,7 +183,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                       {/* Dropdown Footer */}
                       <div className="bg-gradient-to-r from-[#D9C27B]/10 to-[#D9C27B]/5 px-6 py-3 border-t border-[#D9C27B]/20">
                         <button className="w-full text-center text-sm text-[#D9C27B] hover:text-white font-medium transition-colors duration-200">
-                          View All {category.name} Products →
+                        <a href={category.path}>   View All {category.name} Products →</a>
                         </button>
                       </div>
                     </div>
