@@ -49,14 +49,8 @@ router.post("/create", async (req, res) => {
 
     await order.save();
 
-    // Clear the user's cart after placing order
-    try {
-      const cart = await Cart.findOne({ userId });
-      if (cart) {
-        cart.items = [];
-        await cart.save();
-      }
-    } catch (_) {}
+    // Note: Cart is NOT cleared automatically - user must manually remove items
+    // This allows users to keep items in cart for future reference or re-ordering
 
     return res.json({ success: true, message: "Order placed successfully", order });
   } catch (err) {
