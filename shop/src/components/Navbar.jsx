@@ -78,12 +78,6 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setActiveDropdown(null);
-    // Prevent body scroll when menu is open
-    if (!isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
   };
 
   const closeAllDropdowns = () => {
@@ -113,26 +107,6 @@ const Navbar = () => {
     }
     fetchCount()
   }, [user])
-
-  // Cleanup body scroll on component unmount
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
-  // Close mobile menu on window resize to desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && isMenuOpen) {
-        setIsMenuOpen(false);
-        document.body.style.overflow = 'unset';
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
   return (
     <nav className="bg-black border-b border-[#D9C27B]/20 sticky top-0 z-50 backdrop-blur-xl h-[10vh]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20">
@@ -281,94 +255,60 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50">
-          {/* Background Overlay */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={toggleMobileMenu}
-          ></div>
-          
-          {/* Sidebar */}
-          <div className="absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-b from-black via-gray-900 to-black border-l border-[#D9C27B]/30 shadow-2xl transform transition-transform duration-300 ease-out">
-            {/* Sidebar Header */}
-            <div className="flex items-center justify-between p-4 border-b border-[#D9C27B]/20 bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10">
-              <div className="flex items-center gap-3">
-                <FaCut className="text-2xl animate-spin-slow" style={{ color: gold }} />
-                <div className="flex flex-col">
-                  <span className="text-lg font-bold text-white">Me & Guys</span>
-                  <span className="text-xs tracking-widest font-normal" style={{ color: gold }}>S H O P</span>
-                </div>
-              </div>
-              <button
-                onClick={toggleMobileMenu}
-                className="text-gray-300 hover:text-[#D9C27B] p-2 transition-colors duration-200"
-              >
-                <FaTimes className="text-xl" />
-              </button>
-            </div>
+        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-[#D9C27B]/20">
+          <div className="px-4 pt-4 pb-6 space-y-3">
+            
+            {/* Mobile Search removed */}
 
-            {/* Sidebar Content */}
-            <div className="flex flex-col h-full overflow-hidden">
-              {/* Categories Section */}
-              <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
-                {categories.map((category, index) => (
-                  <div key={`mobile-${category.name}-${index}`} className="border-b border-gray-700/50 last:border-b-0 pb-2">
-                    <button
-                      onClick={() => handleCategoryClick(category.name)}
-                      className={`w-full text-left px-4 py-3 text-base font-semibold flex items-center justify-between transition-all duration-200 rounded-lg ${
-                        activeCategory === category.name
-                          ? 'text-[#D9C27B] bg-[#D9C27B]/20 border-l-4 border-[#D9C27B]'
-                          : 'text-white hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
-                      }`}
-                    >
-                      {category.name}
-                      <FaChevronDown className={`text-sm transition-transform duration-200 ${
-                        activeDropdown === category.name ? 'rotate-180' : ''
-                      }`} />
-                    </button>
-                    
-                    {activeDropdown === category.name && (
-                      <div className="mt-2 ml-4 space-y-1 max-h-48 overflow-y-auto">
-                        {category.items.map((item, itemIndex) => (
-                          <Link
-                            key={`mobile-${item}-${itemIndex}`}
-                            to={`${category.path}?sub=${encodeURIComponent(item)}`}
-                            onClick={toggleMobileMenu}
-                            className="block px-3 py-2 text-sm text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 rounded-md transition-colors duration-200"
-                          >
-                            • {item}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Bottom Actions */}
-              <div className="border-t border-[#D9C27B]/20 bg-gradient-to-r from-[#D9C27B]/10 to-[#D9C27B]/5 p-4 space-y-3">
-                <Link 
-                  to="/cart" 
-                  onClick={toggleMobileMenu}
-                  className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3 rounded-lg hover:bg-[#D9C27B]/10"
+            {/* Mobile Categories */}
+            {categories.map((category, index) => (
+              <div key={`mobile-${category.name}-${index}`} className="border-b border-gray-700 last:border-b-0">
+                <button
+                  onClick={() => handleCategoryClick(category.name)}
+                  className={`w-full text-left px-4 py-4 text-lg font-semibold flex items-center justify-between transition-all duration-200 rounded-lg ${
+                    activeCategory === category.name
+                      ? 'text-[#D9C27B] bg-[#D9C27B]/10 border-l-4 border-[#D9C27B]'
+                      : 'text-white hover:text-[#D9C27B] hover:bg-[#D9C27B]/5'
+                  }`}
                 >
-                  <FaShoppingCart className="text-xl" />
-                  <span className="text-base font-medium">Cart ({cartCount})</span>
-                </Link>
+                  {category.name}
+                  <FaChevronDown className={`text-sm transition-transform duration-200 ${
+                    activeDropdown === category.name ? 'rotate-180' : ''
+                  }`} />
+                </button>
                 
-                <div className="flex items-center gap-3 text-gray-300 p-3 rounded-lg">
-                  <FaUserCircle className="text-xl" />
-                  {user ? (
-                    <div className="flex flex-col space-y-1">
-                      <Link to="/my-order" onClick={toggleMobileMenu} className="text-base hover:text-[#D9C27B] transition-colors">My Orders</Link>
-                      <button onClick={() => { logout(); toggleMobileMenu(); }} className="text-sm text-red-400 hover:text-red-300 text-left">Logout</button>
-                    </div>
-                  ) : (
-                    <Link to="/login" onClick={toggleMobileMenu} className="text-base hover:text-[#D9C27B] transition-colors">Login</Link>
-                  )}
-                </div>
+                {activeDropdown === category.name && (
+                  <div className="pb-4 pl-8 space-y-2">
+                    {category.items.map((item, itemIndex) => (
+                      <Link
+                        key={`mobile-${item}-${itemIndex}`}
+                        to={`${category.path}?sub=${encodeURIComponent(item)}`}
+                        onClick={toggleMobileMenu}
+                        className="block px-4 py-3 text-base text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/5 rounded-lg transition-colors duration-200"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Mobile Actions */}
+            <div className="flex items-center justify-around pt-6 border-t border-gray-700 mt-6">
+              <Link to="/cart" className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
+                <FaShoppingCart className="text-xl" />
+                <span className="text-lg font-medium">Cart ({cartCount})</span>
+              </Link>
+              <div className="flex items-center gap-3 text-gray-300 p-3">
+                <FaUserCircle className="text-xl" />
+                {user ? (
+                  <Link to="/my-order" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">My Orders</Link>
+                ) : (
+                  <Link to="/login" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">Login</Link>
+                )}
               </div>
             </div>
           </div>
