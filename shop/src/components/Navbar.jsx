@@ -4,11 +4,11 @@ import { FaShoppingCart, FaBars, FaTimes, FaChevronDown, FaCut, FaUserCircle } f
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 
-const Navbar = () => {
+const Navbar = ({ setLogin, setLoginMode }) => {
+  const { user, logout, cartCount, setCartCount } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
-  const [cartCount, setCartCount] = useState(0);
   const [profileOpen, setProfileOpen] = useState(false);
 
   const gold = '#D9C27B';
@@ -85,7 +85,6 @@ const Navbar = () => {
   };
 
 
-  const {user, logout}=useContext(AppContext)
   console.log(user);
 
   // Load cart count from backend
@@ -235,7 +234,16 @@ const Navbar = () => {
                     {user ? (
                       <button onClick={logout} className="w-full text-left px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10">Logout</button>
                     ) : (
-                      <Link to="/login" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">Login</Link>
+                      <button 
+                        onClick={() => {
+                          setLoginMode('login');
+                          setLogin(true);
+                          setProfileOpen(false);
+                        }} 
+                        className="w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10"
+                      >
+                        Login
+                      </button>
                     )}
                   </div>
                 </div>
@@ -338,14 +346,17 @@ const Navbar = () => {
                     <span className="font-medium">Orders</span>
                   </Link>
                 ) : (
-                  <Link 
-                    to="/login" 
-                    onClick={toggleMobileMenu} 
-                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                  <button 
+                    onClick={() => {
+                      setLoginMode('login');
+                      setLogin(true);
+                      toggleMobileMenu();
+                    }} 
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px] w-full"
                   >
                     <FaUserCircle className="text-lg" />
                     <span className="font-medium">Login</span>
-                  </Link>
+                  </button>
                 )}
               </div>
               

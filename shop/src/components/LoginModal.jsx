@@ -1,22 +1,18 @@
 import React, { useState, useContext } from 'react';
-import { FaUser, FaLock, FaEnvelope, FaPhone, FaCut, FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
+import { FaTimes, FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock, FaPhone } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
-import { useNavigate } from 'react-router-dom';
 
-const gold = '#D9C27B';
-
-const Login = () => {
-  const [isSignup, setIsSignup] = useState(false);
+const LoginModal = ({ isOpen, onClose, loginMode, setLoginMode }) => {
+  const { login, signup } = useContext(AppContext);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
-    fullName: '',
     phone: ''
   });
 
-  const navigate = useNavigate();
-  const { signup, login } = useContext(AppContext);
+  const isLogin = loginMode === 'login';
 
   const handleInputChange = (e) => {
     setFormData({
@@ -27,36 +23,38 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      if (isSignup) {
-        await signup(formData.fullName, formData.email, formData.password, formData.phone);
-        navigate("/");
-      } else {
+      if (isLogin) {
         await login(formData.email, formData.password);
-        navigate("/");
+      } else {
+        await signup(formData.name, formData.email, formData.password, formData.phone);
       }
+      
+      // Close modal and reset form after successful login/signup
+      resetForm();
+      onClose();
     } catch (error) {
       console.error("Authentication error:", error);
     }
   };
 
-  const toggleForm = () => {
-    setIsSignup(!isSignup);
+  const resetForm = () => {
     setFormData({
+      name: '',
       email: '',
       password: '',
-      fullName: '',
       phone: ''
     });
+    setShowPassword(false);
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:1000/auth/google/user";
+  const switchMode = () => {
+    setLoginMode(isLogin ? 'signup' : 'login');
+    resetForm();
   };
 
-  const goBack = () => {
-    navigate("/");
-  };
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8">
@@ -188,6 +186,7 @@ const Login = () => {
           {/* Google Sign In Button */}
           <button
             type="button"
+            onClick={() => window.location.href = "http://localhost:1000/auth/google/user"}
             className="w-full py-3 bg-white/10 border border-[#D9C27B]/30 rounded-xl text-white font-semibold hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3 text-sm"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -211,4 +210,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginModal;

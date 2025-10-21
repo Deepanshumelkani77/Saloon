@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar.jsx"
 import Home from "./pages/Home.jsx"
@@ -12,13 +12,16 @@ import Show from './pages/Show.jsx'
 import Cart from './pages/Cart.jsx'
 import Order from './pages/Order.jsx'
 import MyOrder from './pages/MyOrder.jsx';
-import Login from './pages/Login.jsx';
+import LoginModal from './components/LoginModal.jsx';
 
 const App = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginMode, setLoginMode] = useState('login');
+
   return (
     <div className="min-h-screen w-full ">
       {/* Navigation */}
-      <Navbar />
+      <Navbar setLogin={setShowLogin} setLoginMode={setLoginMode} />
 
       {/* Main Content */}
       <main className="w-full   px-0">
@@ -33,9 +36,16 @@ const App = () => {
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/order' element={<Order/>}/>
               <Route path='/my-order' element={<MyOrder/>}/>
-              <Route path='/login' element={<Login/>}/>
         </Routes>
       </main>
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        loginMode={loginMode}
+        setLoginMode={setLoginMode}
+      />
      
      
     </div>
