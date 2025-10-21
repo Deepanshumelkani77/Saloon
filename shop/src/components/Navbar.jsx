@@ -257,57 +257,108 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-[#D9C27B]/20">
-          <div className="px-4 pt-4 pb-6 space-y-3">
+        <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-black/98 backdrop-blur-xl border-t border-[#D9C27B]/20 z-40 overflow-hidden">
+          <div className="h-full overflow-y-auto px-4 pt-4 pb-6 space-y-3">
             
             {/* Mobile Search removed */}
 
             {/* Mobile Categories */}
             {categories.map((category, index) => (
-              <div key={`mobile-${category.name}-${index}`} className="border-b border-gray-700 last:border-b-0">
+              <div key={`mobile-${category.name}-${index}`} className="border-b border-gray-700/50 last:border-b-0">
                 <button
                   onClick={() => handleCategoryClick(category.name)}
-                  className={`w-full text-left px-4 py-4 text-lg font-semibold flex items-center justify-between transition-all duration-200 rounded-lg ${
+                  className={`w-full text-left px-4 py-4 text-lg font-semibold flex items-center justify-between transition-all duration-300 rounded-lg min-h-[60px] ${
                     activeCategory === category.name
-                      ? 'text-[#D9C27B] bg-[#D9C27B]/10 border-l-4 border-[#D9C27B]'
-                      : 'text-white hover:text-[#D9C27B] hover:bg-[#D9C27B]/5'
+                      ? 'text-[#D9C27B] bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 border-l-4 border-[#D9C27B] shadow-lg'
+                      : 'text-white hover:text-[#D9C27B] hover:bg-[#D9C27B]/10 active:bg-[#D9C27B]/15'
                   }`}
                 >
-                  {category.name}
-                  <FaChevronDown className={`text-sm transition-transform duration-200 ${
-                    activeDropdown === category.name ? 'rotate-180' : ''
+                  <span className="flex items-center gap-3">
+                    <span className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeCategory === category.name ? 'bg-[#D9C27B] animate-pulse' : 'bg-gray-600'
+                    }`}></span>
+                    {category.name}
+                  </span>
+                  <FaChevronDown className={`text-sm transition-transform duration-300 ${
+                    activeDropdown === category.name ? 'rotate-180 text-[#D9C27B]' : 'text-gray-400'
                   }`} />
                 </button>
                 
                 {activeDropdown === category.name && (
-                  <div className="pb-4 pl-8 space-y-2">
-                    {category.items.map((item, itemIndex) => (
-                      <Link
-                        key={`mobile-${item}-${itemIndex}`}
-                        to={`${category.path}?sub=${encodeURIComponent(item)}`}
+                  <div className="bg-gradient-to-br from-gray-900/50 to-black/30 mx-2 mb-4 rounded-xl border border-[#D9C27B]/20 overflow-hidden">
+                    <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-[#D9C27B]/50 scrollbar-track-gray-800/50">
+                      <div className="p-3 space-y-1">
+                        {category.items.map((item, itemIndex) => (
+                          <Link
+                            key={`mobile-${item}-${itemIndex}`}
+                            to={`${category.path}?sub=${encodeURIComponent(item)}`}
+                            onClick={toggleMobileMenu}
+                            className="group flex items-center gap-3 px-4 py-3 text-base text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-[#D9C27B]/20 hover:to-[#D9C27B]/10 rounded-lg transition-all duration-200 min-h-[48px] active:scale-95"
+                          >
+                            <div className="w-1.5 h-1.5 bg-[#D9C27B]/60 rounded-full group-hover:bg-[#D9C27B] transition-colors duration-200"></div>
+                            <span className="font-medium group-hover:font-semibold transition-all duration-200">{item}</span>
+                            <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                              <span className="text-[#D9C27B] text-xs">→</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-r from-[#D9C27B]/10 to-[#D9C27B]/5 px-4 py-2 border-t border-[#D9C27B]/20">
+                      <Link 
+                        to={category.path}
                         onClick={toggleMobileMenu}
-                        className="block px-4 py-3 text-base text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/5 rounded-lg transition-colors duration-200"
+                        className="block text-center text-sm text-[#D9C27B] hover:text-white font-medium transition-colors duration-200"
                       >
-                        {item}
+                        View All {category.name} →
                       </Link>
-                    ))}
+                    </div>
                   </div>
                 )}
               </div>
             ))}
 
             {/* Mobile Actions */}
-            <div className="flex items-center justify-around pt-6 border-t border-gray-700 mt-6">
-              <Link to="/cart" className="flex items-center gap-3 text-gray-300 hover:text-[#D9C27B] transition-colors duration-200 p-3">
-                <FaShoppingCart className="text-xl" />
-                <span className="text-lg font-medium">Cart ({cartCount})</span>
-              </Link>
-              <div className="flex items-center gap-3 text-gray-300 p-3">
-                <FaUserCircle className="text-xl" />
-                {user ? (
-                  <Link to="/my-order" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">My Orders</Link>
-                ) : (
-                  <Link to="/login" onClick={toggleMobileMenu} className="text-lg hover:text-[#D9C27B]">Login</Link>
+            <div className="sticky bottom-0 bg-gradient-to-t from-black via-black/95 to-transparent pt-6 mt-6">
+              <div className="border-t border-[#D9C27B]/30 pt-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <Link 
+                    to="/cart" 
+                    onClick={toggleMobileMenu}
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#D9C27B]/20 to-[#D9C27B]/10 border border-[#D9C27B]/30 text-[#D9C27B] hover:text-white hover:bg-gradient-to-r hover:from-[#D9C27B]/30 hover:to-[#D9C27B]/20 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                  >
+                    <FaShoppingCart className="text-lg" />
+                    <span className="font-medium">Cart ({cartCount})</span>
+                  </Link>
+                  
+                  {user ? (
+                    <Link 
+                      to="/my-order" 
+                      onClick={toggleMobileMenu} 
+                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                    >
+                      <FaUserCircle className="text-lg" />
+                      <span className="font-medium">Orders</span>
+                    </Link>
+                  ) : (
+                    <Link 
+                      to="/login" 
+                      onClick={toggleMobileMenu} 
+                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px]"
+                    >
+                      <FaUserCircle className="text-lg" />
+                      <span className="font-medium">Login</span>
+                    </Link>
+                  )}
+                </div>
+                
+                {user && (
+                  <button 
+                    onClick={() => { logout(); toggleMobileMenu(); }}
+                    className="w-full mt-3 flex items-center justify-center gap-2 bg-red-900/20 border border-red-500/30 text-red-400 hover:text-white hover:bg-red-900/30 transition-all duration-200 p-3 rounded-xl min-h-[48px]"
+                  >
+                    <span className="font-medium">Logout</span>
+                  </button>
                 )}
               </div>
             </div>
