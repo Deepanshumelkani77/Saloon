@@ -365,6 +365,7 @@ const Skin = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
                     
                     {/* Product Image */}
+                    <a href={`/show/${product._id}`}> 
                     <div className="relative aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-t-xl md:rounded-t-2xl lg:rounded-t-3xl">
                       <img 
                         src={product.image || '/api/placeholder/300/400'} 
@@ -402,6 +403,8 @@ const Skin = () => {
                                                 </button></a>
                       </div>
                     </div>
+</a>
+
 
                     {/* Enhanced Product Info */}
                     <div className="p-2 sm:p-3 md:p-4 lg:p-6 space-y-2 sm:space-y-3 md:space-y-4">
