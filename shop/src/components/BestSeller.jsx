@@ -151,6 +151,7 @@ const BestSeller = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D9C27B]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
               
               {/* Product Image */}
+                <a href={`/show/${product._id}`}> 
               <div className="relative h-40 sm:h-56 md:h-72 lg:h-90 overflow-hidden rounded-t-xl md:rounded-t-2xl lg:rounded-t-3xl">
                 <img 
                   src={product.image || '/api/placeholder/300/400'} 
@@ -181,18 +182,13 @@ const BestSeller = () => {
                 
                 {/* Enhanced Quick Actions - Hidden on mobile */}
                 <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 hidden md:flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                  <button 
-                    onClick={() => handleAddToWishlist(product)}
-                    className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
-                  >
-                    <FaHeart className="text-xs md:text-sm" />
-                  </button>
+                  
                   <button className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-sm hover:from-[#D9C27B] hover:to-[#F4E4A6] text-white hover:text-black p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
                     <FaEye className="text-xs md:text-sm" />
                   </button>
                 </div>
               </div>
-
+</a>
               {/* Enhanced Product Info */}
               <div className="p-2 sm:p-3 md:p-4 lg:p-6 space-y-2 sm:space-y-3 md:space-y-4">
                 {/* Product Name with Animation */}
