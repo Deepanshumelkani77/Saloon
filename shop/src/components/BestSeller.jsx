@@ -14,6 +14,13 @@ const BestSeller = () => {
 
   const gold = '#D9C27B';
 
+  // Hide scrollbar CSS
+  const scrollContainerStyle = {
+    scrollbarWidth: 'none', // Firefox
+    msOverflowStyle: 'none', // IE and Edge
+    WebkitOverflowScrolling: 'touch', // Smooth scrolling on iOS
+  };
+
   // Fetch best seller products from backend
   useEffect(() => {
     const fetchBestSellers = async () => {
@@ -107,6 +114,14 @@ const BestSeller = () => {
   }
 
   return (
+    <>
+      {/* Hide scrollbar for WebKit browsers */}
+      <style>{`
+        .scroll-container::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+      
     <div className="w-full py-0 md:py-0 lg:py-0">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-20">
         
@@ -133,12 +148,17 @@ const BestSeller = () => {
           </p>
         </div>
 
-        {/* Best Sellers Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        {/* Best Sellers Horizontal Scroll */}
+        <div className="relative">
+          {/* Scroll Container */}
+          <div 
+            className="scroll-container flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
+            style={scrollContainerStyle}
+          >
           {bestSellers.map((product, index) => (
             <div
               key={product._id}
-              className="group relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl bg-black border border-[#D9C27B]/30 md:border-2 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#D9C27B]/20"
+              className="group relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl bg-black border border-[#D9C27B]/30 md:border-2 hover:border-[#D9C27B]/70 transition-all duration-700 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#D9C27B]/20 flex-shrink-0 w-[45%] sm:w-[45%] md:w-[30%] lg:w-[23%] snap-start"
               style={{
                 animationDelay: `${index * 100}ms`
               }}
@@ -273,6 +293,7 @@ const BestSeller = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {/* View All Button */}
@@ -283,6 +304,7 @@ const BestSeller = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
