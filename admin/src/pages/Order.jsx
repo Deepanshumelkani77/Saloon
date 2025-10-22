@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const statusColors = {
   Pending: 'bg-yellow-500/15 text-yellow-300 border border-yellow-500/30',
-  Paid: 'bg-green-500/15 text-green-300 border border-green-500/30',
+  Confirmed: 'bg-green-500/15 text-green-300 border border-green-500/30',
   Shipped: 'bg-blue-500/15 text-blue-300 border border-blue-500/30',
   Delivered: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
   Cancelled: 'bg-red-500/15 text-red-300 border border-red-500/30',
@@ -34,7 +34,7 @@ const Order = () => {
       setError('')
       const params = {}
       if (status) params.status = status
-      const res = await axios.get('http://localhost:1000/order', { params })
+      const res = await axios.get('http://localhost:1000/order/all', { params })
       if (res.data?.success) setOrders(res.data.orders || [])
       else setError('Failed to fetch orders')
     } catch (err) {
@@ -53,47 +53,60 @@ const Order = () => {
     )
   }, [orders, search])
 
-  const setStatus = async (orderId, status) => {
-    if (!orderId) return
+  const handleConfirm = async (orderId) => {
+    if (!window.confirm('Confirm this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/status`, { status })
+      const res = await axios.patch(`http://localhost:1000/order/${orderId}/confirm`)
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
+        alert('Order confirmed successfully!')
       } else {
-        alert(res.data?.message || 'Update failed')
+        alert(res.data?.message || 'Confirm failed')
       }
     } catch (err) {
-      console.error('Status update error', err)
-      alert(err?.response?.data?.message || 'Update failed')
+      console.error('Confirm error', err)
+      alert(err?.response?.data?.message || 'Confirm failed')
     } finally {
       setActingId('')
     }
   }
 
-  const confirmOrder = (order) => {
-    // Confirm as Paid if Pending; if Paid, move to Shipped
-    const next = order.status === 'Pending' ? 'Paid' : order.status === 'Paid' ? 'Shipped' : 'Delivered'
-    const label = next === 'Paid' ? 'Confirm payment?' : next === 'Shipped' ? 'Mark as shipped?' : 'Mark as delivered?'
-    if (!window.confirm(label)) return
-    setStatus(order._id, next)
-  }
-
-  const cancelOrder = (order) => {
-    if (!window.confirm('Cancel this order?')) return
-    setStatus(order._id, 'Cancelled')
-  }
-
-
-  const handleConfirm = async(id) => {
+  const handleShip = async (orderId) => {
+    const trackingNumber = prompt('Enter tracking number (optional):')
+    if (!window.confirm('Mark this order as shipped?')) return
     try {
-      setActingId(id)
-      await axios.put(`http://localhost:1000/order/confirm/${id}`)
-      // Refresh orders after confirmation
-      await loadOrders(statusFilter)
+      setActingId(orderId)
+      const res = await axios.patch(`http://localhost:1000/order/${orderId}/ship`, { trackingNumber })
+      if (res.data?.success) {
+        setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
+        alert('Order marked as shipped!')
+      } else {
+        alert(res.data?.message || 'Ship failed')
+      }
     } catch (err) {
-      console.error('Error updating orders status:', err)
-      setError('Failed to update orders status. Please try again.')
+      console.error('Ship error', err)
+      alert(err?.response?.data?.message || 'Ship failed')
+    } finally {
+      setActingId('')
+    }
+  }
+
+  const handleCancel = async (orderId) => {
+    const reason = prompt('Enter cancellation reason:')
+    if (!window.confirm('Cancel this order?')) return
+    try {
+      setActingId(orderId)
+      const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
+      if (res.data?.success) {
+        setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
+        alert('Order cancelled')
+      } else {
+        alert(res.data?.message || 'Cancel failed')
+      }
+    } catch (err) {
+      console.error('Cancel error', err)
+      alert(err?.response?.data?.message || 'Cancel failed')
     } finally {
       setActingId('')
     }
@@ -123,7 +136,7 @@ const Order = () => {
             >
               <option value="">All Status</option>
               <option value="Pending">Pending</option>
-              <option value="Paid">Paid</option>
+              <option value="Confirmed">Confirmed</option>
               <option value="Shipped">Shipped</option>
               <option value="Delivered">Delivered</option>
               <option value="Cancelled">Cancelled</option>
@@ -174,10 +187,20 @@ const Order = () => {
                       {/* Date (desktop) */}
                       <div className="hidden md:block col-span-2 text-gray-300">{prettyDate(o.createdAt)}</div>
 
-                      {/* Total */}
+                      {/* Total & Payment */}
                       <div className="col-span-3 sm:col-span-2">
                         <div className="text-[#D9C27B] font-extrabold">{currency(o.totalPrice)}</div>
                         <div className="text-xs text-gray-500">{totalQty} item(s)</div>
+                        <div className="text-xs mt-1">
+                          <span className={o.paymentMethod === 'COD' ? 'text-orange-400' : 'text-green-400'}>
+                            {o.paymentMethod === 'COD' ? '💵 COD' : '💳 ONLINE'}
+                          </span>
+                          {o.paymentMethod === 'ONLINE' && (
+                            <span className={`ml-1 ${o.paid ? 'text-green-400' : 'text-red-400'}`}>
+                              • {o.paid ? 'Paid ✓' : 'Unpaid ✗'}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
                       {/* Status */}
@@ -187,41 +210,45 @@ const Order = () => {
 
                       {/* Actions */}
                       <div className="col-span-6 sm:col-span-3 flex items-center justify-end gap-2">
-                        {/* Quick status next-step */}
-                        {o.status !== 'Cancelled' && o.status !== 'Delivered' && (
-                          <button
-                            disabled={actingId === o._id}
-                             onClick={() => handleConfirm(o._id)}
-                            className="px-3 py-2 rounded-lg text-black font-semibold bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] hover:shadow-2xl hover:shadow-[#D9C27B]/30 disabled:opacity-60"
-                          >
-                            {o.status === 'Pending' ? 'Confirm' : o.status === 'Paid' ? 'Ship' : 'Deliver'}
-                          </button>
-                        )}
-                        {/* Cancel */}
+                        {/* Confirm Button */}
                         {o.status === 'Pending' && (
                           <button
                             disabled={actingId === o._id}
-                            onClick={() => cancelOrder(o)}
-                            className="px-3 py-2 rounded-lg font-semibold text-red-300 bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 disabled:opacity-60"
+                            onClick={() => handleConfirm(o._id)}
+                            className="px-3 py-2 rounded-lg text-black font-semibold bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] hover:shadow-2xl hover:shadow-[#D9C27B]/30 disabled:opacity-60 text-xs sm:text-sm"
                           >
-                            Cancel
+                            ✓ Confirm
                           </button>
                         )}
-                        {/* Status dropdown for manual set */}
-                        <div className="relative">
-                          <select
+                        
+                        {/* Ship Button */}
+                        {o.status === 'Confirmed' && (
+                          <button
                             disabled={actingId === o._id}
-                            value={o.status}
-                            onChange={(e) => setStatus(o._id, e.target.value)}
-                            className="px-2 py-2 rounded-lg bg-black/40 border border-[#D9C27B]/30 text-gray-200 text-xs focus:outline-none focus:border-[#D9C27B]"
+                            onClick={() => handleShip(o._id)}
+                            className="px-3 py-2 rounded-lg text-black font-semibold bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 hover:shadow-2xl hover:shadow-blue-400/30 disabled:opacity-60 text-xs sm:text-sm"
                           >
-                            <option value="Pending">Pending</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
-                            <option value="Cancelled">Cancelled</option>
-                          </select>
-                        </div>
+                            🚚 Ship
+                          </button>
+                        )}
+                        
+                        {/* Cancel Button */}
+                        {(o.status === 'Pending' || o.status === 'Confirmed') && (
+                          <button
+                            disabled={actingId === o._id}
+                            onClick={() => handleCancel(o._id)}
+                            className="px-3 py-2 rounded-lg font-semibold text-red-300 bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 disabled:opacity-60 text-xs sm:text-sm"
+                          >
+                            ✗ Cancel
+                          </button>
+                        )}
+                        
+                        {/* Status Badge for Shipped/Delivered */}
+                        {(o.status === 'Shipped' || o.status === 'Delivered') && (
+                          <div className="px-3 py-2 text-xs sm:text-sm font-semibold">
+                            {o.status === 'Shipped' ? '📦 In Transit' : '✅ Completed'}
+                          </div>
+                        )}
                       </div>
 
                       {/* Items preview (full width) */}

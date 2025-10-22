@@ -35,8 +35,29 @@ const orderSchema = new mongoose.Schema(
     totalPrice: { type: Number, required: true, default: 0 },
     shippingAddress: { type: addressSchema },
     notes: { type: String },
+    
+    // Payment fields
     paymentMethod: { type: String, enum: ["COD", "ONLINE"], default: "COD" },
-    status: { type: String, enum: ["Pending", "Paid", "Shipped", "Delivered", "Cancelled"], default: "Pending" },
+    paid: { type: Boolean, default: false }, // For ONLINE payments - true if payment successful
+    paymentId: { type: String }, // Razorpay payment ID for ONLINE payments
+    orderId: { type: String }, // Razorpay order ID for ONLINE payments
+    
+    // Order status workflow: Pending → Confirmed → Shipped → Delivered
+    status: { 
+      type: String, 
+      enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"], 
+      default: "Pending" 
+    },
+    
+    // Workflow tracking
+    confirmedAt: { type: Date }, // When admin confirms the order
+    shippedAt: { type: Date }, // When admin marks as shipped
+    deliveredAt: { type: Date }, // When user marks as delivered
+    cancelledAt: { type: Date }, // If order is cancelled
+    
+    // Additional tracking
+    trackingNumber: { type: String }, // Shipping tracking number (optional)
+    cancelReason: { type: String }, // Reason for cancellation (optional)
   },
   { timestamps: true }
 );

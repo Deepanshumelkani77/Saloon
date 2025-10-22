@@ -5,10 +5,18 @@ import { Link } from 'react-router-dom'
 
 const statusStyles = {
   Pending: 'bg-yellow-500/15 text-yellow-300 border border-yellow-500/30',
-  Paid: 'bg-green-500/15 text-green-300 border border-green-500/30',
+  Confirmed: 'bg-green-500/15 text-green-300 border border-green-500/30',
   Shipped: 'bg-blue-500/15 text-blue-300 border border-blue-500/30',
   Delivered: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
   Cancelled: 'bg-red-500/15 text-red-300 border border-red-500/30',
+}
+
+const statusIcons = {
+  Pending: '⏳',
+  Confirmed: '✅',
+  Shipped: '🚚',
+  Delivered: '📦',
+  Cancelled: '❌',
 }
 
 const MyOrder = () => {
@@ -24,7 +32,7 @@ const MyOrder = () => {
         setLoading(true)
         setError('')
         if (!user?.id) { setOrders([]); return }
-        const res = await axios.get(`http://localhost:1000/order/${user.id}`)
+        const res = await axios.get(`http://localhost:1000/order/user/${user.id}`)
         if (res.data?.success) setOrders(res.data.orders || [])
         else setError('Failed to fetch orders')
       } catch (err) {
@@ -36,18 +44,39 @@ const MyOrder = () => {
   }, [user])
 
   const cancelOrder = async (orderId) => {
-    if (!window.confirm('Cancel this order?')) return
+    const reason = prompt('Please enter cancellation reason:')
+    if (!reason || !window.confirm('Cancel this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`)
+      const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
       if (res.data?.success) {
         setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
+        alert('Order cancelled successfully')
       } else {
         alert(res.data?.message || 'Cancel failed')
       }
     } catch (err) {
       console.error('Cancel error', err)
       alert(err?.response?.data?.message || 'Cancel failed')
+    } finally {
+      setActingId('')
+    }
+  }
+
+  const markDelivered = async (orderId) => {
+    if (!window.confirm('Confirm that you have received this order?')) return
+    try {
+      setActingId(orderId)
+      const res = await axios.patch(`http://localhost:1000/order/${orderId}/deliver`, { userId: user.id })
+      if (res.data?.success) {
+        setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
+        alert('Thank you! Order marked as delivered ✅')
+      } else {
+        alert(res.data?.message || 'Failed to mark as delivered')
+      }
+    } catch (err) {
+      console.error('Deliver error', err)
+      alert(err?.response?.data?.message || 'Failed to mark as delivered')
     } finally {
       setActingId('')
     }
@@ -89,11 +118,90 @@ const MyOrder = () => {
                 <div key={order._id} className="bg-black/70 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-5 hover:border-[#D9C27B]/60 transition">
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div className="text-white font-bold text-lg truncate">Order #{order.orderNumber}</div>
                       <div className="text-gray-400 text-sm">Placed on {created.toLocaleDateString()} • {totalQty} item(s)</div>
+                      <div className="flex items-center gap-3 mt-2">
+                        <span className={`text-xs sm:text-sm ${order.paymentMethod === 'COD' ? 'text-orange-400' : 'text-green-400'}`}>
+                          {order.paymentMethod === 'COD' ? '💵 Cash on Delivery' : '💳 Online Payment'}
+                        </span>
+                        {order.paymentMethod === 'ONLINE' && (
+                          <span className={`text-xs sm:text-sm ${order.paid ? 'text-green-400' : 'text-red-400'}`}>
+                            • {order.paid ? 'Paid ✓' : 'Payment Pending ✗'}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className={`px-3 py-1 rounded-full text-xs sm:text-sm ${statusStyles[order.status] || 'bg-gray-700 text-gray-300'}`}>{order.status}</div>
+                    <div className="flex flex-col items-end gap-2">
+                      <div className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold ${statusStyles[order.status] || 'bg-gray-700 text-gray-300'}`}>
+                        {statusIcons[order.status]} {order.status}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Order Status Timeline */}
+                  <div className="mt-4 bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                    <div className="flex items-center justify-between relative">
+                      {/* Progress Bar */}
+                      <div className="absolute top-4 left-0 right-0 h-0.5 bg-gray-700">
+                        <div 
+                          className="h-full bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] transition-all duration-500"
+                          style={{ 
+                            width: order.status === 'Pending' ? '0%' : 
+                                   order.status === 'Confirmed' ? '33%' : 
+                                   order.status === 'Shipped' ? '66%' : 
+                                   order.status === 'Delivered' ? '100%' : '0%' 
+                          }}
+                        />
+                      </div>
+                      
+                      {/* Status Steps */}
+                      {['Pending', 'Confirmed', 'Shipped', 'Delivered'].map((status, idx) => {
+                        const isActive = order.status === status
+                        const isPast = ['Pending', 'Confirmed', 'Shipped', 'Delivered'].indexOf(order.status) > idx
+                        const isCancelled = order.status === 'Cancelled'
+                        
+                        return (
+                          <div key={status} className="flex flex-col items-center gap-1 relative z-10">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                              isCancelled ? 'bg-gray-700 text-gray-500' :
+                              isActive ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black scale-110' :
+                              isPast ? 'bg-green-500 text-white' :
+                              'bg-gray-700 text-gray-400'
+                            }`}>
+                              {isPast ? '✓' : idx + 1}
+                            </div>
+                            <div className={`text-xs mt-1 hidden sm:block ${
+                              isCancelled ? 'text-gray-500' :
+                              isActive || isPast ? 'text-white font-semibold' : 'text-gray-500'
+                            }`}>
+                              {status}
+                            </div>
+                            {order[`${status.toLowerCase()}At`] && (
+                              <div className="text-[9px] text-gray-500 hidden md:block">
+                                {new Date(order[`${status.toLowerCase()}At`]).toLocaleDateString()}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                    
+                    {/* Tracking Number */}
+                    {order.trackingNumber && order.status === 'Shipped' && (
+                      <div className="mt-4 pt-3 border-t border-[#D9C27B]/20 text-sm">
+                        <span className="text-gray-400">Tracking Number: </span>
+                        <span className="text-[#D9C27B] font-mono font-semibold">{order.trackingNumber}</span>
+                      </div>
+                    )}
+                    
+                    {/* Cancellation Reason */}
+                    {order.status === 'Cancelled' && order.cancelReason && (
+                      <div className="mt-4 pt-3 border-t border-red-500/20 text-sm">
+                        <span className="text-gray-400">Cancellation Reason: </span>
+                        <span className="text-red-300">{order.cancelReason}</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Items */}
@@ -114,16 +222,44 @@ const MyOrder = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="bg-black/50 border border-[#D9C27B]/20 rounded-xl p-4 h-fit">
-                      <div className="text-gray-300 text-sm">Total</div>
-                      <div className="text-white font-extrabold text-xl mt-1">₹{order.totalPrice}</div>
-                      {order.status === 'Pending' && (
+                    <div className="bg-black/50 border border-[#D9C27B]/20 rounded-xl p-4 h-fit space-y-3">
+                      <div>
+                        <div className="text-gray-300 text-sm">Total Amount</div>
+                        <div className="text-white font-extrabold text-xl mt-1">₹{order.totalPrice}</div>
+                      </div>
+                      
+                      {/* Mark as Delivered Button */}
+                      {order.status === 'Shipped' && (
+                        <button
+                          disabled={actingId === order._id}
+                          onClick={() => markDelivered(order._id)}
+                          className="w-full bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-2.5 rounded-xl font-semibold hover:shadow-2xl hover:shadow-[#D9C27B]/30 transition disabled:opacity-60">
+                          {actingId === order._id ? 'Processing...' : '✓ Mark as Delivered'}
+                        </button>
+                      )}
+                      
+                      {/* Cancel Order Button */}
+                      {(order.status === 'Pending' || order.status === 'Confirmed') && (
                         <button
                           disabled={actingId === order._id}
                           onClick={() => cancelOrder(order._id)}
-                          className="w-full mt-4 bg-red-500/15 text-red-300 border border-red-500/30 py-2 rounded-xl font-semibold hover:bg-red-500/25 transition disabled:opacity-60">
-                          {actingId === order._id ? 'Cancelling...' : 'Cancel Order'}
+                          className="w-full bg-red-500/15 text-red-300 border border-red-500/30 py-2.5 rounded-xl font-semibold hover:bg-red-500/25 transition disabled:opacity-60">
+                          {actingId === order._id ? 'Cancelling...' : '✗ Cancel Order'}
                         </button>
+                      )}
+                      
+                      {/* Order Delivered Badge */}
+                      {order.status === 'Delivered' && (
+                        <div className="w-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 py-2.5 rounded-xl font-semibold text-center">
+                          ✅ Order Delivered
+                        </div>
+                      )}
+                      
+                      {/* Order Cancelled Badge */}
+                      {order.status === 'Cancelled' && (
+                        <div className="w-full bg-red-500/15 text-red-300 border border-red-500/30 py-2.5 rounded-xl font-semibold text-center">
+                          ❌ Order Cancelled
+                        </div>
                       )}
                     </div>
                   </div>

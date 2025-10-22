@@ -165,11 +165,13 @@ const CheckoutForm = () => {
             try {
               const payload = buildOrderPayload({
                 paymentMethod: 'ONLINE',
-                notes: `${form.notes || ''} | payment_id: ${response.razorpay_payment_id}`,
+                paymentId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+                notes: form.notes,
               })
               const res2 = await axios.post('http://localhost:1000/order/create', payload)
               if (res2.data?.success) {
-                alert('Payment successful! Order placed.')
+                alert('✅ Payment successful! Order placed.')
                 navigate('/my-order')
               } else {
                 alert(res2.data?.message || 'Order failed after payment')
@@ -194,10 +196,10 @@ const CheckoutForm = () => {
       }
 
       // COD: create order directly
-      const payload = buildOrderPayload({ paymentMethod: 'COD' })
+      const payload = buildOrderPayload({ paymentMethod: 'COD', notes: form.notes })
       const res = await axios.post('http://localhost:1000/order/create', payload)
       if (res.data?.success) {
-        alert('Order placed successfully!')
+        alert('✅ Order placed successfully!')
         navigate('/my-order')
       } else {
         alert(res.data?.message || 'Order failed')
@@ -205,11 +207,12 @@ const CheckoutForm = () => {
     } catch (err) {
       console.error('Order error:', err?.response?.data || err.message)
       alert(err?.response?.data?.message || 'Failed to place order')
+    } finally {
       setSubmitting(false)
     }
   }
 
-  const buildOrderPayload = ({ paymentMethod, notes }) => ({
+  const buildOrderPayload = ({ paymentMethod, paymentId, orderId, notes }) => ({
     userId: user?.id,
     items: items.map((it) => ({
       productId: it.productId?._id,
@@ -232,6 +235,8 @@ const CheckoutForm = () => {
     },
     notes: notes !== undefined ? notes : form.notes,
     paymentMethod,
+    paymentId: paymentId || null,
+    orderId: orderId || null,
   })
 
   const loadRazorpayScript = () => new Promise((resolve) => {

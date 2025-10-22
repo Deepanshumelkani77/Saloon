@@ -19,7 +19,7 @@ const genOrderNumber = () => {
 // Create order (from checkout payload)
 router.post("/create", async (req, res) => {
   try {
-    const { userId, items, subtotal, shippingAddress, notes, paymentMethod } = req.body;
+    const { userId, items, subtotal, shippingAddress, notes, paymentMethod, paymentId, orderId } = req.body;
 
     if (!userId) return res.status(400).json({ success: false, message: "Missing userId" });
     if (!Array.isArray(items) || items.length === 0) {
@@ -35,6 +35,10 @@ router.post("/create", async (req, res) => {
       image: it.image,
     }));
 
+    // Determine payment status
+    const isOnlinePayment = paymentMethod === "ONLINE";
+    const isPaid = isOnlinePayment && paymentId ? true : false; // ONLINE with payment ID = paid
+
     const order = new Order({
       orderNumber: genOrderNumber(),
       user: userId,
@@ -43,14 +47,13 @@ router.post("/create", async (req, res) => {
       shippingAddress: shippingAddress || {},
       notes: notes || "",
       paymentMethod: paymentMethod || "COD",
-      // If payment completed via Razorpay, consider it paid at creation
-      status: paymentMethod === "ONLINE" ? "Paid" : "Pending",
+      paid: isPaid,
+      paymentId: paymentId || null,
+      orderId: orderId || null,
+      status: "Pending", // All orders start as Pending, admin must confirm
     });
 
     await order.save();
-
-    // Note: Cart is NOT cleared automatically - user must manually remove items
-    // This allows users to keep items in cart for future reference or re-ordering
 
     return res.json({ success: true, message: "Order placed successfully", order });
   } catch (err) {
@@ -59,17 +62,23 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Cancel an order (only if still Pending)
+// Cancel an order (only if Pending or Confirmed)
 router.patch("/:orderId/cancel", async (req, res) => {
   try {
     const { orderId } = req.params;
+    const { cancelReason } = req.body;
     const order = await Order.findById(orderId);
+    
     if (!order) return res.status(404).json({ success: false, message: "Order not found" });
-    if (order.status !== "Pending") {
+    if (order.status === "Shipped" || order.status === "Delivered") {
       return res.status(400).json({ success: false, message: `Cannot cancel order in '${order.status}' status` });
     }
+    
     order.status = "Cancelled";
+    order.cancelledAt = new Date();
+    if (cancelReason) order.cancelReason = cancelReason;
     await order.save();
+    
     return res.json({ success: true, message: "Order cancelled", order });
   } catch (err) {
     console.error("cancel order error", err)
@@ -78,22 +87,25 @@ router.patch("/:orderId/cancel", async (req, res) => {
 });
 
 // Get user orders
-router.get("/:userId", async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.params.userId }).populate("items.product");
+    const orders = await Order.find({ user: req.params.userId })
+      .populate("items.product")
+      .sort({ createdAt: -1 });
     res.json({ success: true, orders });
   } catch (err) {
     res.status(500).json({ success: false, message: "Error fetching orders", error: err });
   }
 });
 
-// Admin: get all orders (optionally filter by status via ?status=Paid)
-router.get("/", async (req, res) => {
+// Admin: get all orders (optionally filter by status via ?status=Pending)
+router.get("/all", async (req, res) => {
   try {
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
     const orders = await Order.find(filter)
       .populate("user", "username email")
+      .populate("items.product")
       .sort({ createdAt: -1 });
     return res.json({ success: true, orders });
   } catch (err) {
@@ -101,83 +113,79 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Admin: update order status (Allowed: Pending, Paid, Shipped, Delivered, Cancelled)
-router.patch("/:orderId/status", async (req, res) => {
+// Admin: Confirm order (Pending → Confirmed)
+router.patch("/:orderId/confirm", async (req, res) => {
   try {
     const { orderId } = req.params;
-    const { status } = req.body;
-    const allowed = ["Pending", "Paid", "Shipped", "Delivered", "Cancelled"];
-    if (!allowed.includes(status)) {
-      return res.status(400).json({ success: false, message: "Invalid status value" });
-    }
-
     const order = await Order.findById(orderId);
+    
     if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+    if (order.status !== "Pending") {
+      return res.status(400).json({ success: false, message: "Only pending orders can be confirmed" });
+    }
 
-    order.status = status;
+    order.status = "Confirmed";
+    order.confirmedAt = new Date();
     await order.save();
-    return res.json({ success: true, message: "Order status updated", order });
+    
+    return res.json({ success: true, message: "Order confirmed successfully", order });
   } catch (err) {
-    return res.status(500).json({ success: false, message: "Error updating status", error: err?.message || err });
+    console.error("Confirm order error", err);
+    return res.status(500).json({ success: false, message: "Error confirming order", error: err?.message || err });
   }
 });
 
-
-
-// Confirm an order by ID
-router.put("/confirm/:id", async (req, res) => {
+// Admin: Ship order (Confirmed → Shipped)
+router.patch("/:orderId/ship", async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id).populate("user");
-    if (!order) {
-      return res.status(404).json({ error: "Order not found" });
+    const { orderId } = req.params;
+    const { trackingNumber } = req.body;
+    const order = await Order.findById(orderId);
+    
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+    if (order.status !== "Confirmed") {
+      return res.status(400).json({ success: false, message: "Only confirmed orders can be shipped" });
     }
 
-    // update status
-    order.status = "Paid";
+    order.status = "Shipped";
+    order.shippedAt = new Date();
+    if (trackingNumber) order.trackingNumber = trackingNumber;
     await order.save();
-
-    // pull details from order itself
-    const userDetails = {
-      username: order.shippingAddress?.name || order.user?.username,
-      email: order.shippingAddress?.email || order.user?.email,
-      phone: order.shippingAddress?.phone,
-      orderNumber: order.orderNumber,
-      totalPrice: order.totalPrice,
-      items: order.items.map(i => ({
-        name: i.name,
-        qty: i.quantity,
-        price: i.price,
-      })),
-    };
-
-    // Send Email
-    try {
-      if (userDetails.email) {
-        await sendConfirmationEmail(userDetails.email, userDetails);
-        console.log("📧 Email sent to", userDetails.email);
-      }
-    } catch (emailErr) {
-      console.error("Email error:", emailErr.message);
-    }
-
-    // Send SMS
-    try {
-      if (userDetails.phone) {
-        await sendConfirmationSMS(userDetails.phone, userDetails);
-        console.log("📱 SMS sent to", userDetails.phone);
-      }
-    } catch (SMSErr) {
-      console.error("SMS error:", SMSErr.message);
-    }
-
-    res.json({
-      message: "✅ Order confirmed and notifications sent",
-      order,
-    });
+    
+    return res.json({ success: true, message: "Order marked as shipped", order });
   } catch (err) {
-    console.error("Confirm route error:", err.message);
-    res.status(500).json({ error: "Server error" });
+    console.error("Ship order error", err);
+    return res.status(500).json({ success: false, message: "Error shipping order", error: err?.message || err });
   }
 });
+
+// User: Deliver order (Shipped → Delivered)
+router.patch("/:orderId/deliver", async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { userId } = req.body;
+    const order = await Order.findById(orderId);
+    
+    if (!order) return res.status(404).json({ success: false, message: "Order not found" });
+    if (order.user.toString() !== userId) {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+    if (order.status !== "Shipped") {
+      return res.status(400).json({ success: false, message: "Only shipped orders can be marked as delivered" });
+    }
+
+    order.status = "Delivered";
+    order.deliveredAt = new Date();
+    await order.save();
+    
+    return res.json({ success: true, message: "Order marked as delivered", order });
+  } catch (err) {
+    console.error("Deliver order error", err);
+    return res.status(500).json({ success: false, message: "Error delivering order", error: err?.message || err });
+  }
+});
+
+
+
 
 module.exports = router;
