@@ -447,28 +447,6 @@ const Accessories = () => {
                         </div>
                       </div>
 
-                      {/* Quantity Selector */}
-                      <div className="mt-2 flex items-center justify-between">
-                        <div className="inline-flex items-center border border-[#D9C27B]/40 rounded-lg md:rounded-xl overflow-hidden">
-                          <button
-                            onClick={() => changeQty(product._id, -1)}
-                            className="px-2 py-1 md:px-3 md:py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition text-sm"
-                          >
-                            -
-                          </button>
-                          <div className="px-2 py-1 md:px-4 md:py-2 text-[#D9C27B] font-bold min-w-8 md:min-w-10 text-center text-sm">
-                            {qtyMap[product._id] ?? 1}
-                          </div>
-                          <button
-                            onClick={() => changeQty(product._id, +1)}
-                            className="px-2 py-1 md:px-3 md:py-2 text-white hover:text-black hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] transition text-sm"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <span className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 ml-1 md:ml-3 hidden sm:inline">Max 10</span>
-                      </div>
-                      
                       {/* Enhanced Action Buttons */}
                       <div className="flex gap-1.5 sm:gap-2 md:gap-3 pt-1 md:pt-2">
                         <button 
