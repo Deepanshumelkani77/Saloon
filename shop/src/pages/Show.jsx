@@ -53,6 +53,10 @@ const Show = () => {
       alert('Please login to add to cart!');
       return;
     }
+    if ((product?.stock || 0) === 0) {
+      alert('Sorry, this product is currently out of stock!');
+      return;
+    }
     try {
       const productId = product?._id || id;
       const res = await axios.post('http://localhost:1000/cart/add', {
@@ -77,6 +81,10 @@ const Show = () => {
       return;
     }
     if (!product) return;
+    if ((product?.stock || 0) === 0) {
+      alert('Sorry, this product is currently out of stock!');
+      return;
+    }
     
     navigate('/order', {
       state: {
@@ -154,11 +162,21 @@ const Show = () => {
                   </div>
                 </div>
               ) : null}
-              {/* Best Seller badge */}
+              {/* Stock Status Badge */}
               <div className="absolute top-4 left-4">
-                <div className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                  Best Seller
-                </div>
+                {(product?.stock || 0) === 0 ? (
+                  <div className="bg-red-500/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-red-300/50">
+                    🚫 Out of Stock
+                  </div>
+                ) : (product?.stock || 0) < 10 ? (
+                  <div className="bg-yellow-500/90 backdrop-blur-sm text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-yellow-300/50">
+                    ⚠️ Low Stock
+                  </div>
+                ) : (
+                  <div className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    ✓ In Stock
+                  </div>
+                )}
               </div>
               {/* Overlay thumbnails for lg+ */}
               <div className="hidden lg:block absolute left-3 right-3 bottom-3 bg-black/40 backdrop-blur-sm rounded-xl p-2">
@@ -246,14 +264,25 @@ const Show = () => {
               <span className="flex items-center gap-1 text-[#D9C27B]"><FaStar /> 4.8 • 234 reviews</span>
             </div>
 
-            {/* Price */}
+            {/* Price & Stock */}
             <div className="mt-6 bg-gradient-to-r from-gray-800/60 to-gray-900/60 rounded-2xl p-5 border border-[#D9C27B]/30 shadow-[0_0_30px_-12px_rgba(217,194,123,0.25)]">
               <div className="flex items-end gap-4">
                 <div className="text-3xl font-extrabold text-[#D9C27B]">₹{price}</div>
                 <div className="text-lg text-gray-500 line-through">₹{mrp}</div>
                 <div className="text-green-400 font-bold bg-green-400/10 px-2 py-1 rounded-full">SAVE ₹{mrp - price}</div>
               </div>
-              <div className="text-xs text-gray-400 mt-2">Inclusive of all taxes • Free shipping over ₹999</div>
+              <div className="flex items-center justify-between mt-3">
+                <div className="text-xs text-gray-400">Inclusive of all taxes • Free shipping over ₹999</div>
+                <div className="text-sm font-semibold">
+                  {(product?.stock || 0) === 0 ? (
+                    <span className="text-red-400">Out of Stock</span>
+                  ) : (product?.stock || 0) < 10 ? (
+                    <span className="text-yellow-400">Only {product?.stock} left</span>
+                  ) : (
+                    <span className="text-green-400">{product?.stock} in stock</span>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Description */}
@@ -297,14 +326,16 @@ const Show = () => {
 
               <button
                 onClick={handleBuyNow}
-                className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.03]"
+                disabled={(product?.stock || 0) === 0}
+                className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.03] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 💳 Buy Now
               </button>
 
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-2xl hover:shadow-[#D9C27B]/20"
+                disabled={(product?.stock || 0) === 0}
+                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-2xl hover:shadow-[#D9C27B]/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gradient-to-r disabled:hover:from-[#D9C27B]/20 disabled:hover:to-[#F4E4A6]/20 disabled:hover:text-[#D9C27B]"
               >
                 <span className="inline-flex items-center gap-2"><FaShoppingCart /> Add to Cart</span>
               </button>

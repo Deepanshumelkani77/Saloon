@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
+const Product = require("../models/Product");
 const { sendConfirmationEmail } = require("../utils/emailServiceOrder");
 
 
@@ -54,6 +55,25 @@ router.post("/create", async (req, res) => {
     });
 
     await order.save();
+
+    // Increment product count (for bestseller tracking) and decrement stock for each item
+    for (const item of mapped) {
+      try {
+        await Product.findByIdAndUpdate(
+          item.product,
+          {
+            $inc: {
+              count: item.quantity,  // Increment purchase count
+              stock: -item.quantity   // Decrement available stock
+            }
+          },
+          { new: true }
+        );
+      } catch (productErr) {
+        console.error(`Error updating product ${item.product}:`, productErr);
+        // Continue with other products even if one fails
+      }
+    }
 
     return res.json({ success: true, message: "Order placed successfully", order });
   } catch (err) {
