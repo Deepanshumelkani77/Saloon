@@ -311,7 +311,7 @@ const Inventory = () => {
               <div key={product._id} className="group bg-black/60 backdrop-blur-md border border-[#D9C27B]/30 rounded-xl overflow-hidden hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300">
                 <div className="relative aspect-square bg-black/40 overflow-hidden">
                   {product.image ? (
-                    <img src={product.image} alt={product.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center"><FaImage className="text-6xl text-gray-600" /></div>
                   )}
@@ -386,7 +386,7 @@ const Inventory = () => {
                   <label className="block text-gray-400 text-sm mb-2">Product Image</label>
                   <div className="flex flex-col items-center gap-4">
                     {formData.image && (
-                      <div className="w-full aspect-square bg-black/40 rounded-xl overflow-hidden border border-[#D9C27B]/30">
+                      <div className="w-full max-w-xs aspect-square bg-black/40 rounded-xl overflow-hidden border border-[#D9C27B]/30">
                         <img src={formData.image} alt="Preview" className="w-full h-full object-contain" />
                       </div>
                     )}
