@@ -401,13 +401,11 @@ const handleBuyNow = (productId) => {
                       </div>
 
                       {/* Discount Badge - Hidden on mobile */}
-                      {product.discount && (
-                        <div className="absolute top-2 right-2 md:top-4 md:right-4 hidden sm:block">
-                          <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1 rounded-full shadow-lg">
-                            -{product.discount}% OFF
-                          </div>
+                      <div className="absolute top-2 right-2 md:top-4 md:right-4 hidden sm:block">
+                        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1 rounded-full shadow-lg">
+                          20% OFF
                         </div>
-                      )}
+                      </div>
 
                       {/* Stock Status Badge */}
                       <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4">
