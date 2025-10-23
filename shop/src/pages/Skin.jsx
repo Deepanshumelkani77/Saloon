@@ -485,7 +485,6 @@ const Skin = () => {
                         
                         <button 
                           onClick={() => handleAddToCart(product._id)}
-                          disabled={(product.stock || 0) === 0}
                           className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border-2 text-[#D9C27B] py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-gradient-to-r disabled:hover:from-[#D9C27B]/20 disabled:hover:to-[#F4E4A6]/20 disabled:hover:text-[#D9C27B]"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>

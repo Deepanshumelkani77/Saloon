@@ -45,6 +45,14 @@ const Cart = () => {
     [items]
   )
 
+  // Check if any items are out of stock
+  const outOfStockItems = useMemo(
+    () => items.filter((it) => (it.productId?.stock || 0) === 0),
+    [items]
+  )
+
+  const hasOutOfStockItems = outOfStockItems.length > 0
+
   const updateQty = async (productId, nextQty) => {
     if (!user) return alert('Please login first')
     if (nextQty < 1 || nextQty > 10) return
@@ -88,6 +96,9 @@ const Cart = () => {
   const proceedToPayment = () => {
     if (!user) return alert('Please login first')
     if (!items.length) return alert('Your cart is empty')
+    if (hasOutOfStockItems) {
+      return alert('Please remove out-of-stock items from your cart before placing an order.')
+    }
     navigate('/order')
   }
 
@@ -142,22 +153,42 @@ const Cart = () => {
                     className="bg-black/70 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 hover:border-[#D9C27B]/60 transition"
                   >
                     {/* Image */}
-                    <div className="w-full sm:w-32 h-40 sm:h-28 rounded-xl overflow-hidden border border-[#D9C27B]/30 bg-black flex-shrink-0">
+                    <div className="w-full sm:w-32 h-40 sm:h-28 rounded-xl overflow-hidden border border-[#D9C27B]/30 bg-black flex-shrink-0 relative">
                       <img
                         src={p.image || '/api/placeholder/200/200'}
                         alt={p.name}
                         className="w-full h-full object-cover"
                       />
+                      {/* Stock Status Badge */}
+                      {(p.stock || 0) === 0 && (
+                        <div className="absolute top-2 left-2">
+                          <div className="bg-red-500/90 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg border border-red-300/50">
+                            Out of Stock
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <h3 className="text-white font-bold truncate">{p.name}</h3>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-white font-bold truncate">{p.name}</h3>
+                            {(p.stock || 0) === 0 && (
+                              <span className="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 whitespace-nowrap">
+                                Out of Stock
+                              </span>
+                            )}
+                          </div>
                           <div className="text-sm text-gray-400 mt-1 truncate">
                             {p.category}{p.subCategory ? ` • ${p.subCategory}` : ''}
                           </div>
+                          {(p.stock || 0) > 0 && (p.stock || 0) < 10 && (
+                            <div className="text-xs text-yellow-400 mt-1">
+                              Only {p.stock} left in stock
+                            </div>
+                          )}
                         </div>
                         <button
                           onClick={() => removeItem(p._id)}
@@ -206,6 +237,19 @@ const Cart = () => {
             {/* Summary */}
             <div className="bg-black/70 backdrop-blur-sm border-2 border-[#D9C27B]/30 rounded-2xl p-5 h-fit sticky top-6">
               <h2 className="text-white font-bold text-lg mb-4">Order Summary</h2>
+              
+              {/* Out of Stock Warning */}
+              {hasOutOfStockItems && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 mb-4">
+                  <div className="text-red-400 text-sm font-semibold mb-1">
+                    ⚠️ {outOfStockItems.length} item{outOfStockItems.length > 1 ? 's' : ''} out of stock
+                  </div>
+                  <div className="text-red-300 text-xs">
+                    Please remove out-of-stock items to proceed with your order.
+                  </div>
+                </div>
+              )}
+              
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between text-gray-300">
                   <span>Subtotal</span>
@@ -223,10 +267,10 @@ const Cart = () => {
               </div>
               <button
                 onClick={proceedToPayment}
-                className="w-full mt-5 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.02] disabled:opacity-60"
-                disabled={!items.length || updating}
+                className="w-full mt-5 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-3 rounded-xl font-extrabold transition-all duration-300 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
+                disabled={!items.length || updating || hasOutOfStockItems}
               >
-                Place Order
+                {hasOutOfStockItems ? 'Remove Out-of-Stock Items' : 'Place Order'}
               </button>
               <div className="text-xs text-gray-400 mt-3">Secure checkout • Easy returns</div>
             </div>

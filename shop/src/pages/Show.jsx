@@ -53,10 +53,7 @@ const Show = () => {
       alert('Please login to add to cart!');
       return;
     }
-    if ((product?.stock || 0) === 0) {
-      alert('Sorry, this product is currently out of stock!');
-      return;
-    }
+    // Allow adding out-of-stock items to cart for wishlist purposes
     try {
       const productId = product?._id || id;
       const res = await axios.post('http://localhost:1000/cart/add', {
@@ -334,8 +331,7 @@ const Show = () => {
 
               <button
                 onClick={handleAddToCart}
-                disabled={(product?.stock || 0) === 0}
-                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-2xl hover:shadow-[#D9C27B]/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gradient-to-r disabled:hover:from-[#D9C27B]/20 disabled:hover:to-[#F4E4A6]/20 disabled:hover:text-[#D9C27B]"
+                className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border-2 border-[#D9C27B] text-[#D9C27B] py-3 rounded-xl font-extrabold transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-2xl hover:shadow-[#D9C27B]/20"
               >
                 <span className="inline-flex items-center gap-2"><FaShoppingCart /> Add to Cart</span>
               </button>
