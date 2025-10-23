@@ -17,7 +17,7 @@ router.get("/bestsellers", async (req, res) => {
         const bestSellers = await Product.find()
             .sort({ count: -1 }) // Sort by count in descending order
             .limit(4) // Get only top 4 products
-            .select('name image price category subCategory count'); // Select specific fields
+            .select('name image price category subCategory count stock'); // Select specific fields including stock
         console.log(bestSellers);
         res.json({
             success: true,
