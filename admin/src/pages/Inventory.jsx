@@ -4,6 +4,7 @@ import {
   FaSearch, FaPlus, FaEdit, FaTrash, FaBox, FaMoneyBillWave, FaImage,
   FaTimes, FaCheck, FaFilter, FaWarehouse, FaUpload, FaSpinner, FaEye
 } from 'react-icons/fa';
+import CategoryManagementModal from './CategoryManagementModal';
 
 const Inventory = () => {
   const [products, setProducts] = useState([]);
@@ -22,19 +23,22 @@ const Inventory = () => {
   const [formData, setFormData] = useState({
     name: '', image: '', size: '', price: '', category: '', subCategory: '', gender: '', brand: '', stock: ''
   });
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [categoryFormData, setCategoryFormData] = useState({ category: '', subCategory: '' });
+  const [managementMode, setManagementMode] = useState('add'); // 'add' or 'delete'
 
   const API_BASE_URL = 'http://localhost:1000/product';
   const CLOUDINARY_UPLOAD_PRESET = 'salon_products';
   const CLOUDINARY_CLOUD_NAME = 'your_cloud_name';
 
-  const categoryOptions = ['Hair', 'Skin', 'Accessories', 'Men', 'Women'];
-  const subCategoryOptions = {
+  const [categoryOptions, setCategoryOptions] = useState(['Hair', 'Skin', 'Accessories', 'Men', 'Women']);
+  const [subCategoryOptions, setSubCategoryOptions] = useState({
     Hair: ['Shampoo', 'Conditioner', 'Hair Oil', 'Hair Serum', 'Hair Mask', 'Hair Spray'],
     Skin: ['Cleanser', 'Moisturizer', 'Serum', 'Face Mask', 'Sunscreen', 'Toner'],
     Accessories: ['Brush', 'Comb', 'Hair Dryer', 'Straightener', 'Curler', 'Scissors'],
     Men: ['Beard Oil', 'Shaving Cream', 'Aftershave', 'Face Wash', 'Cologne'],
     Women: ['Makeup', 'Lipstick', 'Foundation', 'Mascara', 'Perfume', 'Nail Polish']
-  };
+  });
   const genderOptions = ['Men', 'Women', 'Unisex'];
 
   const fetchProducts = async () => {
@@ -167,6 +171,73 @@ const Inventory = () => {
     setShowDetailModal(true);
   };
 
+  const handleAddCategory = () => {
+    setManagementMode('add');
+    setCategoryFormData({ category: '', subCategory: '' });
+    setShowCategoryModal(true);
+  };
+
+  const handleDeleteCategory = () => {
+    setManagementMode('delete');
+    setCategoryFormData({ category: '', subCategory: '' });
+    setShowCategoryModal(true);
+  };
+
+  const handleCategorySubmit = () => {
+    if (managementMode === 'add') {
+      // Add new category
+      if (categoryFormData.category && !categoryFormData.subCategory) {
+        if (!categoryOptions.includes(categoryFormData.category)) {
+          setCategoryOptions([...categoryOptions, categoryFormData.category]);
+          setSubCategoryOptions({...subCategoryOptions, [categoryFormData.category]: []});
+          alert('Category added successfully!');
+        } else {
+          alert('Category already exists!');
+        }
+      }
+      // Add new subcategory
+      else if (categoryFormData.category && categoryFormData.subCategory) {
+        if (categoryOptions.includes(categoryFormData.category)) {
+          const currentSubs = subCategoryOptions[categoryFormData.category] || [];
+          if (!currentSubs.includes(categoryFormData.subCategory)) {
+            setSubCategoryOptions({
+              ...subCategoryOptions,
+              [categoryFormData.category]: [...currentSubs, categoryFormData.subCategory]
+            });
+            alert('Subcategory added successfully!');
+          } else {
+            alert('Subcategory already exists in this category!');
+          }
+        } else {
+          alert('Please select a valid category first!');
+        }
+      }
+    } else if (managementMode === 'delete') {
+      // Delete category
+      if (categoryFormData.category && !categoryFormData.subCategory) {
+        if (window.confirm(`Are you sure you want to delete the category "${categoryFormData.category}"? This will also delete all its subcategories.`)) {
+          setCategoryOptions(categoryOptions.filter(cat => cat !== categoryFormData.category));
+          const newSubCategoryOptions = {...subCategoryOptions};
+          delete newSubCategoryOptions[categoryFormData.category];
+          setSubCategoryOptions(newSubCategoryOptions);
+          alert('Category deleted successfully!');
+        }
+      }
+      // Delete subcategory
+      else if (categoryFormData.category && categoryFormData.subCategory) {
+        if (window.confirm(`Are you sure you want to delete the subcategory "${categoryFormData.subCategory}"?`)) {
+          setSubCategoryOptions({
+            ...subCategoryOptions,
+            [categoryFormData.category]: subCategoryOptions[categoryFormData.category].filter(sub => sub !== categoryFormData.subCategory)
+          });
+          alert('Subcategory deleted successfully!');
+        }
+      }
+    }
+    setShowCategoryModal(false);
+    setCategoryFormData({ category: '', subCategory: '' });
+  };
+
   const stats = useMemo(() => ({
     total: products.length,
     totalValue: products.reduce((sum, p) => sum + (p.price * (p.stock || 0)), 0),
@@ -213,9 +284,17 @@ const Inventory = () => {
               </div>
             </div>
             
-            <button onClick={handleAddProduct} className="px-6 py-3 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#D9C27B]/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
-              <FaPlus /><span>Add New Product</span>
-            </button>
+            <div className="flex gap-3">
+              <button onClick={handleAddProduct} className="px-6 py-3 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#D9C27B]/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
+                <FaPlus /><span>Add Product</span>
+              </button>
+              <button onClick={handleAddCategory} className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
+                <FaPlus /><span>Add Category</span>
+              </button>
+              <button onClick={handleDeleteCategory} className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-red-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
+                <FaTrash /><span>Delete Category</span>
+              </button>
+            </div>
           </div>
 
           {/* Stats */}
@@ -616,6 +695,18 @@ const Inventory = () => {
           </div>
         </div>
         )}
+
+        {/* Category Management Modal */}
+        <CategoryManagementModal
+          show={showCategoryModal}
+          onClose={() => setShowCategoryModal(false)}
+          mode={managementMode}
+          categoryFormData={categoryFormData}
+          setCategoryFormData={setCategoryFormData}
+          categoryOptions={categoryOptions}
+          subCategoryOptions={subCategoryOptions}
+          onSubmit={handleCategorySubmit}
+        />
       </div>
     </div>
   );
