@@ -18,7 +18,7 @@ const Inventory = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
-    name: '', image: '', size: '', price: '', category: '', subCategory: '', for: '', brand: '', count: ''
+    name: '', image: '', size: '', price: '', category: '', subCategory: '', gender: '', brand: '', stock: ''
   });
 
   const API_BASE_URL = 'http://localhost:1000/product';
@@ -33,7 +33,7 @@ const Inventory = () => {
     Men: ['Beard Oil', 'Shaving Cream', 'Aftershave', 'Face Wash', 'Cologne'],
     Women: ['Makeup', 'Lipstick', 'Foundation', 'Mascara', 'Perfume', 'Nail Polish']
   };
-  const forOptions = ['Men', 'Women', 'Unisex'];
+  const genderOptions = ['Men', 'Women', 'Unisex'];
 
   const fetchProducts = async () => {
     try {
@@ -103,7 +103,7 @@ const Inventory = () => {
 
   const handleAddProduct = () => {
     setModalMode('add');
-    setFormData({ name: '', image: '', size: '', price: '', category: '', subCategory: '', for: '', brand: '', count: '' });
+    setFormData({ name: '', image: '', size: '', price: '', category: '', subCategory: '', gender: '', brand: '', stock: '' });
     setShowModal(true);
   };
 
@@ -112,8 +112,8 @@ const Inventory = () => {
     setSelectedProduct(product);
     setFormData({
       name: product.name || '', image: product.image || '', size: product.size || '', price: product.price || '',
-      category: product.category || '', subCategory: product.subCategory || '', for: product.for || '',
-      brand: product.brand || '', count: product.count || ''
+      category: product.category || '', subCategory: product.subCategory || '', gender: product.gender || '',
+      brand: product.brand || '', stock: product.stock || ''
     });
     setShowModal(true);
   };
@@ -124,7 +124,7 @@ const Inventory = () => {
       const productData = {
         name: formData.name, image: formData.image, size: formData.size ? parseFloat(formData.size) : 0,
         price: parseFloat(formData.price), category: formData.category, subCategory: formData.subCategory,
-        for: formData.for, brand: formData.brand, count: formData.count ? parseInt(formData.count) : 0
+        gender: formData.gender, brand: formData.brand, stock: formData.stock ? parseInt(formData.stock) : 0
       };
 
       let response;
@@ -162,9 +162,9 @@ const Inventory = () => {
 
   const stats = useMemo(() => ({
     total: products.length,
-    totalValue: products.reduce((sum, p) => sum + (p.price * p.count), 0),
-    lowStock: products.filter(p => p.count < 10).length,
-    outOfStock: products.filter(p => p.count === 0).length
+    totalValue: products.reduce((sum, p) => sum + (p.price * (p.stock || 0)), 0),
+    lowStock: products.filter(p => (p.stock || 0) < 10).length,
+    outOfStock: products.filter(p => (p.stock || 0) === 0).length
   }), [products]);
 
   if (loading) {
@@ -310,9 +310,9 @@ const Inventory = () => {
                   )}
                   
                   <div className="absolute top-2 right-2">
-                    {product.count === 0 ? (
+                    {(product.stock || 0) === 0 ? (
                       <span className="px-2 py-1 bg-red-500/90 text-white text-xs font-bold rounded-full">Out of Stock</span>
-                    ) : product.count < 10 ? (
+                    ) : (product.stock || 0) < 10 ? (
                       <span className="px-2 py-1 bg-yellow-500/90 text-black text-xs font-bold rounded-full">Low Stock</span>
                     ) : (
                       <span className="px-2 py-1 bg-green-500/90 text-white text-xs font-bold rounded-full">In Stock</span>
@@ -335,7 +335,7 @@ const Inventory = () => {
                       {product.brand && <p className="text-gray-400 text-xs">{product.brand}</p>}
                     </div>
                     <div className="text-right">
-                      <p className="text-white font-semibold">{product.count} units</p>
+                      <p className="text-white font-semibold">{product.stock || 0} units</p>
                       <p className="text-gray-400 text-xs">Available</p>
                     </div>
                   </div>
@@ -425,11 +425,11 @@ const Inventory = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-gray-400 text-sm mb-2">For *</label>
-                    <select name="for" value={formData.for} onChange={handleInputChange} required
+                    <label className="block text-gray-400 text-sm mb-2">Gender *</label>
+                    <select name="gender" value={formData.gender} onChange={handleInputChange} required
                       className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/30 rounded-xl text-white focus:outline-none focus:border-[#D9C27B] transition-colors">
-                      <option value="">Select target</option>
-                      {forOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                      <option value="">Select gender</option>
+                      {genderOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                     </select>
                   </div>
                   
@@ -449,7 +449,7 @@ const Inventory = () => {
                   
                   <div>
                     <label className="block text-gray-400 text-sm mb-2">Stock Count *</label>
-                    <input type="number" name="count" value={formData.count} onChange={handleInputChange} required min="0"
+                    <input type="number" name="stock" value={formData.stock} onChange={handleInputChange} required min="0"
                       className="w-full px-4 py-3 bg-black/50 border border-[#D9C27B]/30 rounded-xl text-white focus:outline-none focus:border-[#D9C27B] transition-colors"
                       placeholder="Enter stock count" />
                   </div>

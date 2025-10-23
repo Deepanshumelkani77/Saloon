@@ -3,12 +3,12 @@ const Product = require('../models/Product');
 // Get all products with optional filters
 const getAllProducts = async (req, res) => {
   try {
-    const { category, subCategory, for: forFilter } = req.query;
+    const { category, subCategory, gender } = req.query;
     const filter = {};
     
     if (category) filter.category = category;
     if (subCategory) filter.subCategory = subCategory;
-    if (forFilter) filter.for = forFilter;
+    if (gender) filter.gender = gender;
     
     const products = await Product.find(filter).sort({ createdAt: -1 });
     res.status(200).json({
@@ -56,14 +56,14 @@ const getProductById = async (req, res) => {
 // Create new product
 const createProduct = async (req, res) => {
   try {
-    const { name, image, size, price, category, subCategory, for: forField, brand, count } = req.body;
+    const { name, image, size, price, category, subCategory, gender, brand, stock } = req.body;
     
     // Validation
-    if (!name || !price || !category || !subCategory || !forField) {
+    if (!name || !price || !category || !subCategory || !gender) {
       return res.status(400).json({ 
         success: false,
         message: 'Missing required fields', 
-        required: ['name', 'price', 'category', 'subCategory', 'for'] 
+        required: ['name', 'price', 'category', 'subCategory', 'gender'] 
       });
     }
 
@@ -74,9 +74,10 @@ const createProduct = async (req, res) => {
       price: parseFloat(price),
       category,
       subCategory,
-      for: forField,
+      gender,
       brand: brand || '',
-      count: count || 0
+      stock: stock || 0,
+      count: 0 // Initialize purchase count to 0
     });
 
     const savedProduct = await newProduct.save();
@@ -100,14 +101,14 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, image, size, price, category, subCategory, for: forField, brand, count } = req.body;
+    const { name, image, size, price, category, subCategory, gender, brand, stock } = req.body;
     
     // Validation
-    if (!name || !price || !category || !subCategory || !forField) {
+    if (!name || !price || !category || !subCategory || !gender) {
       return res.status(400).json({ 
         success: false,
         message: 'Missing required fields', 
-        required: ['name', 'price', 'category', 'subCategory', 'for'] 
+        required: ['name', 'price', 'category', 'subCategory', 'gender'] 
       });
     }
 
@@ -129,9 +130,10 @@ const updateProduct = async (req, res) => {
         price: parseFloat(price),
         category,
         subCategory,
-        for: forField,
+        gender,
         brand: brand || '',
-        count: count !== undefined ? count : product.count
+        stock: stock !== undefined ? stock : product.stock
+        // count is NOT updated here - it's only for purchase tracking
       },
       { new: true, runValidators: true }
     );
