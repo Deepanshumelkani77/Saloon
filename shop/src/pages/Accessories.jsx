@@ -386,6 +386,23 @@ const Accessories = () => {
                           20% OFF
                         </div>
                       </div>
+
+                      {/* Stock Status Badge */}
+                      <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4">
+                        {(product.stock || 0) === 0 ? (
+                          <div className="bg-red-500/90 backdrop-blur-sm text-white text-[10px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg border border-red-300/50">
+                            🚫 Out of Stock
+                          </div>
+                        ) : (product.stock || 0) < 10 ? (
+                          <div className="bg-yellow-500/90 backdrop-blur-sm text-black text-[10px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg border border-yellow-300/50">
+                            ⚠️ Low Stock
+                          </div>
+                        ) : (
+                          <div className="bg-green-500/90 backdrop-blur-sm text-white text-[10px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg border border-green-300/50">
+                            ✓ In Stock
+                          </div>
+                        )}
+                      </div>
                       
                       {/* Enhanced Quick Actions - Hidden on mobile */}
                       <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 hidden md:flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
@@ -453,7 +470,8 @@ const Accessories = () => {
                       <div className="flex gap-1.5 sm:gap-2 md:gap-3 pt-1 md:pt-2">
                         <button 
                           onClick={() => handleBuyNow(product._id)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn"
+                          disabled={(product.stock || 0) === 0}
+                          className="flex-1 bg-gradient-to-r from-[#D9C27B] via-[#F4E4A6] to-[#D9C27B] text-black py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:shadow-2xl hover:shadow-[#D9C27B]/30 hover:scale-105 transform relative overflow-hidden group/btn disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#F4E4A6] to-[#D9C27B] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10"><span className="hidden sm:inline">💳 </span>Buy</span>
@@ -461,7 +479,8 @@ const Accessories = () => {
                         
                         <button 
                           onClick={() => handleAddToCart(product._id)}
-                          className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border-2 text-[#D9C27B] py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
+                          disabled={(product.stock || 0) === 0}
+                          className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border-2 text-[#D9C27B] py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-gradient-to-r disabled:hover:from-[#D9C27B]/20 disabled:hover:to-[#F4E4A6]/20 disabled:hover:text-[#D9C27B]"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>
                           <FaShoppingCart className="text-xs sm:text-sm relative z-10" />
