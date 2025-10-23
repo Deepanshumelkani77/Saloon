@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { 
   FaSearch, FaPlus, FaEdit, FaTrash, FaBox, FaMoneyBillWave, FaImage,
-  FaTimes, FaCheck, FaFilter, FaWarehouse, FaUpload, FaSpinner
+  FaTimes, FaCheck, FaFilter, FaWarehouse, FaUpload, FaSpinner, FaEye
 } from 'react-icons/fa';
 
 const Inventory = () => {
@@ -14,6 +14,8 @@ const Inventory = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('add');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [viewProduct, setViewProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
@@ -158,6 +160,11 @@ const Inventory = () => {
         setError('Failed to delete product. Please try again.');
       }
     }
+  };
+
+  const handleViewProduct = (product) => {
+    setViewProduct(product);
+    setShowDetailModal(true);
   };
 
   const stats = useMemo(() => ({
@@ -341,6 +348,9 @@ const Inventory = () => {
                   </div>
 
                   <div className="flex gap-2">
+                    <button onClick={() => handleViewProduct(product)} className="px-3 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/30 hover:border-[#D9C27B]/50 transition-all duration-200 flex items-center justify-center" title="View Details">
+                      <FaEye />
+                    </button>
                     <button onClick={() => handleEditProduct(product)} className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium">
                       <FaEdit /><span>Edit</span>
                     </button>
@@ -469,6 +479,142 @@ const Inventory = () => {
               </form>
             </div>
           </div>
+        )}
+
+        {/* Product Detail View Modal */}
+        {showDetailModal && viewProduct && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-black border-2 border-[#D9C27B]/50 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-black border-b border-[#D9C27B]/30 p-6 flex items-center justify-between z-10">
+              <div className="flex items-center gap-3">
+                <div className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] p-2 rounded-xl">
+                  <FaEye className="text-black text-xl" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">Product Details</h2>
+              </div>
+              <button
+                onClick={() => setShowDetailModal(false)}
+                className="text-gray-400 hover:text-[#D9C27B] p-2 rounded-lg hover:bg-[#D9C27B]/10 transition-all duration-200"
+              >
+                <FaTimes className="text-xl" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 space-y-6">
+              {/* Product Image and Basic Info */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Image */}
+                <div className="aspect-square bg-black/40 rounded-xl overflow-hidden border border-[#D9C27B]/30">
+                  {viewProduct.image ? (
+                    <img src={viewProduct.image} alt={viewProduct.name} className="w-full h-full object-contain" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <FaImage className="text-8xl text-gray-600" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Basic Details */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-3xl font-bold text-white mb-2">{viewProduct.name}</h3>
+                    {viewProduct.brand && (
+                      <p className="text-gray-400 text-lg">by {viewProduct.brand}</p>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {(viewProduct.stock || 0) === 0 ? (
+                      <span className="px-4 py-2 bg-red-500/90 text-white text-sm font-bold rounded-full">Out of Stock</span>
+                    ) : (viewProduct.stock || 0) < 10 ? (
+                      <span className="px-4 py-2 bg-yellow-500/90 text-black text-sm font-bold rounded-full">Low Stock</span>
+                    ) : (
+                      <span className="px-4 py-2 bg-green-500/90 text-white text-sm font-bold rounded-full">In Stock</span>
+                    )}
+                  </div>
+
+                  <div className="bg-gradient-to-r from-[#D9C27B]/10 to-[#F4E4A6]/10 border border-[#D9C27B]/30 rounded-xl p-4">
+                    <p className="text-gray-400 text-sm mb-1">Price</p>
+                    <p className="text-[#D9C27B] font-bold text-4xl">₹{viewProduct.price}</p>
+                  </div>
+
+                  <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                    <p className="text-gray-400 text-sm mb-1">Stock Available</p>
+                    <p className="text-white font-bold text-2xl">{viewProduct.stock || 0} units</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Details */}
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                  <p className="text-gray-400 text-sm mb-2">Category</p>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-[#D9C27B]/20 text-[#D9C27B] rounded-full text-sm font-medium">
+                      {viewProduct.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                  <p className="text-gray-400 text-sm mb-2">Subcategory</p>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-medium">
+                      {viewProduct.subCategory}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                  <p className="text-gray-400 text-sm mb-2">Gender</p>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">
+                      {viewProduct.gender}
+                    </span>
+                  </div>
+                </div>
+
+                {viewProduct.size && viewProduct.size > 0 && (
+                  <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                    <p className="text-gray-400 text-sm mb-2">Size</p>
+                    <p className="text-white font-semibold text-lg">{viewProduct.size} ml/g</p>
+                  </div>
+                )}
+
+                <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                  <p className="text-gray-400 text-sm mb-2">Total Value</p>
+                  <p className="text-white font-semibold text-lg">₹{(viewProduct.price * (viewProduct.stock || 0)).toLocaleString()}</p>
+                </div>
+
+                <div className="bg-black/40 border border-[#D9C27B]/20 rounded-xl p-4">
+                  <p className="text-gray-400 text-sm mb-2">Product ID</p>
+                  <p className="text-white font-mono text-xs break-all">{viewProduct._id}</p>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 pt-4 border-t border-[#D9C27B]/20">
+                <button
+                  onClick={() => {
+                    setShowDetailModal(false);
+                    handleEditProduct(viewProduct);
+                  }}
+                  className="flex-1 px-6 py-3 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/30 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-200 flex items-center justify-center gap-2 font-semibold"
+                >
+                  <FaEdit /> Edit Product
+                </button>
+                <button
+                  onClick={() => setShowDetailModal(false)}
+                  className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-200 font-semibold"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         )}
       </div>
     </div>
