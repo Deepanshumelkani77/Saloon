@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Feedback from './pages/Feedback'
 import { AppContext } from './context/AppContext'
 import Order from "./pages/Order.jsx"
+import Inventory from './pages/Inventory'
 
 const App = () => {
   const { sidebarOpen } = useContext(AppContext)
@@ -44,6 +45,7 @@ const App = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/orders' element={<Order />} />
             <Route path='/feedback' element={<Feedback />} />
+            <Route path='/inventory' element={<Inventory />} />
           </Routes>
         </main>
       </div>

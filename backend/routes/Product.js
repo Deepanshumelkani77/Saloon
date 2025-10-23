@@ -1,6 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Product= require("../models/Product");
+const {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getCategories,
+  getSubCategories
+} = require('../controller/productController');
 
 // Get best seller products (top 4 by count)
 router.get("/bestsellers", async (req, res) => {
@@ -141,5 +150,14 @@ router.get("/show/:id", async (req, res) => {
   }
 });
 
+
+// Admin CRUD Routes
+router.get('/all', getAllProducts); // Get all products with optional filters
+router.get('/categories', getCategories); // Get unique categories
+router.get('/subcategories', getSubCategories); // Get subcategories
+router.post('/create', createProduct); // Create new product
+router.put('/update/:id', updateProduct); // Update product
+router.delete('/delete/:id', deleteProduct); // Delete product
+router.get('/:id', getProductById); // Get single product by ID
 
 module.exports=router;
