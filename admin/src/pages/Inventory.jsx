@@ -197,19 +197,19 @@ const Inventory = () => {
       }
       // Add new subcategory
       else if (categoryFormData.category && categoryFormData.subCategory) {
-        if (categoryOptions.includes(categoryFormData.category)) {
-          const currentSubs = subCategoryOptions[categoryFormData.category] || [];
-          if (!currentSubs.includes(categoryFormData.subCategory)) {
-            setSubCategoryOptions({
-              ...subCategoryOptions,
-              [categoryFormData.category]: [...currentSubs, categoryFormData.subCategory]
-            });
-            alert('Subcategory added successfully!');
-          } else {
-            alert('Subcategory already exists in this category!');
+        const currentSubs = subCategoryOptions[categoryFormData.category] || [];
+        if (!currentSubs.includes(categoryFormData.subCategory)) {
+          // If category doesn't exist, create it first
+          if (!categoryOptions.includes(categoryFormData.category)) {
+            setCategoryOptions([...categoryOptions, categoryFormData.category]);
           }
+          setSubCategoryOptions({
+            ...subCategoryOptions,
+            [categoryFormData.category]: [...currentSubs, categoryFormData.subCategory]
+          });
+          alert('Subcategory added successfully!');
         } else {
-          alert('Please select a valid category first!');
+          alert('Subcategory already exists in this category!');
         }
       }
     } else if (managementMode === 'delete') {
