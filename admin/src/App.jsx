@@ -13,6 +13,7 @@ import Feedback from './pages/Feedback'
 import { AppContext } from './context/AppContext'
 import Order from "./pages/Order.jsx"
 import Inventory from './pages/Inventory'
+import Notifications from "./pages/Notifications.jsx"
 
 const App = () => {
   const { sidebarOpen } = useContext(AppContext)
@@ -46,6 +47,7 @@ const App = () => {
             <Route path='/orders' element={<Order />} />
             <Route path='/feedback' element={<Feedback />} />
             <Route path='/inventory' element={<Inventory />} />
+            <Route path='/notifications' element={<Notifications />} />
           </Routes>
         </main>
       </div>
