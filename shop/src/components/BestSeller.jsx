@@ -288,11 +288,11 @@ const BestSeller = () => {
                   
                   <button 
                     onClick={() => handleAddToCart(product)}
-                    className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border-2 text-[#D9C27B] py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
+                    className="flex-1 bg-gradient-to-r from-[#D9C27B]/20 to-[#F4E4A6]/20 border border-[#D9C27B] md:border-2 text-[#D9C27B] py-1.5 sm:py-2 md:py-3 lg:py-4 px-2 sm:px-3 md:px-4 lg:px-6 rounded-lg md:rounded-xl lg:rounded-2xl font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 hover:bg-gradient-to-r hover:from-[#D9C27B] hover:to-[#F4E4A6] hover:text-black hover:shadow-xl hover:scale-105 transform relative overflow-hidden group/btn2"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] opacity-0 group-hover/btn2:opacity-100 transition-opacity duration-300"></div>
-                    <FaShoppingCart className="text-[10px] sm:text-xs md:text-sm relative z-10" />
-                    <span className="relative z-10 hidden sm:inline">Cart</span>
+                    <FaShoppingCart className="text-xs sm:text-sm relative z-10" />
+                    <span className="relative z-10 hidden sm:inline">Add to Cart</span>
                   </button>
                 </div>
 
