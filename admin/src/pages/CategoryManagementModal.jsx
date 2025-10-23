@@ -55,8 +55,7 @@ const CategoryManagementModal = ({
                   type="text"
                   value={categoryFormData.category}
                   onChange={(e) => setCategoryFormData({ ...categoryFormData, category: e.target.value })}
-                  placeholder="Enter new category name or select existing"
-                  list="existingCategories"
+                  placeholder="Enter new category name"
                   className="w-full px-4 py-3 bg-black/60 border border-[#D9C27B]/30 rounded-xl text-white focus:outline-none focus:border-[#D9C27B] transition-all"
                 />
               ) : (
@@ -71,11 +70,6 @@ const CategoryManagementModal = ({
                   ))}
                 </select>
               )}
-              <datalist id="existingCategories">
-                {categoryOptions.map(cat => (
-                  <option key={cat} value={cat} />
-                ))}
-              </datalist>
             </div>
 
             {/* Subcategory Input/Select */}
