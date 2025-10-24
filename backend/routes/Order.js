@@ -137,7 +137,7 @@ router.get("/all", async (req, res) => {
 router.patch("/:orderId/confirm", async (req, res) => {
   try {
     const { orderId } = req.params;
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId).populate("user", "username email");
     
     if (!order) return res.status(404).json({ success: false, message: "Order not found" });
     if (order.status !== "Pending") {
@@ -147,6 +147,28 @@ router.patch("/:orderId/confirm", async (req, res) => {
     order.status = "Confirmed";
     order.confirmedAt = new Date();
     await order.save();
+    
+    // Send confirmation email to customer
+    try {
+      const orderDetails = {
+        orderNumber: order.orderNumber,
+        username: order.user?.username || "Customer",
+        totalPrice: order.totalPrice,
+        items: order.items.map(item => ({
+          name: item.name,
+          qty: item.quantity,
+          price: item.price
+        }))
+      };
+      
+      if (order.user?.email) {
+        await sendConfirmationEmail(order.user.email, orderDetails);
+        console.log("📧 Order confirmation email sent to", order.user.email);
+      }
+    } catch (emailErr) {
+      console.error("Email error:", emailErr.message);
+      // Don't fail the confirmation if email fails
+    }
     
     return res.json({ success: true, message: "Order confirmed successfully", order });
   } catch (err) {
