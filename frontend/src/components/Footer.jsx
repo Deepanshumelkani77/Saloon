@@ -1,8 +1,12 @@
 import React from 'react';
-import { FaCut, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaCut, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebookF, FaInstagram, FaTwitter, FaYoutube, FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const services = [
     'Hair Cut & Styling',
@@ -171,6 +175,15 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className="cursor-pointer fixed bottom-8 right-8 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-3 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50"
+        aria-label="Scroll to top"
+      >
+        <FaArrowUp className="text-lg" />
+      </button>
     </footer>
   );
 };

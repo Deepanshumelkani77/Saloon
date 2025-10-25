@@ -263,7 +263,7 @@ const Footer = () => {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-3 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50"
+        className="cursor-pointer fixed bottom-8 right-8 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black p-3 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50"
         aria-label="Scroll to top"
       >
         <FaArrowUp className="text-lg" />
