@@ -315,12 +315,7 @@ const BestSeller = () => {
           </div>
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-6 sm:mt-8 md:mt-12">
-          <button className="bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-bold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm sm:text-base md:text-lg">
-            View All Products
-          </button>
-        </div>
+       
       </div>
     </div>
     </>
