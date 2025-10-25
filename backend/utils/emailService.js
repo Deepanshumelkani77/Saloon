@@ -1,16 +1,17 @@
+require('dotenv').config();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",  // you can also use SMTP
   auth: {
-    user: "deepumelkani123@gmail.com",  // your email
-    pass: "nafr fujq gmfv fpcp"   // app password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
   }
 });
 
 async function sendConfirmationEmail(to, appointmentDetails) {
   const mailOptions = {
-    from: `"Me & Guys Salon" <deepumelkani123@gmail.com>`,
+    from: `"Me & Guys Salon" <${process.env.EMAIL_USER}>`,
     to,
     subject: "Your Appointment is Confirmed ✅",
     html: `
