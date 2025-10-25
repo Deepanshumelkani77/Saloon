@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/Header.jsx';
 import Service from '../components/Service.jsx';
 import VideoSlider from '../components/VideoSlider.jsx';
-import Partner from '../components/partner.jsx';
+import Partner from '../components/Partner.jsx';
 import GoogleMap from '../components/GoogleMap.jsx';
 import {AppContext} from "../context/AppContext"
 
