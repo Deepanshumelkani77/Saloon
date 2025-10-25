@@ -58,7 +58,7 @@ const Login = () => {
 
 //google login
 const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:1000/auth/google/admin";
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google/admin`;
   };
 
 

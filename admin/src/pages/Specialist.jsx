@@ -49,9 +49,9 @@ const Specialist = () => {
     workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   });
 
-  const API_BASE_URL = 'http://localhost:1000/stylist';
-  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
-  const uploadPreset = "Saloon";
+  const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/stylist`;
+  const cloudinaryUrl = import.meta.env.VITE_CLOUDINARY_URL;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   const specialties = [
     "Hair Cutting", "Hair Coloring", "Hair Styling", "Beard Grooming", 

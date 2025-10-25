@@ -86,7 +86,7 @@ const closeSidebar = () => {
   // Signup
   const signup = async (username, email, password, phone) => {
     try {
-      await axios.post("http://localhost:1000/admin/signup", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/signup`, {
         username,
         email,
         password,
@@ -104,7 +104,7 @@ const closeSidebar = () => {
   // Login
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:1000/admin/login", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/login`, {
         email,
         password,
       });

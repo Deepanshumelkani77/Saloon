@@ -32,7 +32,7 @@ const Service = () => {
     duration: ''
   });
 
-  const API_BASE_URL = 'http://localhost:1000/service';
+  const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/service`;
 
   const categories = ["Men's Hair","Men's Grooming", "Men's Treatments", "Men's Skincare", "Women's Hair", "Women's Color", "Women's Treatments", "Women's Makeup","Women's Skincare","Women's Nails"];
 

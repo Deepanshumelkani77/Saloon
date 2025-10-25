@@ -92,7 +92,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:1000/admin/profile/${admin.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/admin/profile/${admin.id}`,
         {
           username: formData.username,
           email: formData.email,

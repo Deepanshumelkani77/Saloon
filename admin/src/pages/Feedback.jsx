@@ -16,7 +16,7 @@ const Feedback = () => {
   const fetchFeedbacks = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:1000/feedback/all');
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback/all`);
       const data = await response.json();
       
       if (data.success) {
@@ -32,7 +32,7 @@ const Feedback = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:1000/feedback/stats');
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback/stats`);
       const data = await response.json();
       
       if (data.success) {
@@ -46,7 +46,7 @@ const Feedback = () => {
 
   const approveFeedback = async (id) => {
     try {
-      const response = await fetch(`http://localhost:1000/feedback/approve/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback/approve/${id}`, {
         method: 'PUT',
       });
       const data = await response.json();
@@ -65,7 +65,7 @@ const Feedback = () => {
   const deleteFeedback = async (id) => {
     if (window.confirm('Are you sure you want to delete this feedback?')) {
       try {
-        const response = await fetch(`http://localhost:1000/feedback/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback/${id}`, {
           method: 'DELETE',
         });
         const data = await response.json();

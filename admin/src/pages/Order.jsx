@@ -35,7 +35,7 @@ const Order = () => {
       setError('')
       const params = {}
       if (status) params.status = status
-      const res = await axios.get('http://localhost:1000/order/all', { params })
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/order/all`, { params })
       if (res.data?.success) setOrders(res.data.orders || [])
       else setError('Failed to fetch orders')
     } catch (err) {
@@ -81,7 +81,7 @@ const Order = () => {
     if (!window.confirm('Confirm this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/confirm`)
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/confirm`)
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
         toast.success('Order confirmed successfully!')
@@ -101,7 +101,7 @@ const Order = () => {
     if (!window.confirm('Mark this order as shipped?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/ship`, { trackingNumber })
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/ship`, { trackingNumber })
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
         toast.success('Order marked as shipped!')
@@ -121,7 +121,7 @@ const Order = () => {
     if (!window.confirm('Cancel this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/cancel`, { cancelReason: reason })
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
         toast.success('Order cancelled')

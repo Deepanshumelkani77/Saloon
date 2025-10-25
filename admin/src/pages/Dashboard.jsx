@@ -39,8 +39,8 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const [usersRes, appointmentsRes] = await Promise.all([
-          axios.get('http://localhost:1000/user/stats'),
-          axios.get('http://localhost:1000/appointment/stats')
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/stats`),
+          axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/stats`)
         ])
         
         setDashboardData({

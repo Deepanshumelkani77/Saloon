@@ -28,7 +28,7 @@ const Appointment = () => {
   const [error, setError] = useState(null)
 
   const gold = '#D9C27B'
-  const API_BASE_URL = 'http://localhost:1000/appointment'
+  const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/appointment`
 
   // Fetch appointments from backend
   const fetchAppointments = async () => {

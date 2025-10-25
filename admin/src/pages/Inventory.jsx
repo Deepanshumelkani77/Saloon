@@ -28,9 +28,9 @@ const Inventory = () => {
   const [categoryFormData, setCategoryFormData] = useState({ category: '', subCategory: '' });
   const [managementMode, setManagementMode] = useState('add'); // 'add' or 'delete'
 
-  const API_BASE_URL = 'http://localhost:1000/product';
-  const CLOUDINARY_UPLOAD_PRESET = 'salon_products';
-  const CLOUDINARY_CLOUD_NAME = 'your_cloud_name';
+  const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/product`;
+  const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
   const [categoryOptions, setCategoryOptions] = useState(['Hair', 'Skin', 'Accessories', 'Men', 'Women']);
   const [subCategoryOptions, setSubCategoryOptions] = useState({
