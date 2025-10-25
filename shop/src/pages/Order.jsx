@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Order = () => {
   return (
@@ -128,7 +129,7 @@ const CheckoutForm = () => {
   const placeOrder = async (e) => {
     e.preventDefault()
     const msg = validate()
-    if (msg) return alert(msg)
+    if (msg) return toast.error(msg)
 
     try {
       setSubmitting(true)
@@ -137,7 +138,7 @@ const CheckoutForm = () => {
       if (form.paymentMethod === 'ONLINE') {
         const cleanAmount = Number(String(subtotal).replace(/[^0-9]/g, ''))
         if (!cleanAmount || cleanAmount <= 0) {
-          alert('Invalid amount')
+          toast.error('Invalid amount')
           setSubmitting(false)
           return
         }
@@ -146,7 +147,7 @@ const CheckoutForm = () => {
         if (!window.Razorpay) {
           await loadRazorpayScript()
           if (!window.Razorpay) {
-            alert('Payment initialization failed')
+            toast.error('Payment initialization failed')
             setSubmitting(false)
             return
           }
@@ -171,14 +172,14 @@ const CheckoutForm = () => {
               })
               const res2 = await axios.post('http://localhost:1000/order/create', payload)
               if (res2.data?.success) {
-                alert('✅ Payment successful! Order placed.')
+                toast.success('✅ Payment successful! Order placed.')
                 navigate('/my-order')
               } else {
-                alert(res2.data?.message || 'Order failed after payment')
+                toast.error(res2.data?.message || 'Order failed after payment')
               }
             } catch (e2) {
               console.error('Order create after payment failed:', e2)
-              alert('Payment succeeded, but order creation failed.')
+              toast.error('Payment succeeded, but order creation failed.')
             } finally {
               setSubmitting(false)
             }
@@ -199,14 +200,14 @@ const CheckoutForm = () => {
       const payload = buildOrderPayload({ paymentMethod: 'COD', notes: form.notes })
       const res = await axios.post('http://localhost:1000/order/create', payload)
       if (res.data?.success) {
-        alert('✅ Order placed successfully!')
+        toast.success('✅ Order placed successfully!')
         navigate('/my-order')
       } else {
-        alert(res.data?.message || 'Order failed')
+        toast.error(res.data?.message || 'Order failed')
       }
     } catch (err) {
       console.error('Order error:', err?.response?.data || err.message)
-      alert(err?.response?.data?.message || 'Failed to place order')
+      toast.error(err?.response?.data?.message || 'Failed to place order')
     } finally {
       setSubmitting(false)
     }

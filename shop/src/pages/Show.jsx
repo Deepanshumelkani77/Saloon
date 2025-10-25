@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaStar, FaShoppingCart, FaHeart, FaShareAlt, FaShieldAlt, FaTruck, FaSyncAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Show = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const Show = () => {
 
   const handleAddToCart = async () => {
     if (!user) {
-      alert('Please login to add to cart!');
+      toast.warning('Please login to add to cart!');
       return;
     }
     // Allow adding out-of-stock items to cart for wishlist purposes
@@ -62,11 +63,11 @@ const Show = () => {
         quantity: qty,
       });
       if (res.data?.success) {
-        alert('Added to cart!');
+        toast.success('Added to cart!');
       }
     } catch (err) {
       console.error('Error adding to cart:', err);
-      alert('Failed to add product to cart');
+      toast.error('Failed to add product to cart');
     }
   };
 
@@ -74,12 +75,12 @@ const Show = () => {
 
   const handleBuyNow = () => {
     if (!user) {
-      alert('Please login to buy!');
+      toast.warning('Please login to buy!');
       return;
     }
     if (!product) return;
     if ((product?.stock || 0) === 0) {
-      alert('Sorry, this product is currently out of stock!');
+      toast.warning('Sorry, this product is currently out of stock!');
       return;
     }
     

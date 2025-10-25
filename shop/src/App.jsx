@@ -13,6 +13,8 @@ import Cart from './pages/Cart.jsx'
 import Order from './pages/Order.jsx'
 import MyOrder from './pages/MyOrder.jsx';
 import LoginModal from './components/LoginModal.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -46,8 +48,19 @@ const App = () => {
         loginMode={loginMode}
         setLoginMode={setLoginMode}
       />
-     
-     
+
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   )
 }

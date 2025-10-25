@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export const AppContext = createContext();
 
@@ -63,9 +64,9 @@ const AppContextProvider = (props) => {
         phone,
       });
        
-      alert("Signup successful! Please login.");
+      toast.success("Signup successful! Please login.");
     } catch (error) {
-      alert(error.response?.data?.message || "Signup failed");
+      toast.error(error.response?.data?.message || "Signup failed");
     }
   };
 
@@ -80,8 +81,9 @@ const AppContextProvider = (props) => {
       Cookies.set("user", JSON.stringify(response.data.user), { expires: 1 });
       setUser(response.data.user);
       setToken(response.data.token);
+      toast.success(`Welcome back, ${response.data.user.name || response.data.user.username}!`);
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 
@@ -91,6 +93,7 @@ const AppContextProvider = (props) => {
     Cookies.remove("user");
     setUser(null);
     setToken(null);
+    toast.info("Logged out successfully");
     navigate("/");
   };
 

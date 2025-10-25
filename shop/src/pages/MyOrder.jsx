@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 
 const statusStyles = {
@@ -51,13 +52,13 @@ const MyOrder = () => {
       const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
       if (res.data?.success) {
         setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
-        alert('Order cancelled successfully')
+        toast.success('Order cancelled successfully')
       } else {
-        alert(res.data?.message || 'Cancel failed')
+        toast.error(res.data?.message || 'Cancel failed')
       }
     } catch (err) {
       console.error('Cancel error', err)
-      alert(err?.response?.data?.message || 'Cancel failed')
+      toast.error(err?.response?.data?.message || 'Cancel failed')
     } finally {
       setActingId('')
     }
@@ -70,13 +71,13 @@ const MyOrder = () => {
       const res = await axios.patch(`http://localhost:1000/order/${orderId}/deliver`, { userId: user.id })
       if (res.data?.success) {
         setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
-        alert('Thank you! Order marked as delivered ✅')
+        toast.success('Thank you! Order marked as delivered ✅')
       } else {
-        alert(res.data?.message || 'Failed to mark as delivered')
+        toast.error(res.data?.message || 'Failed to mark as delivered')
       }
     } catch (err) {
       console.error('Deliver error', err)
-      alert(err?.response?.data?.message || 'Failed to mark as delivered')
+      toast.error(err?.response?.data?.message || 'Failed to mark as delivered')
     } finally {
       setActingId('')
     }

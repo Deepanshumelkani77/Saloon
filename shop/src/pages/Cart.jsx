@@ -3,6 +3,7 @@ import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { FaTrash, FaShoppingCart } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Cart = () => {
   const { user } = useContext(AppContext)
@@ -54,7 +55,7 @@ const Cart = () => {
   const hasOutOfStockItems = outOfStockItems.length > 0
 
   const updateQty = async (productId, nextQty) => {
-    if (!user) return alert('Please login first')
+    if (!user) return toast.warning('Please login first')
     if (nextQty < 1 || nextQty > 10) return
     try {
       setUpdating(true)
@@ -68,14 +69,14 @@ const Cart = () => {
       }
     } catch (err) {
       console.error('Error updating quantity:', err)
-      alert('Failed to update quantity')
+      toast.error('Failed to update quantity')
     } finally {
       setUpdating(false)
     }
   }
 
   const removeItem = async (productId) => {
-    if (!user) return alert('Please login first')
+    if (!user) return toast.warning('Please login first')
     try {
       setUpdating(true)
       const res = await axios.delete('http://localhost:1000/cart/remove', { data: {
@@ -87,17 +88,17 @@ const Cart = () => {
       }
     } catch (err) {
       console.error('Error removing item:', err)
-      alert('Failed to remove item')
+      toast.error('Failed to remove item')
     } finally {
       setUpdating(false)
     }
   }
 
   const proceedToPayment = () => {
-    if (!user) return alert('Please login first')
-    if (!items.length) return alert('Your cart is empty')
+    if (!user) return toast.warning('Please login first')
+    if (!items.length) return toast.warning('Your cart is empty')
     if (hasOutOfStockItems) {
-      return alert('Please remove out-of-stock items from your cart before placing an order.')
+      return toast.warning('Please remove out-of-stock items from your cart before placing an order.')
     }
     navigate('/order')
   }
