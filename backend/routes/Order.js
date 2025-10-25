@@ -94,12 +94,32 @@ router.patch("/:orderId/cancel", async (req, res) => {
       return res.status(400).json({ success: false, message: `Cannot cancel order in '${order.status}' status` });
     }
     
+    // Restore stock for each item in the cancelled order
+    for (const item of order.items) {
+      try {
+        await Product.findByIdAndUpdate(
+          item.product,
+          {
+            $inc: {
+              count: -item.quantity,  // Decrease purchase count
+              stock: item.quantity    // Restore stock
+            }
+          },
+          { new: true }
+        );
+        console.log(`✅ Restored ${item.quantity} units of product ${item.product}`);
+      } catch (productErr) {
+        console.error(`❌ Error restoring stock for product ${item.product}:`, productErr);
+        // Continue with other products even if one fails
+      }
+    }
+    
     order.status = "Cancelled";
     order.cancelledAt = new Date();
     if (cancelReason) order.cancelReason = cancelReason;
     await order.save();
     
-    return res.json({ success: true, message: "Order cancelled", order });
+    return res.json({ success: true, message: "Order cancelled and stock restored", order });
   } catch (err) {
     console.error("cancel order error", err)
     return res.status(500).json({ success: false, message: "Error cancelling order", error: err?.message || err });
