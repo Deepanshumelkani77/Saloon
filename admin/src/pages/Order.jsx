@@ -44,14 +44,37 @@ const Order = () => {
   }
 
   const filtered = useMemo(() => {
-    if (!search) return orders
-    const q = search.trim().toLowerCase()
-    return orders.filter(o => 
-      (o.orderNumber || '').toLowerCase().includes(q) ||
-      (o.user?.username || '').toLowerCase().includes(q) ||
-      (o.user?.email || '').toLowerCase().includes(q)
-    )
-  }, [orders, search])
+    let result = orders
+
+    // Hide cancelled orders from default view
+    if (!statusFilter) {
+      result = result.filter(o => o.status !== 'Cancelled')
+    }
+
+    // Apply search filter
+    if (search) {
+      const q = search.trim().toLowerCase()
+      result = result.filter(o => 
+        (o.orderNumber || '').toLowerCase().includes(q) ||
+        (o.user?.username || '').toLowerCase().includes(q) ||
+        (o.user?.email || '').toLowerCase().includes(q)
+      )
+    }
+
+    // Sort orders: oldest first, delivered orders at bottom
+    result = result.sort((a, b) => {
+      // Move delivered orders to bottom
+      if (a.status === 'Delivered' && b.status !== 'Delivered') return 1
+      if (a.status !== 'Delivered' && b.status === 'Delivered') return -1
+      
+      // For all other orders, sort by date (oldest first)
+      const dateA = new Date(a.createdAt)
+      const dateB = new Date(b.createdAt)
+      return dateA - dateB
+    })
+
+    return result
+  }, [orders, search, statusFilter])
 
   const handleConfirm = async (orderId) => {
     if (!window.confirm('Confirm this order?')) return
