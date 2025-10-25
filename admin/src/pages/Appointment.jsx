@@ -41,7 +41,7 @@ const Appointment = () => {
         }
       })
       setAppointments(response.data)
-      setFilteredAppointments(response.data)
+      // Don't set filteredAppointments here - let the useEffect handle filtering and sorting
     } catch (err) {
       console.error('Error fetching appointments:', err)
       setError('Failed to fetch appointments. Please try again.')
