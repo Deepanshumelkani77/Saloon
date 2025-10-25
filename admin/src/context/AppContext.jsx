@@ -40,6 +40,13 @@ const closeSidebar = () => {
   const [token, setToken] = useState(tokenCookie || null);
   
 
+  // ✅ Auto-open login modal if not logged in
+  useEffect(() => {
+    if (!admin && !token) {
+      setOpenLogin(true);
+    }
+  }, [admin, token]);
+
   // ✅ Handle Google login redirect (query params)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -93,6 +100,7 @@ const closeSidebar = () => {
       Cookies.set("admin", JSON.stringify(response.data.admin), { expires: 1 });
       setAdmin(response.data.admin);
       setToken(response.data.token);
+      setOpenLogin(false); // Close login modal after successful login
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
