@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AppContext } from '../context/AppContext'
 import { FaCrown, FaCheck, FaStar, FaGift, FaPercent, FaCalendarAlt } from 'react-icons/fa'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Offer = () => {
   const { user, token, updateUser } = useContext(AppContext)
@@ -17,12 +18,12 @@ const Offer = () => {
 
   const handlePurchasePremium = async () => {
     if (!user) {
-      alert('Please login to purchase premium membership')
+      toast.warning('Please login to purchase premium membership')
       return
     }
 
     if (user.premiumUser) {
-      alert('You are already a premium member!')
+      toast.info('You are already a premium member!')
       return
     }
 
@@ -66,11 +67,11 @@ const Offer = () => {
                 premiumPurchaseDate: premiumResponse.data.user.premiumPurchaseDate,
                 premiumExpiryDate: premiumResponse.data.user.premiumExpiryDate
               })
-              alert('🎉 Congratulations! You are now a Premium Member!\n✨ Enjoy 10% discount on all services for 1 year!')
+              toast.success('🎉 Congratulations! You are now a Premium Member! ✨ Enjoy 10% discount on all services for 1 year!', { autoClose: 5000 })
             }
           } catch (error) {
             console.error('Error updating premium status:', error)
-            alert('Payment successful, but failed to activate premium membership. Please contact support.')
+            toast.error('Payment successful, but failed to activate premium membership. Please contact support.')
           }
         },
         prefill: {
@@ -91,7 +92,7 @@ const Offer = () => {
       razor.open()
     } catch (error) {
       console.error('Premium purchase error:', error)
-      alert(error.response?.data?.message || 'Failed to initiate payment. Please try again.')
+      toast.error(error.response?.data?.message || 'Failed to initiate payment. Please try again.')
       setLoading(false)
     }
   }

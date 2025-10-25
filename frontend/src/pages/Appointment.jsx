@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { assets } from '../assets/assets';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Appointment = () => {
   const { user } = useContext(AppContext);
@@ -85,13 +86,13 @@ const Appointment = () => {
     e.preventDefault();
     
     if (!user) {
-      alert('Please login to book an appointment');
+      toast.warning('Please login to book an appointment');
       return;
     }
 
     // Validate all required fields before submission
     if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.stylist || !formData.date || !formData.time) {
-      alert('Please fill in all required fields');
+      toast.error('Please fill in all required fields');
       console.log('Missing form fields:', {
         name: formData.name,
         email: formData.email,
@@ -123,7 +124,7 @@ const Appointment = () => {
       const response = await axios.post('http://localhost:1000/appointment/book', appointmentData);
       console.log('Booking response:', response.data);
       
-      alert('Your appointment has been booked successfully! We will contact you soon to confirm.');
+      toast.success('Your appointment has been booked successfully! We will contact you soon to confirm.');
       
       // Reset form
       setFormData({
@@ -145,12 +146,12 @@ const Appointment = () => {
       console.error('Error message:', error.message);
       
       if (error.response?.status === 409) {
-        alert('This time slot is no longer available. Please choose another time.');
+        toast.error('This time slot is no longer available. Please choose another time.');
         checkAvailability(); // Refresh availability
       } else if (error.response?.data?.message) {
-        alert(`Error: ${error.response.data.message}`);
+        toast.error(`Error: ${error.response.data.message}`);
       } else {
-        alert('Error booking appointment. Please try again.');
+        toast.error('Error booking appointment. Please try again.');
       }
     }
     setLoading(false);

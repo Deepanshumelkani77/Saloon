@@ -3,6 +3,7 @@ import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { FaCalendarAlt, FaClock, FaUser, FaCut, FaMoneyBillWave, FaTimes, FaCheckCircle, FaHourglassHalf, FaBan } from 'react-icons/fa';
 import { assets } from '../assets/assets';
+import { toast } from 'react-toastify';
 
 const MyAppointment = () => {
   const { user } = useContext(AppContext);
@@ -38,10 +39,10 @@ const MyAppointment = () => {
       await axios.put(`http://localhost:1000/appointment/cancel/${appointmentId}`);
       // Refresh appointments
       fetchAppointments();
-      alert('Appointment cancelled successfully');
+      toast.success('Appointment cancelled successfully');
     } catch (error) {
       console.error('Error cancelling appointment:', error);
-      alert('Failed to cancel appointment. Please try again.');
+      toast.error('Failed to cancel appointment. Please try again.');
     } finally {
       setCancellingId(null);
     }
@@ -97,7 +98,7 @@ const MyAppointment = () => {
     console.log("💰 Sending amount:", cleanAmount);
 
     if (!cleanAmount || cleanAmount <= 0) {
-      alert("Invalid service price");
+      toast.error("Invalid service price");
       return;
     }
 
@@ -110,7 +111,7 @@ const MyAppointment = () => {
         description: "Appointment Payment",
         order_id: res.data.id,
         handler: async function (response) {
-          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+          toast.success("Payment successful! Payment ID: " + response.razorpay_payment_id);
           setPaid({ paid: true });
 
           try {
@@ -118,10 +119,10 @@ const MyAppointment = () => {
               paid: true,
               payment_id: response.razorpay_payment_id,
             });
-            alert("Appointment marked as paid!");
+            toast.success("Appointment marked as paid!");
           } catch (error) {
             console.error("Error updating payment status:", error);
-            alert("Payment succeeded, but failed to update appointment.");
+            toast.error("Payment succeeded, but failed to update appointment.");
           }
         },
         prefill: {
@@ -137,7 +138,7 @@ const MyAppointment = () => {
       razor.open();
     } catch (error) {
       console.error("Error creating payment order:", error);
-      alert("Failed to initiate payment.");
+      toast.error("Failed to initiate payment.");
     }
   };
 

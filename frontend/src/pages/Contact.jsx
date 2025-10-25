@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { assets } from '../assets/assets';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ const Contact = () => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Contact Form:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
+    toast.success('Thank you for your message! We will get back to you soon.');
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
@@ -54,14 +55,14 @@ const Contact = () => {
       const data = await response.json();
 
       if (data.success) {
-        alert('Thank you for your feedback! Your review has been submitted and will be reviewed before being published.');
+        toast.success('Thank you for your feedback! Your review has been submitted and will be reviewed before being published.');
         setReviewData({ name: '', rating: 5, review: '' });
       } else {
-        alert(data.message || 'Failed to submit feedback. Please try again.');
+        toast.error(data.message || 'Failed to submit feedback. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      alert('Failed to submit feedback. Please check your connection and try again.');
+      toast.error('Failed to submit feedback. Please check your connection and try again.');
     }
   };
 

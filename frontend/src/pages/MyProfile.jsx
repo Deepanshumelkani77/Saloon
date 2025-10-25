@@ -3,6 +3,7 @@ import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { FaUser, FaEdit, FaSave, FaTimes, FaCamera, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaUserCircle, FaTrash } from 'react-icons/fa';
 import { assets } from '../assets/assets';
+import { toast } from 'react-toastify';
 
 const MyProfile = () => {
   const { user, setUser } = useContext(AppContext);
@@ -120,7 +121,7 @@ const MyProfile = () => {
         imageUrl = res.data.secure_url;
       } catch (err) {
         console.error("Image upload failed:", err.response ? err.response.data : err.message);
-        alert("Image upload failed");
+        toast.error("Image upload failed");
         setLoading(false);
         return;
       }
@@ -167,7 +168,7 @@ const MyProfile = () => {
       const res = await axios.put(`http://localhost:1000/user/profile/${user.id}`, changedData);
       
       if (res.status === 200) {
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
         
         // Update local state with new data
         const updatedUserInfo = { ...userInfo, ...changedData };
@@ -191,7 +192,7 @@ const MyProfile = () => {
       }
     } catch (err) {
       console.error("Update error:", err);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     } finally {
       setLoading(false);
     }

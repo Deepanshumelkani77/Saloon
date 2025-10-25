@@ -72,7 +72,7 @@ const AppContextProvider = (props) => {
       Cookies.set("user", JSON.stringify(response.data.user), { expires: 1 });
       setUser(response.data.user);
       setToken(response.data.token);
-      toast.success(`Welcome back, ${response.data.user.username}!`);
+      toast.success(`Welcome back, ${response.data.user.name || response.data.user.username}!`);
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     }
