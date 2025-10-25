@@ -13,6 +13,8 @@ import Feedback from './pages/Feedback'
 import { AppContext } from './context/AppContext'
 import Order from "./pages/Order.jsx"
 import Inventory from './pages/Inventory'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 const App = () => {
@@ -57,6 +59,20 @@ const App = () => {
       
       {/* Login Modal */}
       <Login />
+
+      {/* Toast Container */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   )
 }

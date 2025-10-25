@@ -1,9 +1,8 @@
 import { createContext, useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export const AppContext = createContext();
 
@@ -90,12 +89,12 @@ const closeSidebar = () => {
         password,
         phone,
       });
-      alert("Signup successful! Please login.");
+      toast.success("Signup successful! Please login.");
       // Redirect to login page after successful signup
       setInitialMode("login");
       setOpenLogin(true);
     } catch (error) {
-      alert(error.response?.data?.message || "Signup failed");
+      toast.error(error.response?.data?.message || "Signup failed");
     }
   };
 
@@ -113,7 +112,7 @@ const closeSidebar = () => {
       setOpenLogin(false); // Close login modal after successful login
       navigate("/"); // Redirect to home page
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 

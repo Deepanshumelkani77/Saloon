@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const statusColors = {
   Pending: 'bg-yellow-500/15 text-yellow-300 border border-yellow-500/30',
@@ -83,13 +84,13 @@ const Order = () => {
       const res = await axios.patch(`http://localhost:1000/order/${orderId}/confirm`)
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
-        alert('Order confirmed successfully!')
+        toast.success('Order confirmed successfully!')
       } else {
-        alert(res.data?.message || 'Confirm failed')
+        toast.error(res.data?.message || 'Confirm failed')
       }
     } catch (err) {
       console.error('Confirm error', err)
-      alert(err?.response?.data?.message || 'Confirm failed')
+      toast.error(err?.response?.data?.message || 'Confirm failed')
     } finally {
       setActingId('')
     }
@@ -103,13 +104,13 @@ const Order = () => {
       const res = await axios.patch(`http://localhost:1000/order/${orderId}/ship`, { trackingNumber })
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
-        alert('Order marked as shipped!')
+        toast.success('Order marked as shipped!')
       } else {
-        alert(res.data?.message || 'Ship failed')
+        toast.error(res.data?.message || 'Ship failed')
       }
     } catch (err) {
       console.error('Ship error', err)
-      alert(err?.response?.data?.message || 'Ship failed')
+      toast.error(err?.response?.data?.message || 'Ship failed')
     } finally {
       setActingId('')
     }
@@ -123,13 +124,13 @@ const Order = () => {
       const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
       if (res.data?.success) {
         setOrders(prev => prev.map(o => o._id === orderId ? res.data.order : o))
-        alert('Order cancelled')
+        toast.success('Order cancelled')
       } else {
-        alert(res.data?.message || 'Cancel failed')
+        toast.error(res.data?.message || 'Cancel failed')
       }
     } catch (err) {
       console.error('Cancel error', err)
-      alert(err?.response?.data?.message || 'Cancel failed')
+      toast.error(err?.response?.data?.message || 'Cancel failed')
     } finally {
       setActingId('')
     }

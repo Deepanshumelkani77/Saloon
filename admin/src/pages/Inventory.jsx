@@ -4,6 +4,7 @@ import {
   FaSearch, FaPlus, FaEdit, FaTrash, FaBox, FaMoneyBillWave, FaImage,
   FaTimes, FaCheck, FaFilter, FaWarehouse, FaUpload, FaSpinner, FaEye
 } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import CategoryManagementModal from './CategoryManagementModal';
 
 const Inventory = () => {
@@ -190,9 +191,9 @@ const Inventory = () => {
         if (!categoryOptions.includes(categoryFormData.category)) {
           setCategoryOptions([...categoryOptions, categoryFormData.category]);
           setSubCategoryOptions({...subCategoryOptions, [categoryFormData.category]: []});
-          alert('Category added successfully!');
+          toast.success('Category added successfully!');
         } else {
-          alert('Category already exists!');
+          toast.warning('Category already exists!');
         }
       }
       // Add new subcategory
@@ -207,9 +208,9 @@ const Inventory = () => {
             ...subCategoryOptions,
             [categoryFormData.category]: [...currentSubs, categoryFormData.subCategory]
           });
-          alert('Subcategory added successfully!');
+          toast.success('Subcategory added successfully!');
         } else {
-          alert('Subcategory already exists in this category!');
+          toast.warning('Subcategory already exists in this category!');
         }
       }
     } else if (managementMode === 'delete') {
@@ -220,7 +221,7 @@ const Inventory = () => {
           const newSubCategoryOptions = {...subCategoryOptions};
           delete newSubCategoryOptions[categoryFormData.category];
           setSubCategoryOptions(newSubCategoryOptions);
-          alert('Category deleted successfully!');
+          toast.success('Category deleted successfully!');
         }
       }
       // Delete subcategory
@@ -230,7 +231,7 @@ const Inventory = () => {
             ...subCategoryOptions,
             [categoryFormData.category]: subCategoryOptions[categoryFormData.category].filter(sub => sub !== categoryFormData.subCategory)
           });
-          alert('Subcategory deleted successfully!');
+          toast.success('Subcategory deleted successfully!');
         }
       }
     }
