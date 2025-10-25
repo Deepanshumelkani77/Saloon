@@ -46,8 +46,7 @@ const Sidebar = ({ }) => {
     { id: 'Orders', name: 'Orders', icon: FaChartBar, path: '/orders' },
     { id: 'feedback', name: 'Feedback', icon: FaComments, path: '/feedback' },
     { id: 'inventory', name: 'Inventory', icon: FaStore, path: '/inventory' },
-    { id: 'notifications', name: 'Notifications', icon: FaBell, path: '/notifications' },
-    { id: 'settings', name: 'Settings', icon: FaCog, path: '/settings' },
+   
   ]
 
   const handleItemClick = () => {
@@ -75,7 +74,7 @@ const Sidebar = ({ }) => {
 
       {/* Sidebar */}
       <div className={`
-       h-[100vh] w-full fixed top-0 left-0 md:h-[90vh] md:w-64 bg-black backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out
+       h-[100vh] w-full fixed top-0 left-0 md:h-[90vh] md:w-64 bg-black backdrop-blur-xl border-r border-[#D9C27B]/20 z-50 transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0 md:static md:z-auto
       `}>
@@ -116,7 +115,7 @@ const Sidebar = ({ }) => {
       
 
         {/* Navigation Menu */}
-        <nav className="flex-1 p-4">
+        <nav className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon
