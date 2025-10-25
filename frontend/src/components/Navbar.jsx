@@ -7,7 +7,7 @@ import {useContext} from 'react'
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'SERVICES' },
-  { name: 'E-SHOP', path: 'http://localhost:5174/' },
+  { name: 'E-SHOP', path: 'https://saloon-shop.onrender.com' },
   { name: 'OFFER', path: '/offer' },
   { name: 'ABOUT', path: '/about' },
   { name: 'CONTACT', path: '/contact' },
