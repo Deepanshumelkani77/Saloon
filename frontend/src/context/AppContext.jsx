@@ -40,6 +40,9 @@ const AppContextProvider = (props) => {
       setToken(tokenParam);
       setUser(newUser);
 
+      // Show success toast
+      toast.success(`Welcome back, ${name}! Logged in with Google`);
+
       // Remove params from URL
       navigate("/", { replace: true });
     }

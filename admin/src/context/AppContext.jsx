@@ -75,6 +75,9 @@ const closeSidebar = () => {
       setToken(tokenParam);
       setAdmin(newUser);
 
+      // Show success toast
+      toast.success(`Welcome back, ${name}! Logged in with Google`);
+
       // Remove params from URL
       navigate("/", { replace: true });
     }
@@ -109,6 +112,7 @@ const closeSidebar = () => {
       Cookies.set("admin", JSON.stringify(response.data.admin), { expires: 1 });
       setAdmin(response.data.admin);
       setToken(response.data.token);
+      toast.success(`Welcome back, ${response.data.admin.name || response.data.admin.username}!`);
       setOpenLogin(false); // Close login modal after successful login
       navigate("/"); // Redirect to home page
     } catch (error) {
@@ -122,6 +126,7 @@ const closeSidebar = () => {
     Cookies.remove("admin");
     setAdmin(null);
     setToken(null);
+    toast.info("Logged out successfully");
     hasCheckedAuth.current = false; // Reset auth check flag
     setOpenLogin(true); // Open login modal immediately
     navigate("/");
