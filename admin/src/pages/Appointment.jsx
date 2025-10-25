@@ -60,6 +60,9 @@ const Appointment = () => {
     // Filter by status
     if (filterStatus !== 'all') {
       filtered = filtered.filter(apt => apt.status === filterStatus)
+    } else {
+      // Hide cancelled appointments from default view
+      filtered = filtered.filter(apt => apt.status !== 'cancelled')
     }
 
     // Filter by search term
