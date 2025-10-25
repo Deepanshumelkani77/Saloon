@@ -129,10 +129,19 @@ const Inventory = () => {
     e.preventDefault();
     try {
       const productData = {
-        name: formData.name, image: formData.image, size: formData.size ? parseFloat(formData.size) : 0,
-        price: parseFloat(formData.price), category: formData.category, subCategory: formData.subCategory,
-        gender: formData.gender, brand: formData.brand, stock: formData.stock ? parseInt(formData.stock) : 0
+        name: formData.name, 
+        image: formData.image, 
+        size: formData.size ? parseFloat(formData.size) : 0,
+        price: parseFloat(formData.price), 
+        category: formData.category, 
+        subCategory: formData.subCategory,
+        gender: formData.gender, 
+        brand: formData.brand, 
+        stock: formData.stock ? parseInt(formData.stock) : 0
       };
+
+      console.log('📦 Submitting product data:', productData);
+      console.log('📝 Form mode:', modalMode);
 
       let response;
       if (modalMode === 'add') {
@@ -141,14 +150,26 @@ const Inventory = () => {
         response = await axios.put(`${API_BASE_URL}/update/${selectedProduct._id}`, productData);
       }
 
+      console.log('✅ Server response:', response.data);
+
       if (response.data.success) {
         setShowModal(false);
         fetchProducts();
         setError(null);
+        if (modalMode === 'add') {
+          toast.success('Product added successfully');
+        } else {
+          toast.success('Product updated successfully');
+        }
       }
     } catch (err) {
-      console.error('Error saving product:', err);
-      setError(err.response?.data?.message || 'Failed to save product. Please try again.');
+      console.error('❌ Error saving product:', err);
+      console.error('❌ Error response:', err.response);
+      console.error('❌ Error data:', err.response?.data);
+      
+      const errorMsg = err.response?.data?.message || 'Failed to save product. Please try again.';
+      setError(errorMsg);
+      toast.error(errorMsg);
     }
   };
 
@@ -159,10 +180,12 @@ const Inventory = () => {
         if (response.data.success) {
           fetchProducts();
           setError(null);
+          toast.success('Product deleted successfully');
         }
       } catch (err) {
         console.error('Error deleting product:', err);
         setError('Failed to delete product. Please try again.');
+        toast.error('Failed to delete product. Please try again.');
       }
     }
   };
