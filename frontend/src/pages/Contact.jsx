@@ -44,7 +44,7 @@ const Contact = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:1000/feedback/submit', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

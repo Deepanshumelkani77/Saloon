@@ -20,7 +20,7 @@ const MyAppointment = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`http://localhost:1000/appointment/user/${user.id || user._id}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/user/${user.id || user._id}`);
       setAppointments(response.data);
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -36,7 +36,7 @@ const MyAppointment = () => {
 
     setCancellingId(appointmentId);
     try {
-      await axios.put(`http://localhost:1000/appointment/cancel/${appointmentId}`);
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/appointment/cancel/${appointmentId}`);
       // Refresh appointments
       fetchAppointments();
       toast.success('Appointment cancelled successfully');
@@ -102,9 +102,9 @@ const MyAppointment = () => {
       return;
     }
 
-    const res = await axios.post("http://localhost:1000/payment/create-order", { amount: cleanAmount });
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/payment/create-order`, { amount: cleanAmount });
       const options = {
-        key: "rzp_test_PuXf2SZhGaKEGd",
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: res.data.amount,
         currency: "INR",
         name: "Me & Guys Salon",
@@ -115,7 +115,7 @@ const MyAppointment = () => {
           setPaid({ paid: true });
 
           try {
-            await axios.post(`http://localhost:1000/appointment/update-payment/${appointmentId}`, {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/update-payment/${appointmentId}`, {
               paid: true,
               payment_id: response.razorpay_payment_id,
             });

@@ -30,12 +30,12 @@ const Offer = () => {
     setLoading(true)
     try {
       // Create Razorpay order
-      const orderResponse = await axios.post("http://localhost:1000/payment/create-order", { 
+      const orderResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/payment/create-order`, { 
         amount: 999 // Premium card price
       })
 
       const options = {
-        key: "rzp_test_PuXf2SZhGaKEGd",
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: orderResponse.data.amount,
         currency: "INR",
         name: "Me & Guys Salon",
@@ -45,7 +45,7 @@ const Offer = () => {
           try {
             // After successful payment, update user to premium
             const premiumResponse = await axios.post(
-              'http://localhost:1000/user/purchase-premium',
+              `${import.meta.env.VITE_BACKEND_URL}/user/purchase-premium`,
               { 
                 userId: user.id,
                 paymentId: response.razorpay_payment_id,

@@ -120,7 +120,7 @@ const Map = () => {
 
       {/* Map Container */}
       <div className="relative mb-6">
-        <LoadScript googleMapsApiKey="AIzaSyA-FsvFe-EjYVmGNABxdYF4mTOxuv2DFgs">
+        <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={salonLocation}

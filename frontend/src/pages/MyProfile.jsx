@@ -36,12 +36,12 @@ const MyProfile = () => {
     return value || defaults[field] || '';
   };
   
-  const cloudinaryUrl = "https://api.cloudinary.com/v1_1/drx3wkg1h/image/upload";
-  const uploadPreset = "Saloon";
+  const cloudinaryUrl = import.meta.env.VITE_CLOUDINARY_URL;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   useEffect(() => {
     if (user && user.id) {
-      axios.get(`http://localhost:1000/user/info/${user.id}`)
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/info/${user.id}`)
         .then((res) => {
           const data = res.data;
           setUserInfo(data);
@@ -165,7 +165,7 @@ const MyProfile = () => {
     }
 
     try {
-      const res = await axios.put(`http://localhost:1000/user/profile/${user.id}`, changedData);
+      const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/profile/${user.id}`, changedData);
       
       if (res.status === 200) {
         toast.success("Profile updated successfully!");

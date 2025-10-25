@@ -48,7 +48,7 @@ const Appointment = () => {
 
   const fetchServices = async () => {
     try {
-      const response = await axios.get('http://localhost:1000/appointment/services');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/services`);
       setServices(response.data);
     } catch (error) {
       console.error('Error fetching services:', error);
@@ -57,7 +57,7 @@ const Appointment = () => {
 
   const fetchStylists = async () => {
     try {
-      const response = await axios.get('http://localhost:1000/appointment/stylists');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/stylists`);
       setStylists(response.data);
     } catch (error) {
       console.error('Error fetching stylists:', error);
@@ -67,7 +67,7 @@ const Appointment = () => {
   const checkAvailability = async () => {
     setCheckingAvailability(true);
     try {
-      const response = await axios.post('http://localhost:1000/appointment/check-availability', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/check-availability`, {
         stylistId: formData.stylist,
         date: formData.date,
         serviceId: formData.service
@@ -121,7 +121,7 @@ const Appointment = () => {
 
       
       
-      const response = await axios.post('http://localhost:1000/appointment/book', appointmentData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/book`, appointmentData);
       console.log('Booking response:', response.data);
       
       toast.success('Your appointment has been booked successfully! We will contact you soon to confirm.');
