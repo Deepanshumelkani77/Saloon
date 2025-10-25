@@ -23,7 +23,7 @@ const Show = () => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:1000/product/show/${id}`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/show/${id}`);
       if (res.data && res.data.success) {
         setProduct(res.data.data);
       } else {
@@ -57,7 +57,7 @@ const Show = () => {
     // Allow adding out-of-stock items to cart for wishlist purposes
     try {
       const productId = product?._id || id;
-      const res = await axios.post('http://localhost:1000/cart/add', {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, {
         userId: user?.id,
         productId,
         quantity: qty,

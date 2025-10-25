@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:1000/auth/google/user";
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google/user`;
   };
 
   const goBack = () => {

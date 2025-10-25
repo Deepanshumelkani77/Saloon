@@ -92,7 +92,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
     const fetchCount = async () => {
       try {
         if (!user?.id) { setCartCount(0); return; }
-        const res = await axios.get(`http://localhost:1000/cart/${user.id}`)
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/${user.id}`)
         if (res.data?.success) {
           const items = res.data.cart?.items || []
           const count = items.reduce((sum, it) => sum + (it.quantity || 1), 0)

@@ -51,7 +51,7 @@ const Women = () => {
   const fetchWomenProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:1000/product/women');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/women`);
       if (response.data.success) {
         setData(response.data.data);
       } else {
@@ -81,7 +81,7 @@ const Women = () => {
     }
     try {
       const qty = qtyMap[productId] ?? 1;
-      const res = await axios.post('http://localhost:1000/cart/add', {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, {
         userId: user?.id,
         productId,
         quantity: qty,

@@ -27,7 +27,7 @@ const BestSeller = () => {
     const fetchBestSellers = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:1000/product/bestsellers');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/bestsellers`);
         
         if (response.data.success) {
           setBestSellers(response.data.data);
@@ -51,7 +51,7 @@ const BestSeller = () => {
       return;
     }
     try {
-      const res = await axios.post('http://localhost:1000/cart/add', {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, {
         userId: user?.id,
         productId: product._id,
         quantity: 1

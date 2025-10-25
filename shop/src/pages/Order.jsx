@@ -90,7 +90,7 @@ const CheckoutForm = () => {
     try {
       setLoading(true)
       setError('')
-      const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/${user?.id}`)
       if (res.data?.success) {
         setItems(res.data.cart?.items || [])
       } else {
@@ -154,9 +154,9 @@ const CheckoutForm = () => {
         }
 
         // Create payment order on backend
-        const payRes = await axios.post('http://localhost:1000/payment/create-order', { amount: cleanAmount })
+        const payRes = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/payment/create-order`, { amount: cleanAmount })
         const options = {
-          key: 'rzp_test_PuXf2SZhGaKEGd',
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
           amount: payRes.data.amount,
           currency: 'INR',
           name: 'Me & Guys Shop',
@@ -170,7 +170,7 @@ const CheckoutForm = () => {
                 orderId: response.razorpay_order_id,
                 notes: form.notes,
               })
-              const res2 = await axios.post('http://localhost:1000/order/create', payload)
+              const res2 = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order/create`, payload)
               if (res2.data?.success) {
                 toast.success('✅ Payment successful! Order placed.')
                 navigate('/my-order')
@@ -198,7 +198,7 @@ const CheckoutForm = () => {
 
       // COD: create order directly
       const payload = buildOrderPayload({ paymentMethod: 'COD', notes: form.notes })
-      const res = await axios.post('http://localhost:1000/order/create', payload)
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order/create`, payload)
       if (res.data?.success) {
         toast.success('✅ Order placed successfully!')
         navigate('/my-order')
@@ -385,7 +385,7 @@ const OrderSummary = () => {
         // Normal cart checkout flow
         try {
           setLoading(true)
-          const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
+          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/${user?.id}`)
           if (res.data?.success) setItems(res.data.cart?.items || [])
         } catch {}
         finally { setLoading(false) }

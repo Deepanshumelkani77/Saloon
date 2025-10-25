@@ -50,7 +50,7 @@ const Accessories = () => {
   const fetchAccessoriesProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:1000/product/accessories');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/accessories`);
       if (response.data.success) {
         setData(response.data.data);
       } else {
@@ -79,7 +79,7 @@ const Accessories = () => {
     }
     try {
       const qty = qtyMap[productId] ?? 1;
-      const res = await axios.post('http://localhost:1000/cart/add', {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, {
         userId: user?.id,
         productId,
         quantity: qty,

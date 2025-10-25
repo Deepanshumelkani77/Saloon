@@ -60,7 +60,7 @@ const AppContextProvider = (props) => {
   // Signup function
   const signup = async (username, email, password, phone) => {
     try {
-      await axios.post("http://localhost:1000/user/signup", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, {
         username,
         email,
         password,
@@ -76,7 +76,7 @@ const AppContextProvider = (props) => {
   // Login function
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:1000/user/login", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, {
         email,
         password,
       });

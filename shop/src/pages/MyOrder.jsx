@@ -33,7 +33,7 @@ const MyOrder = () => {
         setLoading(true)
         setError('')
         if (!user?.id) { setOrders([]); return }
-        const res = await axios.get(`http://localhost:1000/order/user/${user.id}`)
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/order/user/${user.id}`)
         if (res.data?.success) setOrders(res.data.orders || [])
         else setError('Failed to fetch orders')
       } catch (err) {
@@ -49,7 +49,7 @@ const MyOrder = () => {
     if (!reason || !window.confirm('Cancel this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/cancel`, { cancelReason: reason })
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/cancel`, { cancelReason: reason })
       if (res.data?.success) {
         setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
         toast.success('Order cancelled successfully')
@@ -68,7 +68,7 @@ const MyOrder = () => {
     if (!window.confirm('Confirm that you have received this order?')) return
     try {
       setActingId(orderId)
-      const res = await axios.patch(`http://localhost:1000/order/${orderId}/deliver`, { userId: user.id })
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/${orderId}/deliver`, { userId: user.id })
       if (res.data?.success) {
         setOrders((prev) => prev.map(o => o._id === orderId ? res.data.order : o))
         toast.success('Thank you! Order marked as delivered ✅')

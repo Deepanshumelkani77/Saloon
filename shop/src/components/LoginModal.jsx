@@ -186,7 +186,7 @@ const LoginModal = ({ isOpen, onClose, loginMode, setLoginMode }) => {
           {/* Google Sign In Button */}
           <button
             type="button"
-            onClick={() => window.location.href = "http://localhost:1000/auth/google/user"}
+            onClick={() => window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google/user`}
             className="w-full py-3 bg-white/10 border border-[#D9C27B]/30 rounded-xl text-white font-semibold hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3 text-sm"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">

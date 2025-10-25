@@ -27,7 +27,7 @@ const Cart = () => {
       setLoading(true)
       setError(null)
       // Backend returns { success, cart } with cart.items and populated items.productId
-      const res = await axios.get(`http://localhost:1000/cart/${user?.id}`)
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/${user?.id}`)
       if (res.data?.success) {
         setItems(res.data.cart?.items || [])
       } else {
@@ -59,7 +59,7 @@ const Cart = () => {
     if (nextQty < 1 || nextQty > 10) return
     try {
       setUpdating(true)
-      const res = await axios.put('http://localhost:1000/cart/update', {
+      const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/cart/update`, {
         userId: user?.id,
         productId,
         quantity: nextQty,
@@ -80,7 +80,7 @@ const Cart = () => {
     if (!user) return toast.warning('Please login first')
     try {
       setUpdating(true)
-      const res = await axios.delete('http://localhost:1000/cart/remove', { data: {
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/cart/remove`, { data: {
         userId: user?.id,
         productId,
       }})
