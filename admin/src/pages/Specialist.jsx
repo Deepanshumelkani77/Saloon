@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { 
   FaSearch, 
   FaPlus, 
@@ -71,6 +72,7 @@ const Specialist = () => {
     } catch (err) {
       console.error('Error fetching stylists:', err);
       setError('Failed to fetch stylists. Please try again.');
+      toast.error('Failed to fetch stylists');
     } finally {
       setLoading(false);
     }
@@ -111,12 +113,14 @@ const Specialist = () => {
     // Validate file type
     if (!file.type.startsWith('image/')) {
       setError('Please select a valid image file');
+      toast.error('Please select a valid image file');
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       setError('Image size should be less than 5MB');
+      toast.error('Image size should be less than 5MB');
       return;
     }
 
@@ -144,6 +148,7 @@ const Specialist = () => {
     } catch (error) {
       console.error('Error uploading image:', error);
       setError('Failed to upload image. Please try again.');
+      toast.error('Failed to upload image');
     } finally {
       setImageUploading(false);
     }
@@ -235,14 +240,17 @@ const Specialist = () => {
     try {
       if (modalMode === 'add') {
         await axios.post(`${API_BASE_URL}/create`, formData);
+        toast.success('Stylist added successfully');
       } else if (modalMode === 'edit') {
         await axios.put(`${API_BASE_URL}/update/${selectedStylist._id}`, formData);
+        toast.success('Stylist updated successfully');
       }
       setShowModal(false);
       fetchStylists();
     } catch (err) {
       console.error('Error saving stylist:', err);
       setError('Failed to save stylist. Please try again.');
+      toast.error('Failed to save stylist');
     }
   };
 
@@ -251,10 +259,12 @@ const Specialist = () => {
     if (window.confirm('Are you sure you want to delete this stylist?')) {
       try {
         await axios.delete(`${API_BASE_URL}/delete/${stylistId}`);
+        toast.success('Stylist deleted successfully');
         fetchStylists();
       } catch (err) {
         console.error('Error deleting stylist:', err);
         setError('Failed to delete stylist. Please try again.');
+        toast.error('Failed to delete stylist');
       }
     }
   };
@@ -263,10 +273,12 @@ const Specialist = () => {
   const handleToggleStatus = async (stylistId) => {
     try {
       await axios.patch(`${API_BASE_URL}/toggle/${stylistId}`);
+      toast.success('Stylist status updated');
       fetchStylists();
     } catch (err) {
       console.error('Error toggling stylist status:', err);
       setError('Failed to update stylist status. Please try again.');
+      toast.error('Failed to update stylist status');
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { 
   FaSearch, 
   FaFilter, 
@@ -45,6 +46,7 @@ const Appointment = () => {
     } catch (err) {
       console.error('Error fetching appointments:', err)
       setError('Failed to fetch appointments. Please try again.')
+      toast.error('Failed to fetch appointments')
     } finally {
       setLoading(false)
     }
@@ -100,11 +102,13 @@ const Appointment = () => {
       await axios.put(`${API_BASE_URL}/admin/status/${id}`, {
         status: newStatus
       })
+      toast.success('Appointment status updated successfully')
       // Refresh appointments after update
       fetchAppointments()
     } catch (err) {
       console.error('Error updating appointment status:', err)
       setError('Failed to update appointment status. Please try again.')
+      toast.error('Failed to update appointment status')
     }
   }
 
@@ -113,22 +117,26 @@ const Appointment = () => {
       await axios.put(`${API_BASE_URL}/admin/payment/${id}`, {
         paid: paid
       })
+      toast.success('Payment status updated successfully')
       // Refresh appointments after update
       fetchAppointments()
     } catch (err) {
       console.error('Error updating payment status:', err)
       setError('Failed to update payment status. Please try again.')
+      toast.error('Failed to update payment status')
     }
   }
 
   const handleConfirm = async(id) => {
     try {
       await axios.put(`${API_BASE_URL}/confirm/${id}`)
+      toast.success('Appointment confirmed successfully')
       // Refresh appointments after confirmation
       fetchAppointments()
     } catch (err) {
       console.error('Error updating appointment status:', err)
       setError('Failed to update appointment status. Please try again.')
+      toast.error('Failed to update appointment status')
     }
   }
 

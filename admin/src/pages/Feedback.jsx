@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MessageSquare, Calendar, User, Mail, CheckCircle, XCircle, Trash2, Eye } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -23,6 +24,7 @@ const Feedback = () => {
       }
     } catch (error) {
       console.error('Error fetching feedbacks:', error);
+      toast.error('Failed to fetch feedbacks');
     } finally {
       setLoading(false);
     }
@@ -38,6 +40,7 @@ const Feedback = () => {
       }
     } catch (error) {
       console.error('Error fetching stats:', error);
+      toast.error('Failed to fetch statistics');
     }
   };
 
@@ -49,11 +52,13 @@ const Feedback = () => {
       const data = await response.json();
       
       if (data.success) {
+        toast.success('Feedback approved successfully');
         fetchFeedbacks();
         fetchStats();
       }
     } catch (error) {
       console.error('Error approving feedback:', error);
+      toast.error('Failed to approve feedback');
     }
   };
 
@@ -66,11 +71,13 @@ const Feedback = () => {
         const data = await response.json();
         
         if (data.success) {
+          toast.success('Feedback deleted successfully');
           fetchFeedbacks();
           fetchStats();
         }
       } catch (error) {
         console.error('Error deleting feedback:', error);
+        toast.error('Failed to delete feedback');
       }
     }
   };

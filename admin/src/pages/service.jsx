@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { 
   FaSearch, 
   FaPlus, 
@@ -49,6 +50,7 @@ const Service = () => {
       console.error('Error fetching services:', err);
       console.error('Error details:', err.response?.data || err.message);
       setError('Failed to fetch services. Please try again.');
+      toast.error('Failed to fetch services');
     } finally {
       setLoading(false);
     }
@@ -102,6 +104,7 @@ const Service = () => {
     if (!service) {
       console.error('Service object is undefined');
       setError('Service data not found. Please refresh the page.');
+      toast.error('Service data not found');
       return;
     }
     
@@ -139,8 +142,10 @@ const Service = () => {
 
       if (modalMode === 'add') {
         await axios.post(`${API_BASE_URL}/create`, serviceData);
+        toast.success('Service added successfully');
       } else if (modalMode === 'edit') {
         await axios.put(`${API_BASE_URL}/update/${selectedService._id}`, serviceData);
+        toast.success('Service updated successfully');
       }
 
       setShowModal(false);
@@ -148,6 +153,7 @@ const Service = () => {
     } catch (err) {
       console.error('Error saving service:', err);
       setError('Failed to save service. Please try again.');
+      toast.error('Failed to save service');
     }
   };
 
@@ -156,10 +162,12 @@ const Service = () => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
         await axios.delete(`${API_BASE_URL}/delete/${serviceId}`);
+        toast.success('Service deleted successfully');
         fetchServices();
       } catch (err) {
         console.error('Error deleting service:', err);
         setError('Failed to delete service. Please try again.');
+        toast.error('Failed to delete service');
       }
     }
   };
