@@ -487,7 +487,7 @@ router.get("/admin/all", async (req, res) => {
     }
 
     let appointments = await Appointment.find(query)
-      .sort({ appointmentDate: -1, startTime: 1 });
+      .sort({ appointmentDate: 1, startTime: 1 });
 
     // Filter by search term if provided
     if (search) {

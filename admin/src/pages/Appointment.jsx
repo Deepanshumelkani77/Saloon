@@ -73,6 +73,21 @@ const Appointment = () => {
       )
     }
 
+    // Sort appointments: oldest first, completed & paid at bottom
+    filtered = filtered.sort((a, b) => {
+      // Move completed AND paid appointments to bottom
+      const aIsCompletedAndPaid = a.status === 'completed' && a.paid
+      const bIsCompletedAndPaid = b.status === 'completed' && b.paid
+      
+      if (aIsCompletedAndPaid && !bIsCompletedAndPaid) return 1
+      if (!aIsCompletedAndPaid && bIsCompletedAndPaid) return -1
+      
+      // For all other appointments, sort by date (oldest first)
+      const dateA = new Date(a.appointmentDate || a.createdAt)
+      const dateB = new Date(b.appointmentDate || b.createdAt)
+      return dateA - dateB
+    })
+
     setFilteredAppointments(filtered)
   }, [appointments, filterStatus, searchTerm])
 
