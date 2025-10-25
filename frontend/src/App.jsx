@@ -14,6 +14,8 @@ import Cookies from 'js-cookie';
 import MyAppointment from './pages/MyAppointment.jsx';
 import MyProfile from './pages/MyProfile.jsx';
 import Offer from './pages/Offer.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -63,6 +65,18 @@ useEffect(() => {
         </Routes>
       </main>
       <Footer/>
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
