@@ -123,6 +123,8 @@ const closeSidebar = () => {
     Cookies.remove("admin");
     setAdmin(null);
     setToken(null);
+    hasCheckedAuth.current = false; // Reset auth check flag
+    setOpenLogin(true); // Open login modal immediately
     navigate("/");
   };
 
