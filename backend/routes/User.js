@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -41,8 +42,8 @@ router.post("/login", async (req, res) => {
     // create JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
-      "mysecretkey", // put in .env file
-      { expiresIn: "1h" }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     // ✅ Save token & user in cookies so both apps can use them

@@ -1,4 +1,5 @@
 // googleUserStrategy.js
+require('dotenv').config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
@@ -7,9 +8,9 @@ passport.use(
   "google-user",   // unique name
   new GoogleStrategy(
     {
-     clientID: "425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com",
-       clientSecret: "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",
-      callbackURL: "http://localhost:1000/auth/google/user/callback",
+      clientID: process.env.GOOGLE_USER_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_USER_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_USER_CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -29,8 +30,3 @@ passport.use(
     }
   )
 );
-
-
-
-// clientID: "425613609140-eqbaqdekvfg1gaefqbmsff3001l1uj4v.apps.googleusercontent.com",
-//       clientSecret: "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",

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Admin = require("../models/Admin");
@@ -7,9 +8,9 @@ passport.use(
   "google-admin",   // unique name
   new GoogleStrategy(
     {
-      clientID: "425613609140-v3m2frcg2tftd8fms8cih93bu6pgmutt.apps.googleusercontent.com",
-      clientSecret: "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",
-      callbackURL: "http://localhost:1000/auth/google/admin/callback",
+      clientID: process.env.GOOGLE_ADMIN_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_ADMIN_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_ADMIN_CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

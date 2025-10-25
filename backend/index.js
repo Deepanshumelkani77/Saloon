@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express=require("express")
 const cors=require("cors")  //it is use for fetch data from database in frontend
 const passport = require("passport");
@@ -8,9 +9,9 @@ const jwt = require("jsonwebtoken");
 
 //app config
 const app=express();
-const port=1000;
+const port = process.env.PORT || 1000;
 app.listen(port,()=>{
-    console.log("server is running",port);
+    console.log(`Server is running on port ${port}`);
 })
 
 
@@ -29,7 +30,7 @@ const Admin = require("./models/Admin");
 
 // Session middleware for passport
 app.use(session({
-  secret: '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',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -69,12 +70,11 @@ passport.deserializeUser(async (obj, done) => {
 const mongoose = require("mongoose");
  const connectDB = async () => {
     try {
-      await mongoose.connect(
-"mongodb+srv://deepumelkani123_db_user:bhumi77@cluster0.ghgjitk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-      );
-      console.log("database connected successfully");
+      await mongoose.connect(process.env.MONGODB_URI);
+      console.log("Database connected successfully");
     } catch (error) {
       console.error("Error connecting to database:", error);
+      process.exit(1);
     }
   };
 //db connectin model
@@ -124,17 +124,17 @@ app.get("/auth/google/user",
 // Google callback
 app.get(
   "/auth/google/user/callback",
-  passport.authenticate("google-user", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("google-user", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
   (req, res) => {
     const token = jwt.sign(
       { id: req.user._id, email: req.user.email, name: req.user.username },
-      "your-jwt-secret",
-      { expiresIn: "24h" }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     // Redirect to frontend with token and user info
     res.redirect(
-      `http://localhost:5173/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `${process.env.FRONTEND_URL}/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
@@ -151,18 +151,18 @@ app.get("/auth/google/admin",
 // Google callback
 app.get(
   "/auth/google/admin/callback",
-  passport.authenticate("google-admin", { failureRedirect: "http://localhost:5175/login" }),
+  passport.authenticate("google-admin", { failureRedirect: `${process.env.ADMIN_URL}/login` }),
   (req, res) => {
     // Passport stores user/admin always in req.user
     const token = jwt.sign(
       { id: req.user._id, email: req.user.email, name: req.user.username, role: "admin" },
-      "your-jwt-secret",
-      { expiresIn: "24h" }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     // Redirect to ADMIN frontend with token and admin info
     res.redirect(
-      `http://localhost:5175/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `${process.env.ADMIN_URL}/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
