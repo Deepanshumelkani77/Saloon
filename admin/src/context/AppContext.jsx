@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -38,14 +38,24 @@ const closeSidebar = () => {
 
   const [admin, setAdmin] = useState(initialAdmin);
   const [token, setToken] = useState(tokenCookie || null);
+  const hasCheckedAuth = useRef(false);
   
 
-  // ✅ Auto-open login modal if not logged in
+  // ✅ Auto-open login modal if not logged in (only on initial mount)
   useEffect(() => {
-    if (!admin && !token) {
+    if (!hasCheckedAuth.current && !admin && !token) {
       setOpenLogin(true);
+      hasCheckedAuth.current = true;
     }
-  }, [admin, token]);
+  }, []);
+
+  // ✅ Close modal and redirect when login is successful
+  useEffect(() => {
+    if (admin && token && hasCheckedAuth.current) {
+      setOpenLogin(false);
+      navigate("/");
+    }
+  }, [admin, token, navigate]);
 
   // ✅ Handle Google login redirect (query params)
   useEffect(() => {
@@ -101,6 +111,7 @@ const closeSidebar = () => {
       setAdmin(response.data.admin);
       setToken(response.data.token);
       setOpenLogin(false); // Close login modal after successful login
+      navigate("/"); // Redirect to home page
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
