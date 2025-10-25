@@ -151,7 +151,7 @@ app.get("/auth/google/admin",
 // Google callback
 app.get(
   "/auth/google/admin/callback",
-  passport.authenticate("google-admin", { failureRedirect: "http://localhost:5174/login" }),
+  passport.authenticate("google-admin", { failureRedirect: "http://localhost:5175/login" }),
   (req, res) => {
     // Passport stores user/admin always in req.user
     const token = jwt.sign(
@@ -162,7 +162,7 @@ app.get(
 
     // Redirect to ADMIN frontend with token and admin info
     res.redirect(
-      `http://localhost:5174/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `http://localhost:5175/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
