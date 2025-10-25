@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Men = () => {
 

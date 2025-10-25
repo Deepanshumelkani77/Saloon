@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Accessories = () => {
   const [data, setData] = useState([]);
@@ -73,7 +74,7 @@ const Accessories = () => {
 
   const handleAddToCart = async (productId) => {
     if (!user) {
-      alert('Please login to add to cart!');
+      toast.warning('Please login to add to cart!');
       return;
     }
     try {
@@ -84,17 +85,17 @@ const Accessories = () => {
         quantity: qty,
       });
       if (res.data.success) {
-        alert('Added to cart!');
+        toast.success('Added to cart!');
       }
     } catch (err) {
       console.error('Error adding to cart:', err);
-      alert('Failed to add product to cart');
+      toast.error('Failed to add product to cart');
     }
   };
 
   const handleBuyNow = (productId) => {
     if (!user) {
-      alert('Please login to buy!');
+      toast.warning('Please login to buy!');
       return;
     }
     const product = data.find(p => p._id === productId);

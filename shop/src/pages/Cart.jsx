@@ -66,6 +66,7 @@ const Cart = () => {
       })
       if (res.data?.success) {
         setItems((prev) => prev.map((it) => (it.productId?._id === productId ? { ...it, quantity: nextQty } : it)))
+        toast.success('Cart updated successfully')
       }
     } catch (err) {
       console.error('Error updating quantity:', err)
@@ -85,6 +86,7 @@ const Cart = () => {
       }})
       if (res.data?.success) {
         setItems((prev) => prev.filter((it) => it.productId?._id !== productId))
+        toast.success('Item removed from cart')
       }
     } catch (err) {
       console.error('Error removing item:', err)

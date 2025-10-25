@@ -3,6 +3,7 @@ import { FaStar, FaShoppingCart, FaHeart, FaEye, FaFire, FaTrophy } from 'react-
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const BestSeller = () => {
   const [bestSellers, setBestSellers] = useState([]);
@@ -46,7 +47,7 @@ const BestSeller = () => {
 
   const handleAddToCart = async (product) => {
     if (!user) {
-      alert('Please login to add to cart!');
+      toast.warning('Please login to add to cart!');
       return;
     }
     try {
@@ -56,17 +57,17 @@ const BestSeller = () => {
         quantity: 1
       });
       if (res.data.success) {
-        alert('Added to cart!');
+        toast.success('Added to cart!');
       }
     } catch (err) {
       console.error('Error adding to cart:', err);
-      alert('Failed to add product to cart');
+      toast.error('Failed to add product to cart');
     }
   };
 
   const handleBuyNow = (product) => {
     if (!user) {
-      alert('Please login to buy!');
+      toast.warning('Please login to buy!');
       return;
     }
     
