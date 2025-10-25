@@ -412,54 +412,62 @@ const Inventory = () => {
           ) : (
             filteredProducts.map((product) => (
               <div key={product._id} className="group bg-black/60 backdrop-blur-md border border-[#D9C27B]/30 rounded-xl overflow-hidden hover:border-[#D9C27B]/60 hover:shadow-xl hover:shadow-[#D9C27B]/20 transition-all duration-300">
-                <div className="relative aspect-square bg-black/40 overflow-hidden">
-                  {product.image ? (
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center"><FaImage className="text-6xl text-gray-600" /></div>
-                  )}
-                  
-                  <div className="absolute top-2 right-2">
-                    {(product.stock || 0) === 0 ? (
-                      <span className="px-2 py-1 bg-red-500/90 text-white text-xs font-bold rounded-full">Out of Stock</span>
-                    ) : (product.stock || 0) < 10 ? (
-                      <span className="px-2 py-1 bg-yellow-500/90 text-black text-xs font-bold rounded-full">Low Stock</span>
+                {/* Mobile: Horizontal layout with full image | Desktop: Vertical card */}
+                <div className="flex flex-row sm:flex-col">
+                  {/* Image Section */}
+                  <div className="relative w-32 h-32 sm:w-full sm:aspect-square bg-black/40 overflow-hidden flex-shrink-0">
+                    {product.image ? (
+                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                     ) : (
-                      <span className="px-2 py-1 bg-green-500/90 text-white text-xs font-bold rounded-full">In Stock</span>
+                      <div className="w-full h-full flex items-center justify-center"><FaImage className="text-4xl sm:text-6xl text-gray-600" /></div>
                     )}
-                  </div>
-                </div>
-
-                <div className="p-4">
-                  <div className="mb-3">
-                    <h3 className="text-white font-bold text-lg mb-1 truncate group-hover:text-[#D9C27B] transition-colors">{product.name}</h3>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2 py-0.5 bg-[#D9C27B]/20 text-[#D9C27B] text-xs font-semibold rounded-full">{product.category}</span>
-                      <span className="px-2 py-0.5 bg-gray-700 text-gray-300 text-xs rounded-full">{product.subCategory}</span>
+                    
+                    <div className="absolute top-2 right-2">
+                      {(product.stock || 0) === 0 ? (
+                        <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-red-500/90 text-white text-xs font-bold rounded-full">Out</span>
+                      ) : (product.stock || 0) < 10 ? (
+                        <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-yellow-500/90 text-black text-xs font-bold rounded-full">Low</span>
+                      ) : (
+                        <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-green-500/90 text-white text-xs font-bold rounded-full hidden sm:inline">In Stock</span>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between mb-3">
+                  {/* Content Section */}
+                  <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
                     <div>
-                      <p className="text-[#D9C27B] font-bold text-xl">₹{product.price}</p>
-                      {product.brand && <p className="text-gray-400 text-xs">{product.brand}</p>}
-                    </div>
-                    <div className="text-right">
-                      <p className="text-white font-semibold">{product.stock || 0} units</p>
-                      <p className="text-gray-400 text-xs">Available</p>
-                    </div>
-                  </div>
+                      <div className="mb-2 sm:mb-3">
+                        <h3 className="text-white font-bold text-base sm:text-lg mb-1 line-clamp-1 sm:truncate group-hover:text-[#D9C27B] transition-colors">{product.name}</h3>
+                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                          <span className="px-1.5 py-0.5 sm:px-2 bg-[#D9C27B]/20 text-[#D9C27B] text-xs font-semibold rounded-full">{product.category}</span>
+                          <span className="px-1.5 py-0.5 sm:px-2 bg-gray-700 text-gray-300 text-xs rounded-full">{product.subCategory}</span>
+                        </div>
+                      </div>
 
-                  <div className="flex gap-2">
-                    <button onClick={() => handleViewProduct(product)} className="px-3 py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/30 hover:border-[#D9C27B]/50 transition-all duration-200 flex items-center justify-center" title="View Details">
-                      <FaEye />
-                    </button>
-                    <button onClick={() => handleEditProduct(product)} className="flex-1 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-200 flex items-center justify-center gap-2 text-sm font-medium">
-                      <FaEdit /><span>Edit</span>
-                    </button>
-                    <button onClick={() => handleDeleteProduct(product._id)} className="px-3 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 transition-all duration-200 flex items-center justify-center">
-                      <FaTrash />
-                    </button>
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
+                        <div>
+                          <p className="text-[#D9C27B] font-bold text-lg sm:text-xl">₹{product.price}</p>
+                          {product.brand && <p className="text-gray-400 text-xs hidden sm:block">{product.brand}</p>}
+                        </div>
+                        <div className="text-right">
+                          <p className="text-white font-semibold text-sm sm:text-base">{product.stock || 0} units</p>
+                          <p className="text-gray-400 text-xs hidden sm:block">Available</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <button onClick={() => handleViewProduct(product)} className="px-2 py-1.5 sm:px-3 sm:py-2 bg-[#D9C27B]/20 text-[#D9C27B] rounded-lg hover:bg-[#D9C27B]/30 border border-[#D9C27B]/30 hover:border-[#D9C27B]/50 transition-all duration-200 flex items-center justify-center" title="View Details">
+                        <FaEye className="text-sm sm:text-base" />
+                      </button>
+                      <button onClick={() => handleEditProduct(product)} className="flex-1 px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-200 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium">
+                        <FaEdit className="text-sm sm:text-base" /><span className="hidden sm:inline">Edit</span>
+                      </button>
+                      <button onClick={() => handleDeleteProduct(product._id)} className="px-2 py-1.5 sm:px-3 sm:py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 border border-red-500/30 hover:border-red-500/50 transition-all duration-200 flex items-center justify-center">
+                        <FaTrash className="text-sm sm:text-base" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
