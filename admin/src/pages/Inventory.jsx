@@ -308,15 +308,15 @@ const Inventory = () => {
               </div>
             </div>
             
-            <div className="flex gap-3">
-              <button onClick={handleAddProduct} className="px-6 py-3 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#D9C27B]/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
-                <FaPlus /><span>Add Product</span>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <button onClick={handleAddProduct} className="flex-1 sm:flex-none px-3 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#D9C27B]/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap">
+                <FaPlus className="text-sm sm:text-base" /><span>Add Product</span>
               </button>
-              <button onClick={handleAddCategory} className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
-                <FaPlus /><span>Add Category</span>
+              <button onClick={handleAddCategory} className="flex-1 sm:flex-none px-3 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap">
+                <FaPlus className="text-sm sm:text-base" /><span className="hidden xs:inline sm:inline">Add </span><span>Category</span>
               </button>
-              <button onClick={handleDeleteCategory} className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-red-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
-                <FaTrash /><span>Delete Category</span>
+              <button onClick={handleDeleteCategory} className="flex-1 sm:flex-none px-3 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-red-500/30 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap">
+                <FaTrash className="text-sm sm:text-base" /><span className="hidden xs:inline sm:inline">Delete </span><span>Category</span>
               </button>
             </div>
           </div>
