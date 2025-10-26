@@ -7,7 +7,7 @@ import {useContext} from 'react'
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'SERVICES' },
-  { name: 'E-SHOP', path: 'https://saloon-shop-s0r5.onrender.com' },
+  { name: 'E-SHOP', path: 'https://saloon-shop-s0r5.onrender.com', external: true },
   { name: 'OFFER', path: '/offer' },
   { name: 'ABOUT', path: '/about' },
   { name: 'CONTACT', path: '/contact' },
@@ -16,7 +16,7 @@ const navLinks = [
 const gold = '#D9C27B';
 
 const Navbar = ({ setLogin, setLoginMode }) => {
-  const { user, logout, sidebarOpen, toggleSidebar, closeSidebar } = useContext(AppContext);
+  const { user, token, logout, sidebarOpen, toggleSidebar, closeSidebar } = useContext(AppContext);
   const [mobileDropdown, setMobileDropdown] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
 
@@ -107,6 +107,21 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                     </div>
                   )}
                 </div>
+              ) : link.external ? (
+                <>
+                  <a 
+                    href={user ? `${link.path}?token=${token}&id=${user.id}&name=${encodeURIComponent(user.name || user.username)}&email=${encodeURIComponent(user.email)}` : link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#D9C27B] transition-colors duration-200 text-white"
+                  >
+                    {link.name}
+                  </a>
+                  <span
+                    className="block h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                    style={{ backgroundColor: gold }}
+                  />
+                </>
               ) : (
                 <>
                   <NavLink 
@@ -259,6 +274,17 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                   </div>
                 )}
               </div>
+            ) : link.external ? (
+              <a
+                key={link.name}
+                href={user ? `${link.path}?token=${token}&id=${user.id}&name=${encodeURIComponent(user.name || user.username)}&email=${encodeURIComponent(user.email)}` : link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg font-medium transition-colors duration-200 text-white hover:text-[#D9C27B]"
+                onClick={closeSidebar}
+              >
+                {link.name}
+              </a>
             ) : (
               <NavLink
                 key={link.name}

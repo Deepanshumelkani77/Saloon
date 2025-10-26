@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 
 const Navbar = ({ setLogin, setLoginMode }) => {
-  const { user, logout, cartCount, setCartCount } = useContext(AppContext);
+  const { user, token, logout, cartCount, setCartCount } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
@@ -113,13 +113,22 @@ const Navbar = ({ setLogin, setLoginMode }) => {
           
        
   
-          <div className="flex justify-start">
+          <div className="flex justify-start items-center gap-6">
             <a href="/" className="flex items-center gap-3 py-2 cursor-pointer">
               <FaCut className="text-3xl md:text-4xl animate-spin-slow" style={{ color: gold }} />
               <div className="flex flex-col">
                 <span className="text-xl md:text-2xl lg:text-3xl font-bold text-white tracking-wide">Me & Guys</span>
                 <span className="text-sm tracking-widest font-normal" style={{ color: gold }}>S H O P</span>
               </div>
+            </a>
+            {/* Link to Salon Website */}
+            <a 
+              href={user ? `https://saloon-frontend-m1t1.onrender.com?token=${token}&id=${user.id}&name=${encodeURIComponent(user.name || user.username)}&email=${encodeURIComponent(user.email)}` : 'https://saloon-frontend-m1t1.onrender.com'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:block px-4 py-2 text-sm font-semibold text-white hover:text-[#D9C27B] border border-[#D9C27B]/30 rounded-lg hover:bg-[#D9C27B]/10 transition-all duration-200"
+            >
+              🏪 Visit Salon
             </a>
           </div>
 
