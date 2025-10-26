@@ -69,9 +69,25 @@ const AppContextProvider = (props) => {
     };
   }, [user]);
 
-  // Handle Google login redirect (query params)
+  // Handle Google login redirect and logout trigger (query params)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    
+    // Check for logout trigger from frontend
+    const logoutParam = params.get("logout");
+    if (logoutParam === "true") {
+      // Clear all auth data
+      Cookies.remove("token", { path: '/' });
+      Cookies.remove("user", { path: '/' });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUser(null);
+      setToken(null);
+      navigate("/", { replace: true });
+      return;
+    }
+    
+    // Handle login from URL params
     const tokenParam = params.get("token");
     const id = params.get("id");
     const name = params.get("name");
@@ -142,6 +158,14 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken(null);
+    
+    // Trigger logout on frontend app (cross-domain)
+    const frontendLogoutWindow = window.open('https://saloon-frontend-m1t1.onrender.com?logout=true', '_blank');
+    // Close the window after a short delay to trigger the logout
+    setTimeout(() => {
+      if (frontendLogoutWindow) frontendLogoutWindow.close();
+    }, 500);
+    
     toast.info("Logged out successfully");
     navigate("/");
   };

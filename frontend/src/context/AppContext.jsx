@@ -70,9 +70,25 @@ const AppContextProvider = (props) => {
     };
   }, [user]);
 
-  // ✅ Handle Google login redirect (query params)
+  // ✅ Handle Google login redirect and logout trigger (query params)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    
+    // Check for logout trigger from shop
+    const logoutParam = params.get("logout");
+    if (logoutParam === "true") {
+      // Clear all auth data
+      Cookies.remove("token", { path: '/' });
+      Cookies.remove("user", { path: '/' });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUser(null);
+      setToken(null);
+      navigate("/", { replace: true });
+      return;
+    }
+    
+    // Handle login from URL params
     const tokenParam = params.get("token");
     const id = params.get("id");
     const name = params.get("name");
@@ -100,9 +116,14 @@ const AppContextProvider = (props) => {
   }, [location.search, navigate]);
 
   // Signup
-  const signup = async (userData) => {
+  const signup = async (fullName, email, password, phone) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, userData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, {
+        username: fullName,  // Map fullName to username for backend
+        email,
+        password,
+        phone
+      });
       toast.success("Signup successful! Please login.");
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
@@ -136,6 +157,14 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken(null);
+    
+    // Trigger logout on shop app (cross-domain)
+    const shopLogoutWindow = window.open('https://saloon-shop-s0r5.onrender.com?logout=true', '_blank');
+    // Close the window after a short delay to trigger the logout
+    setTimeout(() => {
+      if (shopLogoutWindow) shopLogoutWindow.close();
+    }, 500);
+    
     toast.info("Logged out successfully");
     navigate("/");
   };
