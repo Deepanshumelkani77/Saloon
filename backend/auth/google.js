@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_USER_CLIENT_ID,
       clientSecret: process.env.GOOGLE_USER_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_USER_CALLBACK_URL,
+      callbackURL: "https://saloon-backend-cr64.onrender.com/auth/google/user/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
