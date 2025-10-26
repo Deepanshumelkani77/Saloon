@@ -124,7 +124,7 @@ app.get("/auth/google/user",
 // Google callback
 app.get(
   "/auth/google/user/callback",
-  passport.authenticate("google-user", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
+  passport.authenticate("google-user", { failureRedirect: "https://saloon-frontend-m1t1.onrender.com/login" }),
   (req, res) => {
     const token = jwt.sign(
       { id: req.user._id, email: req.user.email, name: req.user.username },
@@ -134,7 +134,7 @@ app.get(
 
     // Redirect to frontend with token and user info
     res.redirect(
-      `${process.env.FRONTEND_URL}/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `https://saloon-frontend-m1t1.onrender.com/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
@@ -151,7 +151,7 @@ app.get("/auth/google/admin",
 // Google callback
 app.get(
   "/auth/google/admin/callback",
-  passport.authenticate("google-admin", { failureRedirect: `${process.env.ADMIN_URL}/login` }),
+  passport.authenticate("google-admin", { failureRedirect: "https://saloon-admin-lx8t.onrender.com/login" }),
   (req, res) => {
     // Passport stores user/admin always in req.user
     const token = jwt.sign(
@@ -162,7 +162,7 @@ app.get(
 
     // Redirect to ADMIN frontend with token and admin info
     res.redirect(
-      `${process.env.ADMIN_URL}/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `https://saloon-admin-lx8t.onrender.com/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
