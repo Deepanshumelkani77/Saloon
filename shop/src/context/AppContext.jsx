@@ -19,6 +19,33 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(initialUser);
   const [token, setToken] = useState(tokenCookie || null);
 
+  // ✅ Sync authentication state across frontend and shop
+  useEffect(() => {
+    const checkCookieChanges = () => {
+      const currentUserCookie = Cookies.get("user");
+      const currentTokenCookie = Cookies.get("token");
+
+      // If cookies exist but state doesn't match, update state (logged in from frontend)
+      if (currentUserCookie && currentTokenCookie) {
+        const cookieUser = JSON.parse(currentUserCookie);
+        if (!user || user.id !== cookieUser.id) {
+          setUser(cookieUser);
+          setToken(currentTokenCookie);
+        }
+      }
+      // If cookies are removed but state exists, clear state (logged out from frontend)
+      else if (!currentUserCookie && !currentTokenCookie && user) {
+        setUser(null);
+        setToken(null);
+      }
+    };
+
+    // Check every 500ms for cookie changes
+    const interval = setInterval(checkCookieChanges, 500);
+
+    return () => clearInterval(interval);
+  }, [user]);
+
   // Handle Google login redirect (query params)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -30,9 +57,9 @@ const AppContextProvider = (props) => {
     if (tokenParam && id && email) {
       const newUser = { id: id, name, email };
 
-      // Save to cookies
-      Cookies.set("token", tokenParam, { expires: 1 });
-      Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+      // Save to cookies (shared across frontend & shop)
+      Cookies.set("token", tokenParam, { expires: 1, path: '/' });
+      Cookies.set("user", JSON.stringify(newUser), { expires: 1, path: '/' });
 
       // Update state
       setToken(tokenParam);
@@ -46,16 +73,6 @@ const AppContextProvider = (props) => {
     }
   }, [location.search, navigate]);
 
-  // If cookies change (e.g. login/logout), update state
-  useEffect(() => {
-    if (Cookies.get("user")) {
-      setUser(JSON.parse(Cookies.get("user")));
-      setToken(Cookies.get("token"));
-    } else {
-      setUser(null);
-      setToken(null);
-    }
-  }, []);
 
   // Signup function
   const signup = async (username, email, password, phone) => {
@@ -80,8 +97,8 @@ const AppContextProvider = (props) => {
         email,
         password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 });
-      Cookies.set("user", JSON.stringify(response.data.user), { expires: 1 });
+      Cookies.set("token", response.data.token, { expires: 1, path: '/' });
+      Cookies.set("user", JSON.stringify(response.data.user), { expires: 1, path: '/' });
       setUser(response.data.user);
       setToken(response.data.token);
       toast.success(`Welcome back, ${response.data.user.name || response.data.user.username}!`);
@@ -92,8 +109,8 @@ const AppContextProvider = (props) => {
 
   // Logout function
   const logout = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
+    Cookies.remove("token", { path: '/' });
+    Cookies.remove("user", { path: '/' });
     setUser(null);
     setToken(null);
     toast.info("Logged out successfully");
@@ -104,7 +121,7 @@ const AppContextProvider = (props) => {
   const updateUser = (updatedUserData) => {
     const newUser = { ...user, ...updatedUserData };
     setUser(newUser);
-    Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+    Cookies.set("user", JSON.stringify(newUser), { expires: 1, path: '/' });
   };
 
   const value = { 
