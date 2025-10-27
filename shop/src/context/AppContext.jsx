@@ -10,95 +10,57 @@ const AppContextProvider = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Restore user from cookies AND localStorage (for cross-domain support)
-  const userCookie = Cookies.get("user");
-  const tokenCookie = Cookies.get("token");
-  const userLocalStorage = localStorage.getItem("user");
-  const tokenLocalStorage = localStorage.getItem("token");
+  // Restore user from localStorage (shared across frontend and shop on same domain)
+  const storedUser = localStorage.getItem("user");
+  const storedToken = localStorage.getItem("token");
 
-  const initialUser =
-    userCookie && userCookie !== "undefined" ? JSON.parse(userCookie) : 
-    userLocalStorage && userLocalStorage !== "undefined" ? JSON.parse(userLocalStorage) : null;
-  
-  const initialToken = tokenCookie || tokenLocalStorage || null;
+  const initialUser = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
+  const initialToken = storedToken || null;
 
   const [user, setUser] = useState(initialUser);
   const [token, setToken] = useState(initialToken);
 
-  // ✅ Sync authentication state (localStorage for cross-domain, cookies for same-domain)
+  // ✅ Sync authentication across tabs and apps (frontend + shop) using storage events
   useEffect(() => {
-    const checkStorageChanges = () => {
-      const currentUserCookie = Cookies.get("user");
-      const currentTokenCookie = Cookies.get("token");
-      const currentUserLocal = localStorage.getItem("user");
-      const currentTokenLocal = localStorage.getItem("token");
+    const handleStorageChange = (e) => {
+      // Only react to user/token changes
+      if (e.key === "user" || e.key === "token" || e.key === null) {
+        const currentUser = localStorage.getItem("user");
+        const currentToken = localStorage.getItem("token");
 
-      // Check both cookie and localStorage
-      const currentUser = currentUserCookie || currentUserLocal;
-      const currentToken = currentTokenCookie || currentTokenLocal;
-
-      // If auth data exists but state doesn't match, update state
-      if (currentUser && currentToken) {
-        const authUser = JSON.parse(currentUser);
-        if (!user || user.id !== authUser.id) {
+        if (currentUser && currentToken) {
+          // User logged in from another tab/app
+          const authUser = JSON.parse(currentUser);
           setUser(authUser);
           setToken(currentToken);
+        } else {
+          // User logged out from another tab/app
+          setUser(null);
+          setToken(null);
         }
       }
-      // If auth data is removed but state exists, clear state
-      else if (!currentUser && !currentToken && user) {
-        setUser(null);
-        setToken(null);
-      }
     };
 
-    // Check every 500ms for storage changes
-    const interval = setInterval(checkStorageChanges, 500);
-
-    // Also listen to storage events (for cross-tab sync on same domain)
-    const handleStorageChange = (e) => {
-      if (e.key === "user" || e.key === "token") {
-        checkStorageChanges();
-      }
-    };
+    // Listen for storage changes from other tabs/windows
     window.addEventListener('storage', handleStorageChange);
 
     return () => {
-      clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [user]);
+  }, []);
 
-  // Handle Google login redirect and logout trigger (query params)
+  // ✅ Handle Google OAuth redirect callback
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    
-    // Check for logout trigger from frontend
-    const logoutParam = params.get("logout");
-    if (logoutParam === "true") {
-      // Clear all auth data
-      Cookies.remove("token", { path: '/' });
-      Cookies.remove("user", { path: '/' });
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUser(null);
-      setToken(null);
-      navigate("/", { replace: true });
-      return;
-    }
-    
-    // Handle login from URL params
     const tokenParam = params.get("token");
     const id = params.get("id");
     const name = params.get("name");
     const email = params.get("email");
 
     if (tokenParam && id && email) {
-      const newUser = { id: id, name, email };
+      const newUser = { id, name, email };
 
-      // Save to both cookies AND localStorage (for cross-domain support)
-      Cookies.set("token", tokenParam, { expires: 1, path: '/' });
-      Cookies.set("user", JSON.stringify(newUser), { expires: 1, path: '/' });
+      // Save to localStorage (automatically syncs to frontend app)
       localStorage.setItem("token", tokenParam);
       localStorage.setItem("user", JSON.stringify(newUser));
 
@@ -106,10 +68,10 @@ const AppContextProvider = (props) => {
       setToken(tokenParam);
       setUser(newUser);
 
-      // Show success toast
+      // Show success message
       toast.success(`Welcome back, ${name}! Logged in with Google`);
 
-      // Remove params from URL
+      // Clean up URL
       navigate("/", { replace: true });
     }
   }, [location.search, navigate]);
@@ -138,10 +100,11 @@ const AppContextProvider = (props) => {
         email,
         password,
       });
-      Cookies.set("token", response.data.token, { expires: 1, path: '/' });
-      Cookies.set("user", JSON.stringify(response.data.user), { expires: 1, path: '/' });
+      
+      // Save to localStorage (automatically syncs to frontend app)
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
+      
       setUser(response.data.user);
       setToken(response.data.token);
       toast.success(`Welcome back, ${response.data.user.name || response.data.user.username}!`);
@@ -150,22 +113,12 @@ const AppContextProvider = (props) => {
     }
   };
 
-  // Logout function
+  // Logout (automatically syncs to frontend app via storage event)
   const logout = () => {
-    Cookies.remove("token", { path: '/' });
-    Cookies.remove("user", { path: '/' });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
     setToken(null);
-    
-    // Trigger logout on frontend app (cross-domain)
-    const frontendLogoutWindow = window.open('https://saloon-frontend-m1t1.onrender.com?logout=true', '_blank');
-    // Close the window after a short delay to trigger the logout
-    setTimeout(() => {
-      if (frontendLogoutWindow) frontendLogoutWindow.close();
-    }, 500);
-    
     toast.info("Logged out successfully");
     navigate("/");
   };
@@ -174,7 +127,6 @@ const AppContextProvider = (props) => {
   const updateUser = (updatedUserData) => {
     const newUser = { ...user, ...updatedUserData };
     setUser(newUser);
-    Cookies.set("user", JSON.stringify(newUser), { expires: 1, path: '/' });
     localStorage.setItem("user", JSON.stringify(newUser));
   };
 
