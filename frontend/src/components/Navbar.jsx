@@ -7,7 +7,7 @@ import {useContext} from 'react'
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'SERVICES' },
-  { name: 'E-SHOP', path: 'https://saloon-shop-s0r5.onrender.com', external: true },
+  { name: 'E-SHOP', path: 'https://saloon-shopp.vercel.app', external: true },
   { name: 'OFFER', path: '/offer' },
   { name: 'ABOUT', path: '/about' },
   { name: 'CONTACT', path: '/contact' },
