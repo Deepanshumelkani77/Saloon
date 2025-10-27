@@ -124,7 +124,7 @@ app.get("/auth/google/user",
 // Google callback
 app.get(
   "/auth/google/user/callback",
-  passport.authenticate("google-user", { failureRedirect: "https://saloon-frontend-m1t1.onrender.com/login" }),
+  passport.authenticate("google-user", { failureRedirect: "https://saloon-frontend-blond.vercel.app//login" }),
   (req, res) => {
     const token = jwt.sign(
       { id: req.user._id, email: req.user.email, name: req.user.username },
@@ -134,7 +134,7 @@ app.get(
 
     // Redirect to frontend with token and user info
     res.redirect(
-      `https://saloon-frontend-m1t1.onrender.com/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `https://saloon-frontend-blond.vercel.app//?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
@@ -151,7 +151,7 @@ app.get("/auth/google/admin",
 // Google callback
 app.get(
   "/auth/google/admin/callback",
-  passport.authenticate("google-admin", { failureRedirect: "https://saloon-admin-lx8t.onrender.com/login" }),
+  passport.authenticate("google-admin", { failureRedirect: "https://saloon-admin-one.vercel.app/login" }),
   (req, res) => {
     // Passport stores user/admin always in req.user
     const token = jwt.sign(
@@ -162,7 +162,7 @@ app.get(
 
     // Redirect to ADMIN frontend with token and admin info
     res.redirect(
-      `https://saloon-admin-lx8t.onrender.com/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
+      `https://saloon-admin-one.vercel.app/?token=${token}&id=${req.user._id}&name=${req.user.username}&email=${req.user.email}`
     );
   }
 );
