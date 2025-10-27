@@ -39,6 +39,12 @@ const Appointment = () => {
     fetchStylists();
   }, []);
 
+  // Debug: log when the page mounts/unmounts
+  useEffect(() => {
+    console.log('Appointment page mounted');
+    return () => console.log('Appointment page unmounted');
+  }, []);
+
   // Check availability when stylist, date, or service changes
   useEffect(() => {
     if (formData.stylist && formData.date && formData.service) {
@@ -50,6 +56,7 @@ const Appointment = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/services`);
       setServices(response.data);
+      console.log('fetchServices - services loaded:', response.data);
     } catch (error) {
       console.error('Error fetching services:', error);
     }
@@ -59,6 +66,7 @@ const Appointment = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/appointment/stylists`);
       setStylists(response.data);
+      console.log('fetchStylists - stylists loaded:', response.data);
     } catch (error) {
       console.error('Error fetching stylists:', error);
     }
@@ -67,6 +75,7 @@ const Appointment = () => {
   const checkAvailability = async () => {
     setCheckingAvailability(true);
     try {
+      console.log('checkAvailability - payload', { stylistId: formData.stylist, date: formData.date, serviceId: formData.service });
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/check-availability`, {
         stylistId: formData.stylist,
         date: formData.date,
@@ -74,6 +83,7 @@ const Appointment = () => {
       });
       setAvailableSlots(response.data.availableSlots);
       setBookedSlots(response.data.bookedSlots);
+      console.log('checkAvailability - response', response.data);
     } catch (error) {
       console.error('Error checking availability:', error);
       setAvailableSlots([]);
@@ -84,7 +94,8 @@ const Appointment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    console.log('appointment:1 - booking attempt');
+    console.log('handleSubmit - current formData', formData);
     if (!user) {
       toast.warning('Please login to book an appointment');
       return;
@@ -119,10 +130,12 @@ const Appointment = () => {
         notes: formData.notes
       };
 
+      console.log('handleSubmit - appointmentData payload', appointmentData);
+
       
       
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/appointment/book`, appointmentData);
-      console.log('Booking response:', response.data);
+  console.log('Booking response:', response.data);
       
       toast.success('Your appointment has been booked successfully! We will contact you soon to confirm.');
       
@@ -158,10 +171,12 @@ const Appointment = () => {
   };
 
   const nextStep = () => {
+    console.log('Navigation - nextStep from', currentStep);
     if (currentStep < 3) setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
+    console.log('Navigation - prevStep from', currentStep);
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
@@ -329,7 +344,10 @@ const Appointment = () => {
                     ).map((service) => (
                       <div
                         key={service._id}
-                        onClick={() => setFormData({ ...formData, service: service._id })}
+                        onClick={() => {
+                          setFormData({ ...formData, service: service._id });
+                          console.log('Selected service', service._id, service.name);
+                        }}
                         className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${
                           formData.service === service._id
                             ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
@@ -403,7 +421,10 @@ const Appointment = () => {
                       {stylists.map((stylist) => (
                         <div
                           key={stylist._id}
-                          onClick={() => setFormData({ ...formData, stylist: stylist._id })}
+                          onClick={() => {
+                            setFormData({ ...formData, stylist: stylist._id });
+                            console.log('Selected stylist', stylist._id, stylist.name);
+                          }}
                           className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 cursor-pointer transition-all duration-300 ${
                             formData.stylist === stylist._id
                               ? 'border-[#D9C27B] bg-gradient-to-br from-[#D9C27B]/20 to-[#F4E4A6]/10'
@@ -449,7 +470,10 @@ const Appointment = () => {
                           <button
                             key={slot.time}
                             type="button"
-                            onClick={() => setFormData({ ...formData, time: slot.time })}
+                            onClick={() => {
+                              setFormData({ ...formData, time: slot.time });
+                              console.log('Selected time slot', slot.time, 'endTime', slot.endTime);
+                            }}
                             className={`py-3 sm:py-2 px-2 sm:px-3 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-sm min-h-[44px] ${
                               formData.time === slot.time
                                 ? 'bg-gradient-to-r from-[#D9C27B] to-[#F4E4A6] text-black'
