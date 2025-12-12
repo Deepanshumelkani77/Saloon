@@ -240,20 +240,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                     <Link to="/cart" className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10">View Cart</Link>
                   </div>
                   <div className="border-t border-[#D9C27B]/20">
-                    {user ? (
-                      <button onClick={logout} className="w-full text-left px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10">Logout</button>
-                    ) : (
-                      <button 
-                        onClick={() => {
-                          setLoginMode('login');
-                          setLogin(true);
-                          setProfileOpen(false);
-                        }} 
-                        className="w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-[#D9C27B]/10"
-                      >
-                        Login
-                      </button>
-                    )}
+                   
                   </div>
                 </div>
               )}
@@ -369,14 +356,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                 )}
               </div>
               
-              {user && (
-                <button 
-                  onClick={() => { logout(); toggleMobileMenu(); }}
-                  className="w-full mt-3 flex items-center justify-center gap-2 bg-red-900/20 border border-red-500/30 text-red-400 hover:text-white hover:bg-red-900/30 transition-all duration-200 p-3 rounded-xl min-h-[48px]"
-                >
-                  <span className="font-medium">Logout</span>
-                </button>
-              )}
+            
             </div>
           </div>
         </div>
