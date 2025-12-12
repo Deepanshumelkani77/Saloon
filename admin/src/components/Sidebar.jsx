@@ -122,7 +122,7 @@ const Sidebar = ({ }) => {
               const isActive = getActiveItem(location.pathname) === item.id
               
               return (
-                <Link key={item.id} to={item.path}>
+                <a  href={item.path}>
                   <button
                     onClick={handleItemClick}
                     className={`
@@ -141,7 +141,7 @@ const Sidebar = ({ }) => {
                       <div className="ml-auto w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse" />
                     )}
                   </button>
-                </Link>
+                </a>
            
 
 
