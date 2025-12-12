@@ -7,56 +7,75 @@ import { toast } from 'react-toastify';
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
-
   const navigate = useNavigate();
   const location = useLocation();
 
-const [sidebarOpen, setSidebarOpen] = useState(false);
-const [openLogin,setOpenLogin] = useState(false);
-const [initialMode, setInitialMode] = useState("login");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [initialMode, setInitialMode] = useState("login");
+  const [isLoading, setIsLoading] = useState(true); 
+  
+  // Toggle function for sidebar
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev);
+  };
 
-// Toggle function for sidebar
-const toggleSidebar = () => {
-  setSidebarOpen(prev => !prev);
-};
-
-// Close sidebar function
-const closeSidebar = () => {
-  setSidebarOpen(false);
-};
-
-
-
+  // Close sidebar function
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
 
   // Restore user from cookies if available
   const adminCookie = Cookies.get("admin");
   const tokenCookie = Cookies.get("token");
 
-  const initialAdmin =
-    adminCookie && adminCookie !== "undefined" ? JSON.parse(adminCookie) : null;
-
+  const initialAdmin = adminCookie && adminCookie !== "undefined" ? JSON.parse(adminCookie) : null;
   const [admin, setAdmin] = useState(initialAdmin);
   const [token, setToken] = useState(tokenCookie || null);
   const hasCheckedAuth = useRef(false);
   
-
-  // ✅ Auto-open login modal if not logged in (only on initial mount)
+  // Check authentication status on initial load
   useEffect(() => {
-    if (!hasCheckedAuth.current && !admin && !token) {
-      setOpenLogin(true);
+    const checkAuth = async () => {
+      if (token && admin) {
+        try {
+          // Verify token with backend
+          await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/verify-token`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          // Token is valid
+          setAdmin(admin);
+          setToken(token);
+          if (location.pathname === '/login') {
+            navigate('/');
+          }
+        } catch (error) {
+          // Token is invalid or expired
+          console.error('Token verification failed:', error);
+          Cookies.remove('token');
+          Cookies.remove('admin');
+          setAdmin(null);
+          setToken(null);
+          setOpenLogin(true);
+          if (location.pathname !== '/login') {
+            navigate('/login');
+          }
+        }
+      } else if (!hasCheckedAuth.current) {
+        // No token found
+        setOpenLogin(true);
+        if (location.pathname !== '/login') {
+          navigate('/login');
+        }
+      }
+      setIsLoading(false);
       hasCheckedAuth.current = true;
-    }
-  }, []);
+    };
 
-  // ✅ Close modal and redirect when login is successful
-  useEffect(() => {
-    if (admin && token && hasCheckedAuth.current) {
-      setOpenLogin(false);
-      navigate("/");
-    }
-  }, [admin, token, navigate]);
+    checkAuth();
+  }, [navigate, token, admin, location.pathname]);
 
-  // ✅ Handle Google login redirect (query params)
+  // Handle Google login redirect (query params)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tokenParam = params.get("token");
@@ -66,7 +85,6 @@ const closeSidebar = () => {
 
     if (tokenParam && id && email) {
       const newUser = { _id: id, name, email };
-
       // Save to cookies
       Cookies.set("token", tokenParam, { expires: 1 });
       Cookies.set("admin", JSON.stringify(newUser), { expires: 1 });
@@ -76,7 +94,7 @@ const closeSidebar = () => {
       setAdmin(newUser);
 
       // Show success toast
-      toast.success(`Welcome back, ${name}! Logged in with Google`);
+      toast.success(`Welcome back, ${name}!`);
 
       // Remove params from URL
       navigate("/", { replace: true });
@@ -93,11 +111,9 @@ const closeSidebar = () => {
         phone,
       });
       toast.success("Signup successful! Please login.");
-      // Redirect to login page after successful signup
       setInitialMode("login");
-      setOpenLogin(true);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Signup failed");
+      throw error;
     }
   };
 
@@ -108,53 +124,62 @@ const closeSidebar = () => {
         email,
         password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 });
-      Cookies.set("admin", JSON.stringify(response.data.admin), { expires: 1 });
-      setAdmin(response.data.admin);
-      setToken(response.data.token);
-      toast.success(`Welcome back, ${response.data.admin.name || response.data.admin.username}!`);
-      setOpenLogin(false); // Close login modal after successful login
-      navigate("/"); // Redirect to home page
+      
+      const { token, admin } = response.data;
+      
+      // Save to cookies
+      Cookies.set("token", token, { expires: 1 });
+      Cookies.set("admin", JSON.stringify(admin), { expires: 1 });
+      
+      // Update state
+      setToken(token);
+      setAdmin(admin);
+      setOpenLogin(false);
+      
+      toast.success(`Welcome back, ${admin.name || 'Admin'}!`);
+      return true;
     } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
+      throw error;
     }
   };
 
   // Logout
   const logout = () => {
+    // Clear cookies
     Cookies.remove("token");
     Cookies.remove("admin");
-    setAdmin(null);
+    
+    // Reset state
     setToken(null);
-    toast.info("Logged out successfully");
-    hasCheckedAuth.current = false; // Reset auth check flag
-    setOpenLogin(true); // Open login modal immediately
-    navigate("/");
-  };
-
-
-
-
-  const value = {
-    admin,
-    setAdmin,
-    token,
-    setToken,
-    sidebarOpen,
-    setSidebarOpen,
-    toggleSidebar,
-    closeSidebar,
-    openLogin,
-    setOpenLogin,
-    signup,
-    login,
-    logout,
-    initialMode,
-    setInitialMode
+    setAdmin(null);
+    
+    // Redirect to login
+    navigate("/login");
+    setOpenLogin(true);
+    
+    toast.success("Logged out successfully!");
   };
 
   return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+    <AppContext.Provider
+      value={{
+        sidebarOpen,
+        toggleSidebar,
+        closeSidebar,
+        openLogin,
+        setOpenLogin,
+        initialMode,
+        setInitialMode,
+        admin,
+        token,
+        login,
+        logout,
+        signup,
+        isLoading,
+      }}
+    >
+      {!isLoading && props.children}
+    </AppContext.Provider>
   );
 };
 
