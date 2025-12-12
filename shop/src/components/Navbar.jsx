@@ -332,7 +332,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                   <span className="font-medium">Cart ({cartCount})</span>
                 </Link>
                 
-                {user ? (
+              
                   <Link 
                     to="/my-order" 
                     onClick={toggleMobileMenu} 
@@ -341,19 +341,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                     <FaUserCircle className="text-lg" />
                     <span className="font-medium">Orders</span>
                   </Link>
-                ) : (
-                  <button 
-                    onClick={() => {
-                      setLoginMode('login');
-                      setLogin(true);
-                      toggleMobileMenu();
-                    }} 
-                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/50 text-gray-300 hover:text-white hover:border-[#D9C27B]/50 transition-all duration-200 p-4 rounded-xl min-h-[56px] w-full"
-                  >
-                    <FaUserCircle className="text-lg" />
-                    <span className="font-medium">Login</span>
-                  </button>
-                )}
+              
               </div>
               
             
