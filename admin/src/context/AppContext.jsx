@@ -95,7 +95,13 @@ const closeSidebar = () => {
       toast.success("Signup successful! Please login.");
       // Redirect to login page after successful signup
       setInitialMode("login");
-      setOpenLogin(true);
+      
+      // Set a flag in localStorage to indicate we just signed up
+      localStorage.setItem('justSignedUp', 'true');
+      
+      // Refresh to ensure clean state for login
+      window.location.reload();
+      
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");
     }
@@ -113,8 +119,13 @@ const closeSidebar = () => {
       setAdmin(response.data.admin);
       setToken(response.data.token);
       toast.success(`Welcome back, ${response.data.admin.name || response.data.admin.username}!`);
-      setOpenLogin(false); // Close login modal after successful login
-      navigate("/"); // Redirect to home page
+      
+      // Set a flag in localStorage to indicate we just logged in
+      localStorage.setItem('justLoggedIn', 'true');
+      
+      // Force a refresh to ensure all components get the updated auth state
+      window.location.reload();
+      
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     }
