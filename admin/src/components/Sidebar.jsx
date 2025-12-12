@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import {useContext} from 'react'
 import {AppContext} from '../context/AppContext'
-import { useLocation, Link, NavLink } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 import { 
   FaTachometerAlt, 
@@ -15,12 +15,7 @@ import {
   FaComments,
   FaStore,
   FaBell,
-  FaTimes,
-  FaHome,
-  FaClipboardList,
-  FaCommentAlt,
-  FaUser,
-  FaBox
+  FaTimes
 } from 'react-icons/fa'
 
 const Sidebar = ({ }) => {
@@ -29,24 +24,30 @@ const Sidebar = ({ }) => {
   const location = useLocation()
   const gold = '#D9C27B'
 
-  // Navigation items
-  const navItems = [
-    { to: '/', icon: <FaHome className="mr-3" />, text: 'Dashboard' },
-    { to: '/appointments', icon: <FaCalendarAlt className="mr-3" />, text: 'Appointments' },
-    { to: '/services', icon: <FaCut className="mr-3" />, text: 'Services' },
-    { to: '/staff', icon: <FaUsers className="mr-3" />, text: 'Staff Management' },
-    { to: '/orders', icon: <FaClipboardList className="mr-3" />, text: 'Orders' },
-    { to: '/inventory', icon: <FaBox className="mr-3" />, text: 'Inventory' },
-    { to: '/feedback', icon: <FaCommentAlt className="mr-3" />, text: 'Feedback' },
-  ];
+  // Function to determine active item based on current path
+  const getActiveItem = (path) => {
+    if (path === '/') return 'dashboard'
+    if (path === '/appointments') return 'appointments'
+    if (path === '/services') return 'services'
+    if (path === '/staff') return 'staff'
+    if (path === '/orders') return 'Orders'
+    if (path === '/feedback') return 'feedback'
+    if (path === '/inventory') return 'inventory'
+    if (path === '/notifications') return 'notifications'
+    if (path === '/settings') return 'settings'
+    return 'dashboard'
+  }
 
-  // Check if a nav item is active
-  const isActive = (path) => {
-    if (path === '/') {
-      return location.pathname === '/';
-    }
-    return location.pathname.startsWith(path);
-  };
+  const menuItems = [
+    { id: 'dashboard', name: 'Dashboard', icon: FaTachometerAlt, path: '/' },
+    { id: 'appointments', name: 'Appointments', icon: FaCalendarAlt, path: '/appointments' },
+    { id: 'services', name: 'Services', icon: FaCut, path: '/services' },
+    { id: 'staff', name: 'Staff Management', icon: FaUsers, path: '/staff' },
+    { id: 'Orders', name: 'Orders', icon: FaChartBar, path: '/orders' },
+    { id: 'feedback', name: 'Feedback', icon: FaComments, path: '/feedback' },
+    { id: 'inventory', name: 'Inventory', icon: FaStore, path: '/inventory' },
+   
+  ]
 
   const handleItemClick = () => {
     // Close sidebar on mobile after selection
@@ -116,23 +117,36 @@ const Sidebar = ({ }) => {
         {/* Navigation Menu */}
         <nav className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-2">
-            {navItems.map((item) => (
-              <li key={item.to} onClick={handleItemClick}>
-                <NavLink
-                  to={item.to}
-                  className={`flex items-center p-2 rounded-lg group ${
-                    isActive(item.to)
-                      ? 'bg-[#D9C27B]/20 text-[#D9C27B]'
-                      : 'text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
-                  }`}
-                >
-                  {React.cloneElement(item.icon, {
-                    className: `text-lg ${isActive(item.to) ? 'text-[#D9C27B]' : 'text-gray-400 group-hover:text-[#D9C27B]'}`,
-                  })}
-                  <span className="ml-3">{item.text}</span>
-                </NavLink>
-              </li>
-            ))}
+            {menuItems.map((item) => {
+              const Icon = item.icon
+              const isActive = getActiveItem(location.pathname) === item.id
+              
+              return (
+                <Link key={item.id} to={item.path}>
+                  <button
+                    onClick={handleItemClick}
+                    className={`
+                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left group
+                      ${isActive 
+                        ? 'bg-[#D9C27B]/20 text-[#D9C27B] border-l-4 border-[#D9C27B]' 
+                        : 'text-gray-300 hover:text-[#D9C27B] hover:bg-[#D9C27B]/10'
+                      }
+                    `}
+                  >
+                    <Icon className={`text-lg ${isActive ? 'text-[#D9C27B]' : 'group-hover:text-[#D9C27B]'}`} />
+                    <span className="font-medium">{item.name}</span>
+                    
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="ml-auto w-2 h-2 bg-[#D9C27B] rounded-full animate-pulse" />
+                    )}
+                  </button>
+                </Link>
+           
+
+
+              )
+            })}
           </div>
         </nav>
 
