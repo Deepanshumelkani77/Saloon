@@ -121,15 +121,7 @@ const Navbar = ({ setLogin, setLoginMode }) => {
                 <span className="text-sm tracking-widest font-normal" style={{ color: gold }}>S H O P</span>
               </div>
             </a>
-            {/* Link to Salon Website */}
-            <a 
-              href={user ? `https://saloon-frontend-m1t1.onrender.com?token=${token}&id=${user.id}&name=${encodeURIComponent(user.name || user.username)}&email=${encodeURIComponent(user.email)}` : 'https://saloon-frontend-m1t1.onrender.com'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:block px-4 py-2 text-sm font-semibold text-white hover:text-[#D9C27B] border border-[#D9C27B]/30 rounded-lg hover:bg-[#D9C27B]/10 transition-all duration-200"
-            >
-              🏪 Visit Salon
-            </a>
+           
           </div>
 
 
