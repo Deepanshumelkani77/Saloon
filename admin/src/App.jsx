@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
@@ -20,6 +20,18 @@ import 'react-toastify/dist/ReactToastify.css'
 const App = () => {
   const { sidebarOpen } = useContext(AppContext)
   
+
+
+useEffect(() => {
+  const hasRefreshed = localStorage.getItem("hasRefreshed");
+
+  if (!hasRefreshed) {
+    localStorage.setItem("hasRefreshed", "true");
+    window.location.reload();
+  }
+}, []);
+
+
 
   return (
     <div className="min-h-screen ">
